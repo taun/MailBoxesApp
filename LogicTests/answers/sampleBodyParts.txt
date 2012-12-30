@@ -1,0 +1,61 @@
+a005 UID FETCH 12590 body.peek[2]
+* 12590 FETCH (UID 12590 BODY[2] {501}
+<font color=3D'black' size=3D'2' face=3D'arial'>
+<div>A quick reminder:</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The pizza party is tonight following the conclusion of Second Champion=
+ships.&nbsp; </div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The party is for all swim team members and their families.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The cost is $3.00 per person.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>Thank you,</div>
+
+
+<div>Deb<br>
+<br>
+</div>
+
+
+<div style=3D"CLEAR: both"></div>
+</font>)
+a005 OK Fetch completed.
+a006 UID FETCH 12590 body.peek[0]
+* 12590 FETCH (UID 12590 BODY[0] {228}
+
+A quick reminder:
+
+The pizza party is tonight following the conclusion of Second Championships=
+. =20
+
+The party is for all swim team members and their families.
+
+The cost is $3.00 per person.
+
+Thank you,
+Deb
+
+
+
+)
+a006 OK Fetch completed.
+a007 UID FETCH 12590 body
+* 12590 FETCH (UID 12590 BODY (("text" "plain" ("charset" "us-ascii") NIL NIL "quoted-printable" 228 15)("text" "html" ("charset" "us-ascii") NIL NIL "quoted-printable" 501 35) "alternative"))
+a007 OK Fetch completed.

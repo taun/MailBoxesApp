@@ -1,0 +1,18 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf230
+{\fonttbl\f0\fnil\fcharset0 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\fs24 \cf2 https://devforums.apple.com/message/504710\
+\
+If you previously defined a property solely because you wanted free memory management, you can use an ivar instead.\
+\'a0\
+Your class's external interface should continue to use properties instead of ivars, except in extremely performance-sensitive cases.\
+\'a0\
+If you define a property, use it everywhere. Don't access a property's ivar directly except in -init and the custom getter and setter implementation if any.\
+\'a0\
+Do not define a property as read-only and modify it by writing to its ivar. This can confuse ARC and lead to memory errors. Intead, define your property as read-only in the interface and redefine it as read-write in a class extension.\
+\
+==========}

@@ -1,0 +1,110 @@
+* 12590 FETCH (UID 12590 RFC822 {3421}
+Return-Path: mcmahondeb@aol.com
+Received: from mz0.moedae.com (LHLO mail.charcoalia.net) (68.238.253.173) by
+ mail.charcoalia.net with LMTP; Sat, 30 Jul 2011 12:51:35 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.charcoalia.net (Postfix) with ESMTP id 7F68838784;
+	Sat, 30 Jul 2011 12:51:35 -0400 (EDT)
+X-Virus-Scanned: amavisd-new at lpm.moedae.com
+X-Spam-Flag: NO
+X-Spam-Score: -1.898
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.898 tagged_above=-10 required=5
+	tests=[BAYES_00=-1.9, FREEMAIL_FROM=0.001, HTML_MESSAGE=0.001,
+	RCVD_IN_DNSWL_NONE=-0.0001, RFC_ABUSE_POST=0.001, SPF_PASS=-0.001,
+	T_RP_MATCHES_RCVD=-0.01, T_TO_NO_BRKTS_FREEMAIL=0.01] autolearn=ham
+Received: from mail.charcoalia.net ([127.0.0.1])
+	by localhost (mail.charcoalia.net [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id In4HrbIUvDdJ; Sat, 30 Jul 2011 12:51:34 -0400 (EDT)
+Received: from imr-da02.mx.aol.com (imr-da02.mx.aol.com [205.188.105.144])
+	by mail.charcoalia.net (Postfix) with ESMTP id 76B5038781
+	for <mandt@charcoalia.net>; Sat, 30 Jul 2011 12:51:34 -0400 (EDT)
+Received: from mtaomg-db04.r1000.mx.aol.com (mtaomg-db04.r1000.mx.aol.com [172.29.51.202])
+	by imr-da02.mx.aol.com (8.14.1/8.14.1) with ESMTP id p6UGoxqU008201;
+	Sat, 30 Jul 2011 12:50:59 -0400
+Received: from core-daa002b.r1000.mail.aol.com (core-daa002.r1000.mail.aol.com [172.29.13.143])
+	by mtaomg-db04.r1000.mx.aol.com (OMAG/Core Interface) with ESMTP id 6D50AE00008B;
+	Sat, 30 Jul 2011 12:50:58 -0400 (EDT)
+To: mcmahondeb@aol.com
+Subject: Pizza Party
+X-AOL-IP: 74.103.158.33
+X-MB-Message-Source: WebUI
+MIME-Version: 1.0
+From: mcmahondeb@aol.com
+X-MB-Message-Type: User
+Content-Type: multipart/alternative; 
+ boundary="--------MB_8CE1CEFFDBAC413_2628_6BB_web-mmc-m09.sysops.aol.com"
+X-Mailer: AOL Webmail 33996-STANDARD
+Received: from 74.103.158.33 by web-mmc-m09.sysops.aol.com (64.12.224.142) with HTTP (WebMailUI); Sat, 30 Jul 2011 12:50:58 -0400
+Message-Id: <8CE1CEFFDB862AE-2628-403@web-mmc-m09.sysops.aol.com>
+X-Originating-IP: [74.103.158.33]
+Date: Sat, 30 Jul 2011 12:50:58 -0400 (EDT)
+x-aol-global-disposition: G
+X-AOL-SCOLL-SCORE: 0:2:428908800:93952408  
+X-AOL-SCOLL-URL_COUNT: 0  
+x-aol-sid: 3039ac1d33ca4e3436720ea0
+
+This is a multi-part message in MIME format.
+----------MB_8CE1CEFFDBAC413_2628_6BB_web-mmc-m09.sysops.aol.com
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+
+
+A quick reminder:
+
+The pizza party is tonight following the conclusion of Second Championships=
+. =20
+
+The party is for all swim team members and their families.
+
+The cost is $3.00 per person.
+
+Thank you,
+Deb
+
+
+
+
+----------MB_8CE1CEFFDBAC413_2628_6BB_web-mmc-m09.sysops.aol.com
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="us-ascii"
+
+<font color=3D'black' size=3D'2' face=3D'arial'>
+<div>A quick reminder:</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The pizza party is tonight following the conclusion of Second Champion=
+ships.&nbsp; </div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The party is for all swim team members and their families.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The cost is $3.00 per person.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>Thank you,</div>
+
+
+<div>Deb<br>
+<br>
+</div>
+
+
+<div style=3D"CLEAR: both"></div>
+</font>
+----------MB_8CE1CEFFDBAC413_2628_6BB_web-mmc-m09.sysops.aol.com--
+)
+a003 OK Fetch completed.

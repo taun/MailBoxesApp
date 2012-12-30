@@ -1,0 +1,360 @@
+* 12499 FETCH (UID 12499 BODY[2] {13094}
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html;charset=3DISO-8859-1=
+">
+<title>The Susan G. Komen 3-Day for the Cure</title>
+<link href=3D"http://www.the3day.org/css/UserGlobalStyle.css" rel=3D"styles=
+heet" type=3D"text/css" />
+<link href=3D"http://www.the3day.org/css/CustomStyle.css" rel=3D"stylesheet=
+" type=3D"text/css" />
+</head>
+<body>
+<style type=3D"text/css">
+
+</style>
+<table style=3D"width: 648px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+<tr>
+<td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:10px;color:=
+#999999;" colspan=3D"2" height=3D"40" align=3D"center" valign=3D"middle">To=
+ ensure delivery to your in box, <a href=3D"mailto:coaches@the3day.org">ple=
+ase add us to your address book</a>.</td>
+</tr>
+<tr>
+<td>
+<table style=3D"background-color: #000000; width: 603px;" border=3D"0" cell=
+spacing=3D"0" cellpadding=3D"1">
+<tbody>
+<tr>
+<td>
+<table style=3D"background-color: #ffffff; width: 601px;" border=3D"0" cell=
+spacing=3D"0" cellpadding=3D"0">
+<tbody>
+<tr>
+<td style=3D"background-color:#000000;" colspan=3D"2"><img style=3D"display=
+:block;border:none;line-height:0;" src=3D"http://www.the3day.org/images/con=
+tent/pagebuilder/31775.gif" alt=3D"" width=3D"1" height=3D"12" /></td>
+</tr>
+<tr>
+<td valign=3D"top">
+<table style=3D"width: 455px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<!-- Header Content -->
+<tbody>
+<tr>
+<td>
+<table style=3D"width: 455px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+<tr>
+<td style=3D"background-color:#000000;"><img style=3D"display:block;border:=
+none;line-height:0;" src=3D"http://www.the3day.org/images/content/pagebuild=
+er/31775.gif" alt=3D"" width=3D"18" height=3D"1" /></td>
+<td><a href=3D"http://www.the3day.org"><img style=3D"display:block;border:n=
+one;line-height:0;" src=3D"http://www.the3day.org/site/../images/content/pa=
+gebuilder/41465.gif" border=3D"0" alt=3D"The3Day.org" width=3D"130" height=
+=3D"34" /></a></td>
+<td><a title=3D"tools_center_2011" href=3D"http://www.the3day.org/site/Page=
+Server?pagename=3Dtools_center_2011&amp;autologin=3Dtrue"><img style=3D"dis=
+play:block;border:none;line-height:0;" src=3D"http://www.the3day.org/site/.=
+./images/content/pagebuilder/41466.gif" border=3D"0" alt=3D"Participant Cen=
+ter" width=3D"184" height=3D"34" /></a></td>
+<td><a href=3D"http://www.komen.org"><img style=3D"display:block;border:non=
+e;line-height:0;" src=3D"http://www.the3day.org/site/../images/content/page=
+builder/41467.gif" border=3D"0" alt=3D"Komen.org" width=3D"116" height=3D"3=
+4" /></a></td>
+<td style=3D"background-color:#000000;"><img style=3D"display:block;border:=
+none;line-height:0;" src=3D"http://www.the3day.org/images/content/pagebuild=
+er/31775.gif" alt=3D"" width=3D"7" height=3D"1" /></td>
+</tr>
+<tr>
+<td colspan=3D"5"><img style=3D"display:block;border:none;line-height:0;" s=
+rc=3D"http://www.the3day.org/site/../images/content/pagebuilder/41628.jpg" =
+border=3D"0" alt=3D"Susan G. Komen 3-Day for the Cure" width=3D"455" height=
+=3D"157" /></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<!-- / Header Content --><!-- Main Content -->
+<tr>
+<td>
+<table style=3D"width: 455px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+<tr>
+<td style=3D"background-color:#ffffff;"><img style=3D"display:block;border:=
+none;line-height:0;" src=3D"http://www.the3day.org/images/content/pagebuild=
+er/31775.gif" alt=3D"" width=3D"18" height=3D"1" /></td>
+<td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:12px;color:=
+#231f20;">
+
+<p><img src=3D"http://www.the3day.org/site/../images/content/pagebuilder/41=
+782.png" border=3D"0" alt=3D"You have a new donation" width=3D"328" height=
+=3D"21" /></p>
+<p>We have received a donation to your Susan G. Komen 3-Day for the Cure<su=
+p>&reg; </sup>fundraising account. <a title=3D"redirect_center_2011" href=
+=3D"http://www.the3day.org/site/PageServer?pagename=3Dredirect_center_2011"=
+>Visit your Participant Center </a>to view the details of this donation and=
+ send out a thank you email. <br /><br />If this donation is being paid in =
+installments, you will receive this email notification each time a monthly =
+payment is processed.<br /><br />Visit the <a title=3D"fundraising_landing"=
+ href=3D"http://www.the3day.org/site/PageServer?pagename=3Dfundraising_land=
+ing">Fundraising page</a> for more resources to help boost your efforts, in=
+cluding information about <a title=3D"Matching_Gifts_2011" href=3D"http://w=
+ww.the3day.org/site/PageServer?pagename=3DMatching_Gifts_2011">matching gif=
+ts</a>, using <a title=3D"Mission_Fish_landing" href=3D"http://www.the3day.=
+org/site/PageServer?pagename=3DMission_Fish_landing">eBay</a> to fundraise,=
+ printable tools and much more.<br /><br /><p>If you have a Facebook accoun=
+t, click the icon below to add the Susan G. Komen 3-Day for the Cure<sup>&r=
+eg;</sup> application to your Facebook page, and extend your fundraising ef=
+forts to your Facebook friends and networks.<br /><a href=3D"http://apps.fa=
+cebook.com/bf-komenthreed/add.php?consId=3D5786635&amp;frId=3D1624&amp;sour=
+ce=3DAuto_other"><img src=3D"../images/content/pagebuilder/23477.jpg" borde=
+r=3D"0" alt=3D"Fundraise with Facebook" /></a></p>
+<br />Thanks again for your commitment and keep up the good work!<br /><br =
+/>Sincerely,<br /><br /><em>The Susan G. Komen 3-Day for the Cure</em></p>
+<!-- Fact Content Row -->
+<table style=3D"width: 370px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+</tbody>
+</table>
+<p><!-- Fact Content Row -->
+<table style=3D"width: 370px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+<tr>
+<td valign=3D"top"><img style=3D"display: block; border: none; line-height:=
+ 0;" src=3D"http://www.the3day.org/images/content/pagebuilder/40071.gif" bo=
+rder=3D"0" alt=3D"breast health message" width=3D"40" height=3D"37" /></td>
+<td style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 12px; co=
+lor: #231f20;" width=3D"330" valign=3D"top">Breast Health Fact: Nearly 1.4 =
+million women are diagnosed with breast cancer globally each year.</td>
+</tr>
+</tbody>
+</table>
+<!-- / Fact Content Row --></p>
+<!-- / Fact Content Row -->
+<br/>
+
+
+
+
+
+<br/>
+
+
+<p><a href=3D"http://www.the3day.org/site/TRC?fr_id=3D1624&amp;pg=3Dcenter"=
+> </a>
+</p>
+
+<table border=3D"0">
+<tr>
+<td>Name:</td>
+<td>Evelyn&nbsp;Cumming</td>
+</tr>
+<tr>
+<td>Amount:</td>
+<td>$100.00</td>
+</tr>
+</table>
+<img src=3D"http://www.the3day.org/site/PixelServer" height=3D"1" width=3D"=
+1">
+</td>
+</tr>
+<tr>
+<td style=3D"background-color:#ffffff;"><img style=3D"display:block;border:=
+none;line-height:0;" src=3D"http://www.the3day.org/images/content/pagebuild=
+er/31775.gif" alt=3D"" width=3D"1" height=3D"25" /></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<!-- / Main Content -->
+</tbody>
+</table>
+</td>
+<td valign=3D"top"><img style=3D"display:block;border:none;line-height:0;" =
+src=3D"http://www.the3day.org/site/../images/content/pagebuilder/41468.gif"=
+ border=3D"0" alt=3D"Susan G. Komen 3-Day for the Cure" width=3D"146" heigh=
+t=3D"129" /></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style=3D"background-color:#ffffff;"><img style=3D"display:block;border:=
+none;line-height:0;" src=3D"http://www.the3day.org/images/content/pagebuild=
+er/31775.gif" alt=3D"" width=3D"45" height=3D"1" /></td>
+</tr>
+<tr>
+<td><img style=3D"display:block;border:none;line-height:0;" src=3D"http://w=
+ww.the3day.org/images/content/pagebuilder/31775.gif" alt=3D"" width=3D"1" h=
+eight=3D"20" /></td>
+</tr>
+<tr>
+<td>
+<table style=3D"width: 418px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<!-- Legal Content Row -->
+<tbody>
+<tr>
+<td>
+<table style=3D"width: 418px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+<tr>
+<td><img style=3D"display:block;border:none;line-height:0;" src=3D"http://w=
+ww.the3day.org/images/content/pagebuilder/31775.gif" alt=3D"" width=3D"38" =
+height=3D"1" /></td>
+<td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:10px;color:=
+#939598;" width=3D"370" valign=3D"top">For more information about the Susan=
+ G. Komen 3-Day for the Cure<sup>&reg;</sup>, visit <a style=3D"color:#9395=
+98;" href=3D"http://www.the3day.org">The3Day.org</a>. For more information =
+about Susan G. Komen for the Cure<sup>&reg;</sup>, visit <a style=3D"color:=
+#939598;" href=3D"http://www.komen.org">Komen.org</a>. <br /><br />&copy;20=
+10 Susan G. Komen for the Cure. 205 N. Michigan Avenue, Suite 2630, Chicago=
+, IL 60601. The Running Ribbon is a registered trademark of Susan G. Komen =
+for the Cure<sup>&reg;</sup>.&nbsp;Photography contributed by Alex Kovacs.<=
+/td>
+<td><img style=3D"display:block;border:none;line-height:0;" src=3D"http://w=
+ww.the3day.org/images/content/pagebuilder/31775.gif" alt=3D"" width=3D"30" =
+height=3D"1" /></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<!-- / Legal Content Row --><!-- Divider Row -->
+<tr>
+<td><img style=3D"display:block;border:none;line-height:0;" src=3D"http://w=
+ww.the3day.org/site/../images/content/pagebuilder/41476.gif" border=3D"0" a=
+lt=3D"" width=3D"392" height=3D"26" /></td>
+</tr>
+<!-- / Divider Row --><!-- Sponsor Content Row -->
+<tr>
+<td>
+<table style=3D"width: 418px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+<tr>
+<td><img style=3D"display:block;border:none;line-height:0;" src=3D"http://w=
+ww.the3day.org/images/content/pagebuilder/31775.gif" alt=3D"" width=3D"38" =
+height=3D"1" /></td>
+<td valign=3D"top">
+<table style=3D"width: 370px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+<tr>
+<td>
+<p>
+        <!-- Sponsor Content Row -->
+<tr><td>
+<table style=3D"width: 370px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+<tr>
+<td valign=3D"top">
+<table style=3D"width: 370px;" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0">
+<tbody>
+<tr>
+<td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:10px;color:=
+#939598;">National Series Sponsors of the Susan G. Komen 3-Day for the Cure=
+</td>
+</tr>
+<tr>
+<td align=3D"left">
+<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0">
+<tbody>
+<tr>
+
+<td><a href=3D"http://www.the3day.org/site/PageServer?pagename=3Dsponsors_2=
+011#bofa"><img style=3D"display:block;border:none;line-height:0;" src=3D"ht=
+tp://www.the3day.org/images/content/pagebuilder/41191.gif" border=3D"0" alt=
+=3D"Bank of America" width=3D"129" height=3D"61" /></a></td>
+<td><a href=3D"http://www.the3day.org/site/PageServer?pagename=3Dsponsors_2=
+011#NewBalance"><img style=3D"display:block;border:none;line-height:0;" src=
+=3D"http://www.the3day.org/images/content/pagebuilder/42341.gif" border=3D"=
+0" alt=3D"New Balance" width=3D"77" height=3D"61" /></a></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- / Sponsor Content Row --><!-- Divider Row -->
+            <tr>
+              <td><img src=3D"http://www.the3day.org/images/content/pagebui=
+lder/43398.gif" width=3D"392" height=3D"26" alt=3D"" style=3D"display:block=
+;border:none;line-height:0;"></td>
+            </tr>
+            <!-- / Divider Row -->
+            <!-- Sponsor Content Row -->
+            <tr>
+              <td>
+           =20
+                      <table cellpadding=3D"0" cellspacing=3D"0" border=3D"=
+0" width=3D"370">
+                        <tr>
+                          <td style=3D"font-family:Arial, Helvetica, sans-s=
+erif;font-size:10px;color:#939598;">Official Ambulance Partner of the Phila=
+delphia 3-Day for the Cure</td>
+                        </tr>
+                        <tr>
+                          <td align=3D"left">
+                            <table cellpadding=3D"0" cellspacing=3D"0" bord=
+er=3D"0">
+                              <tr>
+                                <td><img src=3D"http://www.the3day.org/imag=
+es/content/pagebuilder/407-06_RFI_sponsor_montgomery.gif" width=3D"136" hei=
+ght=3D"59" alt=3D"Montgomery County Ambulance" style=3D"display:block;borde=
+r:none;line-height:0;"></a></td>
+                              </tr>
+                            </table>
+                                              </td>
+                    <td><img src=3D"http://www.the3day.org/images/content/p=
+agebuilder/31775.gif" width=3D"30" height=3D"1" alt=3D"" style=3D"display:b=
+lock;border:none;line-height:0;"></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- / Sponsor Content Row -->       </p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td><img style=3D"display:block;border:none;line-height:0;" src=3D"http://w=
+ww.the3day.org/images/content/pagebuilder/31775.gif" alt=3D"" width=3D"30" =
+height=3D"1" /></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<!-- / Sponsor Content Row -->
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
+)

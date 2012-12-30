@@ -1,0 +1,15 @@
+/* 
+  MailBoxesDataModelModel.strings
+  MailBoxes
+
+  Created by Taun Chapman on 9/27/11.
+  Copyright 2011 MOEDAE LLC. All rights reserved.
+*/
+"Entity/MBUser" = "User";
+"Property/firstName/Entity/MBUser" = "Given Name";
+"Property/lastName/Entity/MBUser" = "Surname";
+"Entity/MBAccount" = "Account";
+"Property/name/Entity/MBAccount" = "Account Name";
+"Property/username/Entity/MBAccount" = "Login Name";
+"Property/password/Entity/MBAccount" = "Login Password";
+"Property/descriptor/Entity/MBAccount" = "Description";

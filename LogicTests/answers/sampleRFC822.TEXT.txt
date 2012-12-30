@@ -1,0 +1,65 @@
+* 12590 FETCH (UID 12590 RFC822.TEXT {1164}
+This is a multi-part message in MIME format.
+----------MB_8CE1CEFFDBAC413_2628_6BB_web-mmc-m09.sysops.aol.com
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+
+
+A quick reminder:
+
+The pizza party is tonight following the conclusion of Second Championships=
+. =20
+
+The party is for all swim team members and their families.
+
+The cost is $3.00 per person.
+
+Thank you,
+Deb
+
+
+
+
+----------MB_8CE1CEFFDBAC413_2628_6BB_web-mmc-m09.sysops.aol.com
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="us-ascii"
+
+<font color=3D'black' size=3D'2' face=3D'arial'>
+<div>A quick reminder:</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The pizza party is tonight following the conclusion of Second Champion=
+ships.&nbsp; </div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The party is for all swim team members and their families.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The cost is $3.00 per person.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>Thank you,</div>
+
+
+<div>Deb<br>
+<br>
+</div>
+
+
+<div style=3D"CLEAR: both"></div>
+</font>
+----------MB_8CE1CEFFDBAC413_2628_6BB_web-mmc-m09.sysops.aol.com--
+)
+a003 OK Fetch completed.

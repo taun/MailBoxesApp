@@ -1,0 +1,50 @@
+* 
+1027 
+FETCH 
+	(UID 
+	1027 
+	BODYSTRUCTURE 
+		(
+			(
+				("text" "plain" ("charset" "iso-8859-15") NIL NIL "quoted-printable" 3993 142 NIL NIL NIL NIL)
+				("application" "pgp-signature" ("name" "signature.asc") NIL "This is a digitally signed message part" "7bit" 196 NIL NIL NIL NIL) 
+				"signed" 
+				("micalg" "pgp-sha1" "protocol" "application/pgp-signature" "boundary" "=-STfb+Rgopi+Yn+MYYZzS") 
+				NIL 
+				NIL 
+				NIL
+			)
+			("text" "plain" ("charset" "us-ascii") NIL NIL "7bit" 235 5 NIL ("inline" NIL) NIL NIL) 
+			"mixed" 
+			("boundary" "===============0803844414==") 
+			NIL 
+			NIL 
+			NIL
+		)
+	)
+
+
+* 
+1019 
+FETCH 
+	(UID 
+	1019 
+	BODYSTRUCTURE 
+		(
+			(
+				("text" "plain" ("charset" "us-ascii") NIL NIL "quoted-printable" 7482 232 NIL NIL NIL NIL)
+				("text" "html" ("charset" "us-ascii") NIL NIL "quoted-printable" 25786 559 NIL NIL NIL NIL) 
+				"alternative" 
+				("boundary" "----_=_NextPart_002_01C8F702.B7A91014") 
+				NIL 
+				NIL 
+				NIL
+			)
+			("application" "vnd.ms-excel" ("name" "GenosMaster.xls") NIL "GenosMaster.xls" "base64" 49748 NIL ("attachment" ("filename" "GenosMaster.xls")) NIL NIL) 
+			"mixed" 
+			("boundary" "----_=_NextPart_001_01C8F702.B7A91014") 
+			NIL 
+			NIL 
+			NIL
+		)
+	)

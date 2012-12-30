@@ -1,0 +1,408 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf230
+{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fnil\fcharset0 LucidaGrande;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 Menlo-Bold;\f4\fnil\fcharset0 Menlo-Italic;\f5\fswiss\fcharset0 Helvetica;
+}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red237\green241\blue245;\red0\green116\blue0;
+\red247\green247\blue247;}
+\margl1440\margr1440\vieww18760\viewh15240\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\fs24 \cf0 \
+=============\
+\pard\pardeftab720\sa320
+
+\f1\b\fs28 \cf0 CATextLayer and subpixel anti-aliasing
+\fs48 \
+
+\f0\b0\fs24 Yes, it's possible, but there are two separate cases here:\
+\pard\pardeftab720
+
+\f1 \cf0 \
+\pard\pardeftab720
+
+\f0 \cf0 Case 1: If you're using a layer-backed NSTextField, then CATextLayer is not actually involved. Setting the NSTextField's backgroundColor to an opaque color is on the right track, but you also need to do set drawsBackground to YES for it to take effect. Then you should see subpixel AA in the rendered results. (This can even be done in IB using the NSTextField inspector.)
+\f1 \
+\
+
+\f0 Case 2: If you're using a CATextLayer directly, you'll need to subclass CATextLayer and do something like the following in your drawing code:
+\f1 \
+\
+
+\f0 - (void)drawInContext:(CGContextRef)ctx\
+\{\
+	CGContextSetRGBFillColor (ctx, r, g, b, a);\
+	CGContextFillRect (ctx, [self bounds]);\
+	CGContextSetShouldSmoothFonts (ctx, true);\
+	[super drawInContext:ctx];\
+\}\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f2\fs22 \cf0 \
+==============\
+Model the SideBar and use fetchedProperties?\
+Add an entity for MailBoxReference, to be used in Favorites.\
+Sort MailBox fetches by existence of SpecialUse flag (INBOX,SENT,TRASH), then alphabetical.\
+Have all SideBar entities inherit MBTreeNode? (name, desc, parent, children, isGroup, isLeaf)\
+\
+==============\
+\
+How to use OutlineView as a sidebar source view is in the Lion ReleaseNotes for Cocoa AppKit.\
+\
+Add entity MBGroups as a new top level organizer.\
+\
+Types of Groups\
+	Accounts - actual message accounts\
+	SmartFolder - predicate based query results\
+	Labels - automatic query created for each label in all accounts. Just query label entities and create predicate for each.\
+	?\
+\
+Groups are Created upon application init\
+Properties\
+	Name\
+	ToolTip\
+	Description\
+	Children - accounts, SmartFolders\
+\
+How to deal with different tree levels. SmartFolder is the desired content at top level but Account/LeafFolder is the desired level for Accounts. Drag and drop will only drag and drop a leaf. CurrentSelection portal only changes if selection is a leaf.\
+\
+Portal Types - really just views for group content\
+	CurrentSelection - whatever folder or SmartFolder is currently selected in the Tree. A special Singleton portal.\
+	AccountFolder - bound to the contents of a particular folder.\
+	SmartFolder - bound to the predicate of a SmartFolder.\
+	Events/Calendar - listing of a calendar. Different views and predicates available\
+\
+\
+=============\
+\
+Private queue moc in app as top level parent\
+MainQueue child moc for interface elements, nibmoc\
+Private queue child moc for background imap updates, saves then calls root moc save\
+\
+No need for separate thread for imapclient. dispatch imapclient operations to private serial queue?\
+\
+DISPATCH_QUEUE_PIROITY_BACKGROUND - throttles io good for IMAP background sync.\
+\
+Test connection for each imapclient operation.\
+	try to reconnect if disconnected\
+	if using a message method, need to reselect mbox if disconnected\
+	every message method includes a block which tests connection, tests current selected mbox?\
+	or just cancel and depend on coordinator to start over sometime?\
+	\
+\
+\pard\pardeftab720
+
+\f1\fs24 \cf2 \cb3 Before saving the child MOC for the first time you can call -obtainPermanentIDsForObjects\
+\
+
+\f2\fs22 \cf0 \cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf0 ============\
+\
+Fetch handling\
+Create a managedObjectContext for async queue (lazy init?)\
+create a async queue dispatch group at start of fetch command\
+dispatch each fetch response async\
+at command done, dispatch done status and wait for group completion\
+\
+same for flags/status update handling.\
+same for body handling?\
+\
+To work, need to separate parsing and evaluation. \
+Evaluation needs to have it's own copy of the tokens for concurrency.\
+\
+ManagedObjectContext can not be concurrent???? voids all of above??\
+\
+\
+===========\
+\
+Perhaps have IMAPClient on the same thread. The IO is already asynchronous. \
+But dispatch to a serial queue for the processing of the response?\
+\
+===========\
+\
+Voice Memo\
+Separate Account Coordinator for each account.\
+APPDelegate uses a dictionary keyed by accountObjectID for accountCoordinators.\
+AccountCoordinator responsible for all account threads.\
+Account model has relationship called Monitor (max 5) which is the set of mail boxes to monitor with a dedicated thread. Similar to subscribe. \
+Need user interface/menu for selected mail box to add it to the monitor relationship.\
+When a request for a body comes to the AccountCoordinator, it will check the existing mail box threads if there is no thread for the required message mail box, a new thread will be created and maintained open for x minutes for subsequent body requests. Timer resets after each request.\
+AccountCoordinator \
+	responsible for queueing commands to IMAPClient. 
+\f3\b How to communicate with IMAPClient thread? use IMAPClient property commandQueue from AccountCoordinator.
+\f2\b0 \
+	responsible for syncing mail boxes. \
+	needs to have a command queue for special real time requests like body. If there are no real time commands queued, queues a background sync quantized request. Need a way to sync piecemeal and and work down a list of priorities. \
+	each mail box sync is a separate thread?\
+\
+\
+==========\
+\
+**Need to update the message sequence property. Forgot to do so in fetch response.\
+**Use bodystructure then body.peek[1.mime] then body.peek[1] ... rather than full downloads and parsing of full text\
+**In first pass, do not get the size or bodystructure.\
+\
+1. Get header for all messages in groups from recent to oldest.\
+2. Get bodystructure as above.\
+3. Get mime information as above based on body structure.\
+4. Depending on preference, populate body parts on demand or in background or both.\
+\
+Need to change model to accommodate mime parts\
+  	add message property: mimeVersion Number x.x\
+	add message property: contentType String or relation?\
+	add message property: contentBoundary String\
+\
+		
+\f0\fs26 version := "MIME-Version" ":" 1*DIGIT "." 1*DIGIT
+\f2\fs22 \
+\pard\pardeftab720
+
+\f0\fs26 \cf0 MIME-Version: 1.0\
+     MIME-Version: 1.0 (produced by MetaSend Vx.x)\
+     MIME-Version: (produced by MetaSend Vx.x) 1.0\
+     MIME-Version: 1.(produced by MetaSend Vx.x)0\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f2\fs22 \cf0 \
+==========\
+\
+**SELECT and EXAMINE read-only read-write status should be per-thread not a mail box property.\
+	\
+==========\
+\
+**Should not select same mail box from same client on separate threads.\
+  This means on demand body loading needs to be injected into sync thread? Ignore?\
+\
+==========\
+\
+\
+Separate modular xib for message view\
+--------\
+[Message Contents]\
+	From:						Sent:\
+	To:						Received:\
+\
+[Button For Envelope]\
+\
+Subject:\
+Body:\
+\
+\
+[Envelope][Button for Contents]\
+ View that looks like an envelope with the RFC envelope details.\
+ Animated flip between envelope and contents\
+\
+------------\
+Message View can be in main pane or standalone window.\
+Main pane can have tabs for multiple message views\
+\
+When selecting a message, check for a nil body.\
+If Body == nil, dispatchSync to fetch body before returning.\
+\
+Does IMAPClient context contain changes from other threads?\
+Does it need to be recreated/reset each iteration?\
+\
+\
+\
+\pard\tx560\pardeftab560\pardirnatural
+\cf4 \CocoaLigature0 IMAP4rev1 notes from rfc 3501 \
+\
+    +----------------------+\
+     |connection established|\
+     +----------------------+\
+                ||\
+                \\/\
+ +--------------------------------------+\
+ |          server greeting             |\
+ +--------------------------------------+\
+        || (1)          || (2)        || (3)\
+        \\/              ||            ||\
+ +-----------------+    ||            ||\
+ |Not Authenticated|    ||            ||\
+ +-----------------+    ||            ||\
+  || (7)   || (4)       ||            ||\
+  ||       \\/           \\/            ||\
+  ||     +----------------+           ||\
+  ||     | Authenticated  |<=++       ||\
+  ||     +----------------+  ||       ||\
+  ||       || (7)   || (5)   || (6)   ||\
+  ||       ||       \\/       ||       ||\
+  ||       ||    +--------+  ||       ||\
+  ||       ||    |Selected|==++       ||\
+  ||       ||    +--------+           ||\
+  ||       ||       || (7)            ||\
+  \\/       \\/       \\/                \\/\
+ +--------------------------------------+\
+ |               Logout                 |\
+ +--------------------------------------+\
+                   ||\
+                   \\/\
+     +-------------------------------+\
+     |both sides close the connection|\
+     +-------------------------------+\
+ \
+ State Transitions\
+ (1) connection without pre-authentication (OK greeting)\
+ (2) pre-authenticated connection (PREAUTH greeting)\
+ (3) rejected connection (BYE greeting)\
+ (4) successful LOGIN or AUTHENTICATE command\
+ (5) successful SELECT or EXAMINE command\
+ (6) CLOSE command, or failed SELECT or EXAMINE command\
+ (7) LOGOUT command, server shutdown, or connection closed\
+ \
+ IMAPrev4 specifies state only changes if command is successful,\
+ losing network connection or server does bye.\
+\
+\
+ State Machine:\
+    want to implement a state machine\
+        Current State?possible transitions   ->Next State(as selector string)\
+                                            ->Next State(as selector string)\
+        lookup transition for current state and execute selector\
+    each state has conditions\
+    each conditions has transition selector and transition state\
+ \
+    State machine instantiated by IMAPClient or Connection? with IMAPClient as delegate?\
+    Put state transition on synchronous queue?\
+ \
+    Timed state transitions for connection timeouts? or NSRunLoop Timers?\
+ \
+ Error Handling:\
+    Need to deal with stream and response errors.\
+        Retry or close stream and client?\
+        How to pass error back up to coordinator and UI if needed?\
+ \
+ Refactor:\
+    IMAPClient splits to\
+        IMAPClient - handles client state, core data, changes state based on response status (ok bad ..).\
+        IMAPConnection - handles the streaming, takes commands and returns parsed response.\
+                        want response to be parsed just by feeding response buffer to a IMAPParsedResponse initOnData: .\
+                        then query response properties - status, command complete, values, ...\
+ \
+ Parser:\
+    MAP4rev1 data can be in one of several forms: atom, number, string, parenthesized list, or NIL.\
+    Parse capability response\
+ \
+ \
+ IMAPCommand should be a class? \
+    Command arguments\
+    Acceptable states and state transition for given response -> selector?\
+    Parser stored with IMAPCommand model\
+    Command response type? How to deal with interjected server responses?\
+ \
+ \
+ Command queued\
+ Is command valid for state\
+ Submit command to client stream\
+ Wait for response\
+ Run command specified parser on response\
+ Run command specified state transition on parser result?\
+ Most responses will result in the data requested by the command and needed by the client:\
+    folder names, structure and status, message headers body, ....\
+ \
+ High level application commands:\
+    fetch/synchronize account headers uid=x###-y### (login, get structure, flags, transfer to core data, ...)\
+    fetch/synchronize account body uid=x###-y### (above but include body, ...)\
+    fetch/synchronize account attachments uid=ix###-j### (above but include attachments, ...)\
+    fetch message body uid=ix###-j### (fault on core data body)\
+    fetch message attachments uid=ix###-j### (fault on core data attachment link)\
+    message change flags status uid (recent, read, unread, ..)\
+    message change label uid (??)\
+    message copy uid=ix###-j### (ui drag and drop or copy)\
+    message delete uid=ix###-j### (?? not used except with a move because moved to trash where expunged?)\
+    message move uid=ix###-j### (copy followed by delete)\
+    message append (new message composed and sent)\
+    folder create\
+    folder rename uid \
+    folder copy?\
+    folder move\
+    folder delete\
+ \
+ Synchronization features of IMAP\
+ \
+\
+\pard\pardeftab720
+
+\f0\fs26 \cf0 \CocoaLigature1 7.2.2. LIST Response
+\f2\fs22 \cf4 \CocoaLigature0 \
+\pard\tx560\pardeftab560\pardirnatural
+\cf4 \
+\pard\pardeftab720
+
+\f0\fs26 \cf0 \CocoaLigature1 	\\Marked\
+         The mailbox has been marked "interesting" by the server; the\
+         mailbox probably contains messages that have been added since\
+         the last time the mailbox was selected.\
+      \\Unmarked\
+         The mailbox does not contain any additional messages since the\
+         last time the mailbox was selected.\
+\pard\tx560\pardeftab560\pardirnatural
+
+\f2\fs22 \cf0 \
+\pard\pardeftab720
+
+\f0\fs26 \cf0 The only reliable way to identify recent messages is to\
+           look at message flags to see which have the \\Recent flag\
+           set, or to do a SEARCH RECENT.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f2\fs22 \cf0 \
+\
+\
+How About??\
+Model classes for IMAP objects - server, mailbox/folder, message\
+Models access client stream directly and handle full command communication.\
+Base class which has parsing, response, state methods\
+Helper class for the core data models?\
+Map core data class to helper class.\
+Stream events sent to current IMAP object for handling\
+\
+Initially IMAPAccount is current model for connect, login, authentication, list, search, flags.\
+\
+\
+\
+Base pseudo flow\
+	Send a command\
+	Get response - connect starts here, no command sent\
+	Parse line by line\
+	Is first line * BAD, * NO, * BYE, * OK, * none of previous, +, or tagged a000x (no *)\
+		BAD - handle command failure, due to bad or invalid command in current state\
+		NO - handle error due to can't perform command with data or rights\
+		BYE - handle server disconnect.\
+		OK - handle server untagged response - do something with data - update model?\
+		* command + data - depending on command, parse line data plus get subsequent data. do something with data? update model?\
+		+ - command continue - send next command part\
+		tagged - handle command completion response - do something with data - trigger post command completion method?\
+\
+\
+\pard\tx560\pardeftab560\pardirnatural
+
+\f4\i \cf0 Separate IMAPClient class for each account type?\
+	IMAPClient\
+		GMailClient - specialized folder handling\
+		YahooClient - ?\
+\
+\
+\
+\
+Sync strategy notes\
+\
+Command: uid fetch 1:"UIDNEXTValue" (uid)\
+returns a very fast list of all UIDs. This list would show which messages exist and which don't. This can be used to detect purged messages. How about moved messages? Each folder has it's own range of UIDs. Use NSSet functions to check for missing messages? Create a set from all of the responses then when command is complete, compare Core Data set to response set. Need a way to queue a post command command? Use a block.\
+\
+Initial sync:\
+	Select folder and save UIDNext & UIDValidity response (Compare UIDValidity and if different, set lastSeenUID to 1)\
+	Fetch Envelopes from lastSeenUID:serverUIDNext - lastSeenUID defaults to 1\
+	Create messages and store envelope data\
+	Set lastSeenUID to last UID.\
+	When done get all messages with nil body and start fetching the rest of the message from highest UID to lowest in background.\
+	When done go into idle mode?
+\f5\i0\fs24 \cb5 \
+\pard\pardeftab720\sl220
+\cf0 \
+***When offline, folders are read-only! Avoid sync issues. Can read, delete and compose messages, just not re-arrange.\
+ Need a core-data persistent queue which has a list of folder/messages to be deleted. Perhaps another message flag?\
+\
+\
+}

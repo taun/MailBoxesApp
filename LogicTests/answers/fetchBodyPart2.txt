@@ -1,0 +1,37 @@
+* 12590 FETCH (UID 12590 BODY[2] {501}
+<font color=3D'black' size=3D'2' face=3D'arial'>
+<div>A quick reminder:</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The pizza party is tonight following the conclusion of Second Champion=
+ships.&nbsp; </div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The party is for all swim team members and their families.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>The cost is $3.00 per person.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>Thank you,</div>
+
+
+<div>Deb<br>
+<br>
+</div>
+
+
+<div style=3D"CLEAR: both"></div>
+</font>)

@@ -1,0 +1,311 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fswiss\fcharset0 Helvetica;\f2\fmodern\fcharset0 CourierNewPSMT;
+\f3\fmodern\fcharset0 Courier;\f4\fnil\fcharset0 Menlo-Bold;\f5\fnil\fcharset0 Menlo-Italic;
+}
+{\colortbl;\red255\green255\blue255;\red0\green116\blue0;\red247\green247\blue247;\red83\green83\blue83;
+\red238\green243\blue247;\red188\green196\blue203;\red211\green24\blue149;\red0\green160\blue255;\red255\green44\blue56;
+\red228\green124\blue72;}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs22 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f1\fs24 \cf0 ----------------------------------------------------------------\
+\
+Decided to use Pantomime rather than libEtPan. \
+Pantomime uses asynchronous OS X network calls. Is also more object oriented.\
+\
+MBAccount/Mailcore folder recursion in 
+\f0\fs22 \cf2 \CocoaLigature0 //  MBAccount+IMAP.h\cf0 \
+\pard\tx560\pardeftab560\pardirnatural
+\cf2 MBox Mailcore      refresh code//  MBox+IMAP.m
+\f1\fs24 \cf0 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+\
+libEtPan notes\
+\
+How to instantiate an imap server connection.\
+\
+\
+\pard\pardeftab720\sl220
+
+\f2 \cf0 \cb3 int main(void)\
+\{\
+  struct mailstorage * storage;\
+  int r;\
+\
+  storage = mailstorage_new(NULL);\
+  \
+  imap_mailstorage_init(storage, "imap.my-servers.org", 0,\
+    NULL, CONNECTION_TYPE_TRY_STARTTLS, IMAP_AUTH_TYPE_PLAIN,\
+    "my-login", "my-password", 1, "/home/login/.libetpan/cache");\
+\
+  r = mailstorage_connect(storage);\
+  if (r == MAIL_NO_ERROR) \{\
+    mailstorage_disconnect(storage);\
+  \}\
+  \
+  mailstorage_free(storage);\
+\}\
+http://dinh.viet.hoa.free.fr/wiki/index.php?title=Mailstorage_-_Storage\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f3\fs20 \cf0 \cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f1\fs24 \cf0 Above gives a connection. Next we need to access a folder.\
+\
+\pard\pardeftab720
+
+\f2 \cf0 \cb3 int main(void)\
+\{\
+  struct mailstorage * storage;\
+  int r;\
+\
+  storage = mailstorage_new(NULL);\
+  \
+  imap_mailstorage_init(storage, "imap.my-servers.org", 0,\
+    NULL, CONNECTION_TYPE_TRY_STARTTLS, IMAP_AUTH_TYPE_PLAIN,\
+    "my-login", "my-password", 1, "/home/login/.libetpan/cache");\
+\
+  r = mailstorage_connect(storage);\
+  if (r == MAIL_NO_ERROR) \{\
+    struct mailfolder * folder;\
+\
+    folder = mailfolder_new(storage, "INBOX", NULL);\
+    \
+    r = mailfolder_connect(folder);\
+    if (r == MAIL_NO_ERROR) \{\
+      struct mailmessage_list * msg_list;\
+      \
+      mailfolder_get_messages_list(folder, &msg_list);\
+      \
+      /* do the things */\
+      \
+      mailmessage_list_free(msg_list);\
+      \
+      mailfolder_disconnect(folder);\
+    \}\
+    \
+    mailstorage_disconnect(storage);\
+  \}\
+  \
+  mailstorage_free(storage);\
+\}\
+\pard\pardeftab720\sl220
+\cf0 \
+http://dinh.viet.hoa.free.fr/wiki/index.php?title=Mailmessage_-_Message\
+\
+\pard\pardeftab720\sl220
+
+\f1 \cf0 Next we need to access and store the messages?\
+\
+\pard\pardeftab720
+
+\f3\fs20 \cf0 msg_initialize()
+\f1\fs26 \cb1  will initialize the internal message state (field msg_data of mailmessage structure (see the Section called Message).\
+
+\f3\fs20 \cb3 msg_uninitialize()
+\f1\fs26 \cb1  will free the internal message state.\
+
+\f3\fs20 \cb3 msg_flush()
+\f1\fs26 \cb1  will release memory used by the MIME structure of the message.\
+
+\f3\fs20 \cb3 msg_check()
+\f1\fs26 \cb1  will store the flags of the message into the session, so that the message can be released without the flags are lost.\
+
+\f3\fs20 \cb3 msg_fetch_result_free()
+\f1\fs26 \cb1  will free a string returned by any fetch_XXX() function.\
+
+\f3\fs20 \cb3 msg_fetch()
+\f1\fs26 \cb1  will fetch a message.\
+
+\f3\fs20 \cb3 msg_fetch_header()
+\f1\fs26 \cb1  will fetch the header fields of a message.\
+
+\f3\fs20 \cb3 msg_fetch_body()
+\f1\fs26 \cb1  will fetch a message without its main header.\
+
+\f3\fs20 \cb3 msg_fetch_size()
+\f1\fs26 \cb1  will return the size of a message.\
+
+\f3\fs20 \cb3 msg_get_bodystructure()
+\f1\fs26 \cb1  will retrieve the MIME structure of the message. The returned structure must NOT be freed.\
+
+\f3\fs20 \cb3 msg_fetch_section()
+\f1\fs26 \cb1  will fetch the content of the section of the message.\
+
+\f3\fs20 \cb3 msg_fetch_section_header()
+\f1\fs26 \cb1  will fetch the header of a section of the message if the content of the section is a message.\
+
+\f3\fs20 \cb3 msg_fetch_section_mime()
+\f1\fs26 \cb1  will fetch the MIME header of a section of the message.\
+
+\f3\fs20 \cb3 msg_fetch_section_body()
+\f1\fs26 \cb1  will fetch the body of a section (without the headers) of the message if the content of the section is a message.\
+
+\f3\fs20 \cb3 msg_fetch_envelope()
+\f1\fs26 \cb1  will return a given number of parsed header fields.\
+
+\f3\fs20 \cb3 msg_get_flags()
+\f1\fs26 \cb1  will return the flags of the message. The returned structure must NOT be freed.\
+\pard\pardeftab720\sl220
+
+\fs24 \cf0 \cb3 \
+Implementation outline:\
+\
+See?\
+Duplicate MOC\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trcbpat5 \trbrdrt\brdrs\brdrw20\brdrcf6 \trbrdrl\brdrs\brdrw20\brdrcf6 \trbrdrr\brdrs\brdrw20\brdrcf6 \tapadb80 
+\clvertalc \clshdrawnil \clwWidth23140\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt100 \clpadl100 \clpadb100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720
+
+\f3 \cf4 \cb1 NSManagedObjectContext *context = <#Get the context#>;\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trcbpat5 \trbrdrl\brdrs\brdrw20\brdrcf6 \trbrdrr\brdrs\brdrw20\brdrcf6 \tapadb80 
+\clvertalc \clshdrawnil \clwWidth23140\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt100 \clpadl100 \clpadb100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720
+\cf4 NSPersistentStoreCoordinator *psc = [context persistentStoreCoordinator];\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trcbpat5 \trbrdrl\brdrs\brdrw20\brdrcf6 \trbrdrr\brdrs\brdrw20\brdrcf6 \tapadb80 
+\clvertalc \clshdrawnil \clwWidth23140\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt100 \clpadl100 \clpadb100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720
+\cf4 NSManagedObjectContext *newContext = [[NSManagedObjectContext alloc] init];\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trcbpat5 \trbrdrl\brdrs\brdrw20\brdrcf6 \trbrdrb\brdrs\brdrw20\brdrcf6 \trbrdrr\brdrs\brdrw20\brdrcf6 \tapadb80 
+\clvertalc \clshdrawnil \clwWidth23140\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt100 \clpadl100 \clpadb100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720
+\cf4 [newContext setPersistentStoreCoordinator:psc];\cell \lastrow\row
+\pard\pardeftab720\sl220
+
+\f1 \cf0 \cb3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf0 How to get folder listing? Need a pointer to 
+\b \cb1 struct mailimap* 
+\b0 have
+\b  
+\f0\b0\fs22 \cf1 \CocoaLigature0  \cf7 struct\cf1  \cf8 mailstorage*\cf1  *\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf0 \CocoaLigature1 \
+struct mailstorage \{\
+  char * sto_id;\
+  void * sto_data;\
+  mailsession * sto_session;\
+  mailstorage_driver * sto_driver;\
+  clist * sto_shared_folders; /* list of (struct mailfolder *) */\
+  \
+  void * sto_user_data;\
+\};\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f1\fs24 \cf0 \cb3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs22 \cf0 \cb1 struct mailsession \{\
+  void * sess_data;\
+  mailsession_driver * sess_driver;\
+\};\
+\
+  data->imap_mailbox = NULL;\
+  data->imap_session = imap;\
+  data->imap_flags_store = flags_store;\
+\
+  session->sess_data = data;\
+\
+below from \cf9 \CocoaLigature0 "imapdriver_types.h"\cf10 \
+\cf0 \CocoaLigature1 \
+struct imap_session_state_data \{\
+  mailimap * imap_session;\
+  char * imap_mailbox;\
+  struct mail_flags_store * imap_flags_store;\
+  void (* imap_ssl_callback)(struct mailstream_ssl_context * ssl_context, void * data);\
+  void * imap_ssl_cb_data;\
+\};\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f1\fs24 \cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs22 \cf0 struct mailimap \{\
+  char * imap_response;\
+  \
+  /* internals */\
+  mailstream * imap_stream;\
+\
+  size_t imap_progr_rate;\
+  progress_function * imap_progr_fun;\
+\
+  MMAPString * imap_stream_buffer;\
+  MMAPString * imap_response_buffer;\
+\
+  int imap_state;\
+  int imap_tag;\
+\
+  struct mailimap_connection_info * imap_connection_info;\
+  struct mailimap_selection_info * imap_selection_info;\
+  struct mailimap_response_info * imap_response_info;\
+  \
+  struct \{\
+    void * sasl_conn;\
+    const char * sasl_server_fqdn;\
+    const char * sasl_login;\
+    const char * sasl_auth_name;\
+    const char * sasl_password;\
+    const char * sasl_realm;\
+    void * sasl_secret;\
+  \} imap_sasl;\
+  \
+  time_t imap_idle_timestamp;\
+  time_t imap_idle_maxdelay;\
+\};\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f1\fs24 \cf0 \cb3 \
+Class IMAPSync uses 
+\f0\fs22 \cb1 \ul imap_mailstorage_init\ulnone () \
+					-> \ul imap_mailstorage_init_sasl_with_local_address\ulnone () \
+					-> creates local var \ul struct imap_mailstorage * imap_storage;\
+					\ulnone -> gets stored as 	
+\f4\b storage->sto_data
+\f0\b0 \ul  = imap_storage;\
+\pard\tx560\pardeftab560\pardirnatural
+\cf0 \ulc0   										storage->sto_driver = &imap_mailstorage_driver;\
+\
+\pard\tx560\pardeftab560\pardirnatural
+
+\f4\b \cf0 \ulnone ****  mailstorage -> sto_session -> sess_data -> imap_session ****\
+imap_session is a mailimap*\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\b0 \cf8 \CocoaLigature0 \
+\pard\tx560\pardeftab560\pardirnatural
+
+\f5\i \cf0 \CocoaLigature1 struct imap_mailstorage \{\
+  char * imap_servername;\
+  uint16_t imap_port;\
+  char * imap_command;\
+  int imap_connection_type;\
+  \
+  int imap_auth_type;\
+  char * imap_login; /* deprecated */\
+  char * imap_password; /* deprecated */\
+  \
+  int imap_cached;\
+  char * imap_cache_directory;\
+  \
+  struct \{\
+    int sasl_enabled;\
+    char * sasl_auth_type;\
+    char * sasl_server_fqdn;\
+    char * sasl_local_ip_port;\
+    char * sasl_remote_ip_port;\
+    char * sasl_login;\
+    char * sasl_auth_name;\
+    char * sasl_password;\
+    char * sasl_realm;\
+  \} imap_sas}
