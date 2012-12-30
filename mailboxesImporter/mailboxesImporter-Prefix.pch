@@ -1,0 +1,6 @@
+//
+// Prefix header for all source files of the 'mailboxesImporter' target in the 'mailboxesImporter' project
+//
+
+#ifdef __OBJC__
+#endif

@@ -1,0 +1,639 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C5E7469C168FCEC80055FE5E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E7469B168FCEC80055FE5E /* Cocoa.framework */; };
+		C5E746A6168FCEC80055FE5E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E746A4168FCEC80055FE5E /* InfoPlist.strings */; };
+		C5E746A8168FCEC80055FE5E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E746A7168FCEC80055FE5E /* main.m */; };
+		C5E746AC168FCEC80055FE5E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C5E746AA168FCEC80055FE5E /* Credits.rtf */; };
+		C5E746AF168FCEC80055FE5E /* MDLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E746AE168FCEC80055FE5E /* MDLAppDelegate.m */; };
+		C5E746B2168FCEC80055FE5E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E746B0168FCEC80055FE5E /* MainMenu.xib */; };
+		C5E746B5168FCEC80055FE5E /* mailboxes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5E746B3168FCEC80055FE5E /* mailboxes.xcdatamodeld */; };
+		C5E746BD168FCEC80055FE5E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E746BC168FCEC80055FE5E /* SenTestingKit.framework */; };
+		C5E746BE168FCEC80055FE5E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E7469B168FCEC80055FE5E /* Cocoa.framework */; };
+		C5E746C6168FCEC80055FE5E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E746C4168FCEC80055FE5E /* InfoPlist.strings */; };
+		C5E746C9168FCEC80055FE5E /* mailboxesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E746C8168FCEC80055FE5E /* mailboxesTests.m */; };
+		C5E746D1168FCEC80055FE5E /* mailboxesImporter.mdimporter in Resources */ = {isa = PBXBuildFile; fileRef = C5E746CE168FCEC80055FE5E /* mailboxesImporter.mdimporter */; };
+		C5E746D3168FCEC80055FE5E /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E746D2168FCEC80055FE5E /* CoreServices.framework */; };
+		C5E746D5168FCEC80055FE5E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E746D4168FCEC80055FE5E /* CoreFoundation.framework */; };
+		C5E746D7168FCEC80055FE5E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E746D6168FCEC80055FE5E /* CoreData.framework */; };
+		C5E746D9168FCEC80055FE5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E746D8168FCEC80055FE5E /* Foundation.framework */; };
+		C5E746DF168FCEC80055FE5E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5E746DD168FCEC80055FE5E /* InfoPlist.strings */; };
+		C5E746E1168FCEC80055FE5E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C5E746E0168FCEC80055FE5E /* main.c */; };
+		C5E746E3168FCEC80055FE5E /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E746E2168FCEC80055FE5E /* GetMetadataForFile.m */; };
+		C5E746E6168FCEC80055FE5E /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E746E5168FCEC80055FE5E /* MySpotlightImporter.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C5E746BF168FCEC80055FE5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5E7468E168FCEC70055FE5E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5E74696168FCEC80055FE5E;
+			remoteInfo = mailboxes;
+		};
+		C5E746CF168FCEC80055FE5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5E7468E168FCEC70055FE5E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5E746CD168FCEC80055FE5E;
+			remoteInfo = mailboxesImporter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C5E74697168FCEC80055FE5E /* mailboxes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mailboxes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5E7469B168FCEC80055FE5E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		C5E7469E168FCEC80055FE5E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		C5E7469F168FCEC80055FE5E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C5E746A0168FCEC80055FE5E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C5E746A3168FCEC80055FE5E /* mailboxes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mailboxes-Info.plist"; sourceTree = "<group>"; };
+		C5E746A5168FCEC80055FE5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C5E746A7168FCEC80055FE5E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C5E746A9168FCEC80055FE5E /* mailboxes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mailboxes-Prefix.pch"; sourceTree = "<group>"; };
+		C5E746AB168FCEC80055FE5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		C5E746AD168FCEC80055FE5E /* MDLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDLAppDelegate.h; sourceTree = "<group>"; };
+		C5E746AE168FCEC80055FE5E /* MDLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDLAppDelegate.m; sourceTree = "<group>"; };
+		C5E746B1168FCEC80055FE5E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C5E746B4168FCEC80055FE5E /* mailboxes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mailboxes.xcdatamodel; sourceTree = "<group>"; };
+		C5E746BB168FCEC80055FE5E /* mailboxesTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mailboxesTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5E746BC168FCEC80055FE5E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		C5E746C3168FCEC80055FE5E /* mailboxesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mailboxesTests-Info.plist"; sourceTree = "<group>"; };
+		C5E746C5168FCEC80055FE5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C5E746C7168FCEC80055FE5E /* mailboxesTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mailboxesTests.h; sourceTree = "<group>"; };
+		C5E746C8168FCEC80055FE5E /* mailboxesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mailboxesTests.m; sourceTree = "<group>"; };
+		C5E746CE168FCEC80055FE5E /* mailboxesImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mailboxesImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5E746D2168FCEC80055FE5E /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		C5E746D4168FCEC80055FE5E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		C5E746D6168FCEC80055FE5E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C5E746D8168FCEC80055FE5E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C5E746DC168FCEC80055FE5E /* mailboxesImporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mailboxesImporter-Info.plist"; sourceTree = "<group>"; };
+		C5E746DE168FCEC80055FE5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C5E746E0168FCEC80055FE5E /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C5E746E2168FCEC80055FE5E /* GetMetadataForFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMetadataForFile.m; sourceTree = "<group>"; };
+		C5E746E4168FCEC80055FE5E /* MySpotlightImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySpotlightImporter.h; sourceTree = "<group>"; };
+		C5E746E5168FCEC80055FE5E /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
+		C5E746E7168FCEC80055FE5E /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
+		C5E746E8168FCEC80055FE5E /* mailboxesImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mailboxesImporter-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C5E74694168FCEC80055FE5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E7469C168FCEC80055FE5E /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E746B7168FCEC80055FE5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E746BD168FCEC80055FE5E /* SenTestingKit.framework in Frameworks */,
+				C5E746BE168FCEC80055FE5E /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E746CB168FCEC80055FE5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E746D3168FCEC80055FE5E /* CoreServices.framework in Frameworks */,
+				C5E746D5168FCEC80055FE5E /* CoreFoundation.framework in Frameworks */,
+				C5E746D7168FCEC80055FE5E /* CoreData.framework in Frameworks */,
+				C5E746D9168FCEC80055FE5E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C5E7468C168FCEC70055FE5E = {
+			isa = PBXGroup;
+			children = (
+				C5E746A1168FCEC80055FE5E /* mailboxes */,
+				C5E746C1168FCEC80055FE5E /* mailboxesTests */,
+				C5E746DA168FCEC80055FE5E /* mailboxesImporter */,
+				C5E7469A168FCEC80055FE5E /* Frameworks */,
+				C5E74698168FCEC80055FE5E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C5E74698168FCEC80055FE5E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C5E74697168FCEC80055FE5E /* mailboxes.app */,
+				C5E746BB168FCEC80055FE5E /* mailboxesTests.octest */,
+				C5E746CE168FCEC80055FE5E /* mailboxesImporter.mdimporter */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C5E7469A168FCEC80055FE5E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C5E7469B168FCEC80055FE5E /* Cocoa.framework */,
+				C5E746BC168FCEC80055FE5E /* SenTestingKit.framework */,
+				C5E746D2168FCEC80055FE5E /* CoreServices.framework */,
+				C5E746D4168FCEC80055FE5E /* CoreFoundation.framework */,
+				C5E746D6168FCEC80055FE5E /* CoreData.framework */,
+				C5E746D8168FCEC80055FE5E /* Foundation.framework */,
+				C5E7469D168FCEC80055FE5E /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C5E7469D168FCEC80055FE5E /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C5E7469E168FCEC80055FE5E /* AppKit.framework */,
+				C5E7469F168FCEC80055FE5E /* CoreData.framework */,
+				C5E746A0168FCEC80055FE5E /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		C5E746A1168FCEC80055FE5E /* mailboxes */ = {
+			isa = PBXGroup;
+			children = (
+				C5E746AD168FCEC80055FE5E /* MDLAppDelegate.h */,
+				C5E746AE168FCEC80055FE5E /* MDLAppDelegate.m */,
+				C5E746B0168FCEC80055FE5E /* MainMenu.xib */,
+				C5E746B3168FCEC80055FE5E /* mailboxes.xcdatamodeld */,
+				C5E746A2168FCEC80055FE5E /* Supporting Files */,
+			);
+			path = mailboxes;
+			sourceTree = "<group>";
+		};
+		C5E746A2168FCEC80055FE5E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C5E746A3168FCEC80055FE5E /* mailboxes-Info.plist */,
+				C5E746A4168FCEC80055FE5E /* InfoPlist.strings */,
+				C5E746A7168FCEC80055FE5E /* main.m */,
+				C5E746A9168FCEC80055FE5E /* mailboxes-Prefix.pch */,
+				C5E746AA168FCEC80055FE5E /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C5E746C1168FCEC80055FE5E /* mailboxesTests */ = {
+			isa = PBXGroup;
+			children = (
+				C5E746C7168FCEC80055FE5E /* mailboxesTests.h */,
+				C5E746C8168FCEC80055FE5E /* mailboxesTests.m */,
+				C5E746C2168FCEC80055FE5E /* Supporting Files */,
+			);
+			path = mailboxesTests;
+			sourceTree = "<group>";
+		};
+		C5E746C2168FCEC80055FE5E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C5E746C3168FCEC80055FE5E /* mailboxesTests-Info.plist */,
+				C5E746C4168FCEC80055FE5E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C5E746DA168FCEC80055FE5E /* mailboxesImporter */ = {
+			isa = PBXGroup;
+			children = (
+				C5E746E2168FCEC80055FE5E /* GetMetadataForFile.m */,
+				C5E746E4168FCEC80055FE5E /* MySpotlightImporter.h */,
+				C5E746E5168FCEC80055FE5E /* MySpotlightImporter.m */,
+				C5E746E7168FCEC80055FE5E /* Importer Read Me.txt */,
+				C5E746DB168FCEC80055FE5E /* Supporting Files */,
+			);
+			path = mailboxesImporter;
+			sourceTree = "<group>";
+		};
+		C5E746DB168FCEC80055FE5E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C5E746DC168FCEC80055FE5E /* mailboxesImporter-Info.plist */,
+				C5E746DD168FCEC80055FE5E /* InfoPlist.strings */,
+				C5E746E0168FCEC80055FE5E /* main.c */,
+				C5E746E8168FCEC80055FE5E /* mailboxesImporter-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C5E74696168FCEC80055FE5E /* mailboxes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5E746EE168FCEC80055FE5E /* Build configuration list for PBXNativeTarget "mailboxes" */;
+			buildPhases = (
+				C5E74693168FCEC80055FE5E /* Sources */,
+				C5E74694168FCEC80055FE5E /* Frameworks */,
+				C5E74695168FCEC80055FE5E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C5E746D0168FCEC80055FE5E /* PBXTargetDependency */,
+			);
+			name = mailboxes;
+			productName = mailboxes;
+			productReference = C5E74697168FCEC80055FE5E /* mailboxes.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C5E746BA168FCEC80055FE5E /* mailboxesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5E746F1168FCEC80055FE5E /* Build configuration list for PBXNativeTarget "mailboxesTests" */;
+			buildPhases = (
+				C5E746B6168FCEC80055FE5E /* Sources */,
+				C5E746B7168FCEC80055FE5E /* Frameworks */,
+				C5E746B8168FCEC80055FE5E /* Resources */,
+				C5E746B9168FCEC80055FE5E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C5E746C0168FCEC80055FE5E /* PBXTargetDependency */,
+			);
+			name = mailboxesTests;
+			productName = mailboxesTests;
+			productReference = C5E746BB168FCEC80055FE5E /* mailboxesTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		C5E746CD168FCEC80055FE5E /* mailboxesImporter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5E746EB168FCEC80055FE5E /* Build configuration list for PBXNativeTarget "mailboxesImporter" */;
+			buildPhases = (
+				C5E746CA168FCEC80055FE5E /* Sources */,
+				C5E746CB168FCEC80055FE5E /* Frameworks */,
+				C5E746CC168FCEC80055FE5E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mailboxesImporter;
+			productName = mailboxesImporter;
+			productReference = C5E746CE168FCEC80055FE5E /* mailboxesImporter.mdimporter */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C5E7468E168FCEC70055FE5E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MDL;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Taun Chapman";
+			};
+			buildConfigurationList = C5E74691168FCEC70055FE5E /* Build configuration list for PBXProject "mailboxes" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C5E7468C168FCEC70055FE5E;
+			productRefGroup = C5E74698168FCEC80055FE5E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C5E74696168FCEC80055FE5E /* mailboxes */,
+				C5E746BA168FCEC80055FE5E /* mailboxesTests */,
+				C5E746CD168FCEC80055FE5E /* mailboxesImporter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C5E74695168FCEC80055FE5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E746A6168FCEC80055FE5E /* InfoPlist.strings in Resources */,
+				C5E746AC168FCEC80055FE5E /* Credits.rtf in Resources */,
+				C5E746B2168FCEC80055FE5E /* MainMenu.xib in Resources */,
+				C5E746D1168FCEC80055FE5E /* mailboxesImporter.mdimporter in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E746B8168FCEC80055FE5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E746C6168FCEC80055FE5E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E746CC168FCEC80055FE5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E746DF168FCEC80055FE5E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C5E746B9168FCEC80055FE5E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C5E74693168FCEC80055FE5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E746A8168FCEC80055FE5E /* main.m in Sources */,
+				C5E746AF168FCEC80055FE5E /* MDLAppDelegate.m in Sources */,
+				C5E746B5168FCEC80055FE5E /* mailboxes.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E746B6168FCEC80055FE5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E746C9168FCEC80055FE5E /* mailboxesTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5E746CA168FCEC80055FE5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E746E1168FCEC80055FE5E /* main.c in Sources */,
+				C5E746E3168FCEC80055FE5E /* GetMetadataForFile.m in Sources */,
+				C5E746E6168FCEC80055FE5E /* MySpotlightImporter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C5E746C0168FCEC80055FE5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5E74696168FCEC80055FE5E /* mailboxes */;
+			targetProxy = C5E746BF168FCEC80055FE5E /* PBXContainerItemProxy */;
+		};
+		C5E746D0168FCEC80055FE5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5E746CD168FCEC80055FE5E /* mailboxesImporter */;
+			targetProxy = C5E746CF168FCEC80055FE5E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C5E746A4168FCEC80055FE5E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E746A5168FCEC80055FE5E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C5E746AA168FCEC80055FE5E /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E746AB168FCEC80055FE5E /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		C5E746B0168FCEC80055FE5E /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E746B1168FCEC80055FE5E /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		C5E746C4168FCEC80055FE5E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E746C5168FCEC80055FE5E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C5E746DD168FCEC80055FE5E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5E746DE168FCEC80055FE5E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C5E746E9168FCEC80055FE5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C5E746EA168FCEC80055FE5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C5E746EC168FCEC80055FE5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mailboxesImporter/mailboxesImporter-Prefix.pch";
+				INFOPLIST_FILE = "mailboxesImporter/mailboxesImporter-Info.plist";
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Debug;
+		};
+		C5E746ED168FCEC80055FE5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mailboxesImporter/mailboxesImporter-Prefix.pch";
+				INFOPLIST_FILE = "mailboxesImporter/mailboxesImporter-Info.plist";
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Release;
+		};
+		C5E746EF168FCEC80055FE5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mailboxes/mailboxes-Prefix.pch";
+				INFOPLIST_FILE = "mailboxes/mailboxes-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C5E746F0168FCEC80055FE5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mailboxes/mailboxes-Prefix.pch";
+				INFOPLIST_FILE = "mailboxes/mailboxes-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C5E746F2168FCEC80055FE5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mailboxes.app/Contents/MacOS/mailboxes";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mailboxes/mailboxes-Prefix.pch";
+				INFOPLIST_FILE = "mailboxesTests/mailboxesTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		C5E746F3168FCEC80055FE5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mailboxes.app/Contents/MacOS/mailboxes";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mailboxes/mailboxes-Prefix.pch";
+				INFOPLIST_FILE = "mailboxesTests/mailboxesTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C5E74691168FCEC70055FE5E /* Build configuration list for PBXProject "mailboxes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5E746E9168FCEC80055FE5E /* Debug */,
+				C5E746EA168FCEC80055FE5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5E746EB168FCEC80055FE5E /* Build configuration list for PBXNativeTarget "mailboxesImporter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5E746EC168FCEC80055FE5E /* Debug */,
+				C5E746ED168FCEC80055FE5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C5E746EE168FCEC80055FE5E /* Build configuration list for PBXNativeTarget "mailboxes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5E746EF168FCEC80055FE5E /* Debug */,
+				C5E746F0168FCEC80055FE5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C5E746F1168FCEC80055FE5E /* Build configuration list for PBXNativeTarget "mailboxesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5E746F2168FCEC80055FE5E /* Debug */,
+				C5E746F3168FCEC80055FE5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C5E746B3168FCEC80055FE5E /* mailboxes.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C5E746B4168FCEC80055FE5E /* mailboxes.xcdatamodel */,
+			);
+			currentVersion = C5E746B4168FCEC80055FE5E /* mailboxes.xcdatamodel */;
+			path = mailboxes.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = C5E7468E168FCEC70055FE5E /* Project object */;
+}
