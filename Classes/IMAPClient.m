@@ -6,6 +6,8 @@
 //  Copyright 2011 MOEDAE LLC. All rights reserved.
 //
 
+#import "GCDAsyncSocket.h"
+
 #import "IMAPClient.h"
 #import "IMAPCommand.h"
 #import "IMAPCoreDataStore.h"
@@ -22,7 +24,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_INFO;
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 /*
@@ -56,6 +58,62 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
  */
 
+/* 
+ SSL Transport errors
+ 
+ Result Code,Value,Description
+ errSSLProtocol,–9800,"SSL protocol error.\nAvailable in OS X v10.2 and later."
+ errSSLNegotiation,–9801,"The cipher suite negotiation failed.\nAvailable in OS X v10.2 and later."
+ errSSLFatalAlert,–9802,"A fatal alert was encountered.\nAvailable in OS X v10.2 and later."
+ errSSLWouldBlock,–9803,"Function is blocked; waiting for I/O. This is not fatal.\nAvailable in OS X v10.2 and later."
+ errSSLSessionNotFound,–9804,"An attempt to restore an unknown session failed.\nAvailable in OS X v10.2 and later."
+ errSSLClosedGraceful,–9805,"The connection closed gracefully.\nAvailable in OS X v10.2 and later."
+ errSSLClosedAbort,–9806,"The connection closed due to an error.\nAvailable in OS X v10.2 and later."
+ errSSLXCertChainInvalid,–9807,"Invalid certificate chain.\nAvailable in OS X v10.2 and later."
+ errSSLBadCert,–9808,"Bad certificate format.\nAvailable in OS X v10.2 and later."
+ errSSLCrypto,–9809,"An underlying cryptographic error was encountered.\nAvailable in OS X v10.2 and later."
+ errSSLInternal,–9810,"Internal error.\nAvailable in OS X v10.2 and later."
+ errSSLModuleAttach,–9811,"Module attach failure.\nAvailable in OS X v10.2 and later."
+ errSSLUnknownRootCert,–9812,"Certificate chain is valid, but root is not trusted.\nAvailable in OS X v10.2 and later."
+ errSSLNoRootCert,–9813,"No root certificate for the certificate chain.\nAvailable in OS X v10.2 and later."
+ errSSLCertExpired,–9814,"The certificate chain had an expired certificate.\nAvailable in OS X v10.2 and later."
+ errSSLCertNotYetValid,–9815,"The certificate chain had a certificate that is not yet valid.\nAvailable in OS X v10.2 and later."
+ errSSLClosedNoNotify,–9816,"The server closed the session with no notification.\nAvailable in OS X v10.2 and later."
+ errSSLBufferOverflow,–9817,"An insufficient buffer was provided.\nAvailable in OS X v10.2 and later."
+ errSSLBadCipherSuite,–9818,"A bad SSL cipher suite was encountered.\nAvailable in OS X v10.2 and later."
+ errSSLPeerUnexpectedMsg,–9819,"An unexpected message was received.\nAvailable in OS X v10.3 and later."
+ errSSLPeerBadRecordMac,–9820,"A record with a bad message authentication code (MAC) was encountered.\nAvailable in OS X v10.3 and later."
+ errSSLPeerDecryptionFail,–9821,"Decryption failed.\nAvailable in OS X v10.3 and later."
+ errSSLPeerRecordOverflow,–9822,"A record overflow occurred.\nAvailable in OS X v10.3 and later."
+ errSSLPeerDecompressFail,–9823,"Decompression failed.\nAvailable in OS X v10.3 and later."
+ errSSLPeerHandshakeFail,–9824,"The handshake failed.\nAvailable in OS X v10.3 and later."
+ errSSLPeerBadCert,–9825,"A bad certificate was encountered.\nAvailable in OS X v10.3 and later."
+ errSSLPeerUnsupportedCert,–9826,"An unsupported certificate format was encountered.\nAvailable in OS X v10.3 and later."
+ errSSLPeerCertRevoked,–9827,"The certificate was revoked.\nAvailable in OS X v10.3 and later."
+ errSSLPeerCertExpired,–9828,"The certificate expired.\nAvailable in OS X v10.3 and later."
+ errSSLPeerCertUnknown,–9829,"The certificate is unknown.\nAvailable in OS X v10.3 and later."
+ errSSLIllegalParam,–9830,"An illegal parameter was encountered.\nAvailable in OS X v10.3 and later."
+ errSSLPeerUnknownCA,–9831,"An unknown certificate authority was encountered.\nAvailable in OS X v10.3 and later."
+ errSSLPeerAccessDenied,–9832,"Access was denied.\nAvailable in OS X v10.3 and later."
+ errSSLPeerDecodeError,–9833,"A decoding error occurred.\nAvailable in OS X v10.3 and later."
+ errSSLPeerDecryptError,–9834,"A decryption error occurred.\nAvailable in OS X v10.3 and later."
+ errSSLPeerExportRestriction,–9835,"An export restriction occurred.\nAvailable in OS X v10.3 and later."
+ errSSLPeerProtocolVersion,–9836,"A bad protocol version was encountered.\nAvailable in OS X v10.3 and later."
+ errSSLPeerInsufficientSecurity,–9837,"There is insufficient security for this operation.\nAvailable in OS X v10.3 and later."
+ errSSLPeerInternalError,–9838,"An internal error occurred.\nAvailable in OS X v10.3 and later."
+ errSSLPeerUserCancelled,–9839,"The user canceled the operation.\nAvailable in OS X v10.3 and later."
+ errSSLPeerNoRenegotiation,–9840,"No renegotiation is allowed.\nAvailable in OS X v10.3 and later."
+ errSSLServerAuthCompleted,-9841,"The server certificate is either valid or was ignored if verification is disabled.\nAvailable in OS X v10.6 through OS X v10.7."
+ errSSLClientCertRequested,-9842,"The server has requested a client certificate.\nAvailable in OS X v10.6 and later."
+ errSSLHostNameMismatch,-9843,"The host name you connected with does not match any of the host names allowed by the certificate. This is commonly caused by an incorrect value for the kCFStreamSSLPeerName property within the dictionary associated with the stream’s kCFStreamPropertySSLSettings key.\nAvailable in OS X v10.4 and later."
+ errSSLConnectionRefused,–9844,"The peer dropped the connection before responding.\nAvailable in OS X v10.4 and later."
+ errSSLDecryptionFail,–9845,"Decryption failed. Among other causes, this may be caused by invalid data coming from the remote host, a damaged crypto key, or insufficient permission to use a key that is stored in the keychain.\nAvailable in OS X v10.3 and later."
+ errSSLBadRecordMac,–9846,"A record with a bad message authentication code (MAC) was encountered.\nAvailable in OS X v10.3 and later."
+ errSSLRecordOverflow,–9847,"A record overflow occurred.\nAvailable in OS X v10.3 and later."
+ errSSLBadConfiguration,–9848,"A configuration error occurred.\nAvailable in OS X v10.3 and later."
+ 
+ */
+
 /*!
  
  Private functions
@@ -63,7 +121,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
  At some point many will need to be move public.
  
  */
-@interface IMAPClient () 
+@interface IMAPClient () {
+    GCDAsyncSocket *_asyncSocket;
+}
 @property (nonatomic, assign, readwrite) BOOL                   isFinished;
 @property (nonatomic, assign, readwrite) BOOL                   isExecuting;
 @property (nonatomic, assign, readwrite) BOOL                   isCommandComplete;
@@ -109,39 +169,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @implementation IMAPClient
 
 #pragma mark - init and cleanup
-@synthesize clientStore;
-
-@synthesize eventHandlers = _eventHandlers;
 
 @synthesize isFinished = _finished;
 @synthesize isCancelled = _cancelled;
 @synthesize isExecuting;
 
-@synthesize dataBuffer = _dataBuffer;
-@synthesize dataBufferRemainingBytes;
 @synthesize isBufferUpdated = _bufferUpdated;
-@synthesize isBufferComplete;
 @synthesize isSpaceAvailable = _spaceAvailable;
 
-@synthesize parser;
-
-@synthesize connectionState;
-@synthesize connectionTimeOutSeconds;
-@synthesize isConnectionTimedOut;
-
-@synthesize commandIdentifier;
-@synthesize isCommandComplete;
-
-@synthesize serverCapabilities;
-@synthesize timeOutPeriod;
-@synthesize runLoopInterval;
-
-@synthesize syncQuantaF;
-@synthesize syncQuantaLW;
-
-@synthesize mboxSequenceUIDMap;
-@synthesize mainCommandQueue;
-@synthesize parentContext;
 
 + (NSString*) stateAsString: (IMAPClientStates) aState {
     NSString* stateString = nil;
@@ -187,6 +222,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return theDescription;
 }
 
+-(void) setConnectionState:(IMAPClientStates)connectionState {
+    _connectionState = connectionState;
+    DDLogVerbose(@"%@: ConnectionState: %@", NSStringFromClass([self class]), [IMAPClient stateAsString: _connectionState]);
+}
+
 - (id)initWithParentContext: (NSManagedObjectContext*) pcontext AccountID: (NSManagedObjectID *) anAccountID
 {
     assert(anAccountID != nil);
@@ -198,13 +238,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         _cancelled = NO;
         _finished = NO;
         isExecuting = NO;
-        connectionState = IMAPDisconnected;
-        connectionTimeOutSeconds = 120;
-        isConnectionTimedOut = NO;
+        _connectionState = IMAPDisconnected;
+        _connectionTimeOutSeconds = 120;
+        _isConnectionTimedOut = NO;
 
         _dataBuffer = [[NSMutableArray alloc] initWithCapacity: 4];
         _bufferUpdated = NO;
-        isBufferComplete = YES;
+        _isBufferComplete = YES;
         _spaceAvailable = NO;
         
         _eventHandlers = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -216,25 +256,25 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                          @"streamEventNone:",[NSNumber numberWithInt:NSStreamEventNone] , 
                           nil];
         
-        commandIdentifier = 0;
+        _commandIdentifier = 0;
         
-        serverCapabilities = [[NSMutableSet alloc] initWithCapacity: 5] ;
+        _serverCapabilities = [[NSMutableSet alloc] initWithCapacity: 5] ;
         
-        clientStore = [[IMAPCoreDataStore alloc] initWithParentContext: pcontext AccountID: anAccountID];
+        _clientStore = [[IMAPCoreDataStore alloc] initWithParentContext: pcontext AccountID: anAccountID];
         
-        parser = [[IMAPResponseBuffer alloc] init];
-        parser.delegate = self;
-        parser.timeOutPeriod = -1; // incoming timeout
-        timeOutPeriod = -2; // outgoing timeout
-        runLoopInterval = 0.01; // seconds
-        parser.clientStore = self.clientStore;
+        _parser = [[IMAPResponseBuffer alloc] init];
+        _parser.delegate = self;
+        _parser.timeOutPeriod = -1; // incoming timeout
+        _timeOutPeriod = -2; // outgoing timeout
+        _runLoopInterval = 0.01; // seconds
+        _parser.clientStore = self.clientStore;
         
         
-        syncQuantaLW = 100;
-        syncQuantaF = 20;
+        _syncQuantaLW = 100;
+        _syncQuantaF = 20;
         
-        mboxSequenceUIDMap = [[NSMutableDictionary alloc] initWithCapacity:10];
-        mainCommandQueue = [[NSMutableArray alloc] initWithCapacity: 2];
+        _mboxSequenceUIDMap = [[NSMutableDictionary alloc] initWithCapacity:10];
+        _mainCommandQueue = [[NSMutableArray alloc] initWithCapacity: 2];
     }
     
     return self;
@@ -256,13 +296,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [self performSelector:NSSelectorFromString(eventHandler)
                    withObject: theStream];
     }else{
-        DDLogError(@"%@: No stream event handler.", NSStringFromClass([self class]));
+        DDLogError(@"[%@]: No stream event handler.", NSStringFromSelector(_cmd));
     }
 }
 #pragma clang diagnostic pop
 
 -(void) streamEventNone: (NSStream *)theStream {
-    DDLogVerbose(@"%@: streamEventNone.", NSStringFromClass([self class]));
+    DDLogVerbose(@"%[@]", NSStringFromSelector(_cmd));
     
 }
 -(void) streamOpenCompleted: (NSStream *)theStream {
@@ -274,27 +314,36 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             self.connectionState = IMAPEstablished;
         }
     }
-    //DDLogVerbose(@"%@: streamOpenCompleted.", NSStringFromClass([self class]));
+    DDLogVerbose(@"%@: streamOpenCompleted. ConnectionState: %@", NSStringFromSelector(_cmd), [IMAPClient stateAsString: self.connectionState]);
 }
 -(void) iStreamHasBytesAvailable: (NSStream *)theStream {
     // iStream has input
-    //DDLogVerbose(@"%@: iStreamHasBytesAvailable.", NSStringFromClass([self class]));
+    DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self getResponse];
 }
 -(void) oStreamHasSpaceAvailable: (NSStream *)theStream {
     self.isSpaceAvailable = YES;
-    //DDLogVerbose(@"%@: oStreamHasSpaceAvailable.", NSStringFromClass([self class]));
+    DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     
 }
 -(void) streamErrorOccurred: (NSStream *)theStream {
-    // NSError *theError = [theStream streamError];
-    //DDLogVerbose(@"Error reading stream!%@",[NSString stringWithFormat:@"Error %i: %@",
-    //                                  [theError code], [theError localizedDescription]]);
-    self.connectionState = IMAPDisconnected;
-    [self close: theStream];
+    NSError *theError = [theStream streamError];
+    long errorCode = (long)[theError code];
+    
+    if ((errorCode <= -9819) && (errorCode >= -9840)) {
+        // Errors in the range of –9819 through –9840 are fatal errors that are detected by the peer.
+        self.connectionState = IMAPDisconnected;
+        [self close: theStream];
+        
+        DDLogVerbose(@"[%@] %@",NSStringFromSelector(_cmd),
+                     [NSString stringWithFormat:@"Error %li: %@", errorCode, [theError localizedDescription]]);
+    } else {
+        DDLogVerbose(@"[%@] %@, Continuing anyway.",NSStringFromSelector(_cmd),
+                     [NSString stringWithFormat:@"Error %li: %@", errorCode, [theError localizedDescription]]);
+    }
 }
 -(void) streamEndEncountered: (NSStream *)theStream {
-    //DDLogVerbose(@"%@: streamEndEncountered.", NSStringFromClass([self class]));
+    DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.connectionState = IMAPDisconnected;
     [self close: theStream];
 }
@@ -315,7 +364,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             marker += actuallyWritten;
         }
     }    
-    DDLogInfo(@"%@: Sent Command: %@.", NSStringFromClass([self class]), aString);
+    DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), aString);
 }
 
 /*!
@@ -363,7 +412,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [responseBuffer appendBytes: buffer length: actuallyRead];
         
         [self.parser addDataBuffer: responseBuffer];
-        DDLogVerbose(@"Response Data: %@\n", [[NSString alloc] initWithData: responseBuffer encoding: NSASCIIStringEncoding]);
+        DDLogVerbose(@"[%@ %@]; %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd),  [[NSString alloc] initWithData: responseBuffer encoding: NSASCIIStringEncoding]);
     }
 }
 
@@ -374,7 +423,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 // called synchronously by loop extraction of response stack
 //-(void) parseResponse { 
 //    NSString *currentString = [parser copyStringFromCurrentBuffer];
-//    DDLogVerbose(@"%@: parsing: %@", NSStringFromClass([self class]), currentString);
+//    DDLogVerbose(@"%@: parsing: %@", NSStringFromSelector(_cmd), currentString);
 //    [currentString release];
 //    
 //    [parser parseResponse];
@@ -391,11 +440,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         // command completed successfully
         
     }
-    DDLogVerbose(@"%@:%@ command completed(%@): Save Status %i: info %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), response.command.tag, success, response.command.info);
+    DDLogVerbose(@"[%@:%@ %@]; Save Status %i: info %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), response.command.tag, success, response.command.info);
 }
 
 -(void) commandContinue:(IMAPResponse*) response {
-    DDLogVerbose(@"%@: command continue(%@): %@", NSStringFromClass([self class]), response.command.tag, response.tokens);
+    DDLogVerbose(@"[%@ %@: %@]; %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), response.command.tag, response.tokens);
 }
 
 #pragma mark - Response Delegate Methods
@@ -412,14 +461,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //TODO: set command complete to keep from blocking?
 // or check for IMAPBYE in run loop?
 -(void)responseBye: (IMAPResponse*) response {
-    DDLogVerbose(@"%@: BYE response: %@", NSStringFromClass([self class]), response.tokens);
+    DDLogVerbose(@"[%@ %@: %@]; %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), response.command.tag, response.tokens);
     [self closeStreams];
 }
 -(void) responseUnknown: (IMAPResponse*) response {
-    DDLogVerbose(@"%@: unknown response: %@", NSStringFromClass([self class]), response.tokens);
+    DDLogVerbose(@"[%@ %@: %@]; %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), response.command.tag, response.tokens);
 }
 -(void) responseIgnore: (IMAPResponse*) response {
-    DDLogVerbose(@"%@: ignoring response: %@", NSStringFromClass([self class]), response.tokens);
+    DDLogVerbose(@"[%@ %@: %@]; %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), response.command.tag, response.tokens);
 }
 
 
@@ -445,7 +494,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #pragma mark - command streaming methods
 
 -(NSString*) commandTag {
-    return [NSString stringWithFormat:@"moedae%05hu", self.commandIdentifier];
+    return [NSString stringWithFormat:@"moedae%05u", (unsigned int)self.commandIdentifier];
 }
 
 -(NSString*) nextCommandTag {
@@ -697,7 +746,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
  */
 -(void) commandFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange {
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"UID FETCH"];
-    NSString *sequence = [NSString stringWithFormat: @"%lu:%lu", startRange, endRange];
+    NSString *sequence = [NSString stringWithFormat: @"%llu:%llu", startRange, endRange];
     [command copyAddArgument: sequence];
     [command copyAddArgument: @"(FLAGS"];
     //[command copyAddArgument: @"INTERNALDATE"];
@@ -718,7 +767,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void) commandFetchContentStart: (UInt64) startRange end: (UInt64) endRange {
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"UID FETCH"];
-    NSString *sequence = [NSString stringWithFormat: @"%lu:%lu", startRange, endRange];
+    NSString *sequence = [NSString stringWithFormat: @"%llu:%llu", startRange, endRange];
     [command copyAddArgument: sequence];
     [command copyAddArgument: @"(FLAGS"];
     //[command copyAddArgument: @"INTERNALDATE"];
@@ -738,7 +787,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void) commandFetchContentForUID:(UInt64)theUID mimeParts:(NSString *)part {
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"UID FETCH"];
-    NSString *sequence = [NSString stringWithFormat: @"%lu", theUID];
+    NSString *sequence = [NSString stringWithFormat: @"%llu", theUID];
     [command copyAddArgument: sequence];
     [command copyAddArgument: [NSString stringWithFormat:@"(BODY[%@])", part]];
     command.mboxFullPath = self.clientStore.selectedMBox.fullPath;
@@ -965,7 +1014,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
         NSString* address = [host address];
         if (address) {
-            //DDLogVerbose(@"%@: %@ resolved to address %@", NSStringFromClass([self class]), server, address);
+            //DDLogVerbose(@"%@: %@ resolved to address %@", NSStringFromSelector(_cmd), server, address);
 
             NSInputStream *tempIStream;
             NSOutputStream *tempOStream;
@@ -978,40 +1027,52 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             _iStream = tempIStream;
             _oStream = tempOStream;
             
+            if ([self.clientStore.account.useTLS boolValue]) {
+                [_iStream setProperty: NSStreamSocketSecurityLevelNone forKey: NSStreamSocketSecurityLevelKey];
+                [_oStream setProperty: NSStreamSocketSecurityLevelNone forKey: NSStreamSocketSecurityLevelKey];
+            }
+            
             [_iStream setDelegate:self];
             [_oStream setDelegate:self];
             
-            [_iStream scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                                forMode:NSDefaultRunLoopMode];
-            [_oStream scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                                forMode:NSDefaultRunLoopMode];
-            [_iStream open];
-            [_oStream open];
-            //DDLogVerbose(@"%@: IO Streams opening.", NSStringFromClass([self class]));
+            [_iStream scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            [_oStream scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            
+            if ([_oStream streamStatus] == NSStreamStatusNotOpen) [_oStream open];
+            if ([_iStream streamStatus] == NSStreamStatusNotOpen) [_iStream open];
+            
             //[self send:@"helo"];
             //wait for initial response
             NSDate* started = [NSDate date];
-            NSTimeInterval netConnectTimeout = 30.0;
+            NSTimeInterval netConnectTimeout = -30.0;
             
-            while ([self.parser.dataBuffers count]==0) {
-                // TODO: need to set a connection timeout here
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
-                
-                if ([started timeIntervalSinceNow] > netConnectTimeout) {
-                    // timed out. need to pass and error?
-                    self.connectionState = IMAPDisconnected;
-                    DDLogVerbose(@"%@: Response timed out (%@ sec) for: %@.", 
-                          NSStringFromClass([self class]), netConnectTimeout, server);
-                    
-                    return NO;
-                }
-            }
+//            while ([self.parser.dataBuffers count]==0) {
+//                // TODO: need to set a connection timeout here
+//                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
+//                
+//                // If the receiver is earlier than the current date and time, the return value is negative.
+//                if ([started timeIntervalSinceNow] < netConnectTimeout) {
+//                    // timed out. need to pass and error?
+//                    self.connectionState = IMAPDisconnected;
+//                    DDLogVerbose(@"[%@ %@]; Response timed out (%f sec) for: %@.",
+//                                 NSStringFromClass([self class]),
+//                                 NSStringFromSelector(_cmd),
+//                                 netConnectTimeout,
+//                                 server);
+//                    
+//                    return NO;
+//                }
+//            }
             [self commandCapability];
             [self commandLogin];
             return YES;
         }
         else {
-            DDLogVerbose(@"%@: No address resolution for: %@.", NSStringFromClass([self class]), server);
+            DDLogVerbose(@"[%@ %@]; No address resolution for: %@.",
+                         NSStringFromClass([self class]),
+                         NSStringFromSelector(_cmd),
+                         server);
+            
             self.connectionState = IMAPDisconnected;
             return NO;
         }
@@ -1030,7 +1091,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self close:_iStream];
     [self close:_oStream];
     self.connectionState = IMAPDisconnected;
-    DDLogVerbose(@"%@: Streams closed.", NSStringFromClass([self class]));
+    DDLogVerbose(@"[%@ %@];", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 }
 
 //TODO: error handling if we can't save the context.
@@ -1196,7 +1257,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             }
             else {
                 // parse connection error
-                DDLogVerbose(@"%@: ConnectionState %@, Streams connection error: %@.", NSStringFromClass([self class]), [IMAPClient stateAsString: self.connectionState], error);
+                DDLogVerbose(@"%@: ConnectionState %@, Streams connection error: %@.", NSStringFromSelector(_cmd), [IMAPClient stateAsString: self.connectionState], error);
                 
                 while (!self.isCancelled) {
                     // do nothing
@@ -1266,7 +1327,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         }
         else {
             // parse connection error
-            DDLogVerbose(@"%@: ConnectionState %@, Streams connection error: %@.", NSStringFromClass([self class]), [IMAPClient stateAsString: self.connectionState], error);
+            DDLogVerbose(@"%@: ConnectionState %@, Streams connection error: %@.", NSStringFromSelector(_cmd), [IMAPClient stateAsString: self.connectionState], error);
         }
         
     }

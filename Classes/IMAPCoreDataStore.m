@@ -110,7 +110,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 // For this example, only present error messages for up to 3 validation errors at a time.
                 
                 NSUInteger numErrors = [detailedErrors count];
-                errorString = [NSMutableString stringWithFormat:@"%u validation errors have occurred", numErrors];
+                errorString = [NSMutableString stringWithFormat:@"%lu validation errors have occurred", (unsigned long)numErrors];
                 
                 if (numErrors > 3) {
                     [errorString appendFormat:@".\nThe first 3 are:\n"];
@@ -124,9 +124,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                      [[detailedErrors objectAtIndex:i] localizedDescription]];
                 }        
             } else {
-                errorString = [NSString stringWithFormat: @"%@>%@", [*error localizedDescription], [*error localizedFailureReason]];
+                errorString = [NSMutableString stringWithFormat: @"%@>%@", [*error localizedDescription], [*error localizedFailureReason]];
             }
-            DDLogVerbose(@"%@:%@ unable to save managedObjectContext", 
+            DDLogVerbose(@"%@:%@ unable to save managedObjectContext",
                          NSStringFromClass([self class]), NSStringFromSelector(_cmd));
             DDLogVerbose(@"%@", errorString);
         } else {

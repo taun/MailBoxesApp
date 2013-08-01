@@ -28,8 +28,6 @@
 		C50DD7F013730284002A6CD6 /* MBPortalView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD7EF13730284002A6CD6 /* MBPortalView.m */; };
 		C50DD7F3137440FD002A6CD6 /* MBPortal+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD7F2137440FD002A6CD6 /* MBPortal+IMAP.m */; };
 		C50DD8171374F0BC002A6CD6 /* MBCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD8161374F0BB002A6CD6 /* MBCollectionView.m */; };
-		C5303F5813EB84B400BD18DF /* FScript.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5303F5713EB84B400BD18DF /* FScript.framework */; };
-		C5303F5A13EB853300BD18DF /* FScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5303F5913EB853300BD18DF /* FScript.framework */; };
 		C530E47714781EA0000C78F6 /* MBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C530E47614781EA0000C78F6 /* MBox.m */; };
 		C530EECE134FA62D004CBB20 /* MBUser+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C530EECD134FA62D004CBB20 /* MBUser+IMAP.m */; };
 		C5338A151491A727006A3565 /* MBMimeDisposition.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A141491A727006A3565 /* MBMimeDisposition.m */; };
@@ -79,8 +77,11 @@
 		C58743AA143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743A9143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m */; };
 		C58743AD143AA4A900FCBDA2 /* RFC2822Address.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743AC143AA4A900FCBDA2 /* RFC2822Address.m */; };
 		C58872FE1475B83200F2A9C6 /* Icons in Resources */ = {isa = PBXBuildFile; fileRef = C58872FD1475B83200F2A9C6 /* Icons */; };
+		C58DC38717AAF75B009CB9B9 /* ConnectTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C58DC38617AAF75B009CB9B9 /* ConnectTestAppDelegate.m */; };
+		C58DC38A17AAF770009CB9B9 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C58DC38917AAF770009CB9B9 /* GCDAsyncSocket.m */; };
 		C58F658F14902CD800720D69 /* MBMessage+IntersectSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C58F658E14902CD800720D69 /* MBMessage+IntersectSetFix.m */; };
 		C58F65901490498500720D69 /* MBMessage+IntersectSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C58F658E14902CD800720D69 /* MBMessage+IntersectSetFix.m */; };
+		C594059817A2F1550016F179 /* FScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C594059717A2F1550016F179 /* FScript.framework */; };
 		C597401D147184D80033E4CF /* MBSidebarTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = C597401C147184D80033E4CF /* MBSidebarTableCellView.m */; };
 		C597402014718FE70033E4CF /* MBRFC2822.m in Sources */ = {isa = PBXBuildFile; fileRef = C597401F14718FE70033E4CF /* MBRFC2822.m */; };
 		C597402614718FE80033E4CF /* MBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C597402514718FE80033E4CF /* MBGroup.m */; };
@@ -168,8 +169,6 @@
 		C5E5DD931443D031002A13B6 /* MBPortalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E5DD921443D031002A13B6 /* MBPortalViewController.m */; };
 		C5E65760142D38AD000D7D65 /* IMAPClientTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE2E1D1415B55E0087CD93 /* IMAPClientTest.m */; };
 		C5E6CD201407F3BF0042A444 /* MBAccount+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6CD1F1407F3BF0042A444 /* MBAccount+IMAP.m */; };
-		C5E74700168FD3160055FE5E /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E746FF168FD3160055FE5E /* GCDAsyncSocket.m */; };
-		C5E74701168FD38E0055FE5E /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E746FF168FD3160055FE5E /* GCDAsyncSocket.m */; };
 		C5E7470D168FD3A30055FE5E /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74703168FD3A30055FE5E /* DDAbstractDatabaseLogger.m */; };
 		C5E7470E168FD3A30055FE5E /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74703168FD3A30055FE5E /* DDAbstractDatabaseLogger.m */; };
 		C5E7470F168FD3A30055FE5E /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74705168FD3A30055FE5E /* DDASLLogger.m */; };
@@ -197,7 +196,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C5303F5813EB84B400BD18DF /* FScript.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,8 +219,6 @@
 		C50DD7F2137440FD002A6CD6 /* MBPortal+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBPortal+IMAP.m"; path = "Classes/MBPortal+IMAP.m"; sourceTree = "<group>"; };
 		C50DD8151374F0BB002A6CD6 /* MBCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCollectionView.h; sourceTree = "<group>"; };
 		C50DD8161374F0BB002A6CD6 /* MBCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCollectionView.m; sourceTree = "<group>"; };
-		C5303F5713EB84B400BD18DF /* FScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FScript.framework; path = ../../../FScript.framework; sourceTree = "<group>"; };
-		C5303F5913EB853300BD18DF /* FScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FScript.framework; path = ../../../FScript.framework; sourceTree = "<group>"; };
 		C530E47514781EA0000C78F6 /* MBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBox.h; path = Classes/MBox.h; sourceTree = "<group>"; };
 		C530E47614781EA0000C78F6 /* MBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBox.m; path = Classes/MBox.m; sourceTree = "<group>"; };
 		C530EECC134FA62D004CBB20 /* MBUser+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBUser+IMAP.h"; path = "Classes/MBUser+IMAP.h"; sourceTree = "<group>"; };
@@ -305,8 +301,13 @@
 		C58743AB143AA4A900FCBDA2 /* RFC2822Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC2822Address.h; sourceTree = "<group>"; };
 		C58743AC143AA4A900FCBDA2 /* RFC2822Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFC2822Address.m; sourceTree = "<group>"; };
 		C58872FD1475B83200F2A9C6 /* Icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Icons; path = Resources/Icons; sourceTree = "<group>"; };
+		C58DC38517AAF75B009CB9B9 /* ConnectTestAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectTestAppDelegate.h; path = ../../../CocoaAsyncSocket/GCD/Xcode/ConnectTest/Desktop/ConnectTest/ConnectTestAppDelegate.h; sourceTree = "<group>"; };
+		C58DC38617AAF75B009CB9B9 /* ConnectTestAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectTestAppDelegate.m; path = ../../../CocoaAsyncSocket/GCD/Xcode/ConnectTest/Desktop/ConnectTest/ConnectTestAppDelegate.m; sourceTree = "<group>"; };
+		C58DC38817AAF770009CB9B9 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = ../../../CocoaAsyncSocket/GCD/GCDAsyncSocket.h; sourceTree = "<group>"; };
+		C58DC38917AAF770009CB9B9 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = ../../../CocoaAsyncSocket/GCD/GCDAsyncSocket.m; sourceTree = "<group>"; };
 		C58F658D14902CD800720D69 /* MBMessage+IntersectSetFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBMessage+IntersectSetFix.h"; path = "Classes/MBMessage+IntersectSetFix.h"; sourceTree = "<group>"; };
 		C58F658E14902CD800720D69 /* MBMessage+IntersectSetFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBMessage+IntersectSetFix.m"; path = "Classes/MBMessage+IntersectSetFix.m"; sourceTree = "<group>"; };
+		C594059717A2F1550016F179 /* FScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FScript.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/FScript.framework"; sourceTree = "<group>"; };
 		C597401B147184D80033E4CF /* MBSidebarTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSidebarTableCellView.h; sourceTree = "<group>"; };
 		C597401C147184D80033E4CF /* MBSidebarTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSidebarTableCellView.m; sourceTree = "<group>"; };
 		C597401E14718FE70033E4CF /* MBRFC2822.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBRFC2822.h; path = Classes/MBRFC2822.h; sourceTree = "<group>"; };
@@ -418,8 +419,6 @@
 		C5E5DD911443D031002A13B6 /* MBPortalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPortalViewController.h; sourceTree = "<group>"; };
 		C5E5DD921443D031002A13B6 /* MBPortalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPortalViewController.m; sourceTree = "<group>"; };
 		C5E6CD1F1407F3BF0042A444 /* MBAccount+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBAccount+IMAP.m"; path = "Classes/MBAccount+IMAP.m"; sourceTree = "<group>"; };
-		C5E746FE168FD2CF0055FE5E /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = /Users/taun/Development/XCodeDev/temp/mailboxes/../../cocoaasyncsocket/GCD/GCDAsyncSocket.h; sourceTree = "<absolute>"; };
-		C5E746FF168FD3160055FE5E /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = /Users/taun/Development/XCodeDev/temp/mailboxes/../../cocoaasyncsocket/GCD/GCDAsyncSocket.m; sourceTree = "<absolute>"; };
 		C5E74702168FD3A30055FE5E /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = /Users/taun/Development/XCodeDev/cocoalumberjack/Lumberjack/DDAbstractDatabaseLogger.h; sourceTree = "<absolute>"; };
 		C5E74703168FD3A30055FE5E /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = /Users/taun/Development/XCodeDev/cocoalumberjack/Lumberjack/DDAbstractDatabaseLogger.m; sourceTree = "<absolute>"; };
 		C5E74704168FD3A30055FE5E /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = /Users/taun/Development/XCodeDev/cocoalumberjack/Lumberjack/DDASLLogger.h; sourceTree = "<absolute>"; };
@@ -461,9 +460,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C594059817A2F1550016F179 /* FScript.framework in Frameworks */,
 				C50386BD146381C200BF6EB3 /* Quartz.framework in Frameworks */,
 				C5A1017E145CAB2B005B941B /* Security.framework in Frameworks */,
-				C5303F5A13EB853300BD18DF /* FScript.framework in Frameworks */,
 				C5C7A56E128B93EC006B1E86 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,6 +528,17 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		C58DC38417AAF730009CB9B9 /* CocoaGCDSocket */ = {
+			isa = PBXGroup;
+			children = (
+				C58DC38817AAF770009CB9B9 /* GCDAsyncSocket.h */,
+				C58DC38917AAF770009CB9B9 /* GCDAsyncSocket.m */,
+				C58DC38517AAF75B009CB9B9 /* ConnectTestAppDelegate.h */,
+				C58DC38617AAF75B009CB9B9 /* ConnectTestAppDelegate.m */,
+			);
+			name = CocoaGCDSocket;
+			sourceTree = "<group>";
+		};
 		C59C7DA613FA050300D78D68 /* IMAP */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,16 +548,6 @@
 			);
 			name = IMAP;
 			sourceTree = "<group>";
-		};
-		C5A1017C145CA346005B941B /* CocoaAsync */ = {
-			isa = PBXGroup;
-			children = (
-				C5E746FE168FD2CF0055FE5E /* GCDAsyncSocket.h */,
-				C5E746FF168FD3160055FE5E /* GCDAsyncSocket.m */,
-			);
-			name = CocoaAsync;
-			path = /Users/taun/Development/XCodeDev/temp/mailboxes;
-			sourceTree = "<absolute>";
 		};
 		C5AE2E031410374D0087CD93 /* Other Frameworks */ = {
 			isa = PBXGroup;
@@ -654,6 +654,7 @@
 		C5C7A565128B93EC006B1E86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C594059717A2F1550016F179 /* FScript.framework */,
 				C50386BC146381C100BF6EB3 /* Quartz.framework */,
 				C5A1017D145CAB2B005B941B /* Security.framework */,
 				C536D547142D9848009EB3A1 /* CoreData.framework */,
@@ -661,8 +662,6 @@
 				C536D543142D9831009EB3A1 /* CoreServices.framework */,
 				C536D540142D97D5009EB3A1 /* CoreData.framework */,
 				C5AE2E1A14158DD40087CD93 /* SenTestingKit.framework */,
-				C5303F5913EB853300BD18DF /* FScript.framework */,
-				C5303F5713EB84B400BD18DF /* FScript.framework */,
 				C5C7A56D128B93EC006B1E86 /* Cocoa.framework */,
 				C50DD81113746960002A6CD6 /* Embedded Frameworks */,
 				C5AE2E031410374D0087CD93 /* Other Frameworks */,
@@ -745,7 +744,7 @@
 		C5D3E8D714587C54007A4CFE /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				C5A1017C145CA346005B941B /* CocoaAsync */,
+				C58DC38417AAF730009CB9B9 /* CocoaGCDSocket */,
 				C5D3E8D814587D64007A4CFE /* Lumberjack */,
 			);
 			name = ThirdParty;
@@ -773,90 +772,90 @@
 		C5DB7E5E13FDBB7D00C73188 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				C5DD70CC14A25B3900F07BC3 /* MBMime.h */,
-				C5DD70CD14A25B3900F07BC3 /* MBMime.m */,
-				C54267C7149AA800005A49D8 /* MBMimeMedia.h */,
-				C54267C8149AA800005A49D8 /* MBMimeMedia.m */,
-				C5338A3314925A47006A3565 /* MBMimeVideo.h */,
-				C5338A3414925A47006A3565 /* MBMimeVideo.m */,
-				C5338A3014925A46006A3565 /* MBMimeImage.h */,
-				C5338A3114925A46006A3565 /* MBMimeImage.m */,
-				C5338A2A14925A45006A3565 /* MBMultiEncrypted.h */,
-				C5338A2B14925A45006A3565 /* MBMultiEncrypted.m */,
-				C5338A2714925A45006A3565 /* MBMimeAudio.h */,
-				C5338A2814925A45006A3565 /* MBMimeAudio.m */,
-				C5338A2414925A44006A3565 /* MBMimeText.h */,
-				C5338A2514925A44006A3565 /* MBMimeText.m */,
-				C5338A1E14925A43006A3565 /* MBMimeApplication.h */,
-				C5338A1F14925A43006A3565 /* MBMimeApplication.m */,
-				C5338A1B14925A42006A3565 /* MBMultiDigest.h */,
-				C5338A1C14925A43006A3565 /* MBMultiDigest.m */,
-				C5338A131491A727006A3565 /* MBMimeDisposition.h */,
-				C5338A141491A727006A3565 /* MBMimeDisposition.m */,
-				C577637D14895B1D00C60438 /* MBMultiParallel.h */,
-				C577637E14895B1D00C60438 /* MBMultiParallel.m */,
-				C577637714895B1C00C60438 /* MBMultiMixed.h */,
-				C577637814895B1C00C60438 /* MBMultiMixed.m */,
-				C577636E14895B1A00C60438 /* MBMimeMulti.h */,
-				C577636F14895B1A00C60438 /* MBMimeMulti.m */,
-				C577636214895B1700C60438 /* MBMultiSigned.h */,
-				C577636314895B1700C60438 /* MBMultiSigned.m */,
-				C577635914895B1600C60438 /* MBMultiAlternative.h */,
-				C577635A14895B1600C60438 /* MBMultiAlternative.m */,
-				C577634A14895B1200C60438 /* MBMultiRelated.h */,
-				C577634B14895B1300C60438 /* MBMultiRelated.m */,
+				C51B52681316F36A002A1F52 /* Categories */,
 				C577D857142DA4B500E03AF1 /* MailBoxesDataModel.xcdatamodeld */,
-				C5667CEA14A185B9008E6F42 /* MBMessage.h */,
-				C5667CEB14A185B9008E6F42 /* MBMessage.m */,
-				C5667CE414A12E1E008E6F42 /* MBMimeData.h */,
-				C5667CE514A12E1E008E6F42 /* MBMimeData.m */,
-				C577638314895BAD00C60438 /* MBMimeParameter.h */,
-				C577638414895BAD00C60438 /* MBMimeParameter.m */,
-				C577638014895BAD00C60438 /* MBMultiMessage.h */,
-				C577638114895BAD00C60438 /* MBMultiMessage.m */,
-				C59740811471AC110033E4CF /* MBUser.h */,
-				C59740821471AC110033E4CF /* MBUser.m */,
-				C597407B1471997D0033E4CF /* MBFlag.h */,
-				C597407C1471997D0033E4CF /* MBFlag.m */,
-				C59740781471997D0033E4CF /* MBPortal.h */,
-				C59740791471997D0033E4CF /* MBPortal.m */,
-				C5974075147199350033E4CF /* MBLabel.h */,
-				C5974076147199350033E4CF /* MBLabel.m */,
-				C5974072147199240033E4CF /* MBViewPortal.h */,
-				C5974073147199240033E4CF /* MBViewPortal.m */,
+				C597403914718FEA0033E4CF /* MBAccount.h */,
+				C597403A14718FEA0033E4CF /* MBAccount.m */,
 				C597406F147199140033E4CF /* MBAccountTypes.h */,
 				C5974070147199140033E4CF /* MBAccountTypes.m */,
-				C597406C147199140033E4CF /* MBAttachment.h */,
-				C597406D147199140033E4CF /* MBAttachment.m */,
-				C59740661471972F0033E4CF /* MBTreeNode.h */,
-				C59740671471972F0033E4CF /* MBTreeNode.m */,
-				C597405A1471909D0033E4CF /* MBFavorites.h */,
-				C597405B1471909D0033E4CF /* MBFavorites.m */,
-				C530E47514781EA0000C78F6 /* MBox.h */,
-				C530E47614781EA0000C78F6 /* MBox.m */,
+				C597403C14718FEA0033E4CF /* MBAddress.h */,
+				C597403D14718FEA0033E4CF /* MBAddress.m */,
 				C5FE511514758C2B000181C7 /* MBAddressList.h */,
 				C5FE511614758C2B000181C7 /* MBAddressList.m */,
+				C597406C147199140033E4CF /* MBAttachment.h */,
+				C597406D147199140033E4CF /* MBAttachment.m */,
+				C56E15121405596D005CD1CD /* MBCriteria.h */,
+				C56E15131405596D005CD1CD /* MBCriteria.m */,
+				C597405A1471909D0033E4CF /* MBFavorites.h */,
+				C597405B1471909D0033E4CF /* MBFavorites.m */,
+				C597407B1471997D0033E4CF /* MBFlag.h */,
+				C597407C1471997D0033E4CF /* MBFlag.m */,
+				C597402414718FE80033E4CF /* MBGroup.h */,
+				C597402514718FE80033E4CF /* MBGroup.m */,
+				C5974075147199350033E4CF /* MBLabel.h */,
+				C5974076147199350033E4CF /* MBLabel.m */,
+				C5667CEA14A185B9008E6F42 /* MBMessage.h */,
+				C5667CEB14A185B9008E6F42 /* MBMessage.m */,
+				C5DD70CC14A25B3900F07BC3 /* MBMime.h */,
+				C5DD70CD14A25B3900F07BC3 /* MBMime.m */,
+				C5338A1E14925A43006A3565 /* MBMimeApplication.h */,
+				C5338A1F14925A43006A3565 /* MBMimeApplication.m */,
+				C5338A2714925A45006A3565 /* MBMimeAudio.h */,
+				C5338A2814925A45006A3565 /* MBMimeAudio.m */,
+				C5667CE414A12E1E008E6F42 /* MBMimeData.h */,
+				C5667CE514A12E1E008E6F42 /* MBMimeData.m */,
+				C5338A131491A727006A3565 /* MBMimeDisposition.h */,
+				C5338A141491A727006A3565 /* MBMimeDisposition.m */,
+				C5338A3014925A46006A3565 /* MBMimeImage.h */,
+				C5338A3114925A46006A3565 /* MBMimeImage.m */,
+				C54267C7149AA800005A49D8 /* MBMimeMedia.h */,
+				C54267C8149AA800005A49D8 /* MBMimeMedia.m */,
+				C577636E14895B1A00C60438 /* MBMimeMulti.h */,
+				C577636F14895B1A00C60438 /* MBMimeMulti.m */,
+				C577638314895BAD00C60438 /* MBMimeParameter.h */,
+				C577638414895BAD00C60438 /* MBMimeParameter.m */,
+				C5338A2414925A44006A3565 /* MBMimeText.h */,
+				C5338A2514925A44006A3565 /* MBMimeText.m */,
+				C5338A3314925A47006A3565 /* MBMimeVideo.h */,
+				C5338A3414925A47006A3565 /* MBMimeVideo.m */,
+				C577635914895B1600C60438 /* MBMultiAlternative.h */,
+				C577635A14895B1600C60438 /* MBMultiAlternative.m */,
+				C5338A1B14925A42006A3565 /* MBMultiDigest.h */,
+				C5338A1C14925A43006A3565 /* MBMultiDigest.m */,
+				C5338A2A14925A45006A3565 /* MBMultiEncrypted.h */,
+				C5338A2B14925A45006A3565 /* MBMultiEncrypted.m */,
+				C577638014895BAD00C60438 /* MBMultiMessage.h */,
+				C577638114895BAD00C60438 /* MBMultiMessage.m */,
+				C577637714895B1C00C60438 /* MBMultiMixed.h */,
+				C577637814895B1C00C60438 /* MBMultiMixed.m */,
+				C577637D14895B1D00C60438 /* MBMultiParallel.h */,
+				C577637E14895B1D00C60438 /* MBMultiParallel.m */,
+				C577634A14895B1200C60438 /* MBMultiRelated.h */,
+				C577634B14895B1300C60438 /* MBMultiRelated.m */,
+				C577636214895B1700C60438 /* MBMultiSigned.h */,
+				C577636314895B1700C60438 /* MBMultiSigned.m */,
+				C530E47514781EA0000C78F6 /* MBox.h */,
+				C530E47614781EA0000C78F6 /* MBox.m */,
+				C59740781471997D0033E4CF /* MBPortal.h */,
+				C59740791471997D0033E4CF /* MBPortal.m */,
+				C597401E14718FE70033E4CF /* MBRFC2822.h */,
+				C597401F14718FE70033E4CF /* MBRFC2822.m */,
 				C59740571471900B0033E4CF /* MBSidebar.h */,
 				C59740581471900B0033E4CF /* MBSidebar.m */,
+				C5974042147190090033E4CF /* MBSmartFolder.h */,
+				C5974043147190090033E4CF /* MBSmartFolder.m */,
+				C59740661471972F0033E4CF /* MBTreeNode.h */,
+				C59740671471972F0033E4CF /* MBTreeNode.m */,
+				C59740811471AC110033E4CF /* MBUser.h */,
+				C59740821471AC110033E4CF /* MBUser.m */,
+				C5974072147199240033E4CF /* MBViewPortal.h */,
+				C5974073147199240033E4CF /* MBViewPortal.m */,
 				C59740541471900B0033E4CF /* MBViewPortalMBox.h */,
 				C59740551471900B0033E4CF /* MBViewPortalMBox.m */,
 				C59740481471900A0033E4CF /* MBViewPortalSelection.h */,
 				C59740491471900A0033E4CF /* MBViewPortalSelection.m */,
 				C59740451471900A0033E4CF /* MBViewPortalSmartFolder.h */,
 				C59740461471900A0033E4CF /* MBViewPortalSmartFolder.m */,
-				C5974042147190090033E4CF /* MBSmartFolder.h */,
-				C5974043147190090033E4CF /* MBSmartFolder.m */,
-				C597403C14718FEA0033E4CF /* MBAddress.h */,
-				C597403D14718FEA0033E4CF /* MBAddress.m */,
-				C597403914718FEA0033E4CF /* MBAccount.h */,
-				C597403A14718FEA0033E4CF /* MBAccount.m */,
-				C597402414718FE80033E4CF /* MBGroup.h */,
-				C597402514718FE80033E4CF /* MBGroup.m */,
-				C597401E14718FE70033E4CF /* MBRFC2822.h */,
-				C597401F14718FE70033E4CF /* MBRFC2822.m */,
-				C56E15121405596D005CD1CD /* MBCriteria.h */,
-				C56E15131405596D005CD1CD /* MBCriteria.m */,
-				C51B52681316F36A002A1F52 /* Categories */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -1000,7 +999,7 @@
 		C5C7A55C128B93EC006B1E86 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "MOEDAE LLC";
 			};
 			buildConfigurationList = C5C7A55F128B93EC006B1E86 /* Build configuration list for PBXProject "MailBoxes" */;
@@ -1137,7 +1136,6 @@
 				C5E65760142D38AD000D7D65 /* IMAPClientTest.m in Sources */,
 				C502DE8E14185DDE000AA9E4 /* IMAPResponseParserTests.m in Sources */,
 				C5DBB878143CDBD2006C1908 /* RFC2822RawMessageHeaderTest.m in Sources */,
-				C5E74701168FD38E0055FE5E /* GCDAsyncSocket.m in Sources */,
 				C5E7470E168FD3A30055FE5E /* DDAbstractDatabaseLogger.m in Sources */,
 				C5E74710168FD3A30055FE5E /* DDASLLogger.m in Sources */,
 				C5E74712168FD3A30055FE5E /* DDFileLogger.m in Sources */,
@@ -1190,6 +1188,7 @@
 				C5974044147190090033E4CF /* MBSmartFolder.m in Sources */,
 				C59740471471900A0033E4CF /* MBViewPortalSmartFolder.m in Sources */,
 				C597404A1471900A0033E4CF /* MBViewPortalSelection.m in Sources */,
+				C58DC38A17AAF770009CB9B9 /* GCDAsyncSocket.m in Sources */,
 				C59740561471900B0033E4CF /* MBViewPortalMBox.m in Sources */,
 				C59740591471900B0033E4CF /* MBSidebar.m in Sources */,
 				C597405C1471909D0033E4CF /* MBFavorites.m in Sources */,
@@ -1229,12 +1228,12 @@
 				C5338A2C14925A45006A3565 /* MBMultiEncrypted.m in Sources */,
 				C5338A3214925A46006A3565 /* MBMimeImage.m in Sources */,
 				C5338A3514925A47006A3565 /* MBMimeVideo.m in Sources */,
+				C58DC38717AAF75B009CB9B9 /* ConnectTestAppDelegate.m in Sources */,
 				C54267C9149AA800005A49D8 /* MBMimeMedia.m in Sources */,
 				C5667CE614A12E1E008E6F42 /* MBMimeData.m in Sources */,
 				C5667CE914A12F8F008E6F42 /* MBMimeData+IMAP.m in Sources */,
 				C5667CEC14A185B9008E6F42 /* MBMessage.m in Sources */,
 				C5DD70CE14A25B3900F07BC3 /* MBMime.m in Sources */,
-				C5E74700168FD3160055FE5E /* GCDAsyncSocket.m in Sources */,
 				C5E7470D168FD3A30055FE5E /* DDAbstractDatabaseLogger.m in Sources */,
 				C5E7470F168FD3A30055FE5E /* DDASLLogger.m in Sources */,
 				C5E74711168FD3A30055FE5E /* DDFileLogger.m in Sources */,
@@ -1344,6 +1343,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1372,6 +1372,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
@@ -1392,12 +1393,16 @@
 		C5C7A5A3128B93ED006B1E86 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = /Developer/Library/Frameworks;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_ENABLE_SSE3_EXTENSIONS = NO;
@@ -1409,12 +1414,15 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_SHADOW = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				GENERATE_PROFILING_CODE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				MOMC_NO_WARNINGS = NO;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
@@ -1425,11 +1433,15 @@
 		C5C7A5A4128B93ED006B1E86 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = NO;
-				FRAMEWORK_SEARCH_PATHS = /Developer/Library/Frameworks;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_ENABLE_SSE3_EXTENSIONS = NO;
@@ -1437,6 +1449,9 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_SHADOW = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				GENERATE_PROFILING_CODE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -1453,6 +1468,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1473,6 +1489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1494,11 +1511,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../..\"",
+					"$(SRCROOT)",
+					"\\\"$(SRCROOT)/../../..\\\"",
+					"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1518,12 +1537,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = stabs;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../..\"",
+					"$(SRCROOT)",
+					"\\\"$(SRCROOT)/../../..\\\"",
+					"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;

@@ -19,36 +19,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 //@interface NSManagedObject (IMAP)   <TreeNode> 
 //@end
 
-@interface MBAccount ()
-
-
-/*!
- check if node exists and if so return node
- need to search by account, fullPath 
- 
- @param aPath the MBox fullPath. "/root/intermediates/MBoxName"
- 
- @result returns the node if found or nil.
- */
--(MBox *) findNodeForFullPath: (NSString *) aPath;
-    
-/*!
- check if root or node exists?
-   if root or node exists, create node
-   else call same with subPath
- recurse until root or node exists
-
- Create alternative version of addNodePath: 
- which uses relationship sets rather than fetches
- to check for existance of folder????
-
- @param aPath the MBox fullPath. "/root/intermediates/MBoxName"
- 
- @result returns the node if found or nil.
- */
-- (MBox *) addNodePath: (NSString *) aPath separator: (NSString *) pathSeparator;
-
-@end
 
 @implementation MBAccount (IMAP)
 
@@ -79,93 +49,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return [self findNodeForFullPath: aPath];
 }
 
-- (MBox *) findNodeForFullPath: (NSString *) aPath {
-    MBox * node = nil;
-    
-    NSManagedObjectContext *context = [self managedObjectContext];
-    
-    NSManagedObjectModel *model = [[context persistentStoreCoordinator] managedObjectModel];
-    
-    __block NSError *error = nil;
-    
-    NSDictionary *substitutionDictionary = 
-        [NSDictionary dictionaryWithObjectsAndKeys: aPath, @"PATH", self, @"ACCOUNTOBJECT", nil];
-    
-    NSFetchRequest *fetchRequest = 
-        [model fetchRequestFromTemplateWithName:@"MBoxForPath"
-                      substitutionVariables:substitutionDictionary];
-
-    __block NSArray *fetchedObjects;
-    
-    [self.managedObjectContext performBlockAndWait:^{
-        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    }];
-        
-    // ToDo deal with error
-    // There should always be only one. Don't know what error to post if > 1
-    if ( ([fetchedObjects count] == 1) ) {
-        node = [fetchedObjects objectAtIndex: 0];
-    }
-
-    return node;
-}
-
-
-- (MBox *) addNodePath: (NSString *) aPath separator:(NSString *)pathSeparator {
-    
-    // check if root or node exists?
-    //   if root or node exists, create node
-    //   else call same with subPath
-    // recurse until root or node exists
-    NSManagedObject *parent = nil;
-    MBox *node = nil;
-
-    if ((node = [self findNodeForFullPath: aPath]) == nil){
-        // if node doesn't exist, can add the node        
-
-        NSArray *subFolders = [aPath componentsSeparatedByString: pathSeparator];
-        
-        NSString *newName = [subFolders lastObject];
-        
-        if (([subFolders count] > 1)) {
-            // check for pre-existence of parentNodes
-            NSRange indexPathRange;
-            indexPathRange.location = 0;
-            indexPathRange.length = [subFolders count] - 1;
-            
-            NSArray *indexPathArray = [subFolders subarrayWithRange: indexPathRange];
-            NSString *indexPath = [indexPathArray componentsJoinedByString: pathSeparator];
-
-            parent = [self findNodeForFullPath: indexPath];
-            if (parent == nil) {
-                parent = [self addNodePath: indexPath separator: pathSeparator];
-            }
-        }
-        
-        // create a new node.
-        node = [NSEntityDescription
-                insertNewObjectForEntityForName:@"MBox"
-                inManagedObjectContext: [self managedObjectContext]];
-        
-        node.fullPath = aPath;
-        node.pathSeparator = pathSeparator;
-        node.name = newName;
-        node.accountReference = self;
-        node.imageName = MBoxImageName;
-        //node.parentNodes = [NSOrderedSet orderedSetWithObjects: (MBox  *)parent, nil];
-        node.isLeaf = [NSNumber numberWithBool: YES];
-        
-        
-        // add node to parent set.
-        if (parent == nil) parent = self;
-        // parent might be MBox or MBAccount
-        MBTreeNode* parentNode = (MBTreeNode*)parent;
-        [parentNode addChildNodesObject: node];
-        [parentNode setIsLeaf: [NSNumber numberWithBool: NO]];
-        
-    }
-    return node;
-}
 
 /*
 - (void) didTurnIntoFault {
@@ -217,4 +100,116 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     NSUInteger children = [[self childNodes] count];
     return children;
 }
+
+#pragma mark - Private Undeclared
+/*!
+ check if node exists and if so return node
+ need to search by account, fullPath
+ 
+ @param aPath the MBox fullPath. "/root/intermediates/MBoxName"
+ 
+ @result returns the node if found or nil.
+ */
+- (MBox *) findNodeForFullPath: (NSString *) aPath {
+    MBox * node = nil;
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    NSManagedObjectModel *model = [[context persistentStoreCoordinator] managedObjectModel];
+    
+    __block NSError *error = nil;
+    
+    NSDictionary *substitutionDictionary =
+    [NSDictionary dictionaryWithObjectsAndKeys: aPath, @"PATH", self, @"ACCOUNTOBJECT", nil];
+    
+    NSFetchRequest *fetchRequest =
+    [model fetchRequestFromTemplateWithName:@"MBoxForPath"
+                      substitutionVariables:substitutionDictionary];
+    
+    __block NSArray *fetchedObjects;
+    
+    [self.managedObjectContext performBlockAndWait:^{
+        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    }];
+    
+    // ToDo deal with error
+    // There should always be only one. Don't know what error to post if > 1
+    if ( ([fetchedObjects count] == 1) ) {
+        node = [fetchedObjects objectAtIndex: 0];
+    }
+    
+    return node;
+}
+
+
+/*!
+ check if root or node exists?
+ if root or node exists, create node
+ else call same with subPath
+ recurse until root or node exists
+ 
+ Create alternative version of addNodePath:
+ which uses relationship sets rather than fetches
+ to check for existance of folder????
+ 
+ @param aPath the MBox fullPath. "/root/intermediates/MBoxName"
+ 
+ @result returns the node if found or nil.
+ */
+- (MBox *) addNodePath: (NSString *) aPath separator:(NSString *)pathSeparator {
+    
+    // check if root or node exists?
+    //   if root or node exists, create node
+    //   else call same with subPath
+    // recurse until root or node exists
+    NSManagedObject *parent = nil;
+    MBox *node = nil;
+    
+    if ((node = [self findNodeForFullPath: aPath]) == nil){
+        // if node doesn't exist, can add the node
+        
+        NSArray *subFolders = [aPath componentsSeparatedByString: pathSeparator];
+        
+        NSString *newName = [subFolders lastObject];
+        
+        if (([subFolders count] > 1)) {
+            // check for pre-existence of parentNodes
+            NSRange indexPathRange;
+            indexPathRange.location = 0;
+            indexPathRange.length = [subFolders count] - 1;
+            
+            NSArray *indexPathArray = [subFolders subarrayWithRange: indexPathRange];
+            NSString *indexPath = [indexPathArray componentsJoinedByString: pathSeparator];
+            
+            parent = [self findNodeForFullPath: indexPath];
+            if (parent == nil) {
+                parent = [self addNodePath: indexPath separator: pathSeparator];
+            }
+        }
+        
+        // create a new node.
+        node = [NSEntityDescription
+                insertNewObjectForEntityForName:@"MBox"
+                inManagedObjectContext: [self managedObjectContext]];
+        
+        node.fullPath = aPath;
+        node.pathSeparator = pathSeparator;
+        node.name = newName;
+        node.accountReference = self;
+        node.imageName = MBoxImageName;
+        //node.parentNodes = [NSOrderedSet orderedSetWithObjects: (MBox  *)parent, nil];
+        node.isLeaf = [NSNumber numberWithBool: YES];
+        
+        
+        // add node to parent set.
+        if (parent == nil) parent = self;
+        // parent might be MBox or MBAccount
+        MBTreeNode* parentNode = (MBTreeNode*)parent;
+        [parentNode addChildNodesObject: node];
+        [parentNode setIsLeaf: [NSNumber numberWithBool: NO]];
+        
+    }
+    return node;
+}
+
 @end

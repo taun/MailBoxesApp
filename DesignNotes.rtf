@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf230
+{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf390
 {\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fnil\fcharset0 LucidaGrande;\f2\fnil\fcharset0 Menlo-Regular;
 \f3\fnil\fcharset0 Menlo-Bold;\f4\fnil\fcharset0 Menlo-Italic;\f5\fswiss\fcharset0 Helvetica;
 }
@@ -36,7 +36,7 @@
 	CGContextSetShouldSmoothFonts (ctx, true);\
 	[super drawInContext:ctx];\
 \}\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 
 \f2\fs22 \cf0 \
 ==============\
@@ -96,7 +96,7 @@ Test connection for each imapclient operation.\
 \
 
 \f2\fs22 \cf0 \cb1 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 \cf0 ============\
 \
 Fetch handling\
@@ -162,7 +162,7 @@ Need to change model to accommodate mime parts\
      MIME-Version: 1.0 (produced by MetaSend Vx.x)\
      MIME-Version: (produced by MetaSend Vx.x) 1.0\
      MIME-Version: 1.(produced by MetaSend Vx.x)0\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 
 \f2\fs22 \cf0 \
 ==========\
@@ -345,7 +345,7 @@ Does it need to be recreated/reset each iteration?\
 \f0\fs26 \cf0 The only reliable way to identify recent messages is to\
            look at message flags to see which have the \\Recent flag\
            set, or to do a SEARCH RECENT.\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 
 \f2\fs22 \cf0 \
 \
@@ -403,6 +403,16 @@ Initial sync:\
 \cf0 \
 ***When offline, folders are read-only! Avoid sync issues. Can read, delete and compose messages, just not re-arrange.\
  Need a core-data persistent queue which has a list of folder/messages to be deleted. Perhaps another message flag?\
+\
+2013-07-31\
+ Command to test ssl\
+ ganymede:Notes taun$ openssl s_client -crlf -CAfile StarfieldClass2CertificationAuthority.pem -showcerts -verify 5 -connect mail.charcoalia.net:993\
+\
+ Trying to fix NSStream communication, ssl is not yet working. Gives a certificate error. Needs the commercial root certificate locally.\
+\
+ ?? Why doesn't App recognize the "Starfield Class 2 Certification Authority" Root CA as trusted? Even openssl needs a manual override but Safari does not.\
+\
+\
 \
 \
 }

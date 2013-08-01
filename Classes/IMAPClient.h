@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IMAPResponseDelegate.h"
 
+@class GCDAsyncSocket;
+
 @class IMAPCommand;
 @class MBox;
 @class MBMessage;

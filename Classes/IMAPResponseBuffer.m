@@ -43,8 +43,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (NSString *) description {
     NSString *formattedDescription;
-    formattedDescription = [NSString stringWithFormat: @"%@: dataBuffers: %i, Position: %lu", 
-                            [self className], [dataBuffers count], currentCharLocation];
+    formattedDescription = [NSString stringWithFormat: @"%@: dataBuffers: %lu, Position: %lu", 
+                            [self className], (unsigned long)[dataBuffers count], currentCharLocation];
     return formattedDescription;
 }
 

@@ -375,7 +375,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         NSUInteger index = 1;
         for (MBMime* node in mime.childNodes) {
             //
-            node.bodyIndex = [NSString stringWithFormat: @"%@%u",prefix,index];
+            node.bodyIndex = [NSString stringWithFormat: @"%@%lu",prefix,(unsigned long)index];
             DDLogVerbose(@"%@\n", node);
             NSLog(@"%@\n", node);
             if ([node.childNodes count]>0) {

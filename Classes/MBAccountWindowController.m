@@ -215,8 +215,9 @@ Need to go through a callback dance.
  
  */
 
-- (void)updateStatus: (NSString *) status level: (uint) anError {    
-    [self.statusField setStringValue: status];
+- (void)updateStatus: (NSString *) status level: (uint) anError {
+    NSString* currentFieldString = [self.statusField stringValue];
+    [self.statusField setStringValue: [currentFieldString stringByAppendingFormat: @"\n>%@", status]];
 	DDLogVerbose(@"%@", status);
 
     if(anError) [self.statusLight stopAnimation: self];
