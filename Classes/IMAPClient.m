@@ -284,6 +284,387 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return [self initWithParentContext: nil AccountID: nil];
 }
 
+#pragma mark - IMAP Sync methods
+
+// TODO: create regex for ip6
+-(BOOL) openConnection: (NSError**) anError {
+    NSError* regexError = nil;
+    SEL hostSelector;
+    self.connectionState = IMAPNewConnection;
+    
+    NSString *server = self.clientStore.account.server;
+    
+    if (![server isEqualToString:@""]) {
+        
+        // TODO: create regex for ip6
+        // selector hostWithName: vs hostWithAddress:
+        // 127.0.0.1 regex is \d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}
+        NSRegularExpression* ip4AddressPattern;
+        ip4AddressPattern = [NSRegularExpression
+                             regularExpressionWithPattern: @"\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}"
+                             options: NSRegularExpressionCaseInsensitive
+                             error: &regexError];
+        
+        NSUInteger numberOfMatches = [ip4AddressPattern numberOfMatchesInString: server
+                                                                        options:0
+                                                                          range:NSMakeRange(0, [server length])];
+        NSHost *host;
+        if (numberOfMatches==1) {
+            host = [NSHost hostWithAddress:server];
+        }else{
+            host = [NSHost hostWithName:server];
+        }
+        
+        NSString* address = [host address];
+        if (address) {
+            //DDLogVerbose(@"%@: %@ resolved to address %@", NSStringFromSelector(_cmd), server, address);
+            
+//            dispatch_queue_t selfQueue = dispatch_get_current_queue();
+//            _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue: selfQueue];
+            
+
+            NSInputStream *tempIStream;
+            NSOutputStream *tempOStream;
+            
+            [NSStream getStreamsToHost:host
+                                  port: [self.clientStore.account.port intValue]
+                           inputStream:&tempIStream
+                          outputStream:&tempOStream];
+            
+            _iStream = tempIStream;
+            _oStream = tempOStream;
+            
+            if ([self.clientStore.account.useTLS boolValue]) {
+                [_iStream setProperty: NSStreamSocketSecurityLevelNone forKey: NSStreamSocketSecurityLevelKey];
+                [_oStream setProperty: NSStreamSocketSecurityLevelNone forKey: NSStreamSocketSecurityLevelKey];
+
+                NSDictionary *settings = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                          [NSNumber numberWithBool:YES], kCFStreamSSLAllowsExpiredCertificates,
+                                          [NSNumber numberWithBool:YES], kCFStreamSSLAllowsAnyRoot,
+                                          [NSNumber numberWithBool:NO], kCFStreamSSLValidatesCertificateChain,
+                                          kCFNull,kCFStreamSSLPeerName,
+                                          nil];
+                
+                CFReadStreamSetProperty((CFReadStreamRef)_iStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
+                CFWriteStreamSetProperty((CFWriteStreamRef)_oStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
+            }
+            
+            [_iStream setDelegate:self];
+            [_oStream setDelegate:self];
+            
+            [_iStream scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            [_oStream scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            
+            if ([_oStream streamStatus] == NSStreamStatusNotOpen) [_oStream open];
+            if ([_iStream streamStatus] == NSStreamStatusNotOpen) [_iStream open];
+            
+            //[self send:@"helo"];
+            //wait for initial response
+            NSDate* started = [NSDate date];
+            NSTimeInterval netConnectTimeout = -30.0;
+            
+            while ([self.parser.dataBuffers count]==0) {
+                // TODO: need to set a connection timeout here
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
+
+                // If the receiver is earlier than the current date and time, the return value is negative.
+                if ([started timeIntervalSinceNow] < netConnectTimeout) {
+                    // timed out. need to pass and error?
+                    self.connectionState = IMAPDisconnected;
+                    DDLogVerbose(@"[%@ %@]; Response timed out (%f sec) for: %@.",
+                                 NSStringFromClass([self class]),
+                                 NSStringFromSelector(_cmd),
+                                 netConnectTimeout,
+                                 server);
+
+                    return NO;
+                }
+            }
+            [self commandCapability];
+            [self commandLogin];
+            // Need to wait for login response to complete or timeout.
+            return YES;
+        }
+        else {
+            DDLogVerbose(@"[%@ %@]; No address resolution for: %@.",
+                         NSStringFromClass([self class]),
+                         NSStringFromSelector(_cmd),
+                         server);
+            
+            self.connectionState = IMAPDisconnected;
+            return NO;
+        }
+    }
+    return NO;
+}
+
+-(void) close: (NSStream*) aStream{
+    [aStream close];
+    [aStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [aStream setDelegate:nil];
+    aStream = nil;
+}
+
+-(void) closeStreams {
+    [self close:_iStream];
+    [self close:_oStream];
+    self.connectionState = IMAPDisconnected;
+    DDLogVerbose(@"[%@ %@];", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
+//TODO: error handling if we can't save the context.
+// how to recover? how to inform?
+/*!
+ Sync the current selected mailbox with just the vital information.
+ Information useful for the model and for showing the GUI message listing
+ Items
+ UID
+ Sequence
+ From:
+ To:
+ Subject:
+ Internal Date:
+ RFC2822 Size
+ 
+ Start from latest and work back in groups
+ sample command> uid fetch 100:110 (FLAGS BODYSTRUCTURE INTERNALDATE RFC822.SIZE ENVELOPE
+ 
+ set mboxSequenceUIDMap for mailboxes during lightweight sync
+ 
+ 
+ 50 minutes for 12500 headers
+ 12500/50 = 250 headers/minute, 4 headers/sec
+ 
+ */
+-(void) lightWeightSync {
+    BOOL saveSuccess;
+    NSError *saveError = nil;
+    
+    //saveSuccess = [self.clientStore selectedMailBoxDeleteAllMessages: &saveError];
+    saveSuccess = YES;
+    
+    
+    
+    if (saveSuccess) {
+        
+        
+        UInt64 uidNext;
+        UInt64 maxFillUid;
+        
+        NSNumber* lowestUID = [self.clientStore lowestUID];
+        DDLogVerbose(@"lowestUID %@", lowestUID);
+        
+        if (lowestUID == nil || [lowestUID unsignedLongLongValue] == 0) {
+            // lowestUID was not found meaning cache is empty?
+            // once there is a pre-fetch on load, there should never be 0
+            maxFillUid = [self.clientStore.selectedMBox.serverUIDNext unsignedLongLongValue];
+        } else {
+            maxFillUid = [lowestUID unsignedLongLongValue];
+        }
+        DDLogVerbose(@"lowestUID %hu", maxFillUid);
+        if (maxFillUid > 1) {
+            UInt64 endRange = maxFillUid;
+            //UInt64 endRange = totalRange + 1;
+            //UInt64 endRange = 200; // override for testing
+            UInt64 startRange = 0;
+            BOOL isFinished = NO;
+            while (!self.isFinished && !self.isCancelled) {
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
+                @autoreleasepool {
+                    if (endRange > self.syncQuantaLW) {
+                        startRange = endRange - self.syncQuantaLW;
+                    } else {
+                        startRange = 1;
+                        self.isFinished = YES;
+                    }
+                    [self commandFetchHeadersStart: startRange end: endRange];
+                    // Lock the persistent store
+                    saveSuccess = [self.clientStore save: &saveError];
+                    if (saveSuccess) {
+                        endRange -= self.syncQuantaLW;
+                    } else {
+                        // don't bother continuing if we can't save
+                        self.isFinished = YES;
+                    }
+                }
+            }
+            
+        }
+    }
+}
+//TODO needs major work, just for testing
+-(void) syncQuanta {
+    BOOL saveSuccess;
+    NSError *saveError = nil;
+    
+    //saveSuccess = [self.clientStore selectedMailBoxDeleteAllMessages: &saveError];
+    saveSuccess = YES;
+    
+    
+    
+    if (saveSuccess) {
+        
+        
+        UInt64 uidNext;
+        
+        UInt64 maxFillUid = [self.clientStore.selectedMBox.serverUIDNext unsignedLongLongValue];
+        UInt64 startRange = maxFillUid - self.syncQuantaLW;
+        if (startRange < 1) startRange = 1;
+        
+        if (maxFillUid >= 1) {
+            BOOL isFinished = NO;
+            while (!self.isFinished && !self.isCancelled) {
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
+                @autoreleasepool {
+                    [self commandFetchHeadersStart: startRange end: maxFillUid];
+                    // Lock the persistent store
+                    saveSuccess = [self.clientStore save: &saveError];
+                    self.isFinished = YES;
+                }
+            }
+            
+        }
+    }
+}
+
+
+#pragma mark - High level App Methods
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+
+-(void) refreshAll {
+    self.isCancelled = NO;
+    self.isFinished = NO;
+    self.isExecuting = YES;
+    self.isCommandComplete = YES;
+    
+    NSError* error = nil;
+    BOOL connected;
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    @try {
+        @autoreleasepool {
+            connected = [self openConnection: &error];
+            if (connected && self.connectionState == IMAPAuthenticated) {
+                // do some work process an event?
+                
+                [self commandList];
+                
+                [self commandSelect: @"INBOX"];
+                [self syncQuanta];
+                
+                while (!self.isFinished && !self.isCancelled) {
+                    // wait for and parse responses until cancelled
+                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
+                    
+                    if([self.parser.dataBuffers count] > 0 ){
+                        // parser dataBuffers fill asynchronously
+                        IMAPResponse* response = nil;
+                        IMAPParseResult result = [self.parser parseBuffer: &response];
+                        
+                        if (result == IMAPParseComplete) {
+                            [response evaluate];
+                        }
+                    }
+                    if ([self.mainCommandQueue count] > 0) {
+                        NSArray* command = [self.mainCommandQueue objectAtIndex: 0];
+                        [self.mainCommandQueue removeObjectAtIndex: 0];
+                        [self performSelector: NSSelectorFromString([command objectAtIndex:0]) withObject: [command objectAtIndex: 1]];
+                    }
+                }
+            }
+            else {
+                // parse connection error
+                DDLogVerbose(@"%@: ConnectionState %@, Streams connection error: %@.", NSStringFromSelector(_cmd), [IMAPClient stateAsString: self.connectionState], error);
+                
+                while (!self.isCancelled) {
+                    // do nothing
+                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
+                }
+            }
+            
+        }
+    }
+    @catch (NSException *exception) {
+        self.isExecuting = NO;
+        
+        NSString *exceptionMessage = [NSString stringWithFormat:@"%@\nReason: %@\nUser Info: %@", [exception name], [exception reason], [exception userInfo]];
+        // Always log to console for history
+        DDLogVerbose(@"Exception raised:\n%@", exceptionMessage);
+        DDLogVerbose(@"Backtrace: %@", [exception callStackSymbols]);
+    }
+    @finally {
+        self.isExecuting = NO;
+        [self closeStreams];
+        self.isFinished = YES;
+    }
+}
+
+#pragma clang diagnostic pop
+
+/*!
+ Need to fetch the message based on the message objectID.
+ Get the message mail box.
+ IMAP SELECT the mail box
+ IMAP FETCH the full message
+ When IMAP response is finished, return.
+ */
+-(void) loadFullMessageID: (NSManagedObjectID*) objectID {
+    self.isCancelled = NO;
+    self.isFinished = NO;
+    self.isCommandComplete = YES;
+    
+    NSError* error = nil;
+    BOOL connected;
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    @try {
+        
+        connected = [self openConnection: &error];
+        if (connected && self.connectionState == IMAPAuthenticated) {
+            // do some work process an event?
+            MBMessage* message = [self.clientStore messageForObjectID: objectID];
+            MBox* mbox = message.mbox;
+            
+            UInt64 muid = [message.uid longLongValue];
+            
+            [self commandSelect: mbox.fullPath];
+            // fetch the selected message plus seek +- by one
+            for (MBMime* part in message.allParts) {
+                // doesn't handle partially loaded data
+                // is network disconnect while loading
+                // need to make sure data is always fully loaded before saving
+                if (part.isLeaf && part.data == nil) {
+                    NSString* bodyIndex = part.bodyIndex;
+                    if ([bodyIndex length] > 0) {
+                        [self commandFetchContentForUID: muid mimeParts: bodyIndex];
+                    }
+                }
+            }
+            [self.clientStore save: &error];
+        }
+        else {
+            // parse connection error
+            DDLogVerbose(@"%@: ConnectionState %@, Streams connection error: %@.", NSStringFromSelector(_cmd), [IMAPClient stateAsString: self.connectionState], error);
+        }
+        
+    }
+    @catch (NSException *exception) {
+        NSString *exceptionMessage = [NSString stringWithFormat:@"%@\nReason: %@\nUser Info: %@", [exception name], [exception reason], [exception userInfo]];
+        // Always log to console for history
+        DDLogVerbose(@"Exception raised:\n%@", exceptionMessage);
+        DDLogVerbose(@"Backtrace: %@", [exception callStackSymbols]);
+    }
+    @finally {
+        [self closeStreams];
+        self.isFinished = YES;
+    }
+}
+
+-(void) testMessage:(NSString *)aMessage {
+    DDLogVerbose(@"Testing Account name: %@", self.clientStore.account.name);
+    DDLogVerbose(@"Just testing, passed: %@", aMessage);
+}
 
 
 #pragma mark - Stream Event Handling
@@ -321,6 +702,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self getResponse];
 }
+//TODO: Check for certificate errors here?
 -(void) oStreamHasSpaceAvailable: (NSStream *)theStream {
     self.isSpaceAvailable = YES;
     DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -353,7 +735,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  convert command string to proper format and transmit to the server.
  */
 -(void) sendCommand: (NSString*) aString {
-    NSData * dataToSend = [aString dataUsingEncoding: NSASCIIStringEncoding allowLossyConversion: YES];
+    NSData * dataToSend = [aString dataUsingEncoding: NSUTF8StringEncoding allowLossyConversion: YES];
     if (_oStream) {
         int remainingToWrite = [dataToSend length];
         void * marker = (void *)[dataToSend bytes];
@@ -445,6 +827,110 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(void) commandContinue:(IMAPResponse*) response {
     DDLogVerbose(@"[%@ %@: %@]; %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), response.command.tag, response.tokens);
+}
+
+#pragma mark - command and response utility methods
+
+//-(NSString *) commandTag {
+//    return [NSString stringWithFormat:@"moedae%05hu", self.commandIdentifier];
+//}
+//
+//-(NSString *) nextCommandTag {
+//    self.commandIdentifier += 1;
+//    return [self commandTag];
+//}
+//
+//
+//-(void) waitForCompletion {
+//    [self sendNextCommand];
+//    while (! self.isCommandComplete) {
+//        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+//        if ([self.parser.dataBuffers count] >0) {
+//            IMAPParseResult result = [self.parser parseResponse];
+//            if (result == IMAPParseComplete) {
+//                [self.parser evaluateResponse];
+//            }
+//        }
+//    }
+//}
+//
+//-(void) pushCommand:(IMAPCommand*)aCommand {
+//    [self.commandStack addObject: aCommand];
+//}
+//
+//-(id) currentCommand {
+//    id command = [self.commandStack objectAtIndex:0];
+//
+//    return command;
+//}
+//
+//-(id) copyPopCommand {
+//    id command = [[self.commandStack objectAtIndex:0] retain];
+//    [self.commandStack removeObjectAtIndex: 0];
+//
+//    return command;
+//}
+//
+//-(void) pushResponse:(id)aResponse {
+//    [self.responseStack addObject: aResponse];
+//}
+//
+//-(id) currentResponse {
+//    id response = [self.responseStack objectAtIndex:0];
+//
+//    return response;
+//}
+//
+//-(id) copyPopResponse {
+//    id response = [[self.responseStack objectAtIndex:0] retain];
+//    [self.responseStack removeObjectAtIndex: 0];
+//
+//    return response;
+//}
+
+/*!
+ checks for the existence of the method before dispatching
+ */
+//-(void) performResponseCommand: (SEL) commandSelector withObject: (id) anArg {
+//
+//    if ([self respondsToSelector: commandSelector]) {
+//        [self performSelector: commandSelector withObject: anArg];
+//    } else {
+//        [self responseUnknown: anArg];
+//    }
+//}
+//-(void) performResponseCommand: (SEL) commandSelector withObject: (id) anArg1 withObject:(id)anArg2 {
+//
+//    if ([self respondsToSelector: commandSelector]) {
+//        [self performSelector: commandSelector withObject: anArg1 withObject: anArg2];
+//    } else {
+//        [self responseUnknown: anArg1];
+//    }
+//}
+
+/*!
+ convenience method to reformat the command method tokens
+ */
+-(NSString*) formatCommandToken:(NSString *)aCommandString {
+    
+    NSString* formattedCommand = [[aCommandString stringByTrimmingCharactersInSet:
+                                   [NSCharacterSet whitespaceCharacterSet]]
+                                  capitalizedString];
+    
+    NSMutableString* reFormattedCommand = [NSMutableString stringWithString: formattedCommand];
+    
+    [reFormattedCommand replaceOccurrencesOfString:@"-"
+                                        withString:@""
+                                           options: NSCaseInsensitiveSearch
+                                             range:NSMakeRange(0, [formattedCommand length])];
+    return reFormattedCommand;
+}
+
+/*!
+ convenience method to make it easy to check for a server capability
+ */
+-(BOOL) hasCapability:(NSString *)capability {
+    return [self.serverCapabilities containsObject: capability];
 }
 
 #pragma mark - Response Delegate Methods
@@ -576,11 +1062,36 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) commandStartTLS{
     // unimplemented as unnecessary?
 }
-
+/*
+ Note: a server implementation MUST implement a
+ configuration in which it does NOT permit any plaintext
+ password mechanisms, unless either the STARTTLS command
+ has been negotiated or some other mechanism that
+ protects the session from password snooping has been
+ provided.  Server sites SHOULD NOT use any configuration
+ which permits a plaintext password mechanism without
+ such a protection mechanism against password snooping.
+ Client and server implementations SHOULD implement
+ additional [SASL] mechanisms that do not use plaintext
+ passwords, such the GSSAPI mechanism described in [SASL]
+ and/or the [DIGEST-MD5] mechanism.
+ 
+ Unless either the STARTTLS command has been negotiated or
+ some other mechanism that protects the session from
+ password snooping has been provided, a server
+ implementation MUST implement a configuration in which it
+ advertises the LOGINDISABLED capability and does NOT permit
+ the LOGIN command.  Server sites SHOULD NOT use any
+ configuration which permits the LOGIN command without such
+ a protection mechanism against password snooping.  A client
+ implementation MUST NOT send a LOGIN command if the
+ LOGINDISABLED capability is advertised.
+ */
+//TODO: Check for LOGINDISABLED and report
 -(void) commandLogin {
     // Check for auth capabilities
     IMAPCommand* command = nil;
-    if ([self hasCapability: @"AUTH=LOGIN"]) {
+    if ([self hasCapability: @"AUTH=PLAIN"] || [self hasCapability: @"AUTH=LOGIN"]) {
         command = [[IMAPCommand alloc] initWithAtom: @"login"];
         [command copyAddArgument: self.clientStore.account.username];
         [command copyAddArgument: self.clientStore.account.password];
@@ -873,479 +1384,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(void) commandUid {
     
-}
-
-
-#pragma mark - command and response utility methods
-
-//-(NSString *) commandTag {
-//    return [NSString stringWithFormat:@"moedae%05hu", self.commandIdentifier];
-//}
-//
-//-(NSString *) nextCommandTag {
-//    self.commandIdentifier += 1;
-//    return [self commandTag];
-//}
-//
-//
-//-(void) waitForCompletion {
-//    [self sendNextCommand];
-//    while (! self.isCommandComplete) {
-//        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
-//        if ([self.parser.dataBuffers count] >0) {
-//            IMAPParseResult result = [self.parser parseResponse];
-//            if (result == IMAPParseComplete) {
-//                [self.parser evaluateResponse];
-//            }
-//        }
-//    }
-//}
-//
-//-(void) pushCommand:(IMAPCommand*)aCommand {
-//    [self.commandStack addObject: aCommand];
-//}
-//
-//-(id) currentCommand {
-//    id command = [self.commandStack objectAtIndex:0];
-//    
-//    return command;
-//}
-//
-//-(id) copyPopCommand {
-//    id command = [[self.commandStack objectAtIndex:0] retain];
-//    [self.commandStack removeObjectAtIndex: 0];
-//    
-//    return command;
-//}
-//
-//-(void) pushResponse:(id)aResponse {
-//    [self.responseStack addObject: aResponse];
-//}
-//
-//-(id) currentResponse {
-//    id response = [self.responseStack objectAtIndex:0];
-//    
-//    return response;
-//}
-//
-//-(id) copyPopResponse {
-//    id response = [[self.responseStack objectAtIndex:0] retain];
-//    [self.responseStack removeObjectAtIndex: 0];
-//    
-//    return response;
-//}
-
-/*! 
- checks for the existence of the method before dispatching
- */
-//-(void) performResponseCommand: (SEL) commandSelector withObject: (id) anArg {
-//    
-//    if ([self respondsToSelector: commandSelector]) {
-//        [self performSelector: commandSelector withObject: anArg];
-//    } else {
-//        [self responseUnknown: anArg];
-//    }
-//}
-//-(void) performResponseCommand: (SEL) commandSelector withObject: (id) anArg1 withObject:(id)anArg2 {
-//    
-//    if ([self respondsToSelector: commandSelector]) {
-//        [self performSelector: commandSelector withObject: anArg1 withObject: anArg2];
-//    } else {
-//        [self responseUnknown: anArg1];
-//    }
-//}
-
-/*!
- convenience method to reformat the command method tokens
- */
--(NSString*) formatCommandToken:(NSString *)aCommandString {
-    
-    NSString* formattedCommand = [[aCommandString stringByTrimmingCharactersInSet:
-                                   [NSCharacterSet whitespaceCharacterSet]] 
-                                  capitalizedString];
-    
-    NSMutableString* reFormattedCommand = [NSMutableString stringWithString: formattedCommand];
-    
-    [reFormattedCommand replaceOccurrencesOfString:@"-" 
-                                        withString:@"" 
-                                           options: NSCaseInsensitiveSearch 
-                                             range:NSMakeRange(0, [formattedCommand length])];
-    return reFormattedCommand;
-}
-
-/*! 
- convenience method to make it easy to check for a server capability
- */
--(BOOL) hasCapability:(NSString *)capability {
-    return [self.serverCapabilities containsObject: capability];
-}
-
-
-#pragma mark - IMAP Sync methods
-
-// TODO: create regex for ip6
--(BOOL) openConnection: (NSError**) anError {    
-    NSError* regexError = nil;
-    SEL hostSelector;
-    self.connectionState = IMAPNewConnection;
-    
-    NSString *server = self.clientStore.account.server;
-    
-    if (![server isEqualToString:@""]) {
-        
-        // TODO: create regex for ip6
-        // selector hostWithName: vs hostWithAddress:
-        // 127.0.0.1 regex is \d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}
-        NSRegularExpression* ip4AddressPattern;
-        ip4AddressPattern = [NSRegularExpression
-                                 regularExpressionWithPattern: @"\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}"
-                                 options: NSRegularExpressionCaseInsensitive
-                                 error: &regexError];
-
-        NSUInteger numberOfMatches = [ip4AddressPattern numberOfMatchesInString: server
-                                                                       options:0
-                                                                         range:NSMakeRange(0, [server length])];
-        NSHost *host;
-        if (numberOfMatches==1) {
-            host = [NSHost hostWithAddress:server];
-        }else{
-            host = [NSHost hostWithName:server];
-        }
-
-        NSString* address = [host address];
-        if (address) {
-            //DDLogVerbose(@"%@: %@ resolved to address %@", NSStringFromSelector(_cmd), server, address);
-
-            NSInputStream *tempIStream;
-            NSOutputStream *tempOStream;
-            
-            [NSStream getStreamsToHost:host 
-                                  port: [self.clientStore.account.port intValue] 
-                           inputStream:&tempIStream
-                          outputStream:&tempOStream];
-            
-            _iStream = tempIStream;
-            _oStream = tempOStream;
-            
-            if ([self.clientStore.account.useTLS boolValue]) {
-                [_iStream setProperty: NSStreamSocketSecurityLevelNone forKey: NSStreamSocketSecurityLevelKey];
-                [_oStream setProperty: NSStreamSocketSecurityLevelNone forKey: NSStreamSocketSecurityLevelKey];
-            }
-            
-            [_iStream setDelegate:self];
-            [_oStream setDelegate:self];
-            
-            [_iStream scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-            [_oStream scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-            
-            if ([_oStream streamStatus] == NSStreamStatusNotOpen) [_oStream open];
-            if ([_iStream streamStatus] == NSStreamStatusNotOpen) [_iStream open];
-            
-            //[self send:@"helo"];
-            //wait for initial response
-            NSDate* started = [NSDate date];
-            NSTimeInterval netConnectTimeout = -30.0;
-            
-//            while ([self.parser.dataBuffers count]==0) {
-//                // TODO: need to set a connection timeout here
-//                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
-//                
-//                // If the receiver is earlier than the current date and time, the return value is negative.
-//                if ([started timeIntervalSinceNow] < netConnectTimeout) {
-//                    // timed out. need to pass and error?
-//                    self.connectionState = IMAPDisconnected;
-//                    DDLogVerbose(@"[%@ %@]; Response timed out (%f sec) for: %@.",
-//                                 NSStringFromClass([self class]),
-//                                 NSStringFromSelector(_cmd),
-//                                 netConnectTimeout,
-//                                 server);
-//                    
-//                    return NO;
-//                }
-//            }
-            [self commandCapability];
-            [self commandLogin];
-            return YES;
-        }
-        else {
-            DDLogVerbose(@"[%@ %@]; No address resolution for: %@.",
-                         NSStringFromClass([self class]),
-                         NSStringFromSelector(_cmd),
-                         server);
-            
-            self.connectionState = IMAPDisconnected;
-            return NO;
-        }
-    }
-    return NO;
-}
-
--(void) close: (NSStream*) aStream{
-    [aStream close];
-    [aStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [aStream setDelegate:nil];
-    aStream = nil;
-}
-
--(void) closeStreams {
-    [self close:_iStream];
-    [self close:_oStream];
-    self.connectionState = IMAPDisconnected;
-    DDLogVerbose(@"[%@ %@];", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-}
-
-//TODO: error handling if we can't save the context.
-// how to recover? how to inform?
-/*!
- Sync the current selected mailbox with just the vital information.
- Information useful for the model and for showing the GUI message listing
- Items
-    UID
-    Sequence
-    From: 
-    To:
-    Subject:
-    Internal Date:
-    RFC2822 Size
-    
-    Start from latest and work back in groups
-    sample command> uid fetch 100:110 (FLAGS BODYSTRUCTURE INTERNALDATE RFC822.SIZE ENVELOPE
- 
-    set mboxSequenceUIDMap for mailboxes during lightweight sync
- 
- 
- 50 minutes for 12500 headers
- 12500/50 = 250 headers/minute, 4 headers/sec
- 
- */
--(void) lightWeightSync {
-    BOOL saveSuccess;
-    NSError *saveError = nil;
-
-    //saveSuccess = [self.clientStore selectedMailBoxDeleteAllMessages: &saveError];
-    saveSuccess = YES;
-    
-    
-    
-    if (saveSuccess) {
-        
-        
-        UInt64 uidNext;
-        UInt64 maxFillUid;
-
-        NSNumber* lowestUID = [self.clientStore lowestUID];
-        DDLogVerbose(@"lowestUID %@", lowestUID);
-        
-        if (lowestUID == nil || [lowestUID unsignedLongLongValue] == 0) {
-            // lowestUID was not found meaning cache is empty?
-            // once there is a pre-fetch on load, there should never be 0
-            maxFillUid = [self.clientStore.selectedMBox.serverUIDNext unsignedLongLongValue];
-        } else {
-            maxFillUid = [lowestUID unsignedLongLongValue];
-        }
-        DDLogVerbose(@"lowestUID %hu", maxFillUid);
-        if (maxFillUid > 1) {
-            UInt64 endRange = maxFillUid;
-            //UInt64 endRange = totalRange + 1;
-            //UInt64 endRange = 200; // override for testing
-            UInt64 startRange = 0;
-            BOOL isFinished = NO;        
-            while (!self.isFinished && !self.isCancelled) {
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
-                @autoreleasepool {
-                    if (endRange > self.syncQuantaLW) {
-                        startRange = endRange - self.syncQuantaLW;
-                    } else {
-                        startRange = 1;
-                        self.isFinished = YES;
-                    }
-                    [self commandFetchHeadersStart: startRange end: endRange];
-                    // Lock the persistent store
-                    saveSuccess = [self.clientStore save: &saveError];
-                    if (saveSuccess) {
-                        endRange -= self.syncQuantaLW;
-                    } else {
-                        // don't bother continuing if we can't save
-                        self.isFinished = YES;
-                    }
-                }
-            }
-
-        }
-    }
-}
-//TODO needs major work, just for testing
--(void) syncQuanta {
-    BOOL saveSuccess;
-    NSError *saveError = nil;
-    
-    //saveSuccess = [self.clientStore selectedMailBoxDeleteAllMessages: &saveError];
-    saveSuccess = YES;
-    
-    
-    
-    if (saveSuccess) {
-        
-        
-        UInt64 uidNext;
-
-        UInt64 maxFillUid = [self.clientStore.selectedMBox.serverUIDNext unsignedLongLongValue];
-        UInt64 startRange = maxFillUid - self.syncQuantaLW;
-        if (startRange < 1) startRange = 1;
-
-        if (maxFillUid >= 1) {
-            BOOL isFinished = NO;        
-            while (!self.isFinished && !self.isCancelled) {
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
-                @autoreleasepool {
-                    [self commandFetchHeadersStart: startRange end: maxFillUid];
-                    // Lock the persistent store
-                    saveSuccess = [self.clientStore save: &saveError];
-                    self.isFinished = YES;
-                }
-            }
-            
-        }
-    }
-}
-
-
-#pragma mark - High level App Methods
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-
--(void) refreshAll {
-    self.isCancelled = NO;
-    self.isFinished = NO;
-    self.isExecuting = YES;
-    self.isCommandComplete = YES;
-    
-    NSError* error = nil;
-    BOOL connected;
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter]; 
-    
-    @try {
-        @autoreleasepool {
-            connected = [self openConnection: &error];
-            if (connected && self.connectionState == IMAPAuthenticated) {
-                // do some work process an event?
-                
-                [self commandList];
-                
-                [self commandSelect: @"INBOX"];
-                [self syncQuanta];
-                
-                while (!self.isFinished && !self.isCancelled) {
-                    // wait for and parse responses until cancelled
-                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
-                    
-                    if([self.parser.dataBuffers count] > 0 ){
-                        // parser dataBuffers fill asynchronously
-                        IMAPResponse* response = nil;
-                        IMAPParseResult result = [self.parser parseBuffer: &response];
-                        
-                        if (result == IMAPParseComplete) {
-                            [response evaluate];
-                        }
-                    }
-                    if ([self.mainCommandQueue count] > 0) {
-                        NSArray* command = [self.mainCommandQueue objectAtIndex: 0];
-                        [self.mainCommandQueue removeObjectAtIndex: 0];
-                        [self performSelector: NSSelectorFromString([command objectAtIndex:0]) withObject: [command objectAtIndex: 1]];
-                    }
-                }
-            }
-            else {
-                // parse connection error
-                DDLogVerbose(@"%@: ConnectionState %@, Streams connection error: %@.", NSStringFromSelector(_cmd), [IMAPClient stateAsString: self.connectionState], error);
-                
-                while (!self.isCancelled) {
-                    // do nothing
-                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
-                }
-            }
-            
-        }
-    }
-    @catch (NSException *exception) {
-        self.isExecuting = NO;
-
-        NSString *exceptionMessage = [NSString stringWithFormat:@"%@\nReason: %@\nUser Info: %@", [exception name], [exception reason], [exception userInfo]];
-        // Always log to console for history
-        DDLogVerbose(@"Exception raised:\n%@", exceptionMessage);
-        DDLogVerbose(@"Backtrace: %@", [exception callStackSymbols]);
-    }
-    @finally {
-        self.isExecuting = NO;
-        [self closeStreams];
-        self.isFinished = YES;
-    }
-}
-
-#pragma clang diagnostic pop
-
-/*!
- Need to fetch the message based on the message objectID.
- Get the message mail box.
- IMAP SELECT the mail box
- IMAP FETCH the full message 
- When IMAP response is finished, return.
- */
--(void) loadFullMessageID: (NSManagedObjectID*) objectID {
-    self.isCancelled = NO;
-    self.isFinished = NO;
-    self.isCommandComplete = YES;
-    
-    NSError* error = nil;
-    BOOL connected;
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter]; 
-    
-    @try {
-        
-        connected = [self openConnection: &error];
-        if (connected && self.connectionState == IMAPAuthenticated) {
-            // do some work process an event?
-            MBMessage* message = [self.clientStore messageForObjectID: objectID];
-            MBox* mbox = message.mbox;
-            
-            UInt64 muid = [message.uid longLongValue];
-
-            [self commandSelect: mbox.fullPath];
-            // fetch the selected message plus seek +- by one
-            for (MBMime* part in message.allParts) {
-                // doesn't handle partially loaded data
-                // is network disconnect while loading
-                // need to make sure data is always fully loaded before saving
-                if (part.isLeaf && part.data == nil) {
-                    NSString* bodyIndex = part.bodyIndex;
-                    if ([bodyIndex length] > 0) {
-                        [self commandFetchContentForUID: muid mimeParts: bodyIndex];
-                    }
-                }
-            } 
-            [self.clientStore save: &error];
-        }
-        else {
-            // parse connection error
-            DDLogVerbose(@"%@: ConnectionState %@, Streams connection error: %@.", NSStringFromSelector(_cmd), [IMAPClient stateAsString: self.connectionState], error);
-        }
-        
-    }
-    @catch (NSException *exception) {
-        NSString *exceptionMessage = [NSString stringWithFormat:@"%@\nReason: %@\nUser Info: %@", [exception name], [exception reason], [exception userInfo]];
-        // Always log to console for history
-        DDLogVerbose(@"Exception raised:\n%@", exceptionMessage);
-        DDLogVerbose(@"Backtrace: %@", [exception callStackSymbols]);
-    }
-    @finally {
-        [self closeStreams];
-        self.isFinished = YES;
-    }
-}
-
--(void) testMessage:(NSString *)aMessage {
-    DDLogVerbose(@"Testing Account name: %@", self.clientStore.account.name);
-    DDLogVerbose(@"Just testing, passed: %@", aMessage);
 }
 
 @end

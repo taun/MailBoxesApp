@@ -63,9 +63,11 @@
     if (self.arguments != nil) {
         argumentString = [self.arguments componentsJoinedByString:@" "];
     }
-    NSString* outputString;
-    outputString = [NSString stringWithFormat:@"%@ %@ %@\r\n", 
+    NSString *outputString, *trimmedString, *commandString;
+    commandString = [NSString stringWithFormat:@"%@ %@ %@",
                     tag, [atom uppercaseString], argumentString];
+    trimmedString = [commandString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+    outputString = [trimmedString stringByAppendingString: @"\n"];
     return outputString;
 }
 
