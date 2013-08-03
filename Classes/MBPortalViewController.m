@@ -12,14 +12,19 @@
 #import "MBMessage+IMAP.h"
 #import "MBPortal.h"
 
+#import "DDLog.h"
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
+@interface MBPortalViewController ()
+@property (strong,nonatomic,readwrite)     NSArray         *collectionItemSortDescriptors;
+@property (strong,nonatomic,readwrite)     NSPredicate     *compoundPredicate;
+@end
+
 @implementation MBPortalViewController
 
-@synthesize messagesController;
-@synthesize tableView;
-
-@synthesize collectionItemSortDescriptors;
-@synthesize compoundPredicate;
-@synthesize searchPredicate;
 
 CGFloat ONEROW = 18.0;
 
@@ -27,11 +32,11 @@ CGFloat ONEROW = 18.0;
 
 
 - (NSArray*) collectionItemSortDescriptors {
-    if(collectionItemSortDescriptors == nil) {
+    if(_collectionItemSortDescriptors == nil) {
         NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey:@"dateSent" ascending:NO selector: @selector(compare:)];
-        collectionItemSortDescriptors = [NSArray arrayWithObject: sort];
+        _collectionItemSortDescriptors = [NSArray arrayWithObject: sort];
     }
-    return collectionItemSortDescriptors;
+    return _collectionItemSortDescriptors;
 }
 
 #pragma mark -
@@ -50,7 +55,11 @@ CGFloat ONEROW = 18.0;
 +(NSSet *) keyPathsForValuesAffectingCompoundPredicate{
     return [NSSet setWithObjects: @"searchPredicate", @"representedObject.predicateString" , nil];
 }
-
+/*
+ Bound to the messagesController.
+ Doesn't do anything yet?
+ 
+ */
 -(NSPredicate *) compoundPredicate {
     return [NSCompoundPredicate andPredicateWithSubpredicates: 
             [NSArray arrayWithObjects: self.searchPredicate, nil]];    
@@ -59,6 +68,10 @@ CGFloat ONEROW = 18.0;
 
 #pragma mark -
 #pragma mark Actions
+
+-(void) contentUpdated {
+    
+}
 
 - (NSTableViewRowSizeStyle) changeSize: (NSInteger) change {
     NSInteger rowSizeStyle = [self.tableView rowSizeStyle];
@@ -125,8 +138,16 @@ CGFloat ONEROW = 18.0;
     [cv setSelectionIndexes: [NSIndexSet indexSetWithIndex: [[cv subviews] indexOfObject: [self view]]]];
 }
 
+/*
+ Gets called any time a new row scrolls into view. Not relevant for adding a new element to the array.
+ Just adding a row cell to the view.
+ */
+//- (void)tableView:(NSTableView *)tableView didAddRowView:(NSTableRowView *)rowView forRow:(NSInteger)row {
+//    DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+//}
+
 - (void)dealloc {
-    [tableView setDelegate: nil];
+    [_tableView setDelegate: nil];
 }
 
 @end

@@ -29,6 +29,7 @@
 #import "MBAddressList.h"
 #import "MBSidebarViewController.h"
 #import "MBAccountsCoordinator.h"
+#import "MBPortalViewController.h"
 
 #import <FScript/FScript.h>
 #import <QuartzCore/QuartzCore.h>
@@ -37,7 +38,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_INFO;
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 #define MBGroupEntityName @"MBGroup"
@@ -489,7 +490,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         }
     } else {
         //handle error
-    }    
+    }
+    
+//    NSUInteger portalCount = [self.collectionView content ].count;
+//    for (NSUInteger portalIndex=0; portalIndex < portalCount; portalIndex++) {
+//        MBPortalViewController* pvController = (MBPortalViewController*)[self.collectionView itemAtIndex: portalIndex];
+//        [pvController.messagesController rearrangeObjects];
+//    }
 }
 
 - (IBAction)cancelLoadAllAccountFolders:(id)sender {

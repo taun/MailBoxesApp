@@ -414,11 +414,24 @@ Initial sync:\
 \
 2013--8-01\
  Changed commandLogin to check for AUTH=Plain or AUTH=login\
- Started to switch to CocoaAsyncSocket then realized could still use NSStream if mixing with CFNetwork code.\
- Need to switch branch back to ARC and merge.\
- Remove CocoaAsync from ARC branch.\
- Fix autolayout constraints of message view. Change to new XCode5 autolayout?\
- Why doesn't the refreshed email list sort by date?\
+ \cb1 \strike \strikec0 Started to switch to CocoaAsyncSocket then realized could still use NSStream if mixing with CFNetwork code.\cb5 \strike0\striked0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
+\cf0  \cb1 \strike \strikec0 Need to switch branch back to ARC and merge. \strike0\striked0 Never created CocoaAsync branch???\cb5 \
+\pard\pardeftab720\sl220
+\cf0  \cb1 \strike \strikec0 Remove CocoaAsync from ARC branch.\cb5 \strike0\striked0 \
+ \cb1 \strike \strikec0 Fix autolayout constraints of message view. Change to new XCode5 autolayout?\cb5 \strike0\striked0 \
+ \cb1 \strike \strikec0 Why doesn't the refreshed email list sort by date?\cb5 \strike0\striked0 \
 \
+2013-08-02\
+	Message outline view? What was it for? Attachments? Threads?\
+	\cb1 \strike \strikec0 How to detect when the portal NSArray controller content changes? What to monitor?\cb5 \strike0\striked0 \
+2013-08-03\
+	Can't figure out how to get to the portal NSArrayController from the appDelegate to rearrange objects.\
+		solved. 
+\b \cb1 [self.collectionView itemAtIndex:]
+\b0 \cb5  returns the MBPortalViewController rather than the represented item which is returned by collectionView.content.\
+	\cb1 \strike \strikec0 Why doesn't the refreshed email list sort by date? \
+		\cb5 \strike0\striked0 ** Solved - Needed to turn off "Uses lazy fetching" for messagesController in MBVPortal.xib. \
+	??? Also can't figure out how the default portal gets a filter predicate or sorting.\
 \
 }

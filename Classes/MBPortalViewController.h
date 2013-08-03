@@ -29,13 +29,14 @@
  */
 @interface MBPortalViewController : NSCollectionViewItem <NSTableViewDelegate> 
 
-@property (strong,readonly)     NSArray         *collectionItemSortDescriptors;
-@property (strong,readonly)     NSPredicate     *compoundPredicate;
-@property (strong)              NSPredicate     *searchPredicate;
+@property (strong,nonatomic,readonly)     NSArray         *collectionItemSortDescriptors;
+@property (strong,nonatomic,readonly)     NSPredicate     *compoundPredicate;
+@property (strong,nonatomic)              NSPredicate     *searchPredicate;
 
 @property (strong) IBOutlet     NSArrayController       *messagesController;
-@property (strong)   IBOutlet     NSTableView             *tableView;
+@property (strong) IBOutlet     NSTableView             *tableView;
 
+-(void) contentUpdated;
 
 - (IBAction)growTableRows:(id)sender;
 - (IBAction)shrinkTableRows:(id)sender;

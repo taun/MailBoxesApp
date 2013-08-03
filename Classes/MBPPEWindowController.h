@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*
+ Smart Folder/Portal Predicate Editor Controller
+ */
 
 @interface MBPPEWindowController : NSWindowController <NSMetadataQueryDelegate> {
 @public    
