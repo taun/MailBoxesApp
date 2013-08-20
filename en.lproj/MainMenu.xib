@@ -1153,7 +1153,7 @@ EQAaACMALQAyADcAQQBHAFAAVwBcAGQAeQB7AH0AfwCBAIkAkACVAKAAowClAKcAqQCxALYAwQDKANIA
                 <outlet property="inPaneMessageView" destination="1082" id="1423"/>
                 <outlet property="mainSplitViewDelegate" destination="854" id="858"/>
                 <outlet property="messagesSplitView" destination="1080" id="1406"/>
-                <outlet property="portalsController" destination="1133" id="1401"/>
+                <outlet property="portalsArrayController" destination="1133" id="Ygp-fz-nuP"/>
                 <outlet property="preferencesWindow" destination="823" id="837"/>
                 <outlet property="selectedUserController" destination="1020" id="1046"/>
                 <outlet property="sidebarViewController" destination="1529" id="1535"/>
@@ -1203,7 +1203,7 @@ EQAaACMALQAyADcAQQBHAFAAVwBcAGQAeQB7AH0AfwCBAIkAkACVAKAAowClAKcAqQCxALYAwQDKANIA
             <connections>
                 <outlet property="appSelectedUserObjectController" destination="1020" id="1397"/>
                 <outlet property="appWindow" destination="371" id="1389"/>
-                <outlet property="portalArrayController" destination="1133" id="1390"/>
+                <outlet property="portalsArrayController" destination="1133" id="O1k-h3-t6M"/>
             </connections>
         </customObject>
         <customObject id="1393" userLabel="EditAccountSheet" customClass="MBAccountWindowController">

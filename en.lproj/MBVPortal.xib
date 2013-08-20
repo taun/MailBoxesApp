@@ -257,9 +257,9 @@
         </customView>
         <arrayController mode="entity" entityName="MBMessage" fetchPredicateFormat="" editable="NO" automaticallyPreparesContent="YES" selectsInsertedObjects="NO" clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="20" userLabel="messagesController">
             <connections>
-                <binding destination="-2" name="filterPredicate" keyPath="compoundPredicate" id="126"/>
                 <binding destination="-3" name="managedObjectContext" keyPath="delegate.nibManagedObjectContext" id="178"/>
-                <binding destination="-2" name="sortDescriptors" keyPath="collectionItemSortDescriptors" previousBinding="126" id="Qqg-Nw-FAL"/>
+                <binding destination="-2" name="filterPredicate" keyPath="compoundPredicate" id="lhs-3I-kLG"/>
+                <binding destination="-2" name="sortDescriptors" keyPath="collectionItemSortDescriptors" previousBinding="lhs-3I-kLG" id="Ntq-km-47T"/>
             </connections>
         </arrayController>
         <menu title="Menu" id="259">

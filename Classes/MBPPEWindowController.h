@@ -25,7 +25,7 @@
 @property(assign)                       NSInteger                    previousRowCount;
 
 
-@property(weak)           IBOutlet      NSArrayController           *portalArrayController;
+@property(weak)           IBOutlet      NSArrayController           *portalsArrayController;
 @property(strong)         IBOutlet      NSObjectController          *theNewPortalObjectController;
 @property(weak)           IBOutlet      NSObjectController          *appSelectedUserObjectController;
 //@property(weak)           IBOutlet      NSCompoundPredicate         *predicate;

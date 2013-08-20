@@ -29,6 +29,7 @@
  */
 @interface MBPortalViewController : NSCollectionViewItem <NSTableViewDelegate> 
 
+@property (strong,nonatomic,readonly)     NSArray         *messagesArray;
 @property (strong,nonatomic,readonly)     NSArray         *collectionItemSortDescriptors;
 @property (strong,nonatomic,readonly)     NSPredicate     *compoundPredicate;
 @property (strong,nonatomic)              NSPredicate     *searchPredicate;

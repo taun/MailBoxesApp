@@ -11,6 +11,10 @@
 #import "MBPortalViewController.h"
 #import "MBMessage+IMAP.h"
 #import "MBPortal.h"
+#import "MBViewPortal.h"
+#import "MBViewPortalSelection.h"
+#import "MBTreeNode+IntersectsSetFix.h"
+#import "MBox+Accessors.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -19,6 +23,7 @@
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @interface MBPortalViewController ()
+@property (strong,nonatomic,readwrite)     NSArray         *messagesArray;
 @property (strong,nonatomic,readwrite)     NSArray         *collectionItemSortDescriptors;
 @property (strong,nonatomic,readwrite)     NSPredicate     *compoundPredicate;
 @end
@@ -55,6 +60,9 @@ CGFloat ONEROW = 18.0;
 +(NSSet *) keyPathsForValuesAffectingCompoundPredicate{
     return [NSSet setWithObjects: @"searchPredicate", @"representedObject.predicateString" , nil];
 }
++(NSSet *) keyPathsForValuesAffectingMessagesArray{
+    return [NSSet setWithObjects: @"representedObject.messageArraySource" , nil];
+}
 /*
  Bound to the messagesController.
  Doesn't do anything yet?
@@ -65,6 +73,21 @@ CGFloat ONEROW = 18.0;
             [NSArray arrayWithObjects: self.searchPredicate, nil]];    
             //[NSPredicate predicateWithFormat: [self valueForKeyPath: @"representedObject.predicateString"]], self.searchPredicate, nil]];    
 }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+
+-(NSArray*) messagesArray {
+    _messagesArray = Nil;
+    MBViewPortal* item = (MBViewPortal*) self.representedObject;
+    MBTreeNode* messagesNode = item.messageArraySource;
+    if ([messagesNode respondsToSelector: NSSelectorFromString(@"messages")]) {
+        _messagesArray = [messagesNode performSelector: NSSelectorFromString(@"messages")];
+    }
+    return _messagesArray;
+}
+
+#pragma clang diagnostic pop
 
 #pragma mark -
 #pragma mark Actions

@@ -10,7 +10,7 @@
 // as if it were just standard model data.
 
 #import <Cocoa/Cocoa.h>
-
+#import "MBSidebarViewController.h"
 
 @class MBAccountWindowController;
 @class MBPPEWindowController;
@@ -20,7 +20,6 @@
 @class MBAccountsCoordinator;
 @class MBMessage;
 @class MBMessageViewController;
-@class MBSidebarViewController;
 
 NSString *AccountEditingEndedKey;
 NSString *PortalEditingEndedKey;
@@ -36,36 +35,36 @@ NSString *PortalEditingEndedKey;
  created by the IB template
  
  */
-@interface MailBoxesAppDelegate : NSObject <NSApplicationDelegate> 
+@interface MailBoxesAppDelegate : NSObject <NSApplicationDelegate, MBSidebarViewDelegate>
 
 // Main window views and controls
 @property(strong)           IBOutlet NSWindow                 *appWindow;
 @property(strong)           IBOutlet MainSplitViewDelegate    *mainSplitViewDelegate;
 @property(strong)           IBOutlet NSView                   *inPaneMessageView;
-@property(readonly,strong)           NSArray                  *accountsACSortDescriptors;
 @property(strong)           IBOutlet NSObjectController       *selectedUserController;
-@property(readonly,strong)           NSArray                  *portalsACSortDescriptors;
 @property(strong)                    MBMessageViewController  *messageViewController;
 @property (weak)            IBOutlet MBSidebarViewController  *sidebarViewController;
+
+@property(nonatomic,readonly,strong) NSArray                  *portalsACSortDescriptors;
+@property(nonatomic,readonly,strong) NSArray                  *accountsACSortDescriptors;
 
 // Configuration windows
 @property(strong)           IBOutlet NSWindow                 *preferencesWindow;
 @property(strong)           IBOutlet NSProgressIndicator      *accountSyncProgress;
 @property(strong)           IBOutlet NSButton                 *accountSyncButton;
 @property(strong)           IBOutlet NSButton                 *accountSyncCancelButton;
-@property(strong)           IBOutlet NSArrayController        *portalsController;
+@property(strong)           IBOutlet NSArrayController        *portalsArrayController;
 @property(strong)           IBOutlet MBCollectionView         *collectionView;
 @property(strong)           IBOutlet NSSplitView              *messagesSplitView;
-@property(strong)                    NSArray                  *collectionViewItems;
 
 // Model root
 @property(strong)                    MBUser                   *currentUser;
 
 // accessors for Core Data
-@property (readonly, strong) NSPersistentStoreCoordinator    *persistentStoreCoordinator;
-@property (readonly, strong) NSManagedObjectModel            *managedObjectModel;
-@property (readonly, strong) NSManagedObjectContext          *managedObjectContext;
-@property (readonly, strong) NSManagedObjectContext          *nibManagedObjectContext;
+@property(nonatomic,readonly,strong) NSPersistentStoreCoordinator    *persistentStoreCoordinator;
+@property(nonatomic,readonly,strong) NSManagedObjectModel            *managedObjectModel;
+@property(nonatomic,readonly,strong) NSManagedObjectContext          *managedObjectContext;
+@property(nonatomic,readonly,strong) NSManagedObjectContext          *nibManagedObjectContext;
 
 // Networking
 @property (strong)           MBAccountsCoordinator          *accountsCoordinator;

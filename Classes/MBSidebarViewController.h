@@ -13,12 +13,21 @@
 @class MBAccount;
 @class MBAccountWindowController;
 
+@protocol MBSidebarViewDelegate
+
+-(void)nodeSelectionDidChange: (MBTreeNode*) node;
+
+@optional
+
+@end
+
+
 @interface MBSidebarViewController : NSObject <NSMenuDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource>
 
 /*!
  Delegate is for passing on information regarding the current selection.
  */
-@property (unsafe_unretained) IBOutlet id                        delegate;
+@property (unsafe_unretained) IBOutlet id<MBSidebarViewDelegate> delegate;
 
 @property (unsafe_unretained) IBOutlet NSObjectController       *userController;
 @property (readonly, weak)             MBUser                   *currentUser;

@@ -38,7 +38,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 @synthesize predicateEditor;
 @synthesize previousRowCount;
 
-@synthesize portalArrayController;
+@synthesize portalsArrayController;
 @synthesize theNewPortalObjectController;
 //@synthesize predicate;
 
@@ -50,7 +50,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 #pragma mark Setup
 
 - (NSManagedObjectContext *)appManagedContext {
-    return [portalArrayController managedObjectContext];
+    return [portalsArrayController managedObjectContext];
 }
 
 - (NSManagedObjectContext *)localManagedContext {

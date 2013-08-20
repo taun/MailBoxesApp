@@ -433,7 +433,7 @@ itemForPersistentObject:(id)object {
      return result;
 }
 
-#pragma mark - ***Outline Delegate***
+#pragma mark - ***Outline Delegate Protocol***
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item
 {
@@ -495,15 +495,21 @@ itemForPersistentObject:(id)object {
     }
     return result;
 }
-
+/*
+ Relay selection change to AppDelegate
+ AppDelegate needs to update any portals which are dependent on the sidebar selection
+   such as MBViewPortalSelection
+ */
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    //    if ([self.view selectedRow] != -1) {
-    //        id item = [self.view itemAtRow:[self.view selectedRow]];
-    //        if ([self.view parentForItem:item] != nil) {
-    //            // Only change things for non-root items (root items can be selected, but are ignored)
-    //            //[self _setContentViewToName:item];
-    //        }        
-    //    }
+    MBTreeNode* selectedNode;
+    if ([self.view selectedRow] != -1) {
+        selectedNode = [self.view itemAtRow:[self.view selectedRow]];
+        if ([self.view parentForItem: selectedNode] != nil) {
+            // Only change things for non-root items (root items can be selected, but are ignored)
+            //[self _setContentViewToName:item];
+            [self.delegate nodeSelectionDidChange: selectedNode];
+        }
+    }
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView willShowContextMenu:(id)item {

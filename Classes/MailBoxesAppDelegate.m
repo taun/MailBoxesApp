@@ -64,6 +64,14 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  
  */
 @interface MailBoxesAppDelegate()
+@property(nonatomic,readwrite,strong) NSArray                         *accountsACSortDescriptors;
+@property(nonatomic,readwrite,strong) NSArray                         *portalsACSortDescriptors;
+
+@property(nonatomic,readwrite,strong) NSPersistentStoreCoordinator    *persistentStoreCoordinator;
+@property(nonatomic,readwrite,strong) NSManagedObjectModel            *managedObjectModel;
+@property(nonatomic,readwrite,strong) NSManagedObjectContext          *managedObjectContext;
+@property(nonatomic,readwrite,strong) NSManagedObjectContext          *nibManagedObjectContext;
+
 //Startup
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 - (void)loadCurrentUser;
@@ -102,34 +110,32 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MailBoxesAppDelegate
 
-@synthesize persistentStoreCoordinator;
-@synthesize managedObjectModel;
-@synthesize managedObjectContext;
-
-@synthesize nibManagedObjectContext;
-
-@synthesize appWindow;
-@synthesize mainSplitViewDelegate;
-@synthesize portalsACSortDescriptors;
-@synthesize inPaneMessageView;
-@synthesize accountsACSortDescriptors;
-@synthesize selectedUserController;
-@synthesize messageViewController;
-@synthesize sidebarViewController;
-
-@synthesize currentUser;
-
-@synthesize preferencesWindow;
-@synthesize accountSyncProgress;
-@synthesize accountSyncButton;
-@synthesize accountSyncCancelButton;
-@synthesize portalsController;
-@synthesize collectionView;
-@synthesize messagesSplitView;
-@synthesize collectionViewItems;
-
-@synthesize accountsCoordinator;
-@synthesize syncQueue;
+//@synthesize persistentStoreCoordinator;
+//@synthesize managedObjectModel;
+//@synthesize managedObjectContext;
+//
+//@synthesize nibManagedObjectContext;
+//
+//@synthesize appWindow;
+//@synthesize mainSplitViewDelegate;
+//@synthesize portalsACSortDescriptors;
+//@synthesize inPaneMessageView;
+//@synthesize accountsACSortDescriptors;
+//@synthesize selectedUserController;
+//@synthesize messageViewController;
+//@synthesize sidebarViewController;
+//
+//@synthesize currentUser;
+//
+//@synthesize preferencesWindow;
+//@synthesize accountSyncProgress;
+//@synthesize accountSyncButton;
+//@synthesize accountSyncCancelButton;
+//@synthesize portalsController;
+//@synthesize collectionView;
+//
+//@synthesize accountsCoordinator;
+//@synthesize syncQueue;
 
 #pragma mark - Startup
 + (void)initialize {
@@ -200,7 +206,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         [self.sidebarViewController.view setAutosaveExpandedItems: YES];
         [self.sidebarViewController reloadData];
 
-        syncQueue = nil;
+        _syncQueue = nil;
 
         self.accountsCoordinator = [[MBAccountsCoordinator alloc] initWithMBUser: self.currentUser];
         [self.accountsCoordinator addObserver:self
@@ -216,19 +222,19 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (NSArray*) accountsACSortDescriptors {
-    if(accountsACSortDescriptors == nil) {
+    if(_accountsACSortDescriptors == nil) {
         NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector: @selector(localizedCaseInsensitiveCompare:)];
-        accountsACSortDescriptors = [NSArray arrayWithObject: sort];
+        _accountsACSortDescriptors = [NSArray arrayWithObject: sort];
     }
-    return accountsACSortDescriptors;
+    return _accountsACSortDescriptors;
 }
 
 - (NSArray*) portalsACSortDescriptors {
-    if(portalsACSortDescriptors == nil) {
+    if(_portalsACSortDescriptors == nil) {
         NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES selector: @selector(compare:)];
-        portalsACSortDescriptors = [NSArray arrayWithObject: sort];
+        _portalsACSortDescriptors = [NSArray arrayWithObject: sort];
     }
-    return portalsACSortDescriptors;
+    return _portalsACSortDescriptors;
 }
 
 - (void)loadCurrentUser {
@@ -240,7 +246,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSManagedObjectID *suid = [[self persistentStoreCoordinator] managedObjectIDForURIRepresentation: moURI];
     if ( suid != nil ) {
         [self.managedObjectContext performBlockAndWait:^{
-            theCurrentUser = (MBUser *)[managedObjectContext existingObjectWithID: suid error: &errorLoading];
+            theCurrentUser = (MBUser *)[_managedObjectContext existingObjectWithID: suid error: &errorLoading];
         }];
         self.currentUser = theCurrentUser;
     }
@@ -250,7 +256,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     __block NSError *errorSavingUser = nil;
     
     [self.managedObjectContext performBlockAndWait:^{
-        newUser = [NSEntityDescription insertNewObjectForEntityForName:@"MBUser" inManagedObjectContext: managedObjectContext];
+        newUser = [NSEntityDescription insertNewObjectForEntityForName:@"MBUser" inManagedObjectContext: _managedObjectContext];
         [newUser setValue: @"default" forKey: @"firstName"];
         
         self.currentUser = newUser;
@@ -258,8 +264,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         [self createDefaultSidebarContent];
         [self createDefaultPortal];
         
-        if ([managedObjectContext save: &errorSavingUser] == NO) {
-            [managedObjectContext deleteObject:newUser];
+        if ([_managedObjectContext save: &errorSavingUser] == NO) {
+            [_managedObjectContext deleteObject:newUser];
             DDLogVerbose(@"An error occurred while inserting and saving an initial User: %@",
                          [errorSavingUser localizedDescription]);
             self.currentUser = nil;
@@ -312,7 +318,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     
     [self.managedObjectContext performBlockAndWait:^{
-        fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
     }];
     
     
@@ -330,14 +336,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             __block MBUser *cUser = nil;
             
             [self.managedObjectContext performBlockAndWait:^{
-                cUser = (MBUser *)[managedObjectContext objectWithID: suid];
+                cUser = (MBUser *)[_managedObjectContext objectWithID: suid];
             }];
 
             self.currentUser = cUser;
         }
         status = YES;
     }
-    self.collectionViewItems = [self.collectionView content];
     return status;
 }
 
@@ -465,6 +470,29 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self.inPaneMessageView setWantsLayer: NO];
 }
 
+#pragma MBSidebarViewDelegate Protocol
+
+/*
+ Update portals which depend on node selection
+ MBViewPortalSelection instances
+ Should only be one.
+ */
+-(void)nodeSelectionDidChange:(MBTreeNode *)node {
+    id portals = [self.portalsArrayController arrangedObjects];
+    if ([node isKindOfClass:[MBox class]]) {
+        for (id portal in portals) {
+            if ([portal isKindOfClass:[MBViewPortalSelection class]]) {
+                DDLogCVerbose(@"Change portal: %@ selection to node: %@", portal, node);
+                [(MBViewPortal*)portal setName: [node name]];
+                [(MBViewPortal*)portal setMessageArraySource: node];
+            }
+        }
+    } else if ([node isKindOfClass:[MBSmartFolder class]]) {
+        
+    } else if ([node isKindOfClass:[MBFavorites class]]) {
+        
+    }
+}
 
 #pragma mark - IMAPSync
 /*!
@@ -521,20 +549,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  Creates if necessary and returns the managed object model for the application.
  */
 - (NSManagedObjectModel *)managedObjectModel {
-    if (managedObjectModel==nil) {
+    if (_managedObjectModel==nil) {
         //NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MailBoxesDataModel" withExtension:@"momd"];
         //managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
-        managedObjectModel = [NSManagedObjectModel mergedModelFromBundles: nil];    
+        _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles: nil];
     }
 	
-    return managedObjectModel;
+    return _managedObjectModel;
 }
 
 /**
  Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
  */
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (persistentStoreCoordinator==nil) {
+    if (_persistentStoreCoordinator==nil) {
         NSManagedObjectModel *mom = self.managedObjectModel;
         if (!mom) {
             DDLogVerbose(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
@@ -572,15 +600,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         }
         
         NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"MailBoxes.storedata"];
-        persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-        if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
+        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
             [[NSApplication sharedApplication] presentError:error];
-            persistentStoreCoordinator = nil;
+            _persistentStoreCoordinator = nil;
             return nil;
         }
     }
         
-    return persistentStoreCoordinator;
+    return _persistentStoreCoordinator;
 }
 
 /**
@@ -588,7 +616,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  bound to the persistent store coordinator for the application.) 
  */
 - (NSManagedObjectContext *)managedObjectContext {
-    if (managedObjectContext==nil) {
+    if (_managedObjectContext==nil) {
         NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
         if (!coordinator) {
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -598,11 +626,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             [[NSApplication sharedApplication] presentError:error];
             return nil;
         }
-        managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
-        [managedObjectContext setPersistentStoreCoordinator:coordinator];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
+        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     
-    return managedObjectContext;
+    return _managedObjectContext;
 }
 
 - (NSManagedObjectContext *)nibManagedObjectContext {

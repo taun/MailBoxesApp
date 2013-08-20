@@ -424,14 +424,28 @@ Initial sync:\
 \
 2013-08-02\
 	Message outline view? What was it for? Attachments? Threads?\
+		Solved? List of Images, Attachments, links contained in email.\
+		TODO: add above content to outline view.\
 	\cb1 \strike \strikec0 How to detect when the portal NSArray controller content changes? What to monitor?\cb5 \strike0\striked0 \
 2013-08-03\
-	Can't figure out how to get to the portal NSArrayController from the appDelegate to rearrange objects.\
+	\cb1 \strike \strikec0 Can't figure out how to get to the portal NSArrayController from the appDelegate to rearrange objects.\cb5 \strike0\striked0 \
 		solved. 
 \b \cb1 [self.collectionView itemAtIndex:]
 \b0 \cb5  returns the MBPortalViewController rather than the represented item which is returned by collectionView.content.\
 	\cb1 \strike \strikec0 Why doesn't the refreshed email list sort by date? \
 		\cb5 \strike0\striked0 ** Solved - Needed to turn off "Uses lazy fetching" for messagesController in MBVPortal.xib. \
-	??? Also can't figure out how the default portal gets a filter predicate or sorting.\
+	\cb1 \strike \strikec0 ??? Also can't figure out how the default portal gets a filter predicate or sorting.\cb5 \strike0\striked0 \
+		Solved - default portal is just returning ALL MBMessage entities.\
+		TODO: configure a fetchPredicate for messagesController. Get from MBViewPortal class or subclass\
+2013-08-05\
+	Default assigned portal is supposed to be a MBViewSelectionPortal - shows the latest selection. but it does not change with selections!\
+	! Change default predicate to nil and use the Sidebar selection. Upon sidebar selection changed, search Collection for MBViewSelectionPortal and change selection.\
+	! Add debug menu - commands: Reset mailStore, Reset CoreData, Reset Portals?\
+	!! Need MBMessage fetchRequests or MBViewPortal fetchRequests to get the messages corresponding to the portal!\
 \
+	\cb1 \strike \strikec0 Define sidebarDelegate protocol - folderSelectionChanged: (id) newSelection\cb5 \strike0\striked0 \
+	Add sidebarDelegate protocol to AppDelegate\
+	AppDelegate implementation needs to find MBViewPortalSelection and change fetchPredicate to work with new folder selection.\
+		MBViewPortalController needs to get fetchPredicate from representedItem.\
+	Add implementation to MBSidebarController to call folderSelectionChanged:\
 }
