@@ -69,8 +69,8 @@ CGFloat ONEROW = 18.0;
  
  */
 -(NSPredicate *) compoundPredicate {
-    return [NSCompoundPredicate andPredicateWithSubpredicates: 
-            [NSArray arrayWithObjects: self.searchPredicate, nil]];    
+    NSPredicate* results = [NSCompoundPredicate andPredicateWithSubpredicates: [NSArray arrayWithObjects: self.searchPredicate, nil]];
+    return results;
             //[NSPredicate predicateWithFormat: [self valueForKeyPath: @"representedObject.predicateString"]], self.searchPredicate, nil]];    
 }
 

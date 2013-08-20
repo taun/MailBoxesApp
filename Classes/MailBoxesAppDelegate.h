@@ -86,6 +86,12 @@ NSString *PortalEditingEndedKey;
 - (IBAction)exportAllPortalSettings:(id)sender;
 - (IBAction)importPortalSettings:(id)sender;
 
+#pragma mark - Debug Actions
+- (IBAction)resetMailStore:(id)sender;
+- (IBAction)resetCoreData:(id)sender;
+- (IBAction)resetPortals:(id)sender;
+
+
 -(void) displayContextSaveError: (NSError*) theError;
 
 @end

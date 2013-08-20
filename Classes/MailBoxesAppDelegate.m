@@ -483,8 +483,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         for (id portal in portals) {
             if ([portal isKindOfClass:[MBViewPortalSelection class]]) {
                 DDLogCVerbose(@"Change portal: %@ selection to node: %@", portal, node);
-                [(MBViewPortal*)portal setName: [node name]];
-                [(MBViewPortal*)portal setMessageArraySource: node];
+                [(MBViewPortalSelection*)portal setName: [node name]];
+                [(MBViewPortalSelection*)portal setMessageArraySource: node];
             }
         }
     } else if ([node isKindOfClass:[MBSmartFolder class]]) {
@@ -751,4 +751,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self.accountsCoordinator removeObserver: self forKeyPath: @"isFinished"];
 }
 
+- (IBAction)resetMailStore:(id)sender {
+}
+
+- (IBAction)resetCoreData:(id)sender {
+}
+
+- (IBAction)resetPortals:(id)sender {
+}
 @end

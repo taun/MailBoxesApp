@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4488.1" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4488.2" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4488.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4488.2"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MBPortalViewController">
@@ -204,7 +204,7 @@
                                                                     </connections>
                                                                 </textField>
                                                                 <textField identifier="messageSummary" verticalHuggingPriority="750" id="233">
-                                                                    <rect key="frame" x="12" y="1" width="242" height="30"/>
+                                                                    <rect key="frame" x="12" y="1.0000000000000011" width="242" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                                                     <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="MessageSummary" placeholderString="" allowsEditingTextAttributes="YES" id="234">
                                                                         <font key="font" metaFont="smallSystem"/>
@@ -257,9 +257,10 @@
         </customView>
         <arrayController mode="entity" entityName="MBMessage" fetchPredicateFormat="" editable="NO" automaticallyPreparesContent="YES" selectsInsertedObjects="NO" clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="20" userLabel="messagesController">
             <connections>
-                <binding destination="-3" name="managedObjectContext" keyPath="delegate.nibManagedObjectContext" id="178"/>
-                <binding destination="-2" name="filterPredicate" keyPath="compoundPredicate" id="lhs-3I-kLG"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="collectionItemSortDescriptors" previousBinding="lhs-3I-kLG" id="Ntq-km-47T"/>
+                <binding destination="-2" name="filterPredicate" keyPath="compoundPredicate" id="lhs-3I-kLG"/>
+                <binding destination="-2" name="contentSet" keyPath="self.representedObject.messageArraySource.messages" id="QVM-HV-0Bn"/>
+                <binding destination="-3" name="managedObjectContext" keyPath="delegate.nibManagedObjectContext" id="178"/>
             </connections>
         </arrayController>
         <menu title="Menu" id="259">
