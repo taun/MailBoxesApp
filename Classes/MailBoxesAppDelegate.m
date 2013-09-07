@@ -40,7 +40,8 @@
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
-
+#define MBCoreDataErrorDomain @"com.moedae.MailBoxes.CoreData"
+#define MBStoreDataName @"MailBoxes.storedata"
 #define MBGroupEntityName @"MBGroup"
 #define MBAccountEntityName @"MBAccount"
 #define MBSmartFolderEntityName @"MBSmartFolder"
@@ -371,15 +372,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self.accountsCoordinator testIMAPClientComm];
 }
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    
-    // Not used
-    //if ([AccountEditingEndedKey compare: (__bridge  NSString*)contextInfo] == NSOrderedSame ) {        
-    //    [sheet orderOut:self];
-    //}
-    //[self saveAction: self];
-}
-
 #pragma mark - View Management
 
 -(IBAction) toggleMessagesVerticalView:(id)sender {
@@ -592,16 +584,16 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                 
                 NSMutableDictionary *dict = [NSMutableDictionary dictionary];
                 [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
-                error = [NSError errorWithDomain:@"com.moedae.MailBoxes.CoreData" code:101 userInfo:dict];
+                error = [NSError errorWithDomain: MBCoreDataErrorDomain code:101 userInfo:dict];
                 
                 [[NSApplication sharedApplication] presentError:error];
                 return nil;
             }
         }
         
-        NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"MailBoxes.storedata"];
+        NSURL *storeURL = [applicationFilesDirectory URLByAppendingPathComponent: MBStoreDataName];
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
             [[NSApplication sharedApplication] presentError:error];
             _persistentStoreCoordinator = nil;
             return nil;
@@ -622,7 +614,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
             [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
-            NSError *error = [NSError errorWithDomain:@"com.moedae.MailBoxes.CoreData" code:9999 userInfo:dict];
+            NSError *error = [NSError errorWithDomain: MBCoreDataErrorDomain code:9999 userInfo:dict];
             [[NSApplication sharedApplication] presentError:error];
             return nil;
         }
@@ -755,6 +747,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (IBAction)resetCoreData:(id)sender {
+    NSURL *storeURL = [[self applicationFilesDirectory] URLByAppendingPathComponent: MBStoreDataName];
+    [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
 }
 
 - (IBAction)resetPortals:(id)sender {

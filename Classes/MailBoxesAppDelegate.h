@@ -74,7 +74,6 @@ NSString *PortalEditingEndedKey;
 - (IBAction)undo:sender;
 - (IBAction)redo:sender;
 - (IBAction)showPreferences: (id) sender;
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 - (IBAction)loadAllAccountFolders: (id) sender;
 - (IBAction)saveAction: (id) sender;
 - (IBAction)cancelLoadAllAccountFolders:(id)sender;

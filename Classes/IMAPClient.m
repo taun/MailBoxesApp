@@ -531,7 +531,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #pragma mark - High level App Methods
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-
+/*
+ STATUS vs SELECT vs EXAMINE
+ perhaps use EXAMINE rather than SELECT?
+ Then query which boxes have changes and SELECT and get headers for them?
+ 
+ Best to use SELECT. Status is for a separate net connection and Examine is read only.
+ */
 -(void) refreshAll {
     self.isCancelled = NO;
     self.isFinished = NO;
@@ -550,28 +556,32 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                 
                 [self commandList];
                 
-                [self commandSelect: @"INBOX"];
-                [self syncQuanta];
-                
-                while (!self.isFinished && !self.isCancelled) {
-                    // wait for and parse responses until cancelled
-                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
+                for (MBox* box in self.clientStore.account.allNodes) {
+                    //[self commandSelect: @"INBOX"];
+                    [self commandSelect: box.fullPath];
+                    [self syncQuanta];
                     
-                    if([self.parser.dataBuffers count] > 0 ){
-                        // parser dataBuffers fill asynchronously
-                        IMAPResponse* response = nil;
-                        IMAPParseResult result = [self.parser parseBuffer: &response];
+                    while (!self.isFinished && !self.isCancelled) {
+                        // wait for and parse responses until cancelled
+                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
                         
-                        if (result == IMAPParseComplete) {
-                            [response evaluate];
+                        if([self.parser.dataBuffers count] > 0 ){
+                            // parser dataBuffers fill asynchronously
+                            IMAPResponse* response = nil;
+                            IMAPParseResult result = [self.parser parseBuffer: &response];
+                            
+                            if (result == IMAPParseComplete) {
+                                [response evaluate];
+                            }
+                        }
+                        if ([self.mainCommandQueue count] > 0) {
+                            NSArray* command = [self.mainCommandQueue objectAtIndex: 0];
+                            [self.mainCommandQueue removeObjectAtIndex: 0];
+                            [self performSelector: NSSelectorFromString([command objectAtIndex:0]) withObject: [command objectAtIndex: 1]];
                         }
                     }
-                    if ([self.mainCommandQueue count] > 0) {
-                        NSArray* command = [self.mainCommandQueue objectAtIndex: 0];
-                        [self.mainCommandQueue removeObjectAtIndex: 0];
-                        [self performSelector: NSSelectorFromString([command objectAtIndex:0]) withObject: [command objectAtIndex: 1]];
-                    }
                 }
+                
             }
             else {
                 // parse connection error
@@ -991,6 +1001,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(void) evaluateResponseAndWaitForCommandDone {
     NSDate *now = [NSDate date];
+    
     @autoreleasepool {
         while (self.parser.command.isDone == NO && [now timeIntervalSinceNow] > (self.timeOutPeriod * 10)) {
             if ([self.parser.dataBuffers count] > 0) {
@@ -1221,22 +1232,39 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
 }
 
+/*!
+ RFC 3501 pg 33
+     "The SELECT command automatically deselects any
+     currently selected mailbox before attempting the new selection.
+     Consequently, if a mailbox is selected and a SELECT command that
+     fails is attempted, no mailbox is selected."
+ 
+ */
 //TODO: Check OK completion status before assigning selected mailbox.
--(void) commandSelect: (NSString *) mboxPath{    
+-(void) commandSelect: (NSString *) mboxPath{
+    MBox* previousSelectedMbox = self.clientStore.selectedMBox;
+    
+    // Start selection process for new selection
+    // Selected box needs to be set before command is sent so the response
+    // attributes can be assign to the appropriate box.
+    // The response data does not specify the box.
     [self.clientStore selectMailBox: mboxPath];
     
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"SELECT"];
+    NSString* quotedPath = [NSString stringWithFormat:@"\"%@\"",mboxPath];
     command.mboxFullPath =  mboxPath;
-    [command copyAddArgument: mboxPath];
+    [command copyAddArgument: quotedPath];
     
     self.parser.command = command;
     [self submitCommand];
     if (self.parser.command.isActive == YES) {
         [self evaluateResponseAndWaitForCommandDone];
-        // commandDone: will be called by parser then return to here
-        // check for status == OK here
+        if (command.responseStatus != IMAPOK) {
+            self.clientStore.selectedMBox = nil;
+        }
     } else {
         // TODO: handle command outgoing connection time out.
+        self.clientStore.selectedMBox = nil;
     }
 }
 

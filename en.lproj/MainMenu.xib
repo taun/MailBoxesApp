@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4488.2" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4504" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4488.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4504"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -772,7 +772,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="1024" height="36"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Minimize Account listing" id="852" userLabel="Collapse Square Button">
+                                <button toolTip="Minimize the Accounts listing" id="852" userLabel="Collapse Square Button">
                                     <rect key="frame" x="260" y="8" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoLeftTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSGoRightTemplate" imageScaling="proportionallyDown" inset="2" id="853">
@@ -838,7 +838,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1057">
-                                        <rect key="frame" x="0.0" y="25" width="271" height="626"/>
+                                        <rect key="frame" x="0.0" y="24.999999999999989" width="271" height="626"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="kgZ-jh-3MW">
                                             <rect key="frame" x="1" y="1" width="269" height="624"/>
@@ -935,16 +935,19 @@
                                             <rect key="frame" x="256" y="17" width="15" height="693"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
+                                        <accessibility description="Accounts listings"/>
                                     </scrollView>
-                                    <popUpButton id="1569" userLabel="Sidebar Add Menu">
+                                    <popUpButton toolTip="Pop up a menu to add an account or folder" id="1569" userLabel="Sidebar Add Menu">
                                         <rect key="frame" x="6" y="3" width="61" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" selectedItem="1572" id="1570">
+                                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" id="1570">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                             <menu key="menu" title="Add Item" id="1571">
                                                 <items>
-                                                    <menuItem state="on" image="NSAddTemplate" hidden="YES" id="1572"/>
+                                                    <menuItem state="on" image="NSAddTemplate" hidden="YES" id="1572">
+                                                        <accessibility description="Placeholder"/>
+                                                    </menuItem>
                                                     <menuItem title="Add Account" id="1573">
                                                         <connections>
                                                             <action selector="addAccount:" target="1529" id="1586"/>
@@ -970,6 +973,7 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
+                                        <accessibility description="Popup a menu to add an account or folder"/>
                                     </popUpButton>
                                 </subviews>
                             </customView>
@@ -1033,6 +1037,7 @@ EQAaACMALQAyADcAQQBHAFAAVwBcAGQAeQB7AH0AfwCBAIkAkACVAKAAowClAKcAqQCxALYAwQDKANIA
 </mutableData>
                                                     </caTransition>
                                                 </animations>
+                                                <accessibility description="Selected messages"/>
                                             </customView>
                                         </subviews>
                                         <holdingPriorities>
@@ -1052,6 +1057,7 @@ EQAaACMALQAyADcAQQBHAFAAVwBcAGQAeQB7AH0AfwCBAIkAkACVAKAAowClAKcAqQCxALYAwQDKANIA
                         </connections>
                     </splitView>
                 </subviews>
+                <accessibility description="View of accounts, subject lines and selected message."/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="E356A4FE-476A-4FD5-A341-8A52EF556796" displayMode="iconAndLabel" sizeMode="regular" id="841">
                 <allowedToolbarItems>

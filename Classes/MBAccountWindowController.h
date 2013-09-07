@@ -17,10 +17,10 @@
     NSResponder* _savedFirstResponder;
 }
 
-@property(strong)            IBOutlet         NSWindow                  *appWindow;
-@property(unsafe_unretained) IBOutlet         NSObjectController        *appSelectedUserObjectController;
+@property(weak)            IBOutlet         NSWindow                  *appWindow;
+@property(weak)            IBOutlet         NSObjectController        *appSelectedUserObjectController;
 
-@property(strong)            IBOutlet          NSObjectController       *theNewAccountObjectController;
+@property(weak)            IBOutlet          NSObjectController       *theNewAccountObjectController;
 @property(weak)             IBOutlet           NSTextField              *statusField;
 @property(weak)             IBOutlet           NSProgressIndicator      *statusLight;
 @property(strong)                              Ping                     *pinger;

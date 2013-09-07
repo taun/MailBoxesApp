@@ -37,6 +37,9 @@
 @property (nonatomic, assign, readonly) BOOL     isFinished;
 @property (strong) MBUser* user;
 
+/*!
+ Designated initialiser.
+ */
 -(id) initWithMBUser: (MBUser*) aUser;
 
 -(void) refreshAll;

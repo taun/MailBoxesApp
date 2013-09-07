@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4488.1" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4504" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4488.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4504"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MBAccountWindowController">
@@ -56,6 +56,7 @@
                                             </attributes>
                                         </fragment>
                                     </attributedString>
+                                    <accessibility description="Name to display for the account"/>
                                     <connections>
                                         <binding destination="249" name="value" keyPath="selection.name" id="261">
                                             <dictionary key="options">
@@ -82,6 +83,7 @@
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <accessibility description="Description of the account"/>
                                     <connections>
                                         <binding destination="249" name="value" keyPath="selection.desc" id="297">
                                             <dictionary key="options">
@@ -108,6 +110,7 @@
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <accessibility description="E-Mail address associated with the account."/>
                                     <connections>
                                         <binding destination="249" name="value" keyPath="selection.address" id="267">
                                             <dictionary key="options">
@@ -121,6 +124,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <accessibility description="User Account Details"/>
                     </box>
                     <box title="Server Settings" borderType="line" id="5" userLabel="Box - Server Settings">
                         <rect key="frame" x="17" y="56" width="461" height="260"/>
@@ -177,11 +181,12 @@
                                 <textField verticalHuggingPriority="750" id="22" userLabel="UserNameTextField">
                                     <rect key="frame" x="151" y="212" width="290" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="23">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="name@mail.account" drawsBackground="YES" id="23">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <accessibility description="Your account user name"/>
                                     <connections>
                                         <binding destination="249" name="value" keyPath="selection.username" id="270">
                                             <dictionary key="options">
@@ -199,6 +204,7 @@
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <accessibility description="Your account password"/>
                                     <connections>
                                         <binding destination="249" name="value" keyPath="selection.password" id="278"/>
                                         <outlet property="nextKeyView" destination="26" id="0sz-Vz-EN1"/>
@@ -207,11 +213,12 @@
                                 <textField verticalHuggingPriority="750" id="26" userLabel="ServerTextField">
                                     <rect key="frame" x="151" y="152" width="290" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="27">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="mail.account.server" drawsBackground="YES" id="27">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <accessibility description="The server address for the account" help="such as mail.google.com"/>
                                     <connections>
                                         <binding destination="249" name="value" keyPath="selection.server" id="274">
                                             <dictionary key="options">
@@ -240,6 +247,7 @@
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <accessibility description="Server mail port" help="Leave empty if you don't know the port."/>
                                     <connections>
                                         <binding destination="249" name="value" keyPath="selection.port" id="305">
                                             <dictionary key="options">
@@ -249,25 +257,27 @@
                                         <outlet property="nextKeyView" destination="30" id="298"/>
                                     </connections>
                                 </textField>
-                                <button id="30" userLabel="UseTLSCheck Box">
+                                <button toolTip="Always try the default 'Checked' first." id="30" userLabel="UseTLSCheck Box">
                                     <rect key="frame" x="149" y="95" width="63" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" continuous="YES" state="on" inset="2" id="31">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <accessibility description="Do you want to use a secure connection." help="Always try yes first."/>
                                     <connections>
                                         <binding destination="249" name="value" keyPath="selection.useTLS" id="283"/>
                                         <outlet property="nextKeyView" destination="180" id="299"/>
                                     </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" id="180" userLabel="Push Button Test">
+                                <button toolTip="Press to test the connection to the server configured above." verticalHuggingPriority="750" id="180" userLabel="Push Button Test">
                                     <rect key="frame" x="7" y="49" width="131" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="Test Connection" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="181">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <accessibility description="Button to initiate a connection test."/>
                                     <connections>
                                         <action selector="testConnection:" target="-2" id="202"/>
                                         <outlet property="nextKeyView" destination="182" id="300"/>
@@ -281,6 +291,7 @@
                                         <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" red="0.9215686917" green="0.93725496529999996" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
                                     </textFieldCell>
+                                    <accessibility description="Shows the status of the connection test."/>
                                 </textField>
                                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="215">
                                     <rect key="frame" x="58" y="-473" width="16" height="16"/>
@@ -290,6 +301,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <accessibility description="Account mail server connection details"/>
                     </box>
                     <button verticalHuggingPriority="750" id="182" userLabel="Push Button Done">
                         <rect key="frame" x="385" y="12" width="96" height="32"/>
@@ -298,6 +310,7 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <accessibility description="Save and close settings panel"/>
                         <connections>
                             <action selector="complete:" target="-2" id="254"/>
                         </connections>
@@ -309,6 +322,7 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <accessibility description="Revert displayed settings"/>
                         <connections>
                             <action selector="undo:" target="-2" id="256"/>
                         </connections>
@@ -323,11 +337,13 @@
 Gw
 </string>
                         </buttonCell>
+                        <accessibility description="Cancel and close settings panel"/>
                         <connections>
                             <action selector="cancelOperation:" target="-2" id="255"/>
                         </connections>
                     </button>
                 </subviews>
+                <accessibility description="User Mail Account Settings" help="How to connect with your email account provider."/>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="123"/>
