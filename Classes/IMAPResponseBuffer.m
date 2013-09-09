@@ -217,7 +217,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             } else if (self.currentByte != ' ') {
                 // start of token
                 returnedString = [self copyTokensUpToNext:" \r"];
-                [newResponse.tokens addObject: returnedString];
+                if (returnedString) {
+                    [newResponse.tokens addObject: returnedString];
+                }
                 
             } else if (self.currentByte == ' ') {
                 if ([self incrementBytePosition] != 0) {
@@ -241,6 +243,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 -(int) incrementBytePositionBy:(NSUInteger)theIncrement {
+    int bufferError = 0;
+    
     self.currentCharLocation+= theIncrement;
     if ([self isBufferAtEnd]) {
         // end of the buffer, see if there is another or wait for timeout
@@ -275,14 +279,14 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                 //return if timedOut
                 if ([self isBufferAtEnd]) {
                     self.result = IMAPParseUnexpectedEnd;
-                    return 1; // out of buffer error
+                    bufferError = 1; // out of buffer error
                 } 
             }
         }
     }
     
     [self cacheCurrentByte];
-    return 0; // no error?
+    return bufferError; // no error?
 }
 
 -(int) incrementBytePosition {
@@ -401,7 +405,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     return tempTokens;
 }
-
+//TODO: what to do for IMAPParseUnexpectedEnd, Error or Timeout
 -(NSString *) copyTokensUpToNext: (char *)stopChars  {
     // only called when i indexes non space character
     
@@ -415,7 +419,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         if ([self incrementBytePosition] != 0) {
             self.result = IMAPParseUnexpectedEnd;
         };
-    } while (strchr(stopChars, self.currentByte) == NULL && (self.currentByte != 0) && (result == IMAPParsing));
+    } while (strchr(stopChars, self.currentByte) == NULL && (self.currentByte != 0) && ((result == IMAPParsing) || (result == IMAPParseWaiting)));
     
     // If stop char, we want to leave the stop char
     // but if the stop char is the last character move the currentChar to the end
@@ -425,13 +429,14 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     // if ccp == length-1 found a stopChar and remove it : ccp++
     // if ccp < length-1 found a stopChar and leave it : ccp--
     
-    if (strchr(stopChars,self.currentByte)) {
+    if (strchr(stopChars,self.currentByte) != NULL) {
         // found stop char
         // do not include stop char in range
         //[self decrementBytePosition]; 
         //rangeLength = self.currentCharPosition - rangeStart;
     } else {
         //rangeLength = self.currentCharPosition - rangeStart;        
+        DDLogVerbose(@"Did not find stop char but ended anyhow! Check for IMAPParseUnexpectedEnd, Error or Timeout");
     }
     
     rangeLength = self.currentCharLocation - rangeStart;
@@ -439,6 +444,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSRange tokenRange = NSMakeRange(rangeStart, rangeLength);
     
     tokenString = [self copySubTokenStringWithRange: tokenRange];
+    
     return tokenString;
 }
 
