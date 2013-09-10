@@ -111,7 +111,6 @@
 		C5AE2E0C1410374D0087CD93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5AE2E0A1410374D0087CD93 /* InfoPlist.strings */; };
 		C5AE2E0E1410374D0087CD93 /* LogicTests.h in Resources */ = {isa = PBXBuildFile; fileRef = C5AE2E0D1410374D0087CD93 /* LogicTests.h */; };
 		C5AE2E101410374D0087CD93 /* LogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE2E0F1410374D0087CD93 /* LogicTests.m */; };
-		C5AE2E1B14158DD40087CD93 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AE2E1A14158DD40087CD93 /* SenTestingKit.framework */; };
 		C5AE2E1F1415BB280087CD93 /* IMAPClientTest.h in Resources */ = {isa = PBXBuildFile; fileRef = C5AE2E1C1415B55E0087CD93 /* IMAPClientTest.h */; };
 		C5AEC01914361BA20075B6F4 /* MBFlag+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEC01814361BA20075B6F4 /* MBFlag+IMAP.m */; };
 		C5B1CC0614219DCE008C5011 /* answers in Resources */ = {isa = PBXBuildFile; fileRef = C5B1CC0514219DCE008C5011 /* answers */; };
@@ -355,13 +354,12 @@
 		C59C7DA713FA055800D78D68 /* SpecialUseMailboxes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SpecialUseMailboxes.plist; sourceTree = "<group>"; };
 		C5A071F21313311A00D0E88A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MBModifyAccount.xib; sourceTree = "<group>"; };
 		C5A1017D145CAB2B005B941B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		C5AE2DFF1410374C0087CD93 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5AE2DFF1410374C0087CD93 /* LogicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5AE2E091410374D0087CD93 /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
 		C5AE2E0B1410374D0087CD93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C5AE2E0D1410374D0087CD93 /* LogicTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogicTests.h; sourceTree = "<group>"; };
 		C5AE2E0F1410374D0087CD93 /* LogicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicTests.m; sourceTree = "<group>"; };
 		C5AE2E111410374D0087CD93 /* LogicTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicTests-Prefix.pch"; sourceTree = "<group>"; };
-		C5AE2E1A14158DD40087CD93 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		C5AE2E1C1415B55E0087CD93 /* IMAPClientTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPClientTest.h; sourceTree = "<group>"; };
 		C5AE2E1D1415B55E0087CD93 /* IMAPClientTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPClientTest.m; sourceTree = "<group>"; };
 		C5AEC01714361BA20075B6F4 /* MBFlag+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBFlag+IMAP.h"; path = "Classes/MBFlag+IMAP.h"; sourceTree = "<group>"; };
@@ -450,7 +448,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5AE2E1B14158DD40087CD93 /* SenTestingKit.framework in Frameworks */,
 				C5AE2E021410374D0087CD93 /* Cocoa.framework in Frameworks */,
 				C536D542142D97D5009EB3A1 /* CoreData.framework in Frameworks */,
 			);
@@ -661,7 +658,6 @@
 				C536D545142D983B009EB3A1 /* CoreFoundation.framework */,
 				C536D543142D9831009EB3A1 /* CoreServices.framework */,
 				C536D540142D97D5009EB3A1 /* CoreData.framework */,
-				C5AE2E1A14158DD40087CD93 /* SenTestingKit.framework */,
 				C5C7A56D128B93EC006B1E86 /* Cocoa.framework */,
 				C50DD81113746960002A6CD6 /* Embedded Frameworks */,
 				C5AE2E031410374D0087CD93 /* Other Frameworks */,
@@ -674,7 +670,7 @@
 			children = (
 				C5C7A56A128B93EC006B1E86 /* MailBoxes.app */,
 				C5C7A58A128B93EC006B1E86 /* mySpot.mdimporter */,
-				C5AE2DFF1410374C0087CD93 /* LogicTests.octest */,
+				C5AE2DFF1410374C0087CD93 /* LogicTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -955,8 +951,8 @@
 			);
 			name = LogicTests;
 			productName = LogicTests;
-			productReference = C5AE2DFF1410374C0087CD93 /* LogicTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = C5AE2DFF1410374C0087CD93 /* LogicTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		C5C7A569128B93EC006B1E86 /* MailBoxes */ = {
 			isa = PBXNativeTarget;
@@ -999,6 +995,7 @@
 		C5C7A55C128B93EC006B1E86 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = MB;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "MOEDAE LLC";
 			};
@@ -1342,14 +1339,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_ENABLE_OBJC_GC = required;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LogicTests/LogicTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1363,7 +1357,6 @@
 				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -1371,14 +1364,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_ENABLE_OBJC_GC = required;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LogicTests/LogicTests-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1386,7 +1376,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
