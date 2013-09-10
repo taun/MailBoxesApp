@@ -452,7 +452,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         UInt64 maxFillUid;
         
         NSNumber* lowestUID = [self.clientStore lowestUID];
-        DDLogVerbose(@"lowestUID %@", lowestUID);
+        DDLogCVerbose(@"[%@ %@]lowestUID %hu", NSStringFromClass([self class]), NSStringFromSelector(_cmd),lowestUID);
         
         if (lowestUID == nil || [lowestUID unsignedLongLongValue] == 0) {
             // lowestUID was not found meaning cache is empty?
@@ -461,8 +461,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         } else {
             maxFillUid = [lowestUID unsignedLongLongValue];
         }
-        DDLogVerbose(@"lowestUID %hu", maxFillUid);
-        if (maxFillUid > 1) {
+        DDLogCVerbose(@"[%@ %@]maxFillUid %hu", NSStringFromClass([self class]), NSStringFromSelector(_cmd),maxFillUid);
+       if (maxFillUid > 1) {
             UInt64 endRange = maxFillUid;
             //UInt64 endRange = totalRange + 1;
             //UInt64 endRange = 200; // override for testing
@@ -512,17 +512,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         if (startRange < 1) startRange = 1;
         
         if (maxFillUid >= 1) {
-            BOOL isFinished = NO;
-            while (!self.isFinished && !self.isCancelled) {
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
-                @autoreleasepool {
-                    [self commandFetchHeadersStart: startRange end: maxFillUid];
-                    // Lock the persistent store
-                    saveSuccess = [self.clientStore save: &saveError];
-                    self.isFinished = YES;
-                }
-            }
+            DDLogCVerbose(@"[%@ %@]Getting headers for \"%@\"", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.clientStore.selectedMBox.fullPath);
+            [self commandFetchHeadersStart: startRange end: maxFillUid];
+            // Lock the persistent store
+            saveSuccess = [self.clientStore save: &saveError];
             
+        } else {
+            DDLogCVerbose(@"[%@ %@]No headers for \"%@\"", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.clientStore.selectedMBox.fullPath);
         }
     }
 }
@@ -557,9 +553,14 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                 [self commandList];
                 
                 for (MBox* box in self.clientStore.account.allNodes) {
+                    if (self.connectionState != IMAPAuthenticated) {
+                        self.isCancelled = YES;
+                        break;
+                    }
                     //[self commandSelect: @"INBOX"];
                     [self commandSelect: box.fullPath];
                     [self syncQuanta];
+                    // Queue a command to set "isFinished"?
                     
                     while (!self.isFinished && !self.isCancelled) {
                         // wait for and parse responses until cancelled
@@ -600,8 +601,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         
         NSString *exceptionMessage = [NSString stringWithFormat:@"%@\nReason: %@\nUser Info: %@", [exception name], [exception reason], [exception userInfo]];
         // Always log to console for history
-        DDLogVerbose(@"Exception raised:\n%@", exceptionMessage);
-        DDLogVerbose(@"Backtrace: %@", [exception callStackSymbols]);
+        DDLogCVerbose(@"[%@ %@]Exception raised:\n%@", NSStringFromClass([self class]), NSStringFromSelector(_cmd),exceptionMessage);
+        DDLogCVerbose(@"[%@ %@]Backtrace: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [exception callStackSymbols]);
     }
     @finally {
         self.isExecuting = NO;
@@ -1008,7 +1009,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                 IMAPResponse* response = nil;
                 IMAPParseResult result = [self.parser parseBuffer: &response];
                 if (result == IMAPParseComplete) {
-                    DDLogVerbose(@"Response Tokens: %@", [response.tokens tokenArray]);
+                    NSArray* tokenArray = [response.tokens tokenArray];
+                    DDLogCVerbose(@"[%@ %@]Response Tokens: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenArray);
                     [response evaluate];
                     // isDone is set when commandDone is called by parser during evaluation
                 }
