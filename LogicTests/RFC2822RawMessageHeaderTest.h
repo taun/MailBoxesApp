@@ -6,10 +6,10 @@
 //  Copyright 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 @class RFC2822RawMessageHeader;
 
-@interface RFC2822RawMessageHeaderTest : SenTestCase
+@interface RFC2822RawMessageHeaderTest : XCTestCase
 
 @property(nonatomic, retain) NSBundle                   *testBundle;
 @property(nonatomic, retain) NSString                   *sampleHeader;

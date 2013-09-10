@@ -6,13 +6,13 @@
 //  Copyright 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #import "IMAPResponseBuffer.h"
 #import "IMAPResponseDelegate.h"
 #import "IMAPClientStore.h"
 
-@interface IMAPResponseParserTests : SenTestCase <IMAPResponseDelegate, IMAPClientStore> {
+@interface IMAPResponseParserTests : XCTestCase <IMAPResponseDelegate, IMAPClientStore> {
     IMAPResponseBuffer        *parser;
     BOOL                  saveAnswers;
     

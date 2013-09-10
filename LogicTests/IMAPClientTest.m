@@ -39,7 +39,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     // Set-up code here.
     NSArray *bundles = [NSArray arrayWithObject:[NSBundle bundleForClass:[self class]]];
     
-    model = [[NSManagedObjectModel mergedModelFromBundles:bundles] retain];
+    model = [NSManagedObjectModel mergedModelFromBundles:bundles];
     
     coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model];
     store = [coord addPersistentStoreWithType: NSInMemoryStoreType
@@ -89,15 +89,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     // Tear-down code here.
     //[imapClient release];
     
-    [ctx release];
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
-    [coord release];
     coord = nil;
-    [model release];
     model = nil;
 
     [super tearDown];
@@ -105,7 +102,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)testThatEnvironmentWorks
 {
-    STAssertNotNil(store, @"no persistent store");
+    XCTAssertNotNil(store, @"no persistent store");
 }
 
 /*! 
@@ -153,7 +150,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [clientStore selectMailBox: @"inbox"];
     
     [parser addDataBuffer: newData];
-    [newData release];
     
     IMAPResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
@@ -190,7 +186,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         BOOL isDataCorrect = [self compareData: correctData with: archiveData];
         NSString* isCorrectString = isDataCorrect ? @"YES" : @"NO";
         NSLog(@"New data and correct answer are same? %@",isCorrectString);
-        STAssertTrue(isDataCorrect, @"Data is not corect. %@", isCorrectString);
+        XCTAssertTrue(isDataCorrect, @"Data is not corect. %@", isCorrectString);
     }
     
     NSLog(@"SelectedBox: %@", selectedBox);

@@ -6,7 +6,7 @@
 //  Copyright 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <Cocoa/Cocoa.h>
 #import "IMAPResponseDelegate.h"
 #import "IMAPClientStore.h"
@@ -16,7 +16,7 @@
 @class IMAPCoreDataStore;
 @class MBox;
 
-@interface IMAPClientTest : SenTestCase <IMAPResponseDelegate> {
+@interface IMAPClientTest : XCTestCase <IMAPResponseDelegate> {
     
     NSPersistentStoreCoordinator *coord;
     NSManagedObjectContext *ctx;

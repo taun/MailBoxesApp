@@ -6,8 +6,8 @@
 //  Copyright 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface LogicTests : SenTestCase
+@interface LogicTests : XCTestCase
 
 @end
