@@ -155,10 +155,13 @@ CGFloat ONEROW = 18.0;
         }
     }];
     MailBoxesAppDelegate *app = (MailBoxesAppDelegate *)[[NSApplication sharedApplication] delegate];
-    MBMessage *selectedMessage = (MBMessage *)[[self.messagesController arrangedObjects] objectAtIndex: [self.tableView selectedRow]];
-    [app showSelectedMessage: selectedMessage];
-    MBCollectionView *cv = (MBCollectionView *)app.collectionView;
-    [cv setSelectionIndexes: [NSIndexSet indexSetWithIndex: [[cv subviews] indexOfObject: [self view]]]];
+    NSInteger selectedRow = [self.tableView selectedRow];
+    if (selectedRow != -1) {
+        MBMessage *selectedMessage = (MBMessage *)[[self.messagesController arrangedObjects] objectAtIndex: selectedRow];
+        [app showSelectedMessage: selectedMessage];
+        MBCollectionView *cv = (MBCollectionView *)app.collectionView;
+        [cv setSelectionIndexes: [NSIndexSet indexSetWithIndex: [[cv subviews] indexOfObject: [self view]]]];
+    }
 }
 
 /*
