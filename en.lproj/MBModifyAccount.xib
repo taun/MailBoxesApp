@@ -47,6 +47,7 @@
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <accessibility description="name to display for this account?"/>
                                     </textFieldCell>
                                     <attributedString key="userComments">
                                         <fragment content="Some notes?">
@@ -73,6 +74,7 @@
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <accessibility description="Description:"/>
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" id="20" userLabel="TextFieldDescription">
@@ -82,6 +84,7 @@
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <accessibility description="Description of the account"/>
                                     </textFieldCell>
                                     <accessibility description="Description of the account"/>
                                     <connections>
@@ -109,6 +112,7 @@
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <accessibility description="e-mail address you use with this account?"/>
                                     </textFieldCell>
                                     <accessibility description="E-Mail address associated with the account."/>
                                     <connections>
@@ -185,6 +189,7 @@
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <accessibility description="Your account user name"/>
                                     </textFieldCell>
                                     <accessibility description="Your account user name"/>
                                     <connections>
@@ -203,6 +208,7 @@
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <accessibility description="Your account password"/>
                                     </textFieldCell>
                                     <accessibility description="Your account password"/>
                                     <connections>
@@ -217,6 +223,7 @@
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <accessibility description="The server address for the account"/>
                                     </textFieldCell>
                                     <accessibility description="The server address for the account" help="such as mail.google.com"/>
                                     <connections>
@@ -246,6 +253,7 @@
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <accessibility description="Server mail port"/>
                                     </textFieldCell>
                                     <accessibility description="Server mail port" help="Leave empty if you don't know the port."/>
                                     <connections>
@@ -263,6 +271,7 @@
                                     <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" continuous="YES" state="on" inset="2" id="31">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
+                                        <accessibility description="Secure Connection"/>
                                     </buttonCell>
                                     <accessibility description="Do you want to use a secure connection." help="Always try yes first."/>
                                     <connections>
@@ -286,7 +295,7 @@
                                 <textField verticalHuggingPriority="750" id="194" userLabel="StaticText - Status">
                                     <rect key="frame" x="151" y="14" width="290" height="63"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" continuous="YES" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Connection Status..." drawsBackground="YES" id="195">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" continuous="YES" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Status" placeholderString="Connection Status..." drawsBackground="YES" id="195">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" red="0.9215686917" green="0.93725496529999996" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
@@ -296,6 +305,7 @@
                                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="215">
                                     <rect key="frame" x="58" y="-473" width="16" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <accessibility description="Testing connection"/>
                                 </progressIndicator>
                             </subviews>
                         </view>
@@ -309,10 +319,14 @@
                         <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="183">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                         </buttonCell>
                         <accessibility description="Save and close settings panel"/>
                         <connections>
                             <action selector="complete:" target="-2" id="254"/>
+                            <outlet property="nextKeyView" destination="224" id="9VG-Bl-sAw"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="224" userLabel="Push Button Revert">
@@ -325,6 +339,7 @@
                         <accessibility description="Revert displayed settings"/>
                         <connections>
                             <action selector="undo:" target="-2" id="256"/>
+                            <outlet property="nextKeyView" destination="251" id="BzA-iF-Jbz"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="251" userLabel="Push Button Cancel">
@@ -340,6 +355,7 @@ Gw
                         <accessibility description="Cancel and close settings panel"/>
                         <connections>
                             <action selector="cancelOperation:" target="-2" id="255"/>
+                            <outlet property="nextKeyView" destination="18" id="Hg1-47-bav"/>
                         </connections>
                     </button>
                 </subviews>
