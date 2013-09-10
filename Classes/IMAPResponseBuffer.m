@@ -26,25 +26,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @implementation IMAPResponseBuffer
 
 #pragma mark - initialization and dealloc
-@synthesize dataBuffers;
-@synthesize currentBuffer;
-@synthesize currentByte = _currentByte;
-@synthesize currentCharLocation;
-
-@synthesize state;
-@synthesize result;
-@synthesize isTagged;
-@synthesize hasLiteral;
-@synthesize command;
-@synthesize error;
-@synthesize timeOutPeriod;
-@synthesize clientStore;
 
 
 - (NSString *) description {
     NSString *formattedDescription;
     formattedDescription = [NSString stringWithFormat: @"%@: dataBuffers: %lu, Position: %lu", 
-                            [self className], (unsigned long)[dataBuffers count], currentCharLocation];
+                            [self className], (unsigned long)[_dataBuffers count], _currentCharLocation];
     return formattedDescription;
 }
 
@@ -83,21 +70,21 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self = [super init];
     if (self) {
         // Initialization code here.
-        dataBuffers = [[NSMutableArray alloc] initWithCapacity: 2];
-        currentBuffer = nil;
-        currentCharLocation = 0;
+        _dataBuffers = [[NSMutableArray alloc] initWithCapacity: 2];
+        _currentBuffer = nil;
+        _currentCharLocation = 0;
         _currentByte = 0;
         
-        isTagged = NO;
-        hasLiteral = NO;
-        command = nil;
+        _isTagged = NO;
+        _hasLiteral = NO;
+        _command = nil;
         _delegate = nil;
-        error = nil;
+        _error = nil;
         
-        state = 1;
-        result = 0;
+        _state = 1;
+        _result = 0;
 
-        timeOutPeriod = -2; //seconds
+        _timeOutPeriod = -2; //seconds
         
     }
     return self;
@@ -155,7 +142,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         [newResponse setClientStore: self.clientStore];
         [newResponse setCommand: self.command];
 
-        while ( (self.currentByte != 0) && (self.result == IMAPParsing)) {
+        while ( (self.currentByte != 0) && ((self.result == IMAPParsing) || (self.result == IMAPParseWaiting))) {
             //
             
             if (self.currentByte == '[') {
@@ -327,7 +314,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSMutableArray *returnedTokens;
     NSString       *returnedString;
     
-    while ( (self.result == IMAPParsing) && (self.currentByte != stopChar) && (self.currentByte != 0)) {
+    while ( ((self.result == IMAPParsing) || (self.result == IMAPParseWaiting)) && (self.currentByte != stopChar) && (self.currentByte != 0)) {
         
         if (self.currentByte == '(') {
             // get sub tokens as array
@@ -419,7 +406,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         if ([self incrementBytePosition] != 0) {
             self.result = IMAPParseUnexpectedEnd;
         };
-    } while (strchr(stopChars, self.currentByte) == NULL && (self.currentByte != 0) && ((result == IMAPParsing) || (result == IMAPParseWaiting)));
+    } while (strchr(stopChars, self.currentByte) == NULL && (self.currentByte != 0) && ((self.result == IMAPParsing) || (self.result == IMAPParseWaiting)));
     
     // If stop char, we want to leave the stop char
     // but if the stop char is the last character move the currentChar to the end
@@ -452,16 +439,31 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.result = IMAPParsing;
     NSString *tokenString = nil;
     
-    while ( (self.result!=IMAPParseTimeOut) && [self.currentBuffer length] < (tokenRange.location+tokenRange.length)) {
+    // Timeout loop here
+    NSDate *now = [NSDate date];
+    
+    while (([now timeIntervalSinceNow] > self.timeOutPeriod) && ((self.result == IMAPParsing) || (self.result == IMAPParseWaiting)) && [self.currentBuffer length] < (tokenRange.location+tokenRange.length)) {
+        self.result = IMAPParseWaiting;
         if ([self.dataBuffers count]>1) {
             [self.currentBuffer appendData: [self.dataBuffers objectAtIndex: 1]];
             [self.dataBuffers removeObjectAtIndex: 1];
+            if ([self.currentBuffer length] >= (tokenRange.location+tokenRange.length)) {
+                // we have enough data for current desired range
+                self.result = IMAPParsing;
+            }
         } else {
-            // wait for more data or timeout
-            self.result = IMAPParseTimeOut;
+            
+            // time interval is increasing negative
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         }
     }
-    if (self.result!=IMAPParseTimeOut) {
+    
+    if (([now timeIntervalSinceNow] <= self.timeOutPeriod) && [self.currentBuffer length] < (tokenRange.location+tokenRange.length)) {
+        self.result = IMAPParseTimeOut;
+    }
+
+    IMAPParseResult currentResult = self.result;
+    if ( (currentResult == IMAPParsing) || (currentResult == IMAPParseWaiting) ) {
         tokenString = [[NSString alloc] initWithData: [self.currentBuffer subdataWithRange: tokenRange] encoding: NSASCIIStringEncoding];
     }
     return tokenString;
