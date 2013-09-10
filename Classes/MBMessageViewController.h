@@ -14,4 +14,8 @@
 @property (strong, nonatomic) IBOutlet NSObjectController *messageController;
 @property (strong, nonatomic)          MBMessage*         message;
 
+- (IBAction)showMessageDebug:(id)sender;
+- (IBAction)showPartsInLog:(id)sender;
+- (IBAction)refreshMessageDisplay:(id)sender;
+
 @end

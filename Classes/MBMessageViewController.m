@@ -8,7 +8,17 @@
 
 #import "MBMessageViewController.h"
 #import "MBMessage+IMAP.h"
+#import "MBMime+IMAP.h"
+#import "MBMimeData+IMAP.h"
+
 #import <QuartzCore/QuartzCore.h>
+
+#import "DDLog.h"
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 
 @implementation MBMessageViewController
 @synthesize messageController;
@@ -51,4 +61,24 @@
 //    [NSAnimationContext endGrouping];
 //}
 
+- (IBAction)showMessageDebug:(id)sender {
+    DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.message);
+}
+
+- (IBAction)showPartsInLog:(id)sender {
+    NSSet* parts = self.message.allParts;
+    for (id part in parts) {
+        DDLogCVerbose(@"Part: %@", part);
+        if ([part isKindOfClass:[MBMime class]]) {
+            MBMimeData*  data = [(MBMime*)part data];
+            if (data) {
+                DDLogCVerbose(@"Data: %@", data);
+            }
+        }
+    }
+}
+
+- (IBAction)refreshMessageDisplay:(id)sender {
+    
+}
 @end
