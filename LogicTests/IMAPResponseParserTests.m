@@ -24,8 +24,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize actionCalled;
 
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
     
     // Set-up code here.
@@ -36,11 +35,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
     testBundle = [NSBundle bundleWithIdentifier: @"com.moedae.LogicTests"];
 }
-
-- (void)tearDown
-{
+- (void)tearDown {
     // Tear-down code here.
-    [parser release];
     [super tearDown];
 }
 
@@ -49,7 +45,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSString *archivePath = [NSHomeDirectory() stringByAppendingPathComponent: fileName];
     [NSKeyedArchiver archiveRootObject: tokens toFile: archivePath];
 }
-
 -(NSMutableArray *) loadAnswersFor: (NSString *) methodName {
     NSString *path = [testBundle pathForResource: methodName ofType: @"archive" inDirectory: @"answers"];
     
@@ -68,7 +63,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void) parseDataBuffer: (NSMutableData*) sampleResponseData responseMethod: (NSString*) methodName saveAnswer: (BOOL) saving answer: (NSString*) answer {
     [parser addDataBuffer: sampleResponseData];
-    [sampleResponseData release];
     
     IMAPResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
@@ -81,13 +75,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSMutableArray *answerTokens = [self loadAnswersFor: answer];
     
-    STAssertEqualObjects(tokens, answerTokens, @"Parse result: %i", result);
-    STAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
+    XCTAssertEqualObjects(tokens, answerTokens, @"Parse result: %i", result);
+    XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
     
     if (methodName!=nil) {
         [self configDefaultResponse:response];
         [response evaluate];
-        STAssertTrue([methodName compare: self.actionCalled] == NSOrderedSame, @"Response method called should be: %@, was:", methodName, self.actionCalled);
+        XCTAssertTrue([methodName compare: self.actionCalled] == NSOrderedSame, @"Response method called should be: %@, was: %@", methodName, self.actionCalled);
     }
     // need to assert result of above
     // set an ivar in delegate method with name and arguments passed to delegate method
@@ -113,7 +107,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: nil saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testOkRespTextCapability {
     
     const char *line = "* OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE STARTTLS AUTH=PLAIN AUTH=LOGIN AUTH=CRAM-MD5 AUTH=X-PLAIN-SUBMIT] Dovecot\r\n";
@@ -121,7 +114,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: @"responseCapability:" saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testRespCapability {
     
     const char *line = "* CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE SORT SORT=DISPLAY THREAD=REFERENCES THREAD=REFS MULTIAPPEND CATENATE UNSELECT CHILDREN NAMESPACE UIDPLUS LIST-EXTENDED I18NLEVEL=1 CONDSTORE QRESYNC ESEARCH ESORT SEARCHRES WITHIN CONTEXT=SEARCH LIST-STATUS COMPRESS=DEFLATE X-FTS-COMPACT QUOTA URLAUTH\r\n";
@@ -138,7 +130,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: @"setMessage:" saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testRespFetchUidEnvelopeEmptyFlags {
     
     const char *line =  "* 120 FETCH (UID 120 FLAGS () ENVELOPE (\"Mon, 4 Feb 2008 06:17:46 -0000\" \"You've been granted access\" ((\"Borders Rewards Perks\" NIL \"Borders\" \"e.bordersstores.com\")) ((\"Borders Rewards Perks\" NIL \"Borders\" \"e.bordersstores.com\")) ((\"Borders Rewards Perks\" NIL \"support-b09pdbwaxsb41ra3r0ag2bq8we1dqm\" \"e.bordersstores.com\")) ((NIL NIL \"taun\" \"charcoalia.net\")) NIL NIL NIL \"<b09pdbwaxsb41ra3r0ag2bq8we1dqm.822905916.2082@mta45.e.bordersstores.com>\"))\r\n";
@@ -147,7 +138,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: @"setMessage:" saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testRespFetchUidBodystructureSinglePart {
     
     const char *line =  "* 1072 FETCH (UID 1072 BODYSTRUCTURE (\"text\" \"plain\" (\"charset\" \"UTF-8\") NIL NIL \"7bit\" 2021 29 NIL NIL NIL NIL))\r\n";
@@ -156,7 +146,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: @"setMessage:" saveAnswer: NO answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testRespFetchUidBodystructureMultiPart {
     
     NSString *path = [testBundle pathForResource: @"fetchBodystructureMultipartA" ofType: @"txt" inDirectory: @"answers"];
@@ -165,7 +154,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: @"setMessage:" saveAnswer: NO answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testRespFetchUidBody2 {
     
     const char *line =  "* 1100 FETCH (UID 1100 BODY[2] \"This is the body data\")\r\n";
@@ -174,15 +162,74 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: nil saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testRespFetchBodyPart2UID12499 {
     [self parseFile: @"fetchBodyPart2UID12499" responseMethod: @"setMessage" saveAnswer: NO answer: NSStringFromSelector(_cmd)];
+}
+- (void)testRespFetchBodyPart2CommandEnd {
+    [self parseFile: @"fetchBodyPart2CommandEnd" responseMethod: @"setMessage" saveAnswer: NO answer: NSStringFromSelector(_cmd)];
+}
+- (void)testRespFetchBodyPart2CommandEndMultiBuffer {
+    
+    NSString *path0 = [testBundle pathForResource: @"fetchBodyPart2CommandEnd0" ofType: @"txt" inDirectory: @"answers"];
+    NSString *path1 = [testBundle pathForResource: @"fetchBodyPart2CommandEnd1" ofType: @"txt" inDirectory: @"answers"];
+    NSString *path2 = [testBundle pathForResource: @"fetchBodyPart2CommandEnd2" ofType: @"txt" inDirectory: @"answers"];
+    
+    NSMutableData *newData0 = [NSMutableData dataWithContentsOfFile: path0];
+    NSMutableData *newData1 = [NSMutableData dataWithContentsOfFile: path1];
+    NSMutableData *newData2 = [NSMutableData dataWithContentsOfFile: path2];
+    
+    
+    [parser addDataBuffer: newData0];
+    [parser addDataBuffer: newData1];
+    [parser addDataBuffer: newData2];
+    
+    IMAPResponse* response = nil;
+    IMAPParseResult result = [self.parser parseBuffer: &response];
+    
+    NSMutableArray *tokens = [response.tokens tokenArray];
+    
+    if (saveAnswers) {
+        [self saveAnswer: tokens As: NSStringFromSelector(_cmd)];
+    }
+    
+    NSMutableArray *answerTokens = [self loadAnswersFor: NSStringFromSelector(_cmd)];
+    
+    XCTAssertEqualObjects(tokens, answerTokens, @"Parse result: %i", result);
+    XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
+}
+- (void)testRespFetchBodyPart2CommandEndIncompleteMultiBuffer {
+    
+    NSString *path0 = [testBundle pathForResource: @"fetchBodyPart2CommandEnd0" ofType: @"txt" inDirectory: @"answers"];
+    NSString *path1 = [testBundle pathForResource: @"fetchBodyPart2CommandEnd1" ofType: @"txt" inDirectory: @"answers"];
+    NSString *path2 = [testBundle pathForResource: @"fetchBodyPart2CommandEnd2Incomplete" ofType: @"txt" inDirectory: @"answers"];
+    
+    NSMutableData *newData0 = [NSMutableData dataWithContentsOfFile: path0];
+    NSMutableData *newData1 = [NSMutableData dataWithContentsOfFile: path1];
+    NSMutableData *newData2 = [NSMutableData dataWithContentsOfFile: path2];
+    
+    
+    [parser addDataBuffer: newData0];
+    [parser addDataBuffer: newData1];
+    [parser addDataBuffer: newData2];
+    
+    IMAPResponse* response = nil;
+    IMAPParseResult result = [self.parser parseBuffer: &response];
+    
+    NSMutableArray *tokens = [response.tokens tokenArray];
+    
+    if (saveAnswers) {
+        [self saveAnswer: tokens As: NSStringFromSelector(_cmd)];
+    }
+    
+    NSMutableArray *answerTokens = [self loadAnswersFor: NSStringFromSelector(_cmd)];
+    
+    XCTAssertEqualObjects(tokens, answerTokens, @"Parse result: %i", result);
+    XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
 }
 
 - (void)testFetchWithLiteral {
     [self parseFile: @"fetchresponse" responseMethod: nil saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testFetchLW200 {
     
     NSString *path = [testBundle pathForResource: @"fetch200Response" ofType: @"txt" inDirectory: @"answers"];
@@ -190,7 +237,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSMutableData *newData = [[NSMutableData alloc] initWithContentsOfFile: path];
     
     [parser addDataBuffer: newData];
-    [newData release];
     
     IMAPResponse* response = nil;
     IMAPParseResult result;
@@ -210,9 +256,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     } while ([self.actionCalled compare: responseMethodName] != NSOrderedSame && i < 201);
     
     
-    STAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
+    XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
 }
-
 - (void)testFetchRFC822Header {
     
     NSString *path = [testBundle pathForResource: @"uidfetchrfc822header" ofType: @"txt" inDirectory: @"answers"];
@@ -220,7 +265,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSMutableData *newData = [[NSMutableData alloc] initWithContentsOfFile: path];
     
     [parser addDataBuffer: newData];
-    [newData release];
     
     IMAPResponse* response = nil;
     IMAPParseResult result;
@@ -240,7 +284,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     } while ([self.actionCalled compare: responseMethodName] != NSOrderedSame && i < 201);
     
     
-    STAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
+    XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
 }
 
 - (void)testOkPermanentFlags {
@@ -261,8 +305,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [parser addDataBuffer: newData];
     [parser addDataBuffer: newData2];
-    [newData release];
-    [newData2 release];
     
     IMAPResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
@@ -275,10 +317,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSMutableArray *answerTokens = [self loadAnswersFor: NSStringFromSelector(_cmd)];
     
-    STAssertEqualObjects(tokens, answerTokens, @"Parse result: %i", result);
-    STAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
+    XCTAssertEqualObjects(tokens, answerTokens, @"Parse result: %i", result);
+    XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
 }
-
 
 - (void)testRangeOfStringEnclosedByWithBadString {
     
@@ -286,12 +327,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
     [parser addDataBuffer: newData];
-    [newData release];
     
     IMAPResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
         
-    STAssertTrue(result == IMAPParseUnexpectedEnd, @"Parse result: %i", result);
+    XCTAssertTrue(result == IMAPParseUnexpectedEnd, @"Parse result: %i", result);
 }
 
 - (void)testXList1Line {
@@ -301,7 +341,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: @"setMailBoxFlags:" saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testOkUnseen1Line {
     
     const char *line = "* OK [UNSEEN 19] First unseen.\r\n";
@@ -309,7 +348,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: @"serverUnseen:" saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testOkUidvalidity1Line {
     
     const char *line = "* OK [UIDVALIDITY 1312094147] UIDs valid\r\n";
@@ -317,7 +355,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: @"Uidvalidity:" saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testOkUidnext1Line {
     
     const char *line = "* OK [UIDNEXT 12598] Predicted next UID\r\n";
@@ -325,19 +362,17 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self parseDataBuffer: newData responseMethod: @"Uidnext:" saveAnswer: saveAnswers answer: NSStringFromSelector(_cmd)];
 }
-
 - (void)testXList1LineNoLineFeed {
     
     const char *line = "* XLIST (\\HasNoChildren) \"/\" \"admin@moedae.com's Inbox/mz1.moedaworks.com\"\r";
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
     [parser addDataBuffer: newData];
-    [newData release];
     
     IMAPResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
         
-    STAssertTrue(result == IMAPParseUnexpectedEnd, @"Parse result: %i", result);
+    XCTAssertTrue(result == IMAPParseUnexpectedEnd, @"Parse result: %i", result);
 }
 
 - (void)testDoneOkFetchCompleted {
