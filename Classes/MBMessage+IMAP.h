@@ -33,8 +33,6 @@
 
 -(NSArray*) attachments;
 
--(NSString*) content;
-
 -(NSArray*) childNodesArray;
 -(NSSet*) childNodesSet;
 

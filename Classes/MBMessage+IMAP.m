@@ -81,6 +81,18 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 @implementation MBMessage (IMAP)
 
+//+ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
+//    
+//    BOOL automatic = NO;
+//    if ([theKey isEqualToString:@"defaultContent"]) {
+//        automatic = NO;
+//    }
+//    else {
+//        automatic = [super automaticallyNotifiesObserversForKey:theKey];
+//    }
+//    return automatic;
+//}
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -213,14 +225,22 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     NSSet* allParts = self.allParts;
     
+//    [self willChangeValueForKey:@"defaultContent"];
+    
     for (MBMime* mimePart in allParts) {
         if ([mimePart.bodyIndex caseInsensitiveCompare: partIdentity] == NSOrderedSame) {
             // found the correct part
             [mimePart addEncodedData: partData];
             
-            return;
+            if ([mimePart isKindOfClass:[MBMimeText class]]) {
+                [self setDefaultContent: mimePart.data.encoded];
+            }
+            
+            break;
         }
     }
+    
+//    [self didChangeValueForKey:@"defaultContent"];
 }
 
 -(NSString*) composeContent {
@@ -228,21 +248,25 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return nil;
 }
 
--(NSString*) content {
-    
-    NSOrderedSet* rootNodes = self.childNodes;
-    MBMime* firstMime = [rootNodes objectAtIndex: 0];
-    
-    NSString* result = nil;
-    
-    for (MBMime* mimePart in self.allParts) { 
-        if ([mimePart isKindOfClass:[MBMimeText class]]) {
-            result = mimePart.data.encoded;
-        }
-    }
-    
-    return result;
-}
+/*!
+ Need to make this KVO so views update.
+ Need to setup compound property observer?
+ */
+//-(NSString*) defaultContent {
+//    
+//    NSOrderedSet* rootNodes = self.childNodes;
+//    MBMime* firstMime = [rootNodes objectAtIndex: 0];
+//    
+//    NSString* result = nil;
+//    
+//    for (MBMime* mimePart in self.allParts) { 
+//        if ([mimePart isKindOfClass:[MBMimeText class]]) {
+//            result = mimePart.data.encoded;
+//        }
+//    }
+//    
+//    return result;
+//}
 
 -(NSArray*) childNodesArray {
     return [self.childNodes array];

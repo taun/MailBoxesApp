@@ -2,8 +2,8 @@
 //  MBMessage.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 12/20/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 09/11/13.
+//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSDate * dateReceived;
 @property (nonatomic, retain) NSDate * dateSent;
 @property (nonatomic, retain) NSString * encoding;
+@property (nonatomic, retain) NSNumber * hasAttachment;
 @property (nonatomic, retain) NSNumber * isAnsweredFlag;
 @property (nonatomic, retain) NSNumber * isDeletedFlag;
 @property (nonatomic, retain) NSNumber * isDraftFlag;
@@ -30,7 +31,7 @@
 @property (nonatomic, retain) NSString * subject;
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSNumber * uid;
-@property (nonatomic, retain) NSNumber * hasAttachment;
+@property (nonatomic, retain) NSString * defaultContent;
 @property (nonatomic, retain) NSSet *addressesBcc;
 @property (nonatomic, retain) NSSet *addressesCc;
 @property (nonatomic, retain) NSSet *addressesTo;

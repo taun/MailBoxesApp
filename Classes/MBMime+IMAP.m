@@ -49,7 +49,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                             inManagedObjectContext: self.managedObjectContext];
     mimeData.encoded = encodedData;
     mimeData.encoding = self.encoding;
-    mimeData.mimeStructure = self;
+    [mimeData setMimeStructure: self];
 }
 
 -(NSArray*) childNodesArray {

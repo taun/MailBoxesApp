@@ -2,8 +2,8 @@
 //  MBMessage.m
 //  MailBoxes
 //
-//  Created by Taun Chapman on 12/20/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 09/11/13.
+//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
 #import "MBMessage.h"
@@ -21,6 +21,7 @@
 @dynamic dateReceived;
 @dynamic dateSent;
 @dynamic encoding;
+@dynamic hasAttachment;
 @dynamic isAnsweredFlag;
 @dynamic isDeletedFlag;
 @dynamic isDraftFlag;
@@ -35,7 +36,7 @@
 @dynamic subject;
 @dynamic summary;
 @dynamic uid;
-@dynamic hasAttachment;
+@dynamic defaultContent;
 @dynamic addressesBcc;
 @dynamic addressesCc;
 @dynamic addressesTo;

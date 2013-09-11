@@ -1,98 +1,236 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="878" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
     <entity name="MBAccount" representedClassName="MBAccount" parentEntity="MBTreeNode">
-        <attribute name="address" attributeType="String" maxValueString="64" defaultValueString="name@server.com"/>
-        <attribute name="messageQuanta" attributeType="Integer 16" maxValueString="20000" defaultValueString="50"/>
-        <attribute name="password" attributeType="String" maxValueString="16"/>
-        <attribute name="port" attributeType="Integer 32" maxValueString="10000" defaultValueString="993"/>
-        <attribute name="priority" optional="YES" attributeType="Integer 16" maxValueString="100" defaultValueString="1"/>
-        <attribute name="server" attributeType="String" maxValueString="32" defaultValueString="mail.charcoalia.net"/>
-        <attribute name="username" attributeType="String" maxValueString="32" defaultValueString="taun@charcoalia.net"/>
-        <attribute name="useTLS" attributeType="Boolean" defaultValueString="NO"/>
-        <relationship name="accountType" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAccountType" inverseName="accounts" inverseEntity="MBAccountType" indexed="YES"/>
-        <relationship name="allNodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBox" inverseName="accountReference" inverseEntity="MBox" indexed="YES"/>
+        <attribute name="address" attributeType="String" maxValueString="64" defaultValueString="name@server.com">
+            <userInfo/>
+        </attribute>
+        <attribute name="messageQuanta" attributeType="Integer 16" maxValueString="20000" defaultValueString="50">
+            <userInfo/>
+        </attribute>
+        <attribute name="password" attributeType="String" maxValueString="16">
+            <userInfo/>
+        </attribute>
+        <attribute name="port" attributeType="Integer 32" maxValueString="10000" defaultValueString="993">
+            <userInfo/>
+        </attribute>
+        <attribute name="priority" optional="YES" attributeType="Integer 16" maxValueString="100" defaultValueString="1">
+            <userInfo/>
+        </attribute>
+        <attribute name="server" attributeType="String" maxValueString="32" defaultValueString="mail.charcoalia.net">
+            <userInfo/>
+        </attribute>
+        <attribute name="username" attributeType="String" maxValueString="32" defaultValueString="taun@charcoalia.net">
+            <userInfo/>
+        </attribute>
+        <attribute name="useTLS" attributeType="Boolean" defaultValueString="NO">
+            <userInfo/>
+        </attribute>
+        <relationship name="accountType" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAccountType" inverseName="accounts" inverseEntity="MBAccountType" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="allNodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBox" inverseName="accountReference" inverseEntity="MBox" indexed="YES">
+            <userInfo/>
+        </relationship>
         <relationship name="user" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBUser" inverseName="accounts" inverseEntity="MBUser" syncable="YES"/>
+        <userInfo/>
     </entity>
     <entity name="MBAccountType" representedClassName="MBAccountTypes">
-        <attribute name="desc" optional="YES" attributeType="String"/>
-        <attribute name="identifier" attributeType="String"/>
-        <attribute name="mailSuffix" optional="YES" attributeType="String"/>
-        <attribute name="name" attributeType="String"/>
-        <attribute name="serverDomain" optional="YES" attributeType="String"/>
-        <attribute name="services" optional="YES" attributeType="String"/>
-        <attribute name="userNamePattern" optional="YES" attributeType="String"/>
-        <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAccount" inverseName="accountType" inverseEntity="MBAccount" indexed="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="identifier" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="mailSuffix" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="name" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="serverDomain" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="services" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="userNamePattern" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAccount" inverseName="accountType" inverseEntity="MBAccount" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <entity name="MBAddress" representedClassName="MBAddress">
-        <attribute name="addressBookURI" optional="YES" attributeType="String"/>
-        <attribute name="email" attributeType="String" indexed="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" indexed="YES"/>
+        <attribute name="addressBookURI" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="email" attributeType="String" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES">
+            <userInfo/>
+        </attribute>
         <relationship name="lists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAddressList" inverseName="addresses" inverseEntity="MBAddressList" syncable="YES"/>
-        <relationship name="messagesBcc" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressesBcc" inverseEntity="MBMessage"/>
-        <relationship name="messagesCc" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressesCc" inverseEntity="MBMessage"/>
-        <relationship name="messagesFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressFrom" inverseEntity="MBMessage"/>
-        <relationship name="messagesReplyTo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressReplyTo" inverseEntity="MBMessage"/>
-        <relationship name="messagesSender" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressSender" inverseEntity="MBMessage"/>
-        <relationship name="messagesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressesTo" inverseEntity="MBMessage"/>
+        <relationship name="messagesBcc" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressesBcc" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <relationship name="messagesCc" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressesCc" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <relationship name="messagesFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressFrom" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <relationship name="messagesReplyTo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressReplyTo" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <relationship name="messagesSender" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressSender" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <relationship name="messagesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="addressesTo" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <entity name="MBAddressList" representedClassName="MBAddressList" parentEntity="MBTreeNode" syncable="YES">
         <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="lists" inverseEntity="MBAddress" syncable="YES"/>
     </entity>
     <entity name="MBAttachment" representedClassName="MBAttachment">
-        <attribute name="desc" optional="YES" attributeType="String"/>
-        <attribute name="raw" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES"/>
-        <attribute name="title" attributeType="String"/>
-        <relationship name="message" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="attachments" inverseEntity="MBMessage"/>
+        <attribute name="desc" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="raw" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="title" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <relationship name="message" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="attachments" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <entity name="MBFavorites" representedClassName="MBFavorites" parentEntity="MBTreeNode" syncable="YES"/>
     <entity name="MBFlag" representedClassName="MBFlag">
-        <attribute name="desc" optional="YES" attributeType="String"/>
-        <attribute name="identifier" optional="YES" attributeType="String"/>
-        <attribute name="serverAssignedName" optional="YES" attributeType="String" indexed="YES"/>
-        <attribute name="userAssignedName" optional="YES" attributeType="String"/>
-        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="flags" inverseEntity="MBMessage"/>
+        <attribute name="desc" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="identifier" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="serverAssignedName" optional="YES" attributeType="String" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="userAssignedName" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="flags" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <entity name="MBGroup" representedClassName="MBGroup" parentEntity="MBTreeNode" syncable="YES">
         <attribute name="isExpandable" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
     </entity>
     <entity name="MBLabel" representedClassName="MBLabel" parentEntity="MBTreeNode">
-        <attribute name="color" optional="YES" attributeType="Binary"/>
-        <attribute name="serverAssignedName" optional="YES" attributeType="String"/>
-        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="labels" inverseEntity="MBMessage"/>
+        <attribute name="color" optional="YES" attributeType="Binary">
+            <userInfo/>
+        </attribute>
+        <attribute name="serverAssignedName" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="labels" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <entity name="MBMessage" representedClassName="MBMessage">
-        <attribute name="dateReceived" optional="YES" attributeType="Date"/>
-        <attribute name="dateSent" optional="YES" attributeType="Date"/>
+        <attribute name="dateReceived" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="dateSent" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="defaultContent" optional="YES" transient="YES" attributeType="String" defaultValueString="Loading..." syncable="YES"/>
         <attribute name="encoding" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hasAttachment" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="isAnsweredFlag" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
-        <attribute name="isDeletedFlag" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
-        <attribute name="isDraftFlag" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
-        <attribute name="isFlaggedFlag" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
+        <attribute name="isAnsweredFlag" optional="YES" attributeType="Boolean" defaultValueString="NO">
+            <userInfo/>
+        </attribute>
+        <attribute name="isDeletedFlag" optional="YES" attributeType="Boolean" defaultValueString="NO">
+            <userInfo/>
+        </attribute>
+        <attribute name="isDraftFlag" optional="YES" attributeType="Boolean" defaultValueString="NO">
+            <userInfo/>
+        </attribute>
+        <attribute name="isFlaggedFlag" optional="YES" attributeType="Boolean" defaultValueString="NO">
+            <userInfo/>
+        </attribute>
         <attribute name="isFullyCached" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="isRecentFlag" optional="YES" attributeType="Boolean" defaultValueString="YES"/>
-        <attribute name="isSeenFlag" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
-        <attribute name="messageId" optional="YES" attributeType="String"/>
-        <attribute name="organization" optional="YES" attributeType="String"/>
-        <attribute name="rfc2822Size" optional="YES" attributeType="Integer 64" defaultValueString="0"/>
-        <attribute name="sequence" optional="YES" transient="YES" attributeType="Integer 64" defaultValueString="0"/>
-        <attribute name="subject" optional="YES" attributeType="String"/>
-        <attribute name="summary" optional="YES" attributeType="String"/>
-        <attribute name="uid" attributeType="Integer 64" defaultValueString="0" indexed="YES"/>
-        <relationship name="addressesBcc" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesBcc" inverseEntity="MBAddress" indexed="YES"/>
-        <relationship name="addressesCc" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesCc" inverseEntity="MBAddress" indexed="YES"/>
-        <relationship name="addressesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesTo" inverseEntity="MBAddress" indexed="YES"/>
-        <relationship name="addressFrom" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesFrom" inverseEntity="MBAddress" indexed="YES"/>
-        <relationship name="addressReplyTo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesReplyTo" inverseEntity="MBAddress"/>
-        <relationship name="addressSender" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesSender" inverseEntity="MBAddress"/>
+        <attribute name="isRecentFlag" optional="YES" attributeType="Boolean" defaultValueString="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="isSeenFlag" optional="YES" attributeType="Boolean" defaultValueString="NO">
+            <userInfo/>
+        </attribute>
+        <attribute name="messageId" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="organization" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="rfc2822Size" optional="YES" attributeType="Integer 64" defaultValueString="0">
+            <userInfo/>
+        </attribute>
+        <attribute name="sequence" optional="YES" transient="YES" attributeType="Integer 64" defaultValueString="0">
+            <userInfo/>
+        </attribute>
+        <attribute name="subject" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="summary" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="uid" attributeType="Integer 64" defaultValueString="0" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <relationship name="addressesBcc" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesBcc" inverseEntity="MBAddress" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="addressesCc" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesCc" inverseEntity="MBAddress" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="addressesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesTo" inverseEntity="MBAddress" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="addressFrom" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesFrom" inverseEntity="MBAddress" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="addressReplyTo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesReplyTo" inverseEntity="MBAddress">
+            <userInfo/>
+        </relationship>
+        <relationship name="addressSender" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAddress" inverseName="messagesSender" inverseEntity="MBAddress">
+            <userInfo/>
+        </relationship>
         <relationship name="allParts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMime" inverseName="messageReference" inverseEntity="MBMime" syncable="YES"/>
-        <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBAttachment" inverseName="message" inverseEntity="MBAttachment"/>
+        <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBAttachment" inverseName="message" inverseEntity="MBAttachment">
+            <userInfo/>
+        </relationship>
         <relationship name="childNodes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MBMime" inverseName="message" inverseEntity="MBMime" syncable="YES"/>
-        <relationship name="flags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag" inverseName="messages" inverseEntity="MBFlag"/>
-        <relationship name="labels" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBLabel" inverseName="messages" inverseEntity="MBLabel"/>
+        <relationship name="flags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag" inverseName="messages" inverseEntity="MBFlag">
+            <userInfo/>
+        </relationship>
+        <relationship name="labels" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBLabel" inverseName="messages" inverseEntity="MBLabel">
+            <userInfo/>
+        </relationship>
         <relationship name="lastChanged" optional="YES" transient="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBox" inverseName="lastChangedMessage" inverseEntity="MBox" syncable="YES"/>
-        <relationship name="mbox" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBox" inverseName="messages" inverseEntity="MBox" indexed="YES"/>
-        <relationship name="rfc2822" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MBRFC2822" inverseName="message" inverseEntity="MBRFC2822" storedInTruthFile="YES"/>
+        <relationship name="mbox" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBox" inverseName="messages" inverseEntity="MBox" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="rfc2822" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MBRFC2822" inverseName="message" inverseEntity="MBRFC2822" storedInTruthFile="YES">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <entity name="MBMime" representedClassName="MBMime" syncable="YES">
         <attribute name="bodyIndex" optional="YES" attributeType="String" syncable="YES"/>
@@ -163,46 +301,108 @@
         <attribute name="protocol" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MBox" representedClassName="MBox" parentEntity="MBTreeNode">
-        <attribute name="fullPath" attributeType="String" indexed="YES"/>
-        <attribute name="isMarked" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
-        <attribute name="isReadWrite" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
-        <attribute name="lastSeenUID" optional="YES" attributeType="Integer 64" defaultValueString="1" indexed="YES"/>
-        <attribute name="lastSelected" optional="YES" attributeType="Date"/>
-        <attribute name="lastSync" optional="YES" attributeType="Date"/>
-        <attribute name="pathSeparator" optional="YES" attributeType="String" defaultValueString="/"/>
+        <attribute name="fullPath" attributeType="String" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="isMarked" optional="YES" attributeType="Boolean" defaultValueString="NO">
+            <userInfo/>
+        </attribute>
+        <attribute name="isReadWrite" optional="YES" attributeType="Boolean" defaultValueString="NO">
+            <userInfo/>
+        </attribute>
+        <attribute name="lastSeenUID" optional="YES" attributeType="Integer 64" defaultValueString="1" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <attribute name="lastSelected" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="lastSync" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="pathSeparator" optional="YES" attributeType="String" defaultValueString="/">
+            <userInfo/>
+        </attribute>
         <attribute name="serverHighestModSeq" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="serverMessages" optional="YES" attributeType="Integer 64" defaultValueString="0"/>
-        <attribute name="serverRecent" optional="YES" attributeType="Integer 64" defaultValueString="0"/>
-        <attribute name="serverUIDNext" optional="YES" attributeType="Integer 64" defaultValueString="1"/>
-        <attribute name="serverUIDValidity" optional="YES" attributeType="Integer 64" defaultValueString="0"/>
-        <attribute name="serverUnseen" optional="YES" attributeType="Integer 64" defaultValueString="0"/>
-        <attribute name="specialUse" optional="YES" attributeType="String"/>
-        <attribute name="uid" optional="YES" attributeType="String" indexed="YES"/>
-        <relationship name="accountReference" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAccount" inverseName="allNodes" inverseEntity="MBAccount" indexed="YES"/>
-        <relationship name="availableFlags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag"/>
-        <relationship name="criteria" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBSmartFolder" indexed="YES"/>
+        <attribute name="serverMessages" optional="YES" attributeType="Integer 64" defaultValueString="0">
+            <userInfo/>
+        </attribute>
+        <attribute name="serverRecent" optional="YES" attributeType="Integer 64" defaultValueString="0">
+            <userInfo/>
+        </attribute>
+        <attribute name="serverUIDNext" optional="YES" attributeType="Integer 64" defaultValueString="1">
+            <userInfo/>
+        </attribute>
+        <attribute name="serverUIDValidity" optional="YES" attributeType="Integer 64" defaultValueString="0">
+            <userInfo/>
+        </attribute>
+        <attribute name="serverUnseen" optional="YES" attributeType="Integer 64" defaultValueString="0">
+            <userInfo/>
+        </attribute>
+        <attribute name="specialUse" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="uid" optional="YES" attributeType="String" indexed="YES">
+            <userInfo/>
+        </attribute>
+        <relationship name="accountReference" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAccount" inverseName="allNodes" inverseEntity="MBAccount" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="availableFlags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag">
+            <userInfo/>
+        </relationship>
+        <relationship name="criteria" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBSmartFolder" indexed="YES">
+            <userInfo/>
+        </relationship>
         <relationship name="lastChangedMessage" optional="YES" transient="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="lastChanged" inverseEntity="MBMessage" syncable="YES"/>
-        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBMessage" inverseName="mbox" inverseEntity="MBMessage" indexed="YES"/>
-        <relationship name="permanentFlags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBMessage" inverseName="mbox" inverseEntity="MBMessage" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="permanentFlags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <entity name="MBPortal" representedClassName="MBPortal">
-        <attribute name="desc" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="position" attributeType="Integer 16" defaultValueString="0"/>
-        <attribute name="predicate" optional="YES" attributeType="Transformable"/>
-        <attribute name="predicateString" optional="YES" attributeType="String" defaultValueString="name CONTAINS[cd] &quot;inbox&quot;"/>
-        <relationship name="criteria" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBSmartFolder" indexed="YES"/>
-        <relationship name="parentNode" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBUser" indexed="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="name" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="position" attributeType="Integer 16" defaultValueString="0">
+            <userInfo/>
+        </attribute>
+        <attribute name="predicate" optional="YES" attributeType="Transformable">
+            <userInfo/>
+        </attribute>
+        <attribute name="predicateString" optional="YES" attributeType="String" defaultValueString="name CONTAINS[cd] &quot;inbox&quot;">
+            <userInfo/>
+        </attribute>
+        <relationship name="criteria" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBSmartFolder" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <relationship name="parentNode" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBUser" indexed="YES">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <entity name="MBRFC2822" representedClassName="MBRFC2822">
-        <attribute name="raw" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES"/>
-        <relationship name="message" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="rfc2822" inverseEntity="MBMessage"/>
+        <attribute name="raw" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES">
+            <userInfo/>
+        </attribute>
+        <relationship name="message" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="rfc2822" inverseEntity="MBMessage">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
     </entity>
     <entity name="MBSidebar" representedClassName="MBSidebar" parentEntity="MBTreeNode" syncable="YES">
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBUser" inverseName="sidebar" inverseEntity="MBUser" syncable="YES"/>
     </entity>
     <entity name="MBSmartFolder" representedClassName="MBSmartFolder" parentEntity="MBTreeNode">
-        <attribute name="criteria" optional="YES" attributeType="String"/>
+        <attribute name="criteria" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <userInfo/>
     </entity>
     <entity name="MBTreeNode" representedClassName="MBTreeNode" isAbstract="YES" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
@@ -216,11 +416,18 @@
         <relationship name="parentNodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MBTreeNode" inverseName="childNodes" inverseEntity="MBTreeNode" syncable="YES"/>
     </entity>
     <entity name="MBUser" representedClassName="MBUser">
-        <attribute name="firstName" attributeType="String" maxValueString="32" defaultValueString="default"/>
-        <attribute name="lastName" optional="YES" attributeType="String" maxValueString="32"/>
+        <attribute name="firstName" attributeType="String" maxValueString="32" defaultValueString="default">
+            <userInfo/>
+        </attribute>
+        <attribute name="lastName" optional="YES" attributeType="String" maxValueString="32">
+            <userInfo/>
+        </attribute>
         <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBAccount" inverseName="user" inverseEntity="MBAccount" syncable="YES"/>
-        <relationship name="portals" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBViewPortal" inverseName="user" inverseEntity="MBViewPortal" indexed="YES"/>
+        <relationship name="portals" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBViewPortal" inverseName="user" inverseEntity="MBViewPortal" indexed="YES">
+            <userInfo/>
+        </relationship>
         <relationship name="sidebar" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MBSidebar" inverseName="user" inverseEntity="MBSidebar" syncable="YES"/>
+        <userInfo/>
     </entity>
     <entity name="MBViewPortal" representedClassName="MBViewPortal" isAbstract="YES" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
@@ -243,45 +450,45 @@
     <fetchRequest name="MBMessageForUID" entity="MBMessage" predicateString="uid == $aUID AND mbox.accountReference == $ACCOUNTOBJECT"/>
     <fetchRequest name="MBoxForPath" entity="MBox" predicateString="fullPath == $PATH AND accountReference == $ACCOUNTOBJECT"/>
     <elements>
-        <element name="MBAccount" positionX="214" positionY="-396" width="128" height="210"/>
-        <element name="MBAccountType" positionX="376" positionY="-333" width="128" height="165"/>
-        <element name="MBAddress" positionX="-353" positionY="-207" width="128" height="195"/>
-        <element name="MBAddressList" positionX="160" positionY="192" width="128" height="60"/>
-        <element name="MBAttachment" positionX="-297" positionY="120" width="128" height="105"/>
-        <element name="MBFavorites" positionX="-63" positionY="-360" width="128" height="45"/>
-        <element name="MBFlag" positionX="115" positionY="150" width="128" height="120"/>
-        <element name="MBGroup" positionX="160" positionY="-783" width="128" height="105"/>
-        <element name="MBLabel" positionX="466" positionY="-9" width="128" height="90"/>
-        <element name="MBMessage" positionX="-146" positionY="-387" width="128" height="525"/>
-        <element name="MBMime" positionX="160" positionY="192" width="128" height="450"/>
-        <element name="MBMimeApplication" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMimeAudio" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMimeData" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="MBMimeDisposition" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="MBMimeImage" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMimeMedia" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMimeMulti" positionX="160" positionY="192" width="128" height="60"/>
-        <element name="MBMimeParameter" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="MBMimeText" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMimeVideo" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMultiAlternative" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMultiDigest" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMultiEncrypted" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMultiMessage" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMultiMixed" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMultiParallel" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMultiRelated" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="MBMultiSigned" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="MBox" positionX="-0" positionY="-363" width="128" height="360"/>
-        <element name="MBPortal" positionX="-90" positionY="-582" width="128" height="150"/>
-        <element name="MBRFC2822" positionX="-126" positionY="159" width="128" height="75"/>
-        <element name="MBSidebar" positionX="-81" positionY="-378" width="128" height="60"/>
-        <element name="MBSmartFolder" positionX="628" positionY="-720" width="128" height="60"/>
-        <element name="MBTreeNode" positionX="-90" positionY="-387" width="128" height="180"/>
-        <element name="MBUser" positionX="-216" positionY="-729" width="128" height="120"/>
-        <element name="MBViewPortal" positionX="414" positionY="-573" width="128" height="105"/>
-        <element name="MBViewPortalMBox" positionX="639" positionY="-459" width="128" height="60"/>
-        <element name="MBViewPortalSelection" positionX="628" positionY="-555" width="128" height="60"/>
-        <element name="MBViewPortalSmartFolder" positionX="628" positionY="-630" width="128" height="60"/>
+        <element name="MBAccount" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBAccountType" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBAddress" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBAddressList" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBAttachment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBFavorites" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBFlag" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBGroup" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBLabel" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMessage" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMime" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeApplication" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeAudio" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeData" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeDisposition" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeImage" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeMedia" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeMulti" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeParameter" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeText" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMimeVideo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMultiAlternative" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMultiDigest" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMultiEncrypted" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMultiMessage" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMultiMixed" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMultiParallel" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMultiRelated" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBMultiSigned" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBox" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBPortal" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBRFC2822" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBSidebar" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBSmartFolder" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBTreeNode" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBUser" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBViewPortal" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBViewPortalMBox" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBViewPortalSelection" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBViewPortalSmartFolder" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

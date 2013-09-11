@@ -21,8 +21,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 @implementation MBMessageViewController
-@synthesize messageController;
-@synthesize message;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,24 +41,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return self;
 }
 
-//-(void) setMessage:(MBMessage *)newMessage {
-//    [[self view] setAlphaValue: 0.0];
-//    
-//    message = newMessage;
-//    
-////    [[self view] setBounds: startRect];
-//    
-//
-//    
-//    
-//    
-//    
-//    CAAnimationGroup* group = [CAAnimationGroup animation];
-//    [group setAnimations: [NSArray arrayWithObjects: alphaAnim, sizeAnim, nil]];
-//    
-//    [[[self view] animator] setAlphaValue: 1.0];
-//    [NSAnimationContext endGrouping];
-//}
 
 - (IBAction)showMessageDebug:(id)sender {
     DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.message);
@@ -79,6 +60,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (IBAction)refreshMessageDisplay:(id)sender {
-    
+    [self.message.managedObjectContext save: nil];
 }
 @end
