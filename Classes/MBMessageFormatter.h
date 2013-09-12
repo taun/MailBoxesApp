@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@interface NSDate (whenString)
+- (NSString *)whenString;
+
+@end
 
 @interface MBMessageFormatter : NSFormatter {
 @private

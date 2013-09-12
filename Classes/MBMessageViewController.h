@@ -9,10 +9,20 @@
 #import <Cocoa/Cocoa.h>
 @class MBMessage;
 
-@interface MBMessageViewController : NSViewController
+@interface MBMessageViewController : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
 @property (strong, nonatomic) IBOutlet NSObjectController *messageController;
 @property (strong, nonatomic)          MBMessage*         message;
+
+#pragma Envelope Fields
+@property (weak) IBOutlet NSTextField *subject;
+@property (weak) IBOutlet NSTextField *dateSent;
+@property (weak) IBOutlet NSTextField *recipients;
+@property (weak) IBOutlet NSTextField *sender;
+@property (unsafe_unretained) IBOutlet NSTextView *messageBodyView;
+
+#pragma Body
+@property (weak) IBOutlet NSOutlineView *outlineView;
 
 - (IBAction)showMessageDebug:(id)sender;
 - (IBAction)showPartsInLog:(id)sender;

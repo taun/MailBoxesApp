@@ -10,6 +10,7 @@
 #import "MBMessage+IMAP.h"
 #import "MBMime+IMAP.h"
 #import "MBMimeData+IMAP.h"
+#import "MBAddress+IMAP.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -19,6 +20,16 @@
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
+@interface MBMessageViewController ()
+
+@property (weak) MBMime* rootChildNode;
+
+@property (strong, nonatomic) NSArray* cachedOrderedMessageParts;
+
+-(void) setEnvelopeFields;
+-(NSString*) stringFromAddresses: (NSSet*) addresses;
+
+@end
 
 @implementation MBMessageViewController
 
@@ -41,7 +52,36 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return self;
 }
 
-
+-(void) setMessage:(MBMessage *)message {
+    if (message != _message) {
+        _message = message;
+        
+        NSOrderedSet* rootNodes = _message.childNodes;
+        NSInteger count = [rootNodes count];
+        if (count > 0) {
+            self.rootChildNode = [rootNodes objectAtIndex: 0];
+            if (count>1) {
+                DDLogCVerbose(@"[%@ %@] RootNode Count: %u", NSStringFromClass([self class]), NSStringFromSelector(_cmd), count);
+            }
+        }
+    }
+    [self setEnvelopeFields];
+}
+-(NSString*) stringFromAddresses:(NSSet *)addresses {
+    NSMutableString* addressesAsString = [NSMutableString new];
+    for (MBAddress* address in addresses) {
+        if ([addresses isKindOfClass:[MBAddress class]]) {
+            [addressesAsString appendString: [address stringRFC822AddressFormat]];
+        }
+    }
+    return addressesAsString;
+}
+-(void) setEnvelopeFields {
+    [self.subject setStringValue: self.message.subject];
+    [self.sender setStringValue: [self stringFromAddresses: self.message.addressesTo]];
+    [self.recipients setStringValue: [self.message.addressFrom stringRFC822AddressFormat]];
+    [self.dateSent setObjectValue: self.message.dateSent];
+}
 - (IBAction)showMessageDebug:(id)sender {
     DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.message);
 }
@@ -60,6 +100,73 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (IBAction)refreshMessageDisplay:(id)sender {
-    [self.message.managedObjectContext save: nil];
+    [self setEnvelopeFields];
+    [self.outlineView reloadData];
 }
+
+#pragma mark - Outline Datasource
+
+- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
+    MBMime* node = nil;
+    
+    if (!item) {
+        node = self.rootChildNode;
+    } else {
+        if ([item isKindOfClass:[MBMime class]]) {
+            node = [[(MBMime*)item childNodes] objectAtIndex: index];
+        }
+    }
+    
+    return node;
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
+    BOOL expandable = NO;
+    if (!item) {
+        item = self.rootChildNode;
+    }
+    if ([item isKindOfClass:[MBMime class]]) {
+        if ([[(MBMime*)item childNodes] count] > 0) {
+            expandable = YES;
+        }
+    }
+
+        return expandable;
+}
+
+- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
+    NSInteger count = 0;
+    
+    if (!item) item = self.rootChildNode;
+    
+    if ([item isKindOfClass:[MBMime class]]) {
+        count = [[(MBMime*)item childNodes] count];
+    }
+    
+    return count;
+}
+
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
+    id objectValue;
+    
+    if (!item) item = self.rootChildNode;
+    
+    if ([item isKindOfClass:[MBMime class]]) {
+        if ([tableColumn.identifier isEqualToString: @"mimeName"]) {
+            objectValue = [(MBMime*)item name];
+            if (!objectValue) {
+                objectValue = @"NoName";
+            }
+        } else if ([tableColumn.identifier isEqualToString: @"mimeType"]) {
+            objectValue = [(MBMime*)item type];
+        } else if ([tableColumn.identifier isEqualToString: @"mimeSubtype"]) {
+            objectValue = [(MBMime*)item subtype];
+        }
+    }
+    
+    return objectValue;
+}
+
+#pragma mark - Outline Delegate
+
 @end

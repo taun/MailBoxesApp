@@ -264,8 +264,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         
         _parser = [[IMAPResponseBuffer alloc] init];
         _parser.delegate = self;
-        _parser.timeOutPeriod = -1; // incoming timeout
-        _timeOutPeriod = -2; // outgoing timeout
+        _parser.timeOutPeriod = -2; // incoming timeout
+        _timeOutPeriod = -5; // outgoing timeout
         _runLoopInterval = 0.01; // seconds
         _parser.clientStore = self.clientStore;
         
@@ -562,25 +562,25 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                     [self syncQuanta];
                     // Queue a command to set "isFinished"?
                     
-                    while (!self.isFinished && !self.isCancelled) {
-                        // wait for and parse responses until cancelled
-                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
-                        
-                        if([self.parser.dataBuffers count] > 0 ){
-                            // parser dataBuffers fill asynchronously
-                            IMAPResponse* response = nil;
-                            IMAPParseResult result = [self.parser parseBuffer: &response];
-                            
-                            if (result == IMAPParseComplete) {
-                                [response evaluate];
-                            }
-                        }
-                        if ([self.mainCommandQueue count] > 0) {
-                            NSArray* command = [self.mainCommandQueue objectAtIndex: 0];
-                            [self.mainCommandQueue removeObjectAtIndex: 0];
-                            [self performSelector: NSSelectorFromString([command objectAtIndex:0]) withObject: [command objectAtIndex: 1]];
-                        }
-                    }
+//                    while (!self.isFinished && !self.isCancelled) {
+//                        // wait for and parse responses until cancelled
+//                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
+//                        
+//                        if([self.parser.dataBuffers count] > 0 ){
+//                            // parser dataBuffers fill asynchronously
+//                            IMAPResponse* response = nil;
+//                            IMAPParseResult result = [self.parser parseBuffer: &response];
+//                            
+//                            if (result == IMAPParseComplete) {
+//                                [response evaluate];
+//                            }
+//                        }
+//                        if ([self.mainCommandQueue count] > 0) {
+//                            NSArray* command = [self.mainCommandQueue objectAtIndex: 0];
+//                            [self.mainCommandQueue removeObjectAtIndex: 0];
+//                            [self performSelector: NSSelectorFromString([command objectAtIndex:0]) withObject: [command objectAtIndex: 1]];
+//                        }
+//                    }
                 }
                 
             }
