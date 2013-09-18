@@ -232,9 +232,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
             // found the correct part
             [mimePart addEncodedData: partData];
             
-            if ([mimePart isKindOfClass:[MBMimeText class]]) {
-                [self setDefaultContent: mimePart.data.encoded];
-            }
+//            if ([mimePart isKindOfClass:[MBMimeText class]]) {
+//                [self setDefaultContent: mimePart.data.encoded];
+//            }
             
             break;
         }

@@ -22,7 +22,7 @@ static NSRegularExpression *regexHeaderField;
 +(void)initialize {
     NSError *error=nil;
     regexHeaderField = [[NSRegularExpression alloc] initWithPattern: @"^(\\S+):\\s(.*)"
-                                                           options: NSRegularExpressionAnchorsMatchLines 
+                                                           options: (NSRegularExpressionAnchorsMatchLines | NSRegularExpressionCaseInsensitive)
                                                              error: &error];
 }
 

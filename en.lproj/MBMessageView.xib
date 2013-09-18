@@ -9,12 +9,11 @@
             <connections>
                 <outlet property="dateReceived" destination="32" id="cfY-8X-bMs"/>
                 <outlet property="dateSent" destination="32" id="MVr-KE-ILP"/>
-                <outlet property="messageBodyView" destination="21" id="g7B-69-8Zk"/>
+                <outlet property="messageBodyViewContainer" destination="20" id="aKR-UO-3PU"/>
                 <outlet property="outlineView" destination="3906" id="SUb-gl-Evi"/>
                 <outlet property="recipients" destination="26" id="lPq-qv-JXd"/>
                 <outlet property="sender" destination="24" id="VGR-fL-JVw"/>
                 <outlet property="subject" destination="28" id="mXc-uL-SEf"/>
-                <outlet property="test" destination="21" id="LhA-hZ-GL0"/>
                 <outlet property="view" destination="1" id="7"/>
             </connections>
         </customObject>
@@ -59,11 +58,12 @@
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="26">
                                             <rect key="frame" x="52" y="37" width="392" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="messageTo" drawsBackground="YES" id="27">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" drawsBackground="YES" id="27">
                                                 <font key="font" size="13" name="Helvetica"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <accessibility description="Recipient"/>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="28">
                                             <rect key="frame" x="52" y="69" width="655" height="24"/>
@@ -71,11 +71,12 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="J3l-hY-RZP"/>
                                             </constraints>
-                                            <textFieldCell key="cell" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="messageSubject" drawsBackground="YES" usesSingleLineMode="YES" id="29">
+                                            <textFieldCell key="cell" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="29">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <accessibility description="Subject"/>
                                         </textField>
                                         <textField verticalHuggingPriority="750" alphaValue="0.40000000000000013" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                                             <rect key="frame" x="452" y="38" width="255" height="26"/>
@@ -86,6 +87,7 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <accessibility description="Date sent"/>
                                         </textField>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xa0-Ev-bFO">
                                             <rect key="frame" x="492" y="1" width="122" height="32"/>
@@ -118,11 +120,12 @@
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="24">
                                             <rect key="frame" x="52" y="6" width="392" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" title="messageFrom" drawsBackground="YES" id="25">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" drawsBackground="YES" id="25">
                                                 <font key="font" size="13" name="Helvetica"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <accessibility description="Sender"/>
                                         </textField>
                                         <button toolTip="Synchronize accounts" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NBA-ST-lny" userLabel="Load Accounts Button">
                                             <rect key="frame" x="470" y="9" width="20" height="20"/>
@@ -183,27 +186,14 @@
                                                 <rect key="frame" x="1" y="17" width="291" height="182"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" headerView="3908" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3910" id="3906">
-                                                        <rect key="frame" x="0.0" y="0.0" width="292" height="182"/>
+                                                    <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" headerView="3908" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="3911" id="3906">
+                                                        <rect key="frame" x="0.0" y="0.0" width="291" height="182"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
-                                                            <tableColumn width="101" minWidth="16" maxWidth="1000" id="3910">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
-                                                                    <font key="font" metaFont="smallSystem"/>
-                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                                                </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="3913">
-                                                                    <font key="font" metaFont="system"/>
-                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                </textFieldCell>
-                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                            </tableColumn>
-                                                            <tableColumn identifier="mimeType" width="91" minWidth="40" maxWidth="1000" id="3911">
+                                                            <tableColumn identifier="mimeType" editable="NO" width="91" minWidth="40" maxWidth="1000" id="3911">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="type">
                                                                     <font key="font" metaFont="smallSystem"/>
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -216,13 +206,26 @@
                                                                 </textFieldCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             </tableColumn>
-                                                            <tableColumn identifier="mimeSubtype" width="91" minWidth="10" maxWidth="3.4028234663852886e+38" id="yCm-Q6-L8K">
+                                                            <tableColumn identifier="mimeSubtype" editable="NO" width="90" minWidth="10" maxWidth="3.4028234663852886e+38" id="yCm-Q6-L8K">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Subtype">
                                                                     <font key="font" metaFont="smallSystem"/>
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                 </tableHeaderCell>
                                                                 <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="iiV-LI-2OO">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            </tableColumn>
+                                                            <tableColumn identifier="mimeName" editable="NO" width="101" minWidth="16" maxWidth="1000" id="3910">
+                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </tableHeaderCell>
+                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="3913">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -238,7 +241,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </clipView>
-                                            <scroller key="horizontalScroller" verticalHuggingPriority="750" id="3907">
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="3907">
                                                 <rect key="frame" x="1" y="183" width="291" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -247,7 +250,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <tableHeaderView key="headerView" id="3908">
-                                                <rect key="frame" x="0.0" y="0.0" width="292" height="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="291" height="17"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </tableHeaderView>
                                         </scrollView>

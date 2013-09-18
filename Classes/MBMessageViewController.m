@@ -10,9 +10,11 @@
 #import "MBMessage+IMAP.h"
 #import "MBMime+IMAP.h"
 #import "MBMimeData+IMAP.h"
+#import "MBMultiAlternative.h"
 #import "MBAddress+IMAP.h"
 
 #import <QuartzCore/QuartzCore.h>
+#import <WebKit/WebKit.h>
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -21,8 +23,6 @@
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @interface MBMessageViewController ()
-
-@property (weak) MBMime* rootChildNode;
 
 @property (strong, nonatomic) NSArray* cachedOrderedMessageParts;
 
@@ -52,20 +52,29 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return self;
 }
 
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+
+    if ([keyPath isEqualToString: @"defaultContent"]) {
+        [self refreshMessageDisplay: nil];
+    } else if ([keyPath isEqualToString: @"data"]) {
+        [self displayNode: object];
+    }
+
+}
+
 -(void) setMessage:(MBMessage *)message {
     if (message != _message) {
-        _message = message;
-        
-        NSOrderedSet* rootNodes = _message.childNodes;
-        NSInteger count = [rootNodes count];
-        if (count > 0) {
-            self.rootChildNode = [rootNodes objectAtIndex: 0];
-            if (count>1) {
-                DDLogCVerbose(@"[%@ %@] RootNode Count: %u", NSStringFromClass([self class]), NSStringFromSelector(_cmd), count);
+        if (_message != nil) {
+//            [_message removeObserver: self forKeyPath: @"defaultContent"];
+            if (self.outlineView.selectedRow > -1) {
+                MBMime* previousSelectedNode = [self.outlineView itemAtRow: [self.outlineView selectedRow]];
+                [previousSelectedNode removeObserver: self forKeyPath: @"data"];
             }
         }
+        _message = message;
+//        [_message addObserver: self forKeyPath: @"defaultContent" options: NSKeyValueObservingOptionNew context: NULL];
     }
-    [self setEnvelopeFields];
+    [self refreshMessageDisplay: nil];
 }
 -(NSString*) stringFromAddresses:(NSSet *)addresses {
     NSMutableString* addressesAsString = [NSMutableString new];
@@ -77,10 +86,18 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return addressesAsString;
 }
 -(void) setEnvelopeFields {
-    [self.subject setStringValue: self.message.subject];
-    [self.sender setStringValue: [self stringFromAddresses: self.message.addressesTo]];
-    [self.recipients setStringValue: [self.message.addressFrom stringRFC822AddressFormat]];
+    
+    if (self.message.addressFrom) {
+        [self.sender setStringValue: [self.message.addressFrom stringRFC822AddressFormat]];
+    }
+    
     [self.dateSent setObjectValue: self.message.dateSent];
+
+    if ([self.message.addressesTo count]>0) {
+        [self.recipients setStringValue: [self stringFromAddresses: self.message.addressesTo]];
+    }
+    
+    [self.subject setStringValue: self.message.subject];
 }
 - (IBAction)showMessageDebug:(id)sender {
     DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.message);
@@ -102,6 +119,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (IBAction)refreshMessageDisplay:(id)sender {
     [self setEnvelopeFields];
     [self.outlineView reloadData];
+    [self.outlineView expandItem: nil expandChildren: YES];
 }
 
 #pragma mark - Outline Datasource
@@ -110,7 +128,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     MBMime* node = nil;
     
     if (!item) {
-        node = self.rootChildNode;
+        node = [self.message.childNodes objectAtIndex: index];
     } else {
         if ([item isKindOfClass:[MBMime class]]) {
             node = [[(MBMime*)item childNodes] objectAtIndex: index];
@@ -122,9 +140,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
     BOOL expandable = NO;
-    if (!item) {
-        item = self.rootChildNode;
-    }
     if ([item isKindOfClass:[MBMime class]]) {
         if ([[(MBMime*)item childNodes] count] > 0) {
             expandable = YES;
@@ -137,19 +152,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
     NSInteger count = 0;
     
-    if (!item) item = self.rootChildNode;
-    
-    if ([item isKindOfClass:[MBMime class]]) {
-        count = [[(MBMime*)item childNodes] count];
+    if (!item) {
+        count = [self.message.childNodes count];
+    } else {
+        if ([item isKindOfClass:[MBMime class]]) {
+            count = [[(MBMime*)item childNodes] count];
+        }
     }
+    
     
     return count;
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     id objectValue;
-    
-    if (!item) item = self.rootChildNode;
     
     if ([item isKindOfClass:[MBMime class]]) {
         if ([tableColumn.identifier isEqualToString: @"mimeName"]) {
@@ -168,5 +184,48 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 #pragma mark - Outline Delegate
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
+    BOOL shouldSelect = YES;
+    if ([item isKindOfClass:[MBMultiAlternative class]]) {
+        shouldSelect = NO;
+    }
+    
+    if (shouldSelect && (self.outlineView.selectedRow > -1)) {
+        MBMime* previousSelectedNode = [self.outlineView itemAtRow: [self.outlineView selectedRow]];
+        [previousSelectedNode removeObserver: self forKeyPath: @"data"];
+    }
+    return shouldSelect;
+}
+-(void) displayNode: (MBMime*) node {
+    MBMimeData* data = node.data;
+    NSString* messageText = [data encoded];
+    
+    id dataView;
+    dataView = [NSTextView new];
+    [dataView setHorizontallyResizable: YES];
+    [dataView setVerticallyResizable: YES];
+    [dataView setString: @"Loading....."];
+    
+    if (!messageText) {
+        [dataView setString: @"No Data"];
+    } else {
+        if ([node.subtype isEqualToString: @"HTML"]) {
+            NSData* html = [messageText dataUsingEncoding: NSASCIIStringEncoding];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithHTML: html documentAttributes: nil]];
+            });
+        } else {
+            [dataView setString: messageText];
+        }
+    }
+    [self.messageBodyViewContainer setDocumentView: dataView];
+    [self.messageBodyViewContainer setNeedsDisplay: YES];
+}
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification {
+    MBMime* node = [self.outlineView itemAtRow: [self.outlineView selectedRow]];
+    [node addObserver: self forKeyPath: @"data" options: NSKeyValueObservingOptionNew context: NULL];
+    [self displayNode: node];
+}
 
 @end

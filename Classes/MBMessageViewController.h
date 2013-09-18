@@ -19,7 +19,8 @@
 @property (weak) IBOutlet NSTextField *dateSent;
 @property (weak) IBOutlet NSTextField *recipients;
 @property (weak) IBOutlet NSTextField *sender;
-@property (unsafe_unretained) IBOutlet NSTextView *messageBodyView;
+
+@property (weak) IBOutlet id messageBodyViewContainer;
 
 #pragma Body
 @property (weak) IBOutlet NSOutlineView *outlineView;

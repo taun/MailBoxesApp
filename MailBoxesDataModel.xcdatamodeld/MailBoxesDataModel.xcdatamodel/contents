@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F37" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
     <entity name="MBAccount" representedClassName="MBAccount" parentEntity="MBTreeNode">
         <attribute name="address" attributeType="String" maxValueString="64" defaultValueString="name@server.com">
             <userInfo/>
@@ -151,7 +151,6 @@
         <attribute name="dateSent" optional="YES" attributeType="Date">
             <userInfo/>
         </attribute>
-        <attribute name="defaultContent" optional="YES" transient="YES" attributeType="String" defaultValueString="Loading..." syncable="YES"/>
         <attribute name="encoding" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hasAttachment" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isAnsweredFlag" optional="YES" attributeType="Boolean" defaultValueString="NO">

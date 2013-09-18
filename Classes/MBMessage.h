@@ -2,7 +2,7 @@
 //  MBMessage.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 09/11/13.
+//  Created by Taun Chapman on 09/13/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
@@ -31,7 +31,6 @@
 @property (nonatomic, retain) NSString * subject;
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSNumber * uid;
-@property (nonatomic, retain) NSString * defaultContent;
 @property (nonatomic, retain) NSSet *addressesBcc;
 @property (nonatomic, retain) NSSet *addressesCc;
 @property (nonatomic, retain) NSSet *addressesTo;

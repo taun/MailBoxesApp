@@ -396,11 +396,12 @@ Initial sync:\
 	Fetch Envelopes from lastSeenUID:serverUIDNext - lastSeenUID defaults to 1\
 	Create messages and store envelope data\
 	Set lastSeenUID to last UID.\
-	When done get all messages with nil body and start fetching the rest of the message from highest UID to lowest in background.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
+
+\f2\i0 \cf0 	When done get all messages with nil body and start fetching the rest of the message from highest UID to lowest in background.\
 	When done go into idle mode?
-\f5\i0\fs24 \cb5 \
-\pard\pardeftab720\sl220
-\cf0 \
+\f5\fs24 \
+\
 ***When offline, folders are read-only! Avoid sync issues. Can read, delete and compose messages, just not re-arrange.\
  Need a core-data persistent queue which has a list of folder/messages to be deleted. Perhaps another message flag?\
 \
@@ -412,7 +413,8 @@ Initial sync:\
 \
  ?? Why doesn't App recognize the "Starfield Class 2 Certification Authority" Root CA as trusted? Even openssl needs a manual override but Safari does not.\
 \
-2013--8-01\
+\pard\pardeftab720\sl220
+\cf0 \cb5 2013--8-01\
  Changed commandLogin to check for AUTH=Plain or AUTH=login\
  \cb1 \strike \strikec0 Started to switch to CocoaAsyncSocket then realized could still use NSStream if mixing with CFNetwork code.\cb5 \strike0\striked0 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
@@ -456,4 +458,110 @@ Initial sync:\
 	How to monitor network status, then imap server status?\
 	Option to get all mail or just some.\
 2013-09-01\
-	Need to check IMAP syntax for select command "How to quote folders with spaces or other special characters?"}
+	\cb1 \strike \strikec0 Need to check IMAP syntax for select command "How to quote folders with spaces or other special characters?"\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
+\cf0 	 \strike0\striked0 Quoting all mailbox paths before sending to server.\cb5 \
+\pard\pardeftab720\sl220
+\cf0 2013-09-13\
+	\cb1 \strike \strikec0 Change defaultContent property to bodyUpdates property. increment bodyUpdates for each update then observe changes to bodyUpdates in message view.\
+	Remove defaultContent property. Monitoring data directly.\cb5 \strike0\striked0 \
+	\cb1 \strike \strikec0 Need to fix message body view content frame. Currently (0,0). Set to holder frame size. Inset message body view and add shadow. \cb5 \strike0\striked0 \
+	Add message popover to give "full window" view of message.\
+	Ultimately, would like a tab view for messages window. Just like safari browser tabs.\
+	Indicate whether mime data is loaded in outline view.\
+	\cb1 \strike \strikec0 Default outline view to expanded.\cb5 \strike0\striked0 \
+	User Preference for default mimetype to display if none selected.\
+	Change envelope view to be top of message and scroll with message. Like a letterhead.\
+	?How to remove "=20" from subject and address data???\
+	Address parsing\
+2013-09-15\
+	MIME  Message Header Extensions for Non-ASCII Text (RFC 2047)\
+	encoded-word = "=?" charset "?" encoding "?" encoded-text "?="\
+	\
+	An \'92encoded-word\'92 may not be more than 75 characters long, including\
+   \'92charset\'92, \'92encoding\'92, \'92encoded-text\'92, and delimiters.  If it is\
+   desirable to encode more text than will fit in an \'92encoded-word\'92 of\
+   75 characters, multiple \'92encoded-word\'92s (separated by CRLF SPACE) may\
+   be used.\
+\
+   While there is no limit to the length of a multiple-line header\
+   field, each line of a header field that contains one or more\
+   \'92encoded-word\'92s is limited to 76 characters.\
+\
+	The "B" encoding is identical to the "BASE64" encoding defined by RFC\
+   2045.\
+\
+	The "Q" encoding is similar to the "Quoted-Printable" content-\
+   transfer-encoding defined in RFC 2045.  It is designed to allow text\
+   containing mostly ASCII characters to be decipherable on an ASCII\
+   terminal without decoding.\
+   (1) Any 8-bit value may be represented by a "=" followed by two\
+       hexadecimal digits.  For example, if the character set in use\
+       were ISO-8859-1, the "=" character would thus be encoded as\
+       "=3D", and a SPACE by "=20".  (Upper case should be used for\
+       hexadecimal digits "A" through "F".)\
+   (2) The 8-bit hexadecimal value 20 (e.g., ISO-8859-1 SPACE) may be\
+       represented as "_" (underscore, ASCII 95.).  (This character may\
+       not pass through some internetwork mail gateways, but its use\
+       will greatly enhance readability of "Q" encoded data with mail\
+       readers that do not support this encoding.)  Note that the "_"\
+       always represents hexadecimal 20, even if the SPACE character\
+       occupies a different code position in the character set in use.\
+\
+\
+	RegEx = "=\\?.*\\?.*\\?.*\\?="\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
+
+\f0\fs26 \cf0 \cb1 \
+\pard\pardeftab720\sl220
+
+\f5\fs24 \cf0 \cb5 	Samples: \
+	See: ~/Development/XCodeDev/MailBoxes/MailBoxesApp/MailBoxes/LogicTests/answers/sampleRfc2047ExtendedHeaders.txt\
+\
+Subject: =?utf-8?Q?Your=20Wyndham=20Vacation=20is=20Almost=20Here=20-=20Resort=20Details=20Enclosed!?=\
+\
+From: "=?utf-8?Q?Wyndham=20Vacation=20Resorts?=" <reservationprearrivals@wyndhamvacationresorts.com>\
+\
+From: =?utf-8?Q?customerservice@entertainmentbenefits.com?=\
+\
+Subject:	=?iso-8859-1?Q?Mail=2Echarcoalia=2Enet=A0?=\
+\
+Subject: =?UTF-8?B?MTQgY291cG9ucyBhcmUgd2FpdGluZy4gQ291cG9uIGxvdmVycyA=?=\
+	=?UTF-8?B?cmVqb2ljZSE=?=\
+\
+To: =?UTF-8?Q?The_general-purpose_Squ?=\
+	=?UTF-8?Q?eak_developers_list=C2=A0=C2=A0=C2=A0=C2=A0?=\
+	<squeak-dev@lists.squeakfoundation.org>\
+\
+Thread-Topic: [squeak-dev] Something in the update process damages\
+	=?ISO-8859-1?B?dGhloKCgoGJhY2tncm91bmQ=?=\
+\
+Subject: Re: [squeak-dev] Something in the update process damages\
+	=?ISO-8859-1?B?dGhloKCgoGJhY2tncm91bmQ=?=\
+\
+Received: =?utf-8?Q?from=20=5B208=2E253=2E59=2E254=5D=20by=20m1=2Ecampaignmonitor?=\
+	=?utf-8?Q?=2Ecom=20via=20HTTP;=20Thu,=2025=20Aug=202005=2006:03:12=20+1?=\
+	=?utf-8?Q?000?=\
+\
+Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
+ =?UTF-8?B?c2VzLCBnZXQgRlJFRSB1cGdyYWRlcyBvbiBQcmluY2VzcyBjcnVpc2VzIGFu?=\
+ =?UTF-8?B?ZCBtb3JlIQ==?=\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
+
+\f0\fs26 \cf0 \cb1 \
+\pard\pardeftab720\sl220
+
+\f5\fs24 \cf0 \cb5 2013-09-16\
+	Note: html import needs to be on the main thread/queue?\
+	Create MBMIMETransformer class - detects and converts header charsets, base 64, ..\
+	Create a test for header conversion to use while developing MBMIMETransformer class.\
+	Review handling of "RFC822.HEADER" after parser returns tokens. How is subject: handled?\
+2013-09-17\
+	** In order to perform database searches, headers such as subject, from, to, should be stored as UTF8. \
+		Therefore, need to convert to UTF8 before storing in CoreData.\
+		Would need to MIME encode before sending composed email. (Just encode directly as UTF8 or binary)\
+	Regex Tests\
+		Simple works - =\\?(.*)\\?([qQbB])\\?(.*)\\?=\
+				=\\?(.*)\\?(B\\?[+/0-9A-Za-z]*=*|Q\\?[ ->@-~]*\\\\)\\?=\
+		Trying: "=\\?([A-Z0-9\\-]+)\\?([bB]\\?[+/0-9A-Za-z]*=*|[qQ]\\?[ ->@-~]*\\\\)\\?="\
+}
