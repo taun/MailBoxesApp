@@ -16,6 +16,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 static NSRegularExpression *regexEncodingFields;
+static NSRegularExpression *regexQSpaces;
 
 static NSDictionary *charsetMap;
 
@@ -27,7 +28,14 @@ static NSDictionary *charsetMap;
                                                                options: NSRegularExpressionCaseInsensitive
                                                                  error: &error];
     if (error) {
-        NSLog(@"Error: %@", error);
+        NSLog(@"Encoding Fields Error: %@", error);
+    }
+    
+    regexEncodingFields = [[NSRegularExpression alloc] initWithPattern: @"=([0-9a-zA-Z][0-9a-zA-Z]?)|(_)"
+                                                               options: NSRegularExpressionCaseInsensitive
+                                                                 error: &error];
+    if (error) {
+        NSLog(@"Q Spaces Error: %@", error);
     }
     
     charsetMap = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt: NSASCIIStringEncoding], @"US-ASCII",
@@ -39,6 +47,8 @@ static NSDictionary *charsetMap;
 }
 
 -(NSString*) replaceQEncodedHexAndSpaceIn: (NSString*) hexedString encoding: (int) encodingCharset {
+    // Change to use NSScanner
+    
     // define regex above
     // find matches here
     // create empty new mutable string
@@ -46,7 +56,30 @@ static NSDictionary *charsetMap;
     // append intermediate range to string
     // return new string
     NSMutableString* decodedMutableString = [[NSMutableString alloc] initWithCapacity: hexedString.length];
+    NSArray* matches;
     
+    NSInteger fullRangeIndex = 0;
+    NSInteger hexCharRangeIndex = 1;
+    NSInteger underscoreRangeIndex = 2;
+    NSRange lastCaptureRange = NSMakeRange(0, 0);
+    
+    NSInteger length = [hexedString length];
+    matches = [regexQSpaces matchesInString: hexedString options: 0 range: NSMakeRange(0, length)];
+
+    if (matches.count == 0) {
+        [decodedMutableString appendString: hexedString];
+    } else {
+        for (NSTextCheckingResult* tcr in matches) {
+            if ([tcr rangeAtIndex: hexCharRangeIndex].length != 0) {
+                // substitue for hex char
+                NSRange captureRange = [tcr rangeAtIndex: hexCharRangeIndex];
+                NSString* hexString = [hexedString substringWithRange: captureRange];
+                NSString* decodedHex =
+            } else if ([tcr rangeAtIndex: underscoreRangeIndex].length != 0) {
+                // substitute " " for "_"
+            }
+        }
+    }
     
     return [decodedMutableString copy];
 }
