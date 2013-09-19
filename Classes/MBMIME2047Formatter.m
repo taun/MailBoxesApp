@@ -24,14 +24,14 @@ static NSDictionary *charsetMap;
 
 +(void)initialize {
     NSError *error=nil;
-    regexEncodingFields = [[NSRegularExpression alloc] initWithPattern: @"=\\?([A-Z0-9\\-]+)\\?(?:(?:[bB]\\?([+/0-9A-Za-z]*=*))|(?:[qQ]\\?([a-zA-Z0-9!=\\-]*)))\\?="
+    regexEncodingFields = [[NSRegularExpression alloc] initWithPattern: @"=\\?([A-Z0-9\\-]+)\\?(?:(?:[bB]\\?([+/0-9A-Za-z]*=*))|(?:[qQ]\\?([a-zA-Z0-9._!=\\-]*)))\\?="
                                                                options: NSRegularExpressionCaseInsensitive
                                                                  error: &error];
     if (error) {
         NSLog(@"Encoding Fields Error: %@", error);
     }
     
-    regexEncodingFields = [[NSRegularExpression alloc] initWithPattern: @"=([0-9a-zA-Z][0-9a-zA-Z]?)|(_)"
+    regexQSpaces = [[NSRegularExpression alloc] initWithPattern: @"=([0-9a-zA-Z][0-9a-zA-Z]?)|(_)"
                                                                options: NSRegularExpressionCaseInsensitive
                                                                  error: &error];
     if (error) {
@@ -56,30 +56,57 @@ static NSDictionary *charsetMap;
     // append intermediate range to string
     // return new string
     NSMutableString* decodedMutableString = [[NSMutableString alloc] initWithCapacity: hexedString.length];
-    NSArray* matches;
-    
-    NSInteger fullRangeIndex = 0;
-    NSInteger hexCharRangeIndex = 1;
-    NSInteger underscoreRangeIndex = 2;
-    NSRange lastCaptureRange = NSMakeRange(0, 0);
-    
-    NSInteger length = [hexedString length];
-    matches = [regexQSpaces matchesInString: hexedString options: 0 range: NSMakeRange(0, length)];
 
-    if (matches.count == 0) {
-        [decodedMutableString appendString: hexedString];
-    } else {
-        for (NSTextCheckingResult* tcr in matches) {
-            if ([tcr rangeAtIndex: hexCharRangeIndex].length != 0) {
-                // substitue for hex char
-                NSRange captureRange = [tcr rangeAtIndex: hexCharRangeIndex];
-                NSString* hexString = [hexedString substringWithRange: captureRange];
-                NSString* decodedHex =
-            } else if ([tcr rangeAtIndex: underscoreRangeIndex].length != 0) {
-                // substitute " " for "_"
+    //NSCharacterSet *replaceableCharacters = [NSCharacterSet characterSetWithCharactersInString:@"=_"];
+    //NSScanner* scanner = [NSScanner scannerWithString: hexedString];
+    
+    NSUInteger scanIndex = 0;
+    NSUInteger scanLength = hexedString.length;
+    
+    NSString* stringUptoReplaceable;
+    
+    while ([scanner isAtEnd] == NO) {
+        if ([scanner scanUpToCharactersFromSet: replaceableCharacters intoString: &stringUptoReplaceable]) {
+            // either found a replaceable or at end
+            [decodedMutableString appendString: stringUptoReplaceable];
+            if ([scanner isAtEnd] == NO) {
+                // found a replaceable
+                unichar stopChar = [scanner.string characterAtIndex: [scanner scanLocation]];
+                if (stopChar == '_') {
+                    // found underscore
+                    [decodedMutableString appendString: @" "];
+                    [scanner setScanLocation: scanner.scanLocation+1]; // skip "="
+                } else if (stopChar == '=') {
+                    // found "=" and need to get hex value
+                    // Need to manually get next two characters to convert to hex.
+                    [scanner setScanLocation: scanner.scanLocation+1]; // skip "="
+                    if (isxdigit([scanner.string characterAtIndex: scanner.scanLocation]) && isxdigit([scanner.string characterAtIndex: scanner.scanLocation+1])) {
+                        // have to hexadecimal digits
+                        uint hex16ASCII = [scanner.string characterAtIndex: scanner.scanLocation];
+                        [scanner setScanLocation: scanner.scanLocation+1];
+                        uint hex16 = isdigit(hex16ASCII) ? (hex16ASCII - '0') : (hex16ASCII - 55);
+                        if (hex16 > 15) hex16 -= 32;  // lowercase a-f
+                        
+                        uint hex1ASCII = [scanner.string characterAtIndex: scanner.scanLocation];
+                        [scanner setScanLocation: scanner.scanLocation+1];
+                        uint hex1 = isdigit(hex1ASCII) ? (hex1ASCII - '0') : (hex1ASCII - 55);
+                        if (hex1 > 15) hex1 -= 32;  // lowercase a-f
+                        
+                        uint hexCode = (hex16 << 4) + hex1;
+                        [decodedMutableString appendFormat:@"%c", hexCode];
+                    } else {
+                        // was not two hexadecimal digits
+                        [decodedMutableString appendFormat:@"=%c", [scanner.string characterAtIndex: scanner.scanLocation]];
+                        [scanner setScanLocation: scanner.scanLocation+1]; // skip "="
+                    }
+                }
             }
         }
+
     }
+
+    
+    
     
     return [decodedMutableString copy];
 }
@@ -139,7 +166,22 @@ static NSDictionary *charsetMap;
     if (matches.count==0) {
         decodedString = anObject;
     } else {
+        
+        NSRange lastCaptureRange = NSMakeRange(0, 0);
+        NSRange currentCaptureRange = NSMakeRange(0, 0);
+        
         for (NSTextCheckingResult* tcr in matches) {
+
+            // Append the ascii string before the capture encoded word.
+            // 0 aaaaaaaaa =?lastCaptureRange?= bbbbbbbbbbb =?currentCaptureRange?= cccccccc
+            currentCaptureRange = (NSRange)[tcr rangeAtIndex:0];
+            NSUInteger prefixLocation = lastCaptureRange.location + lastCaptureRange.length;
+            NSUInteger prefixLength = currentCaptureRange.location - prefixLocation;
+            NSRange prefixRange = NSMakeRange(prefixLocation, prefixLength);
+
+            [decodedString appendString: [anObject substringWithRange: prefixRange]];
+            
+            lastCaptureRange = (NSRange)[tcr rangeAtIndex:0];
             
             if ([tcr rangeAtIndex: charsetRangeIndex].length != 0) {
                 charsetString = [[(NSString*)anObject substringWithRange: [tcr rangeAtIndex: charsetRangeIndex]] uppercaseString];
@@ -164,12 +206,17 @@ static NSDictionary *charsetMap;
                     NSString* decodedCString = [NSString stringWithCString: encodedCString encoding: encoding];
                     // search and replace "=XX" and "_"
                     NSString* fullyDecodedString = [self replaceQEncodedHexAndSpaceIn: decodedCString encoding: encoding];
-                    [decodedString appendString: decodedCString];
+                    [decodedString appendString: fullyDecodedString];
                 }
             } else {
                 // unknown encoding?? assert?
             }
         }
+        // append remaining suffix ascii string if it exists
+        NSUInteger suffixLocation = lastCaptureRange.location + lastCaptureRange.length;
+        NSUInteger suffixLength = [(NSString*)anObject length] - suffixLocation;
+        NSRange suffixRange = NSMakeRange(suffixLocation, suffixLength);
+        [decodedString appendString: [anObject substringWithRange:suffixRange]];
     }
     
     return decodedString;

@@ -62,7 +62,43 @@
 
     NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
     
-    XCTAssertEqualObjects(decoded, @"string", @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    NSString* shouldBe = @"Your Wyndham Vacation is Almost Here - Resort Details Enclosed!";
+    
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+//rfc2047ToUTF8Q4l
+- (void)testRFC2047ToUTFQMultiline4 {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"rfc2047ToUTF8Q4l" ofType: @"txt" inDirectory: @"answers"];
+    
+    self.sampleHeader = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
+    
+    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
+    
+    NSString* shouldBe = @"communications@plone.org,  \"plone-developers@lists. sourceforge. net developers\" <plone-developers@lists.sourceforge.net>,  \"plone-users@lists.sourceforge.net plone-users@lists.sourceforge.net\" <plone-users@lists.sourceforge.net> ";
+    
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+//rfc2047ToUTF8Q3l
+- (void)testRFC2047ToUTFQMultiline3 {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"rfc2047ToUTF8Q3l" ofType: @"txt" inDirectory: @"answers"];
+    
+    self.sampleHeader = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
+    
+    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
+    
+    NSString* shouldBe = @"";
+    
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 - (void)testRFC2047ToUTFB {
