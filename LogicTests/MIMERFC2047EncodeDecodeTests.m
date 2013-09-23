@@ -48,7 +48,9 @@
     
     NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
     
-    XCTAssertEqualObjects(decoded, @"string", @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    NSString* shouldBe = @"This is just plain text.";
+
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 - (void)testRFC2047SubjectUTFQ {
@@ -79,7 +81,7 @@
     
     NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
     
-    NSString* shouldBe = @"communications@plone.org,  \"plone-developers@lists. sourceforge. net developers\" <plone-developers@lists.sourceforge.net>,  \"plone-users@lists.sourceforge.net plone-users@lists.sourceforge.net\" <plone-users@lists.sourceforge.net> ";
+    NSString* shouldBe = @"communications@plone.org,  \"plone-developers@lists. sourceforge. net developers\" <plone-developers@lists.sourceforge.net>,  \"plone-users@lists.sourceforge.net plone-users@lists.sourceforge.net\" <plone-users@lists.sourceforge.net>";
     
     XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
@@ -96,7 +98,7 @@
     
     NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
     
-    NSString* shouldBe = @"";
+    NSString* shouldBe = @"The general-purpose Squeak developers list    <squeak-dev@lists.squeakfoundation.org>";
     
     XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
@@ -113,7 +115,58 @@
     
     NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
     
-    XCTAssertEqualObjects(decoded, @"string", @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    XCTAssertEqualObjects(decoded, @"TAUN CHAPMAN<taun@charcoalia.net>", @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+//rfc2047SubjectISO88591B
+- (void)testRFC2047SubjectISO88591B {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"rfc2047SubjectISO88591B" ofType: @"txt" inDirectory: @"answers"];
+    
+    self.sampleHeader = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
+    
+    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
+    
+    NSString* shouldBe = @"Survey: Google in the Enterprise - Chance to win a Samsung Smart TV";
+    
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+// rfc2047ThreadTopicISO88591B2l
+- (void)testRFC2047ThreadTopicISO88591B2l {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"rfc2047ThreadTopicISO88591B2l" ofType: @"txt" inDirectory: @"answers"];
+    
+    self.sampleHeader = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
+    
+    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"THREAD-TOPIC"]];
+    
+    NSString* shouldBe = @"[squeak-dev] Something in the update process damagesthe    background";
+    
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+//rfc2047SubjectKOI8RB2l
+- (void)testRFC2047SubjectKOI8RB2l {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"rfc2047SubjectKOI8RB2l" ofType: @"txt" inDirectory: @"answers"];
+    
+    self.sampleHeader = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
+    
+    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
+    
+    NSString* shouldBe = @"мАВЩЕ, ДБЦЕ УБНЩЕ ЗТСЪОЩЕ УЕЛУХБМШОЩЕ ЖБОФБЪЙЙ, ПЦЙЧБАФ ЪДЕШ";
+    
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 

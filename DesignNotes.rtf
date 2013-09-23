@@ -564,4 +564,15 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 		Simple works - =\\?(.*)\\?([qQbB])\\?(.*)\\?=\
 				=\\?(.*)\\?(B\\?[+/0-9A-Za-z]*=*|Q\\?[ ->@-~]*\\\\)\\?=\
 		Trying: "=\\?([A-Z0-9\\-]+)\\?([bB]\\?[+/0-9A-Za-z]*=*|[qQ]\\?[ ->@-~]*\\\\)\\?="\
+2013-09-21\
+	*** \cb1 \strike \strikec0 NSData initWithBase64EncodedString:options:\cb5 \strike0\striked0 \
+	*** Note: "
+\i \cb1 When displaying a particular header field that contains multiple\
+  			 \'92encoded-word\'92s, any \'92linear-white-space\'92 that separates a pair of\
+   			
+\i0\b adjacent
+\i\b0  \'92encoded-word\'92s is ignored
+\i0 \cb5 ."\
+	\cb1 \strike \strikec0 Need to detect adjacent encoded-words and remove whitespace.\cb5 \strike0\striked0 \
+	\cb1 \strike \strikec0 Do during the regex matching aggregating phase. If the substring between captures is whitespace, do not append it.\cb5 \strike0\striked0 \
 }

@@ -63,12 +63,12 @@ static NSDictionary *charsetMap;
         && isxdigit([hexedStringScanner.string characterAtIndex: hexedStringScanner.scanLocation+1])) {
         // have to hexadecimal digits
         UInt8 hex16ASCII = [hexedStringScanner.string characterAtIndex: hexedStringScanner.scanLocation];
-        [hexedStringScanner setScanLocation: (hexedStringScanner.scanLocation)++];
+        [hexedStringScanner setScanLocation: ++(hexedStringScanner.scanLocation)];
         UInt8 hex16 = isdigit(hex16ASCII) ? (hex16ASCII - '0') : (hex16ASCII - 55);
         if (hex16 > 15) hex16 -= 32;  // lowercase a-f
         
         UInt8 hex1ASCII = [hexedStringScanner.string characterAtIndex: hexedStringScanner.scanLocation];
-        [hexedStringScanner setScanLocation: (hexedStringScanner.scanLocation)++];
+        [hexedStringScanner setScanLocation: ++(hexedStringScanner.scanLocation)];
         UInt8 hex1 = isdigit(hex1ASCII) ? (hex1ASCII - '0') : (hex1ASCII - 55);
         if (hex1 > 15) hex1 -= 32;  // lowercase a-f
         
@@ -77,7 +77,7 @@ static NSDictionary *charsetMap;
                && !isxdigit([hexedStringScanner.string characterAtIndex: hexedStringScanner.scanLocation+1])) {
         // only one valid hex digit
         UInt8 hex16ASCII = [hexedStringScanner.string characterAtIndex: hexedStringScanner.scanLocation];
-        [hexedStringScanner setScanLocation: (hexedStringScanner.scanLocation)++];
+        [hexedStringScanner setScanLocation: ++(hexedStringScanner.scanLocation)];
         UInt8 hex16 = isdigit(hex16ASCII) ? (hex16ASCII - '0') : (hex16ASCII - 55);
         if (hex16 > 15) hex16 -= 32;  // lowercase a-f
         
@@ -109,21 +109,22 @@ static NSDictionary *charsetMap;
             if ([currentCharacter isEqualToString: @"_" ]) {
                 // found underscore
                 [decodedMutableString appendString: @" "];
-                [scanner setScanLocation: (scanner.scanLocation)++];
+                [scanner setScanLocation: ++(scanner.scanLocation)];
             } else if ([currentCharacter isEqualToString: @"=" ]) {
                 // found "=" and need to get hex value
-                [scanner setScanLocation: (scanner.scanLocation)++]; // skip "="
+                [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                 
                 // Need to manually get next two characters to convert to hex.
                 UInt8 hexCode = [self scanHexFrom: scanner];
                 
                 if (hexCode!=0) {
                     // valid hex code found
+                    char utf8Chars[5];
+                    NSUInteger unicodeIndex = 0;
+                    utf8Chars[unicodeIndex] = hexCode;
                     if ((encodingCharset == NSUTF8StringEncoding) && (hexCode > 0x7f)) {
                         // Need to handle 2 to 4 encoded bytes
-                        UInt32 fullUnichar = 0;
                         // decode byte count
-                        UInt8 byte0, byte1, byte2, byte3 = 0;
                         // RFC 3269 UTF-8 definition
                         // Char. number range  |        UTF-8 octet sequence
                         // (hexadecimal)    |              (binary)
@@ -139,65 +140,64 @@ static NSDictionary *charsetMap;
                         
                         if ((hexCode & 0xE0) == 0xC0) {
                             // 2 bytes
-                            byte1 = hexCode & 0x1F;
                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                             if ([currentCharacter isEqualToString: @"="]) {
                                 // get second byte
+                                [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                                 hexCode = [self scanHexFrom: scanner];
                                 if ((hexCode & 0xC0) == 0x80) {
                                     // next byte is of correct 10xxxxxx form
-                                    byte0 = hexCode & 0x3F;
-                                    fullUnichar = byte0 + (byte1 << 6);
+                                    utf8Chars[++unicodeIndex] = hexCode;
                                 }
                             }
                         } else if ((hexCode & 0xF0) == 0xE0) {
                             // 3 bytes
-                            byte2 = hexCode & 0x0F;
                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                             if ([currentCharacter isEqualToString: @"="]) {
                                 // get second byte
+                                [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                                 hexCode = [self scanHexFrom: scanner];
                                 if ((hexCode & 0xC0) == 0x80) {
                                     // next byte is of correct 10xxxxxx form
-                                    byte1 = hexCode & 0x3F;
+                                    utf8Chars[++unicodeIndex] = hexCode;
                                     currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                                     if ([currentCharacter isEqualToString: @"="]) {
                                         // get second byte
+                                        [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                                         hexCode = [self scanHexFrom: scanner];
                                         if ((hexCode & 0xC0) == 0x80) {
                                             // next byte is of correct 10xxxxxx form
-                                            byte0 = hexCode & 0x3F;
-                                            fullUnichar = byte0 + (byte1 << 6) + (byte2 << 12);
+                                            utf8Chars[++unicodeIndex] = hexCode;
                                         }
                                     }
                                 }
                             }
                         } else if ((hexCode & 0xF8) == 0xF0) {
                             // 4 bytes
-                            // 3 bytes
-                            byte3 = hexCode & 0x07;
                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                             if ([currentCharacter isEqualToString: @"="]) {
                                 // get second byte
+                                [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                                 hexCode = [self scanHexFrom: scanner];
                                 if ((hexCode & 0xC0) == 0x80) {
                                     // next byte is of correct 10xxxxxx form
-                                    byte2 = hexCode & 0x3F;
+                                    utf8Chars[++unicodeIndex] = hexCode;
                                     currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                                     if ([currentCharacter isEqualToString: @"="]) {
                                         // get second byte
+                                        [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                                         hexCode = [self scanHexFrom: scanner];
                                         if ((hexCode & 0xC0) == 0x80) {
                                             // next byte is of correct 10xxxxxx form
-                                            byte1 = hexCode & 0x3F;
+                                            utf8Chars[++unicodeIndex] = hexCode;
                                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                                             if ([currentCharacter isEqualToString: @"="]) {
                                                 // get second byte
+                                                [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                                                 hexCode = [self scanHexFrom: scanner];
                                                 if ((hexCode & 0xC0) == 0x80) {
                                                     // next byte is of correct 10xxxxxx form
-                                                    byte0 = hexCode & 0x3F;
-                                                    fullUnichar = byte0 + (byte1 << 6) + (byte2 << 12) + (byte3 << 18);
+                                                    utf8Chars[++unicodeIndex] = hexCode;
                                                 }
                                             }
                                         }
@@ -207,22 +207,23 @@ static NSDictionary *charsetMap;
                         } else {
                             // bad value skip
                         }
-                        
+                        utf8Chars[++unicodeIndex] = 0; // null terminate
+                        [decodedMutableString appendString: [NSString stringWithCString: utf8Chars encoding: NSUTF8StringEncoding]];
                     } else {
-                        // not UTF-8
-                        [decodedMutableString appendFormat:@"=%c", [scanner.string characterAtIndex: scanner.scanLocation]];
-                        [scanner setScanLocation: (scanner.scanLocation)++]; // skip "="
+                        // not UTF-8 > 7F
+                        utf8Chars[++unicodeIndex] = 0; // null terminate
+                        [decodedMutableString appendString: [NSString stringWithCString: utf8Chars encoding: encodingCharset]];
                     }
                 } else {
                     // no valid code found
                     // was not two hexadecimal digits
                     [decodedMutableString appendFormat:@"=%c", [scanner.string characterAtIndex: scanner.scanLocation]];
-                    [scanner setScanLocation: (scanner.scanLocation)++]; // skip "="
+                    [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                 }
             }
         } else {
             [decodedMutableString appendString: currentCharacter];
-            [scanner setScanLocation: (scanner.scanLocation)++];
+            [scanner setScanLocation: ++(scanner.scanLocation)];
         }
         
     }
@@ -231,6 +232,14 @@ static NSDictionary *charsetMap;
     
     
     return [decodedMutableString copy];
+}
+
+-(NSString*) replaceBEncodedString: (NSString*) base64String encoding: (int) encodingCharset {
+
+    NSData* decodedData = [[NSData alloc] initWithBase64Encoding: base64String];
+    NSString* decodedString = [[NSString alloc] initWithData: decodedData encoding: encodingCharset];
+    
+    return decodedString;
 }
 /*!
  @param anObject
@@ -276,7 +285,11 @@ static NSDictionary *charsetMap;
             NSUInteger prefixLength = currentCaptureRange.location - prefixLocation;
             NSRange prefixRange = NSMakeRange(prefixLocation, prefixLength);
             
-            [decodedString appendString: [anObject substringWithRange: prefixRange]];
+            NSString* intraCaptureString = [anObject substringWithRange: prefixRange];
+            NSString* noWhitespaceString = [intraCaptureString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+            
+            // if the intraCapture text is whitespace, skip, do not append.
+            [decodedString appendString: noWhitespaceString];
             
             lastCaptureRange = (NSRange)[tcr rangeAtIndex:0];
             
@@ -285,6 +298,7 @@ static NSDictionary *charsetMap;
             }
             
             NSRange encodedRange;
+            int encoding = [[charsetMap objectForKey: charsetString] intValue];
             if ([tcr rangeAtIndex: bCodeRangeIndex].length != 0) {
                 // b encoded
                 encodedRange = [tcr rangeAtIndex: bCodeRangeIndex];
@@ -292,12 +306,14 @@ static NSDictionary *charsetMap;
                     //                    NSString* encodedString = [(NSString*)anObject substringWithRange: encodedRange];
                     //                    const char* encodedCString
                     //                    [decodedString appendString: encodedString];
+                    NSString* encodedString = [(NSString*)anObject substringWithRange: encodedRange];
+                    NSString* fullyDecodedString = [self replaceBEncodedString: encodedString encoding: encoding];
+                    [decodedString appendString: fullyDecodedString];
                 }
             } else if ([tcr rangeAtIndex: qCodeRangeIndex].length != 0) {
                 // q encoded
                 encodedRange = [tcr rangeAtIndex: qCodeRangeIndex];
                 if (encodedRange.length !=0) {
-                    int encoding = [[charsetMap objectForKey: charsetString] intValue];
                     NSString* encodedString = [(NSString*)anObject substringWithRange: encodedRange];
                     const char* encodedCString = [encodedString cStringUsingEncoding: NSASCIIStringEncoding];
                     NSString* decodedCString = [NSString stringWithCString: encodedCString encoding: encoding];
@@ -313,7 +329,7 @@ static NSDictionary *charsetMap;
         NSUInteger suffixLocation = lastCaptureRange.location + lastCaptureRange.length;
         NSUInteger suffixLength = [(NSString*)anObject length] - suffixLocation;
         NSRange suffixRange = NSMakeRange(suffixLocation, suffixLength);
-        [decodedString appendString: [anObject substringWithRange:suffixRange]];
+        [decodedString appendString: [[anObject substringWithRange:suffixRange] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
     }
     
     return decodedString;
