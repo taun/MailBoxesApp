@@ -723,7 +723,7 @@ static     NSDictionary *HeaderToModelMap;
             [self.clientStore setMessage: messageUid propertiesFromDictionary: self.messageProperties];
             messageProperties = nil;
         } else {
-            // TODO: error finding UID?
+            #pragma message "ToDo: error finding UID?"
         }
         
         
@@ -745,7 +745,7 @@ static     NSDictionary *HeaderToModelMap;
         //            }
             
     } else {
-        // TODO: what to do if bad sequence number
+      #pragma message "ToDo: what to do if bad sequence number"
     }
 }
 
@@ -785,7 +785,7 @@ static     NSDictionary *HeaderToModelMap;
     }
 }
 
-//TODO Rewrite to just pass a dictionary to the clientStore
+#pragma message "ToDo: Change message summary to a real summary rather than raw header"
 -(void) responseFetchedMessageRfc822Header {
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
     RFC2822RawMessageHeader *header = [[RFC2822RawMessageHeader alloc] initWithString: [self.tokens scanString]];

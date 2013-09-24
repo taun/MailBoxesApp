@@ -42,51 +42,55 @@ typedef UInt8 IMAPClientStates;
 
 
 /*!
- @class IMAPClient
+ IMAPClient is the primary connector to an IMAP server.
+
+ ### State Diagram
  
- @discussion
-     +----------------------+
-     |connection established|
-     +----------------------+
-                ||
-                \/
- +--------------------------------------+
- |          server greeting             |
- +--------------------------------------+
-        || (1)          || (2)        || (3)
-        \/              ||            ||
- +-----------------+    ||            ||
- |Not Authenticated|    ||            ||
- +-----------------+    ||            ||
-  || (7)   || (4)       ||            ||
-  ||       \/           \/            ||
-  ||     +----------------+           ||
-  ||     | Authenticated  |<=++       ||
-  ||     +----------------+  ||       ||
-  ||       || (7)   || (5)   || (6)   ||
-  ||       ||       \/       ||       ||
-  ||       ||    +--------+  ||       ||
-  ||       ||    |Selected|==++       ||
-  ||       ||    +--------+           ||
-  ||       ||       || (7)            ||
-  \/       \/       \/                \/
- +--------------------------------------+
- |               Logout                 |
- +--------------------------------------+
-                   ||
-                   \/
-     +-------------------------------+
-     |both sides close the connection|
-     +-------------------------------+
+<pre>
+
+        ---------- connection established --------
  
- State Transitions
- (1) connection without pre-authentication (OK greeting)
- (2) pre-authenticated connection (PREAUTH greeting)
- (3) rejected connection (BYE greeting)
- (4) successful LOGIN or AUTHENTICATE command
- (5) successful SELECT or EXAMINE command
- (6) CLOSE command, or failed SELECT or EXAMINE command
- (7) LOGOUT command, server shutdown, or connection closed
+                            ||
+                            \/
+
+        ------------- server greeting ------------
+
+                || (1)          || (2)       || (3)
+                \/              ||           ||
+         +-----------------+    ||           ||
+         |Not Authenticated|    ||           ||
+         +-----------------+    ||           ||
+          || (7)   || (4)       ||           ||
+          ||       \/           \/           ||
+          ||     +----------------+          ||
+          ||     | Authenticated  |<=++      ||
+          ||     +----------------+  ||      ||
+          ||       || (7)   || (5)   || (6)  ||
+          ||       ||       \/       ||      ||
+          ||       ||    +--------+  ||      ||
+          ||       ||    |Selected|==++      ||
+          ||       ||    +--------+          ||
+          ||       ||       || (7)           ||
+          \/       \/       \/               \/
+
+        ----------------- Logout -----------------
+
+                            ||
+                            \/
+
+        ----- both sides close the connection ----
+ 
+</pre>
+ 
+ ### State Transitions
+ 
+ 1. connection without pre-authentication (OK greeting)
+ 2. pre-authenticated connection (PREAUTH greeting)
+ 3. rejected connection (BYE greeting)
+ 4. successful LOGIN or AUTHENTICATE command
+ 5. successful SELECT or EXAMINE command
+ 6. CLOSE command, or failed SELECT or EXAMINE command
+ 7. LOGOUT command, server shutdown, or connection closed
  
  IMAPrev4 specifies state only changes if command is successful,
  losing network connection or server does bye.
@@ -106,9 +110,8 @@ typedef UInt8 IMAPClientStates;
     NSMutableArray*  _dataBuffer;
 }
 
-//TODO: add isAuthenticated, isConnected
-// both set to NO by a "BYE" response
-
+#pragma message "ToDo add isAuthenticated, isConnected, both set to NO by a \"BYE\" response"
+///@name Properties
 /*!
  Core Data Protocol account information.
  */
@@ -169,7 +172,7 @@ typedef UInt8 IMAPClientStates;
  */
 @property (nonatomic, assign, readonly) BOOL                isCommandComplete;
     
-// IMAP Server properties
+/// @name IMAP Server properties
 /*!
  for caching the server capabilities
  */
@@ -194,9 +197,13 @@ typedef UInt8 IMAPClientStates;
 + (NSString*) stateAsString: (IMAPClientStates) aState;
 
 - (NSString*) debugDescription;
-
+/// @name Init
 /*!
  Designated initializer
+ 
+ @param pcontext Parent NSManagedObjectContext
+ @param anAccount a CoreData user account object
+ @return intialised IMAPClient object or nil
  */
 -(id) initWithParentContext: (NSManagedObjectContext*) pcontext AccountID: (NSManagedObjectID *) anAccount; 
 
@@ -206,33 +213,36 @@ typedef UInt8 IMAPClientStates;
 -(void) getResponse;
 
 #pragma mark - High Level App Methods
+/// @name High Level App Methods
 -(void) refreshAll;
 -(void) loadFullMessageID: (NSManagedObjectID*) objectID;
 -(void) testMessage: (NSString*) aMessage;
 
 
-#pragma mark - IMAP Commands
-#pragma mark - any state
-/*!
- @method commandCapability
 
- @discussion 
+#pragma mark - IMAP Commands
+/// @name IMAP Commands
+
+#pragma mark - any state
+/// @name Any state
+/*!
  Arguments:  none
+
  Responses:  REQUIRED untagged response: CAPABILITY
+ 
  Result:     OK - capability completed
- BAD - command unknown or arguments invalid
+             BAD - command unknown or arguments invalid
  */
 -(void) commandCapability;
 
 
 /*!
- @method commandNoop
-
- @discussion 
  Arguments:  none
+
  Responses:  no specific responses for this command (but see below)
+ 
  Result:     OK - noop completed
- BAD - command unknown or arguments invalid
+             BAD - command unknown or arguments invalid
  */
 -(void) commandNoop;
 
@@ -292,44 +302,45 @@ typedef UInt8 IMAPClientStates;
 
 
 #pragma mark - authenticated state
+/// @name Authenticated state
 /*!
- @method commandSelect:
-
- @discussion 
  Arguments:  mailbox name
+ 
  Responses:  REQUIRED untagged responses: FLAGS, EXISTS, RECENT
              REQUIRED OK untagged responses:  UNSEEN,  PERMANENTFLAGS, UIDNEXT, UIDVALIDITY
+
  Result:     OK - select completed, now in selected state
- NO - select failure, now in authenticated state: no
- such mailbox, can’t access mailbox
- BAD - command unknown or arguments invalid */
+             NO - select failure, now in authenticated state: no such mailbox, can’t access mailbox
+             BAD - command unknown or arguments invalid
+ 
+ @param mboxPath full mail box IMAP path as a NSString
+ 
+ */
 -(void) commandSelect: (NSString *) mboxPath;
 
 
 /*!
- @method commandExamine
-
- @discussion 
  Arguments:  mailbox name
+
  Responses:  REQUIRED untagged responses: FLAGS, EXISTS, RECENT
-             REQUIRED OK untagged responses:  UNSEEN,  PERMANENTFLAGS,
- UIDNEXT, UIDVALIDITY
+             REQUIRED OK untagged responses:  UNSEEN,  PERMANENTFLAGS, UIDNEXT, UIDVALIDITY
+ 
  Result:     OK - examine completed, now in selected state
- NO - examine failure, now in authenticated state: no
- such mailbox, can’t access mailbox
- BAD - command unknown or arguments invalid */
+             NO - examine failure, now in authenticated state: no such mailbox, can’t access mailbox
+             BAD - command unknown or arguments invalid 
+ */
 -(void) commandExamine: (MBox *)mbox;
 
 
 /*!
- @method commandCreate
-
- @discussion 
  Arguments:  mailbox name
+ 
  Responses:  no specific responses for this command
+ 
  Result:     OK - create completed
- NO - create failure: can’t create mailbox with that name
- BAD - command unknown or arguments invalid */
+             NO - create failure: can’t create mailbox with that name
+             BAD - command unknown or arguments invalid 
+ */
 -(void) commandCreate: (MBox *)mbox;
 
 
@@ -487,7 +498,7 @@ typedef UInt8 IMAPClientStates;
 -(void) commandAppend: (MBox *)mbox;
 
 #pragma mark - selected state
-
+/// @name Selected State
 // CHECK, CLOSE, EXPUNGE, SEARCH, FETCH, STORE, COPY, and UID
 
 /*!

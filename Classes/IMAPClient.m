@@ -27,7 +27,11 @@
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
-/*
+/*!
+ 
+ ## Command Response Table
+ 
+<pre>
  _commandResponseTable = [NSDictionary dictionaryWithObjectsAndKeys:
  [NSSet setWithObjects: @"FETCH", @"OK", @"NO", @"BAD", nil],                        @"FETCH",
  [NSSet setWithObjects: @"SEARCH", @"OK", @"NO", @"BAD", nil],                       @"SEARCH",
@@ -55,12 +59,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  [NSSet setWithObjects: @"OK", @"NO", @"BAD", nil],                                  @"AUTHENTICATE",
  [NSSet setWithObjects: @"OK", @"BAD", nil],                                         @"NOOP",
  nil];
-
- */
-
-/* 
- SSL Transport errors
+</pre>
  
+ 
+ ## SSL Transport errors
+ 
+<pre>
  Result Code,Value,Description
  errSSLProtocol,–9800,"SSL protocol error.\nAvailable in OS X v10.2 and later."
  errSSLNegotiation,–9801,"The cipher suite negotiation failed.\nAvailable in OS X v10.2 and later."
@@ -111,24 +115,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  errSSLBadRecordMac,–9846,"A record with a bad message authentication code (MAC) was encountered.\nAvailable in OS X v10.3 and later."
  errSSLRecordOverflow,–9847,"A record overflow occurred.\nAvailable in OS X v10.3 and later."
  errSSLBadConfiguration,–9848,"A configuration error occurred.\nAvailable in OS X v10.3 and later."
+</pre>
  
  */
 
-/*!
- 
- Private functions
- 
- At some point many will need to be move public.
- 
- */
 @interface IMAPClient () {
     GCDAsyncSocket *_asyncSocket;
 }
+/// @name Private Properties
 @property (nonatomic, assign, readwrite) BOOL                   isFinished;
 @property (nonatomic, assign, readwrite) BOOL                   isExecuting;
 @property (nonatomic, assign, readwrite) BOOL                   isCommandComplete;
 @property (nonatomic, assign, readwrite) UInt32                 commandIdentifier;
 
+/// @name Private methods
 -(void) iStreamHasBytesAvailable: (NSStream *)theStream;
 -(void) streamEndEncountered: (NSStream *)theStream ;
 -(void) oStreamHasSpaceAvailable: (NSStream *)theStream;
@@ -146,14 +146,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 
-// utility methods
 -(NSString*) commandTag;
 -(NSString*) nextCommandTag;
 -(NSString*) formatCommandToken: (NSString*) aCommandString;
 -(BOOL) hasCapability: (NSString*) capability;
 
 
-// Sync methods
 -(void) lightWeightSync;
 -(void) syncQuanta;
 
@@ -411,9 +409,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.connectionState = IMAPDisconnected;
     DDLogVerbose(@"[%@ %@];", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 }
-
-//TODO: error handling if we can't save the context.
-// how to recover? how to inform?
+#pragma message "ToDo: how to recover? how to inform? error handling if we can't save the context."
+/// @name Sync methods
 /*!
  Sync the current selected mailbox with just the vital information.
  Information useful for the model and for showing the GUI message listing
@@ -713,7 +710,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self getResponse];
 }
-//TODO: Check for certificate errors here?
+#pragma message "ToDo: Check for certificate errors here?"
 -(void) oStreamHasSpaceAvailable: (NSStream *)theStream {
     self.isSpaceAvailable = YES;
     DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -743,7 +740,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 #pragma  mark - stream i/o
 /*!
- convert command string to proper format and transmit to the server.
+ Private - convert command string to proper format and transmit to the server.
  */
 -(void) sendCommand: (NSString*) aString {
     NSData * dataToSend = [aString dataUsingEncoding: NSUTF8StringEncoding allowLossyConversion: YES];
@@ -989,6 +986,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 #pragma mark - command streaming methods
+/// @name Command streaming methods
 
 -(NSString*) commandTag {
     return [NSString stringWithFormat:@"moedae%05u", (unsigned int)self.commandIdentifier];

@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		C501734A17F1D901002538A8 /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C501734D17F1D902002538A8 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				C501734E17F1D94D002538A8 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		C502DE8E14185DDE000AA9E4 /* IMAPResponseParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C502DE8D14185DDE000AA9E4 /* IMAPResponseParserTests.m */; };
 		C50386BD146381C200BF6EB3 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50386BC146381C100BF6EB3 /* Quartz.framework */; };
@@ -1007,6 +1021,11 @@
 				CLASSPREFIX = MB;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "MOEDAE LLC";
+				TargetAttributes = {
+					C5AE2DFE1410374C0087CD93 = {
+						TestTargetID = C5C7A569128B93EC006B1E86;
+					};
+				};
 			};
 			buildConfigurationList = C5C7A55F128B93EC006B1E86 /* Build configuration list for PBXProject "MailBoxes" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1023,6 +1042,7 @@
 				C5C7A569128B93EC006B1E86 /* MailBoxes */,
 				C5C7A589128B93EC006B1E86 /* mySpot */,
 				C5AE2DFE1410374C0087CD93 /* LogicTests */,
+				C501734A17F1D901002538A8 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -1074,6 +1094,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		C501734E17F1D94D002538A8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"MOEDAE\";\ncompanyID=\"com.MOEDAEE\";\ncompanyURL=\"http://www.moedae.com\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+		};
 		C5AE2DFD1410374C0087CD93 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1347,10 +1380,25 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C501734B17F1D902002538A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C501734C17F1D902002538A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		C5AE2E131410374D0087CD93 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MailBoxes.app/Contents/MacOS/MailBoxes";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1369,6 +1417,7 @@
 				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
 		};
@@ -1376,6 +1425,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MailBoxes.app/Contents/MacOS/MailBoxes";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1388,6 +1438,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
 		};
@@ -1562,6 +1613,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C501734D17F1D902002538A8 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C501734B17F1D902002538A8 /* Debug */,
+				C501734C17F1D902002538A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C5AE2E121410374D0087CD93 /* Build configuration list for PBXNativeTarget "LogicTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
