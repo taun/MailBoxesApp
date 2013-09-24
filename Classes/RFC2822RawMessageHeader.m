@@ -38,14 +38,17 @@ static NSRegularExpression *regexHeaderField;
     
     return self;
 }
-
-//TODO: convert to use c strings
+#pragma message "ToDo: convert to use c strings?"
 /*!
- Unfolding
+ Private - MIME Unfolding
+ 
  Just use regex to look for space at the begining of a line.
  Where ever there is space, remove the preceeding crlf.
  
  If character is ' ' or '\t' and preceding character is '\n' skip character
+ 
+ @param rawString raw header string including newlines and indentations
+ @returns unfolded NSString
  */
 -(NSString *) _unfold: (NSString *) rawString {
     

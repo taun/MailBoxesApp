@@ -21,7 +21,9 @@
 
 @end
 
-
+/*!
+ Controller for the accounts, folders and favorites sidebar listing.
+ */
 @interface MBSidebarViewController : NSObject <NSMenuDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource>
 
 /*!

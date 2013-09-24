@@ -52,7 +52,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @synthesize accountConnections = _accountConnections;
 @synthesize accountQueue = _accountQueue;
 
-
+/// @name Private methods
 - (id)initWithMBUser: (MBUser*) aUser
 {
     self = [super init];
@@ -96,17 +96,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
     return client;
 }
-/*!
- refreshAll needs to queue up the IMAPClient tasks which don't return until done.
- Concurrently across accounts.
- Callback for when each task is done?
- */
 -(void) refreshAll {
     [self refreshAllDispatch];
 }
-
-//TODO: need a separate queue for each mail box monitor
-// otherwise, the first monitor thread dispatch blocks all future blocks until it is done.
+#pragma message "TODO: need a separate queue for each mail box monitor otherwise, the first monitor thread dispatch blocks all future blocks until it is done."
 /*!
  Don't close the client after the sync?
  */
@@ -157,9 +150,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //
 //}
 
-/*!
- Close the IMAPClient connection when finished with the client.
- */
 -(void) clientFinished:(IMAPClient *)client {
     [self.accountConnections removeObjectForKey: client.clientStore.account.name];
     if ([_accountConnections count] == 0) {
@@ -168,18 +158,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         self.isFinished = YES;
     }
 }
-/*!
- Close all client connections as soon as possible.
- */
 -(void) closeAll {
     for (id key in self.accountConnections) {
         IMAPClient *client = [self.accountConnections objectForKey: key];
         client.isCancelled = YES;
     }    
 }
-/*1
- This should use the existing client connection.
- */
 -(void) loadFullMessageID:(NSManagedObjectID*) messageID forAccountID:(NSManagedObjectID*) accountID {
     IMAPClient* client = [[IMAPClient alloc] initWithParentContext: [_user managedObjectContext] AccountID: accountID];
     dispatch_async(self.accountQueue, ^{

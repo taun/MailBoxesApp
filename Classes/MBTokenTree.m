@@ -227,6 +227,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 /*!
  Assumes a key value token pair.
+ 
+ @param key key to find in the MBTokenTree
+ @return NSDictionary of token key/value
  */
 -(NSDictionary*) scanForKeyValue: (NSString*) key {
     BOOL keyFound = NO;

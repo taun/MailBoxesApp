@@ -8,11 +8,11 @@
 
 #import "MBTreeNode.h"
 
-@interface MBTreeNode (IntersectsSetFix)
-
 /*!
  The default code with core data for adding values to relationships where the relationship is represented by an ordered set is broken. The code uses NSSet with intersectsSet: rather than the NSOrderedSet equivalent. This is to fix the standard code and can be removed once the bug is fixed.
  */
+@interface MBTreeNode (IntersectsSetFix)
+
 - (void)addChildNodesObject:(MBTreeNode *)value;
 - (void)addChildNodes:(NSOrderedSet *)values;
 - (void)addParentNodesObject:(MBTreeNode *)value;

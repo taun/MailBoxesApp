@@ -153,8 +153,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
  to check for existance of folder????
  
  @param aPath the MBox fullPath. "/root/intermediates/MBoxName"
- 
- @result returns the node if found or nil.
+ @param pathSeparator mail server dependant path separation character such as '/'
+ @return returns the node if found or nil.
  */
 - (MBox *) addNodePath: (NSString *) aPath separator:(NSString *)pathSeparator {
     
