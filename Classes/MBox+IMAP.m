@@ -19,7 +19,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 @implementation MBox (IMAP)
 
 
-//TODO: deal with errors 
+#pragma message "TODO: deal with errors "
 - (MBMessage *) findMessageForUID: (NSNumber *) uid {
     MBMessage * message = nil;
     

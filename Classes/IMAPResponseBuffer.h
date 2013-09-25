@@ -45,12 +45,13 @@ typedef UInt8 IMAPResponseState;
  
  The buffer is filled by a background asynchronous inputStream in IMAPClient.
  
- Use:
+ ### Use:
+ 
     -(IMAPParseResult)parseBuffer: (IMAPResponse**)response - will parse until out of data then return a IMAPParseResult.
-    caller will need to test result and either parse again or use the finished IMAPResponse.
+
+ caller will need to test result and either parse again or use the finished IMAPResponse.
 
  
- @abstract encapsulate response data
  
  */
 @interface IMAPResponseBuffer : NSObject {

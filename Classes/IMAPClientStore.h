@@ -10,6 +10,12 @@
 @class MBMessage;
 @class MBox;
 
+/*!
+ Currently only one implementor of the IMAPClientStore protocol, IMAPCoreDataStore.
+ 
+ Intent is to allow other protocol implementors to allow other non Core Data persistance mechanisms.
+ */
+
 @protocol IMAPClientStore <NSObject>
 
 -(MBox *) selectMailBox: (NSString *) fullPath;

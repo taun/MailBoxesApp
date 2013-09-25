@@ -48,7 +48,7 @@
     return self;
 }
 
-//TODO: add init method which passes and empty string to designated initializer
+#pragma message "TODO: add init method which passes and empty string to designated initializer"
 
 -(void)copyAddArgument:(NSString *)anArgument{
     if(self.arguments == nil){

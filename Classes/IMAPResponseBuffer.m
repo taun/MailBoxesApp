@@ -392,7 +392,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     return tempTokens;
 }
-//TODO: what to do for IMAPParseUnexpectedEnd, Error or Timeout
+#pragma message "TODO: what to do for IMAPParseUnexpectedEnd, Error or Timeout"
 -(NSString *) copyTokensUpToNext: (char *)stopChars  {
     // only called when i indexes non space character
     

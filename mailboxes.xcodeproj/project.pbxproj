@@ -218,14 +218,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C502DE8C14185DDE000AA9E4 /* IMAPResponseParserTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPResponseParserTests.h; sourceTree = "<group>"; };
-		C502DE8D14185DDE000AA9E4 /* IMAPResponseParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPResponseParserTests.m; sourceTree = "<group>"; };
+		C502DE8C14185DDE000AA9E4 /* IMAPResponseParserTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IMAPResponseParserTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C502DE8D14185DDE000AA9E4 /* IMAPResponseParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IMAPResponseParserTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C50386BC146381C100BF6EB3 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		C50978D91433C6AA003FCD98 /* IMAPCoreDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPCoreDataStore.h; sourceTree = "<group>"; };
+		C50978D91433C6AA003FCD98 /* IMAPCoreDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IMAPCoreDataStore.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C50978DA1433C6AA003FCD98 /* IMAPCoreDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPCoreDataStore.m; sourceTree = "<group>"; };
 		C509CD2E13FAF49200B0B931 /* Old IMAP Library Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Old IMAP Library Notes.rtf"; sourceTree = "<group>"; };
 		C50C437313F0298400AF7A65 /* IMAPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPClient.h; sourceTree = "<group>"; };
-		C50C437413F0298400AF7A65 /* IMAPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPClient.m; sourceTree = "<group>"; };
+		C50C437413F0298400AF7A65 /* IMAPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IMAPClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C50C437613F04AC600AF7A65 /* MBAccountsCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAccountsCoordinator.h; sourceTree = "<group>"; };
 		C50C437713F04AC600AF7A65 /* MBAccountsCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAccountsCoordinator.m; sourceTree = "<group>"; };
 		C50CED66148851B000FC4A5E /* IMAPClientStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPClientStore.h; sourceTree = "<group>"; };
@@ -275,7 +275,7 @@
 		C56E15121405596D005CD1CD /* MBCriteria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBCriteria.h; path = Classes/MBCriteria.h; sourceTree = "<group>"; };
 		C56E15131405596D005CD1CD /* MBCriteria.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBCriteria.m; path = Classes/MBCriteria.m; sourceTree = "<group>"; };
 		C5724AAE145EF1C600E8C25F /* IMAPResponseBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPResponseBuffer.h; sourceTree = "<group>"; };
-		C5724AAF145EF1C600E8C25F /* IMAPResponseBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPResponseBuffer.m; sourceTree = "<group>"; };
+		C5724AAF145EF1C600E8C25F /* IMAPResponseBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IMAPResponseBuffer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5724AB1145EF2C600E8C25F /* IMAPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPResponse.h; sourceTree = "<group>"; };
 		C5724AB2145EF2C600E8C25F /* IMAPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPResponse.m; sourceTree = "<group>"; };
 		C573D8E912D7739900244575 /* Ping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ping.h; sourceTree = "<group>"; };
@@ -305,7 +305,7 @@
 		C57A79DC131830AD00936F66 /* MBUser+Accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "MBUser+Accessors.h"; path = "Classes/MBUser+Accessors.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C57A79DF131831C500936F66 /* MBAccount+Accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "MBAccount+Accessors.h"; path = "Classes/MBAccount+Accessors.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C57A79E21318328C00936F66 /* MBox+Accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "MBox+Accessors.h"; path = "Classes/MBox+Accessors.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C57A945A140FDD25002196DB /* MBox+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBox+IMAP.m"; path = "Classes/MBox+IMAP.m"; sourceTree = "<group>"; };
+		C57A945A140FDD25002196DB /* MBox+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "MBox+IMAP.m"; path = "Classes/MBox+IMAP.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C57B8D8D1432BFF10052B67E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MailBoxesDataModelModel.strings; sourceTree = "<group>"; };
 		C57F924A13ECE68A00C5136D /* QRunLoopOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRunLoopOperation.h; sourceTree = "<group>"; };
 		C57F924B13ECE68A00C5136D /* QRunLoopOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRunLoopOperation.m; sourceTree = "<group>"; };
@@ -376,8 +376,8 @@
 		C5AE2E0D1410374D0087CD93 /* LogicTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogicTests.h; sourceTree = "<group>"; };
 		C5AE2E0F1410374D0087CD93 /* LogicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicTests.m; sourceTree = "<group>"; };
 		C5AE2E111410374D0087CD93 /* LogicTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicTests-Prefix.pch"; sourceTree = "<group>"; };
-		C5AE2E1C1415B55E0087CD93 /* IMAPClientTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPClientTest.h; sourceTree = "<group>"; };
-		C5AE2E1D1415B55E0087CD93 /* IMAPClientTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPClientTest.m; sourceTree = "<group>"; };
+		C5AE2E1C1415B55E0087CD93 /* IMAPClientTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IMAPClientTest.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C5AE2E1D1415B55E0087CD93 /* IMAPClientTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IMAPClientTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5AEC01714361BA20075B6F4 /* MBFlag+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBFlag+IMAP.h"; path = "Classes/MBFlag+IMAP.h"; sourceTree = "<group>"; };
 		C5AEC01814361BA20075B6F4 /* MBFlag+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBFlag+IMAP.m"; path = "Classes/MBFlag+IMAP.m"; sourceTree = "<group>"; };
 		C5B1CC0514219DCE008C5011 /* answers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = answers; sourceTree = "<group>"; };
@@ -425,7 +425,7 @@
 		C5D3C6AF14607F2800E739C5 /* SimpleRFC822Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleRFC822Address.m; path = Classes/SimpleRFC822Address.m; sourceTree = "<group>"; };
 		C5D3C6B11460CE4600E739C5 /* AppleTips.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = AppleTips.rtf; sourceTree = "<group>"; };
 		C5DB7E6C13FE9FDB00C73188 /* IMAPCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPCommand.h; sourceTree = "<group>"; };
-		C5DB7E6D13FE9FDB00C73188 /* IMAPCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPCommand.m; sourceTree = "<group>"; };
+		C5DB7E6D13FE9FDB00C73188 /* IMAPCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IMAPCommand.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5DBB876143CDBD2006C1908 /* RFC2822RawMessageHeaderTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC2822RawMessageHeaderTest.h; sourceTree = "<group>"; };
 		C5DBB877143CDBD2006C1908 /* RFC2822RawMessageHeaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFC2822RawMessageHeaderTest.m; sourceTree = "<group>"; };
 		C5DD70CC14A25B3900F07BC3 /* MBMime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBMime.h; path = Classes/MBMime.h; sourceTree = "<group>"; };
@@ -453,7 +453,7 @@
 		C5EC8C7F17E76E410059863B /* MBMIME2047Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMIME2047Formatter.m; sourceTree = "<group>"; };
 		C5F2EB981318390D005A95D7 /* MBPortal+Accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBPortal+Accessors.h"; path = "Classes/MBPortal+Accessors.h"; sourceTree = "<group>"; };
 		C5F2EB9C13183AA8005A95D7 /* MBMessage+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBMessage+IMAP.h"; path = "Classes/MBMessage+IMAP.h"; sourceTree = "<group>"; };
-		C5F2EB9D13183AA8005A95D7 /* MBMessage+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBMessage+IMAP.m"; path = "Classes/MBMessage+IMAP.m"; sourceTree = "<group>"; };
+		C5F2EB9D13183AA8005A95D7 /* MBMessage+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "MBMessage+IMAP.m"; path = "Classes/MBMessage+IMAP.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5F85EE11314726A0037CCBB /* MBAccount+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBAccount+IMAP.h"; path = "Classes/MBAccount+IMAP.h"; sourceTree = "<group>"; };
 		C5FE51121475628D000181C7 /* MBTreeNode+IntersectsSetFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBTreeNode+IntersectsSetFix.h"; path = "Classes/MBTreeNode+IntersectsSetFix.h"; sourceTree = "<group>"; };
 		C5FE51131475628D000181C7 /* MBTreeNode+IntersectsSetFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBTreeNode+IntersectsSetFix.m"; path = "Classes/MBTreeNode+IntersectsSetFix.m"; sourceTree = "<group>"; };

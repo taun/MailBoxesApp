@@ -979,7 +979,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 //        fromEmail = @"Unknown email";
 //    }
 //    
-//    //TODO: remove Temp stuff
+//    #pragma message "TODO: remove Temp stuff"
 //    NSString *sampleBody = @"Just testing a long line of sample text to be replaced when IMAPClient is working.";
 //    //sampleBody = self.body;
 //    

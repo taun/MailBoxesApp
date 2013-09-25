@@ -338,7 +338,7 @@ static     NSDictionary *HeaderToModelMap;
     
 }
 
-//TODO: parse continue
+#pragma message "TODO: parse continue"
 -(void) actOnResponseContinue {
     // do nothing yet
     [self performDelegateResponseMethodSelector: NSSelectorFromString(@"commandContinue:")];
@@ -368,8 +368,8 @@ static     NSDictionary *HeaderToModelMap;
     [self performDelegateResponseMethodSelector: NSSelectorFromString(@"commandDone:")];
 }
 
-//TODO: add test for self.status == IMAPNO
-//TODO: add test for self.status == IMAPBAD
+#pragma message "TODO: add test for self.status == IMAPNO"
+#pragma message "TODO: add test for self.status == IMAPBAD"
 // then log and possibly present to user or console.
 -(void) actOnResponseState {
     // response is ok no bad
@@ -462,21 +462,25 @@ static     NSDictionary *HeaderToModelMap;
 }
 
 /*!
- 1st ".." content is path separator which can be nil
- 2nd ".." is mailbox path
- tokenize path by separator
- create if necessary each mailbox in path
- Special use identifiers = ALL ARCHIVE DRAFTS FLAGGED JUNK SENT TRASH
- Isolate "(...)" and separate by SP
- Ignore all in "( )" except \Noinferiors & special use
+ Evaluate tokens in response to a standard XLIST command on the current selected mail box.
  
- "***Need to flag folders with special use
- "***Need to flag folders with \Noinferiors
- "***Need to not add folders with \Noselect
+     1st ".." content is path separator which can be nil
+     2nd ".." is mailbox path
+     tokenize path by separator
+     create if necessary each mailbox in path
+     Special use identifiers = ALL ARCHIVE DRAFTS FLAGGED JUNK SENT TRASH
+     Isolate "(...)" and separate by SP
+     Ignore all in "( )" except \Noinferiors & special use
+     
+     "***Need to flag folders with special use
+     "***Need to flag folders with \Noinferiors
+     "***Need to not add folders with \Noselect
+     
+     "***Need a generic core data method to create object if necessary and return object
+     can be used for folders and flags and ?
+     implement as core data object class method or category
  
- "***Need a generic core data method to create object if necessary and return object
- can be used for folders and flags and ?
- implement as core data object class method or category
+ #### Sample command forms
  
  * LIST (\HasNoChildren) "." "INBOX.F_Happening"
  * XLIST (\HasNoChildren \Drafts) "/" "Drafts"

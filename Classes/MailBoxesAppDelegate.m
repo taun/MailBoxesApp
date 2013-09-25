@@ -367,7 +367,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  }
 
 
-//TODO:Now
+#pragma message "TODO:Now"
 /*!
  Load or cache a messageView from nib.
  

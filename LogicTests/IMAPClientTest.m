@@ -221,7 +221,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self parseFile:@"fetchBodystructureTextHtmlEncoded" saveAnswer: YES];
 }
 
-//TODO need a bodystructure before we can test the body part
+#pragma message "TODO need a bodystructure before we can test the body part"
 // parts are just data to attach to a pre-existing structure
 - (void)testRespFetchBodyPart2 {
     

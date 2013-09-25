@@ -489,7 +489,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         }
     }
 }
-//TODO needs major work, just for testing
+#pragma message "TODO needs major work, just for testing"
 -(void) syncQuanta {
     BOOL saveSuccess;
     NSError *saveError = nil;
@@ -959,8 +959,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 
-//TODO: how to repopen streams later? Timer?
-//TODO: set command complete to keep from blocking?
+#pragma message "TODO: how to repopen streams later? Timer?"
+#pragma message "TODO: set command complete to keep from blocking?"
 // or check for IMAPBYE in run loop?
 -(void)responseBye: (IMAPResponse*) response {
     DDLogVerbose(@"[%@ %@: %@]; %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), response.command.tag, response.tokens);
@@ -1106,7 +1106,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  implementation MUST NOT send a LOGIN command if the
  LOGINDISABLED capability is advertised.
  */
-//TODO: Check for LOGINDISABLED and report
+#pragma message "TODO: Check for LOGINDISABLED and report"
 -(void) commandLogin {
     // Check for auth capabilities
     IMAPCommand* command = nil;
@@ -1181,7 +1181,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
 }
 
-//TODO: how to let response know that the current command is for mbox arg?
+#pragma message "TODO: how to let response know that the current command is for mbox arg?"
 
 /*!
  Arguments:  mailbox name
@@ -1217,7 +1217,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
 }
 
-//TODO: IDLE will not complete until "done" is sent. results in a continue state.
+#pragma message "TODO: IDLE will not complete until "done" is sent. results in a continue state."
 // need to handle continue state and send done before future commands.
 
 /*!
@@ -1248,7 +1248,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      fails is attempted, no mailbox is selected."
  
  */
-//TODO: Check OK completion status before assigning selected mailbox.
+#pragma message "TODO: Check OK completion status before assigning selected mailbox."
 -(void) commandSelect: (NSString *) mboxPath{
     MBox* previousSelectedMbox = self.clientStore.selectedMBox;
     
