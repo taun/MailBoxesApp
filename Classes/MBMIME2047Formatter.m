@@ -49,12 +49,18 @@ static NSDictionary *charsetMap;
 
 /*!
  This only gets called if there was an "=" found
+ 
  Location is the first "X" after the "="
+ 
  Current location of string should be of form ="XY"
+ 
  Result
- if XY is valid hex, returns XY as UInt8 with location after "=XY"
- If X is valid and Y is invalid, returns X as UInt8 and location at Y
- If X and Y are invalid, return 0 and location still at X
+ 
+ * if XY is valid hex, returns XY as UInt8 with location after "=XY"
+ * If X is valid and Y is invalid, returns X as UInt8 and location at Y
+ * If X and Y are invalid, return 0 and location still at X
+ 
+ @param hexedStringScanner NSScanner
  */
 -(UInt8) scanHexFrom: (NSScanner*) hexedStringScanner {
     UInt8 hexCode = 0;
@@ -242,14 +248,10 @@ static NSDictionary *charsetMap;
     return decodedString;
 }
 /*!
- @param anObject
- The object for which a textual representation is returned.
- 
- @result
- An NSString object that textually represents object for display. Returns nil if object is not of the correct class.
- 
- @discussion
  When implementing a subclass, return the NSString object that textually represents the cell’s object for display and—if editingStringForObjectValue: is unimplemented—for editing. First test the passed-in object to see if it’s of the correct class. If it isn’t, return nil; but if it is of the right class, return a properly formatted and, if necessary, localized string. (See the specification of the NSString class for formatting and localizing details.)
+ 
+ @param anObject The object for which a textual representation is returned.
+ @returns An NSString object that textually represents object for display. Returns nil if object is not of the correct class.
  
  */
 - (NSString *)stringForObjectValue:(id)anObject {
@@ -352,21 +354,12 @@ static NSDictionary *charsetMap;
  NSLog(""%\"", answer);
  */
 /*!
- @param anObject
- If conversion is successful, upon return contains the object created from string.
+When implementing a subclass, return by reference the object anObject after creating it from string. Return YES if the conversion is successful. If you return NO, also return by indirection (in error) a localized user-presentable NSString object that explains the reason why the conversion failed; the delegate (if any) of the NSControl object managing the cell can then respond to the failure in control:didFailToFormatString:errorDescription:. However, if error is nil, the sender is not interested in the error description, and you should not attempt to assign one.
  
- @param string
- The string to parse.
- 
- @param error
- If non-nil, if there is a error during the conversion, upon return contains an NSString object that describes the problem.
- 
- @result
- YES if the conversion from string to cell content object was successful, otherwise NO.
- 
- @discussion
- When implementing a subclass, return by reference the object anObject after creating it from string. Return YES if the conversion is successful. If you return NO, also return by indirection (in error) a localized user-presentable NSString object that explains the reason why the conversion failed; the delegate (if any) of the NSControl object managing the cell can then respond to the failure in control:didFailToFormatString:errorDescription:. However, if error is nil, the sender is not interested in the error description, and you should not attempt to assign one.
- 
+ @param anObject If conversion is successful, upon return contains the object created from string.
+ @param string The string to parse.
+ @param error If non-nil, if there is a error during the conversion, upon return contains an NSString object that describes the problem.
+ @returns YES if the conversion from string to cell content object was successful, otherwise NO.
  */
 - (BOOL)getObjectValue:(id *)anObject forString:(NSString *)string errorDescription:(NSString **)error {
     BOOL result = NO;

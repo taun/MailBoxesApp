@@ -25,19 +25,13 @@ NSString *AccountEditingEndedKey;
 NSString *PortalEditingEndedKey;
 
 /*!
- @header
- 
- main application
- 
- */
-
-/*!
- created by the IB template
+ The standard AppDelegate class.
  
  */
 @interface MailBoxesAppDelegate : NSObject <NSApplicationDelegate, MBSidebarViewDelegate>
 
-// Main window views and controls
+/// @name Main window views and controls
+/*! Standard AppDelegate window */
 @property(strong)           IBOutlet NSWindow                 *appWindow;
 @property(strong)           IBOutlet MainSplitViewDelegate    *mainSplitViewDelegate;
 @property(strong)           IBOutlet NSView                   *inPaneMessageView;
@@ -48,29 +42,59 @@ NSString *PortalEditingEndedKey;
 @property(nonatomic,readonly,strong) NSArray                  *portalsACSortDescriptors;
 @property(nonatomic,readonly,strong) NSArray                  *accountsACSortDescriptors;
 
-// Configuration windows
+/// @name Configuration windows
 @property(strong)           IBOutlet NSWindow                 *preferencesWindow;
 @property(strong)           IBOutlet NSProgressIndicator      *accountSyncProgress;
 @property(strong)           IBOutlet NSButton                 *accountSyncButton;
 @property(strong)           IBOutlet NSButton                 *accountSyncCancelButton;
+/*!
+ The portalsArrayController content set comes from self.currentUser.portals
+ 
+ @see MBUser
+ @see MBViewPortal
+ */
 @property(strong)           IBOutlet NSArrayController        *portalsArrayController;
+/*! The collectionView content comes from self.portalsArrayController
+ 
+ Each NSCollectionView item is represented by an instance of MBVPortal.xib.
+ 
+ Each MBVPortal.xib is controlled by a MBPortalViewController.
+ 
+ @see MBViewPortal
+ @see MBCollectionView
+ @see MBPortalViewController
+ */
 @property(strong)           IBOutlet MBCollectionView         *collectionView;
 @property(strong)           IBOutlet NSSplitView              *messagesSplitView;
 
-// Model root
+/// @name Model root
+/*!
+ It all starts with the MBUser, currentUser. The definition of the current user is persisted in the OS User preferences.
+ If there is no currentUser, a default current user is created via the private method createDefaultUser.
+ 
+ The MBUser stores the account information, array of portals...
+ 
+ @see MBUser
+ */
 @property(strong)                    MBUser                   *currentUser;
 
-// accessors for Core Data
+/// @name accessors for Core Data
 @property(nonatomic,readonly,strong) NSPersistentStoreCoordinator    *persistentStoreCoordinator;
 @property(nonatomic,readonly,strong) NSManagedObjectModel            *managedObjectModel;
 @property(nonatomic,readonly,strong) NSManagedObjectContext          *managedObjectContext;
 @property(nonatomic,readonly,strong) NSManagedObjectContext          *nibManagedObjectContext;
 
-// Networking
+/// @name Networking
+/*! The MBAccountsCoordinator.
+ 
+ Manages all of the account information and network communication for the current MBUser.
+ 
+ @see MBAccountsCoordinator
+ */
 @property (strong)           MBAccountsCoordinator          *accountsCoordinator;
 @property (strong)           NSOperationQueue               *syncQueue;
 
-
+/// @name Control Actions
 - (IBAction)undo:sender;
 - (IBAction)redo:sender;
 - (IBAction)showPreferences: (id) sender;
@@ -85,7 +109,7 @@ NSString *PortalEditingEndedKey;
 - (IBAction)exportAllPortalSettings:(id)sender;
 - (IBAction)importPortalSettings:(id)sender;
 
-#pragma mark - Debug Actions
+/// @name  Debug Actions
 - (IBAction)resetMailStore:(id)sender;
 - (IBAction)resetCoreData:(id)sender;
 - (IBAction)resetPortals:(id)sender;

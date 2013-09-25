@@ -559,6 +559,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 /*!
  All of the following message methods work on the messages in the selectedMBox.
+ 
+ @param uid NSNumber of message UID
+ @param aDictionary NSDictionary of ?
  */
 -(BOOL) setMessage: (NSNumber*) uid propertiesFromDictionary: (NSDictionary*) aDictionary {
     

@@ -13,6 +13,14 @@
 
 @class MBAccount;
 
+/*!
+ Controller for managing the user's Accounts settings window.
+ 
+ Passed the desired MBUser MBAccount ID by the calling method.
+ 
+ The NSManagedObjectID is used so the Sheet can use a child NSManagedObjectContext for making changes prior to saving up the context chain.
+ 
+ */
 @interface MBAccountWindowController : NSWindowController <PingDelegate> {
     NSResponder* _savedFirstResponder;
 }
@@ -31,7 +39,9 @@
 - (void) editAccountID: (NSManagedObjectID*) account;
 
 - (void)editViewForAccountID: (NSManagedObjectID*) accountID;
-
+/*!
+ 
+ */
 - (MBAccount*) currentAccount;
 
 - (IBAction)add:(id)sender;

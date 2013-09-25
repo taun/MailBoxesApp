@@ -24,15 +24,7 @@
 
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
-/*!
- @category MBAccountsCoordinator()
- 
- private functions
- 
- need to review and at some point move to public
- 
- */
-@interface MBAccountsCoordinator () 
+@interface MBAccountsCoordinator ()
     @property (nonatomic, assign, readwrite) BOOL                   isFinished;
     @property (strong)                      NSMutableDictionary*    accountConnections;
     @property (nonatomic, readonly)         dispatch_queue_t        accountQueue;

@@ -22,29 +22,31 @@
 
 /*!
  Will need to implement all of the required methods for setting values in the store.
+ 
  Maybe as a protocol?
  
  mailbox and message methods
  how to pass arguments?
  
- setMailBox: id name:
- setMailBox: id path:
- setMailBox: id specialUse:
- setMailBox: id permanentFlags:
- setMailBox: id flags:
- setMailBox: id uidvalidity:
- setMailBox: id uidnext:
+     setMailBox: id name:
+     setMailBox: id path:
+     setMailBox: id specialUse:
+     setMailBox: id permanentFlags:
+     setMailBox: id flags:
+     setMailBox: id uidvalidity:
+     setMailBox: id uidnext:
+     
+     setMessage: id subject:
+     setMessage: id dateReceived:
+     setMessage: id rfcsize:
+     setMessage: id from:
+     setMessage: id to:
+     setMessage: id cc:
+     setMessage: id bcc:
+     setMessage: id raw:
+     setMessage: id summary: 
  
- setMessage: id subject:
- setMessage: id dateReceived:
- setMessage: id rfcsize:
- setMessage: id from:
- setMessage: id to:
- setMessage: id cc:
- setMessage: id bcc:
- setMessage: id raw:
- setMessage: id summary: 
- 
+ @param fullPath NSString
  */
 -(BOOL) setMailBoxReadOnly: (NSString *) fullPath ;
 -(BOOL) setMailBoxReadWrite: (NSString *) fullPath ;
@@ -64,6 +66,9 @@
 
 /*!
  All of the following message methods work on the messages in the selectedMBox.
+ 
+ @param uid NSNumber
+ @param aDictionary NSDictionary
  */
 -(BOOL) setMessage: (NSNumber*) uid propertiesFromDictionary: (NSDictionary*) aDictionary;
 

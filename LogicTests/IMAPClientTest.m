@@ -107,6 +107,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 /*! 
  ToDo: need to create a ClientStore
+ 
+ @param response IMAPResponse
  */
 - (void)configDefaultResponse:(IMAPResponse *)response {
     response.delegate = self;

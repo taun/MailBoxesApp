@@ -76,6 +76,7 @@ typedef UInt8 IMAPResponseState;
 /*!
  designated init
  
+ @param newDataBuffer NSMutableData
  */
 -(void) addDataBuffer:(NSMutableData *)newDataBuffer;
 

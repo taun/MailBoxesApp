@@ -320,79 +320,75 @@ typedef UInt8 IMAPClientStates;
 
 
 /*!
- Arguments:  mailbox name
-
  Responses:  REQUIRED untagged responses: FLAGS, EXISTS, RECENT
              REQUIRED OK untagged responses:  UNSEEN,  PERMANENTFLAGS, UIDNEXT, UIDVALIDITY
  
  Result:     OK - examine completed, now in selected state
              NO - examine failure, now in authenticated state: no such mailbox, can’t access mailbox
              BAD - command unknown or arguments invalid 
+ 
+ @param mbox the Core Data MBox object to examine.
  */
 -(void) commandExamine: (MBox *)mbox;
 
 
 /*!
- Arguments:  mailbox name
- 
  Responses:  no specific responses for this command
  
  Result:     OK - create completed
              NO - create failure: can’t create mailbox with that name
              BAD - command unknown or arguments invalid 
+ 
+ @param mbox the Core Data MBox object to create.
  */
 -(void) commandCreate: (MBox *)mbox;
 
 
 
 /*!
- @method commandDelete
-
- @discussion 
- Arguments:  mailbox name
  Responses:  no specific responses for this command
+ 
  Result:     OK - delete completed
- NO - delete failure: can’t delete mailbox with that name
- BAD - command unknown or arguments invalid */
+             NO - delete failure: can’t delete mailbox with that name
+             BAD - command unknown or arguments invalid
+ 
+ @param mbox the Core Data MBox object to delete.
+*/
 -(void) commandDelete: (MBox *)mbox;
 
 
 /*!
- @method commandRename
-
- @discussion 
- Arguments:  existing mailbox name
- new mailbox name
  Responses:  no specific responses for this command
+
  Result:     OK - rename completed
- NO - rename failure: can’t rename mailbox with that name,
- can’t rename to mailbox with that name
- BAD - command unknown or arguments invalid
- */
+             NO - rename failure: can’t rename mailbox with that name, can’t rename to mailbox with that name
+             BAD - command unknown or arguments invalid
+ 
+ @param mbox the Core Data MBox object to rename.
+ @param newName new mailbox name
+*/
 -(void) commandRename: (MBox *)mbox to: (NSString *) newName;
 
 
 /*!
- @method commandSubscribe
-
- @discussion 
- Arguments:  mailboxName
  Responses:  no specific responses for this command
+ 
  Result:     OK - subscribe completed
- NO - subscribe failure: can’t subscribe to that name
- BAD - command unknown or arguments invalid
+             NO - subscribe failure: can’t subscribe to that name
+             BAD - command unknown or arguments invalid
+ 
+ @param mbox the Core Data MBox object to subscribe.
  */
 -(void) commandSubscribe: (MBox *)mbox;
 
 /*!
- @method commandUnSubscribe
- 
- @discussion 
- Arguments:  mailboxName
  Responses:  no specific responses for this command
+
  Result:     OK - unsubscribe completed
- NO - unsubscribe failure: can’t unsubscribe that name
- BAD - command unknown or arguments invalid
+             NO - unsubscribe failure: can’t unsubscribe that name
+             BAD - command unknown or arguments invalid
+
+ @param mbox the Core Data MBox object to unsubscribe.
  */
 -(void) commandUnSubscribe: (MBox *)mbox;
 
@@ -475,25 +471,28 @@ typedef UInt8 IMAPClientStates;
 -(void) commandLsub;
 
 /*!
- Arguments:  mailbox name
-                status data item names
  Responses:  untagged responses: STATUS
+
  Result:     OK - status completed
- NO - status failure: no status for that name
- BAD - command unknown or arguments invalid
+             NO - status failure: no status for that name
+             BAD - command unknown or arguments invalid
+ 
+ @param mbox the Core Data MBox object.
  */
 -(void) commandStatus: (MBox *)mbox;
 
 /*!
- Arguments:  mailbox name
  OPTIONAL flag parenthesized list
- OPTIONAL date/time string
- message literal
+ 
+ OPTIONAL date/time string, message literal
+ 
  Responses:  no specific responses for this command
+ 
  Result:     OK - append completed
- NO - append error: can’t append to that mailbox, error
- in flags or date/time or message text
- BAD - command unknown or arguments invalid
+             NO - append error: can’t append to that mailbox, error in flags or date/time or message text
+             BAD - command unknown or arguments invalid
+ 
+ @param mbox the Core Data MBox object to append.
  */
 -(void) commandAppend: (MBox *)mbox;
 
@@ -503,30 +502,38 @@ typedef UInt8 IMAPClientStates;
 
 /*!
  CHECK Command
+ 
  Arguments:  none
+ 
  Responses:  no specific responses for this command
+ 
  Result:     OK - check completed
- BAD - command unknown or arguments invalid
+             BAD - command unknown or arguments invalid
  */
 -(void) commandCheck;
 
 /*!
  CLOSE Command
+
  Arguments:  none
+ 
  Responses:  no specific responses for this command
+ 
  Result:     OK - close completed, now in authenticated state
- BAD - command unknown or arguments invalid
+             BAD - command unknown or arguments invalid
  */
 -(void) commandClose;
 
 /*!
  EXPUNGE Command
+ 
  Arguments:  none
+ 
  Responses:  untagged responses: EXPUNGE
+ 
  Result:     OK - expunge completed
- NO - expunge failure: can’t expunge (e.g., permission
- denied)
- BAD - command unknown or arguments invalid
+             NO - expunge failure: can’t expunge (e.g., permission denied)
+             BAD - command unknown or arguments invalid
  */
 -(void) commandExpunge;
 
@@ -544,15 +551,19 @@ typedef UInt8 IMAPClientStates;
 
 /*!
  FETCH Command
- Arguments:  sequence set
-                message data item names or macro
+ 
+ Arguments:  sequence set, message data item names or macro
+ 
  Responses:  untagged responses: FETCH
+ 
  Result:     OK - fetch completed
- NO - fetch error: can’t fetch that data
- BAD - command unknown or arguments invalid
+             NO - fetch error: can’t fetch that data
+             BAD - command unknown or arguments invalid
 
  CommandFetch must always include UID to enable proper response parsing!
 
+ @param startRange an IMAP UID
+ @param endRange an IMAP UID
  */
 //-(void) commandFetch;
 -(void) commandFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange;
@@ -561,36 +572,43 @@ typedef UInt8 IMAPClientStates;
 
 /*!
  STORE Command
- Arguments:  sequence set
-                message data item name
-                value for message data item
+ 
+ Arguments:  sequence set, message data item name, value for message data item
+ 
  Responses:  untagged responses: FETCH
+ 
  Result:     OK - store completed
- NO - store error: can’t store that data
- BAD - command unknown or arguments invalid
+             NO - store error: can’t store that data
+             BAD - command unknown or arguments invalid
+ 
  */
 -(void) commandStore;
 
 /*!
  COPY Command
- Arguments:  sequence set
-                mailbox name
+ 
+ Arguments:  sequence set, mailbox name
+ 
  Responses:  no specific responses for this command
+ 
  Result:     OK - copy completed
- NO - copy error: can’t copy those messages or to that
- name
- BAD - command unknown or arguments invalid
+             NO - copy error: can’t copy those messages or to that name
+             BAD - command unknown or arguments invalid
+ 
  */
 -(void) commandCopy;
 
 /*!
  UID Command
- Arguments:  command name
-             command arguments
+ 
+ Arguments:  command name, command arguments
+ 
  Responses:  untagged responses: FETCH, SEARCH
+ 
  Result:     OK - UID command completed
- NO - UID command error
- BAD - command unknown or arguments invalid
+             NO - UID command error
+             BAD - command unknown or arguments invalid
+ 
  */
 -(void) commandUid;
 

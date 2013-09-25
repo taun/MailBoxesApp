@@ -611,11 +611,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #pragma clang diagnostic pop
 
 /*!
- Need to fetch the message based on the message objectID.
- Get the message mail box.
- IMAP SELECT the mail box
- IMAP FETCH the full message
- When IMAP response is finished, return.
+ * Need to fetch the message based on the message objectID.
+ * Get the message mail box.
+ * IMAP SELECT the mail box
+ * IMAP FETCH the full message
+ * When IMAP response is finished, return.
+ 
+ @param objectID NSManagedObjectID
  */
 -(void) loadFullMessageID: (NSManagedObjectID*) objectID {
     self.isCancelled = NO;
@@ -741,6 +743,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #pragma  mark - stream i/o
 /*!
  Private - convert command string to proper format and transmit to the server.
+ 
+ @param aString an NSString representing a full correct IMAP command
  */
 -(void) sendCommand: (NSString*) aString {
     NSData * dataToSend = [aString dataUsingEncoding: NSUTF8StringEncoding allowLossyConversion: YES];
@@ -918,6 +922,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 /*!
  convenience method to reformat the command method tokens
+ 
+ @param aCommandString NSString
  */
 -(NSString*) formatCommandToken:(NSString *)aCommandString {
     
@@ -936,6 +942,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 /*!
  convenience method to make it easy to check for a server capability
+ 
+ @param capability being checked for as an NSString
  */
 -(BOOL) hasCapability:(NSString *)capability {
     return [self.serverCapabilities containsObject: capability];

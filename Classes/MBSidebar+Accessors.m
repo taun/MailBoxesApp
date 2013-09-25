@@ -19,7 +19,11 @@
 
 @implementation MBSidebar (Accessors)
 
-
+/*!
+ Private convenience method
+ 
+ @param identifier NSString
+ */
 -(MBGroup*) groupIdentifiedBy: (NSString*) identifier {
     NSOrderedSet* groups = self.childNodes;
     MBGroup* result = nil;

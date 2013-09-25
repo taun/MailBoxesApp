@@ -52,22 +52,30 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 /*!
  a multi part composite mime
  contains either a leaf part or a multi part
+ 
+ @param parts MBTokenTree
  */
 -(MBMime*) unpackCompositeMimeFrom: (MBTokenTree*) parts;
 
 /*!
  a composite mime message/rfc822
  contains either a leaf part or a multi part
+ 
+ @param parts MBTokenTree
  */
 -(MBMime*) unpackCompositeMessageMimeFrom: (MBTokenTree*) parts;
 
 /*!
  leaf content of a multi part
+ 
+ @param part MBTokenTree
  */
 -(MBMime*) unpackDiscreteMimeFrom: (MBTokenTree*) part;
 
 /*!
  parameters are just key value pairs.
+ 
+ @param tokens MBTokenTree
  */
 -(NSSet*) unpackParametersFromNextToken: (MBTokenTree*) tokens;
 
@@ -213,11 +221,13 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 -(void) setParsedFlags: (id) tokenized {
     
 }
-//TODO: check performance of looping for part vs fetch request for part
+#pragma message "ToDo: check performance of looping for part vs fetch request for part"
 /*!
  dictionary key: "body" object (part, data)
  
  Need to find the body part then assign the data
+ 
+ @param tokenized tokenized IMAPResponse
 */
 -(void) setParsedBody:(id)tokenized {
     NSString* partIdentity = [tokenized objectAtIndex: 0];
@@ -276,6 +286,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 /*!
+<pre>
  RFC 2045 - Internet Message Bodies
  
  Bodystructure:
@@ -330,6 +341,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
  "alternative" 
  ("boundary" "--------MB_8CE1CEFFDBAC413_2628_6BB_web-mmc-m09.sysops.aol.com") NIL NIL NIL)
  )
+</pre>
  
  Multipart or non-multipart?
  Next token after bodystructure should be an array.
@@ -345,7 +357,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
  if part, then content and data is in the part, done.
  else multiPart, then subtype is? and content is in the childParts. (A childPart can be a multiPart)
  
- 
+ @param tokenized tokenized IMAPResponse
  */
 -(void) setParsedBodystructure:(id)tokenized {
     MBMime* newPart = nil;
@@ -372,6 +384,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 /*!
+ 
+<pre>
  Body index
  n = Count contents of top level, index 1-n
  x = count of contents of 1-n, ".1-.x" for each n
@@ -387,6 +401,10 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
             bodyIndex = prefix+index
             if node.childNodes != nil
                 recurse
+</pre>
+ 
+ @param mime MBMime
+ @param rIndex NSUInteger
 */
 - (void) generateBodyIndexes: (MBMime*) mime rIndex: (NSUInteger) rIndex{
     if (rIndex < 10) {
@@ -414,6 +432,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 /*!
+<pre>
  MultiPart( Part() Part() subtype Parameters("name" "value") disposition language location)
 
     leaf = ( ..... )
@@ -450,8 +469,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
             create leaf 
             remove token
             return leaf
-
- Tow type of multipart
+</pre>
+ 
+ ### Tow type of multipart
  
  1. multipart -- data consisting of multiple entities of independent data types.  Four subtypes are initially defined, including the basic 
  "mixed" subtype specifying a generic mixed set of parts, 
@@ -466,12 +486,16 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
  Another subtype, "external-body", is defined for specifying large bodies by reference to an external data source.
  
  MultiPart is implied while Message is explicit.
- If first token is an array, then it is Composite Multipart
- If first token is "message", then it is Composite Message
- All else is discrete mime type.
  
+ * If first token is an array, then it is Composite Multipart
+ 
+ * If first token is "message", then it is Composite Message
+ 
+ All else is discrete mime type.
+
+ @param parts MBTokenTree
 */
-// TODO: add special case of "message" which has a structure similar to a leaf with message as the first token.
+#pragma message "ToDo: add special case of \"message\" which has a structure similar to a leaf with message as the first token."
 -(MBMime*) unpackCompositeMimeFrom: (MBTokenTree*) parts {
     MBMime* result = nil;
     
@@ -585,7 +609,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 /*!
- Explicit Composite Message
+ > Explicit Composite Message
      type = message
      subtype = rfc822
      parameters
@@ -600,6 +624,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
      disposition
      language
      location
+ 
+ @param tokens MBTokenTree
  */
 - (MBMime*) unpackCompositeMessageMimeFrom:(MBTokenTree *)tokens {
     
@@ -704,6 +730,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 /*!
  ("type" "subtype" Parameters("name" "value") ContentID Description Encoding  Octets Lines MD5 disposition(type Parameters("name" "value")) Language Location)
+ 
+ @param tokens MBTokenTree
 */
 -(MBMime*) unpackDiscreteMimeFrom: (MBTokenTree*) tokens {
     
@@ -842,6 +870,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 /*!
  disposition(type Parameters("name" "value"))
+ 
+ @param dispositionTokens MBTokenTree
  */
 -(MBMimeDisposition*) unpackDispositionFromNextToken:(MBTokenTree *)dispositionTokens {
     MBMimeDisposition* newDisposition = nil;

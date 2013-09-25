@@ -49,21 +49,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #define MBFavoriteEntityName @"MBFavorites"
 #define MBListsEntityName @"MBAddressList"
 
-/*!
- @header
- 
- dummy
- 
- */
-
-/*!
- @category MailBoxesAppDelegate()
- 
- private functions
- 
- need to review and at some point move to public
- 
- */
 @interface MailBoxesAppDelegate()
 @property(nonatomic,readwrite,strong) NSArray                         *accountsACSortDescriptors;
 @property(nonatomic,readwrite,strong) NSArray                         *portalsACSortDescriptors;
@@ -73,7 +58,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @property(nonatomic,readwrite,strong) NSManagedObjectContext          *managedObjectContext;
 @property(nonatomic,readwrite,strong) NSManagedObjectContext          *nibManagedObjectContext;
 
-//Startup
+//name Startup
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 - (void)loadCurrentUser;
 - (void)createDefaultUser;
@@ -81,12 +66,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)createDefaultPortal;
 - (BOOL)isThereAUser;
 
-//State
+//name State
 - (IBAction)showPreferences: (id) sender;
 - (void)saveCurrentUserPreference;
 
 
-//Mail Core
+//name Mail Core
 /*!
  Create a CTCoreAccount for each MBAccount - iterate user.childNodes and pass to 
  Create MBox for each CTCoreAccount folder and add as MBAccount childNodes relationship 
@@ -102,7 +87,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //- (NSManagedObjectContext *) managedObjectContext;
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window;
 
-//Clean up and terminate
+//name Clean up and terminate
 - (void)dealloc;
 - (IBAction) saveAction:(id)sender;
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
@@ -139,6 +124,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //@synthesize syncQueue;
 
 #pragma mark - Startup
+///@name Startup
 + (void)initialize {
     NSDictionary *defaults = 
     [NSDictionary dictionaryWithObjectsAndKeys:
@@ -153,28 +139,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     AccountEditingEndedKey = @"AccountEditingEnded";
     PortalEditingEndedKey = @"PortalEditingEnded";
 }
-
-/*
- Monitor NSCollectionView indexes to update Message Window
- */
-
-
--(void) setSyncStatus:(BOOL) syncOn {
-    // Swap Cancel and Sync buttons
-    [self.accountSyncButton setHidden: syncOn];    
-    [self.accountSyncCancelButton setHidden: !syncOn];
-    //[self.accountSyncProgress setHidden: !syncOn];
-    
-    if(syncOn){
-        [self.accountSyncProgress startAnimation: self];
-        //[self.accountSyncProgress display];
-    } else {
-        [self.accountSyncProgress stopAnimation: self];
-    }    
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-  if ([keyPath isEqual:@"isFinished"]) {
+    if ([keyPath isEqual:@"isFinished"]) {
         DDLogVerbose(@"%@: isFinished=%@ observer triggered.", NSStringFromClass([self class]), [object valueForKeyPath:keyPath]);
         if (self.accountsCoordinator.isFinished) {
             [self setSyncStatus: NO];
@@ -206,19 +172,19 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         // It is important this happens after all the nib loading and binding.
         [self.sidebarViewController.view setAutosaveExpandedItems: YES];
         [self.sidebarViewController reloadData];
-
+        
         _syncQueue = nil;
-
+        
         self.accountsCoordinator = [[MBAccountsCoordinator alloc] initWithMBUser: self.currentUser];
         [self.accountsCoordinator addObserver:self
-                 forKeyPath:@"isFinished"
-                    options:NSKeyValueObservingOptionNew 
-                    context:NULL];
+                                   forKeyPath:@"isFinished"
+                                      options:NSKeyValueObservingOptionNew
+                                      context:NULL];
         
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(managedObjectContextDidChange:)
-//                                                     name:NSManagedObjectContextObjectsDidChangeNotification
-//                                                   object: self.managedObjectContext];
+        //        [[NSNotificationCenter defaultCenter] addObserver:self
+        //                                                 selector:@selector(managedObjectContextDidChange:)
+        //                                                     name:NSManagedObjectContextObjectsDidChangeNotification
+        //                                                   object: self.managedObjectContext];
     }
 }
 
@@ -236,21 +202,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         _portalsACSortDescriptors = [NSArray arrayWithObject: sort];
     }
     return _portalsACSortDescriptors;
-}
-
-- (void)loadCurrentUser {
-    __block NSError *errorLoading = nil;
-    __block BOOL savedOK = NO;
-    __block MBUser* theCurrentUser;
-
-    NSURL *moURI = [[NSUserDefaults standardUserDefaults] URLForKey: @"selectedUser"];
-    NSManagedObjectID *suid = [[self persistentStoreCoordinator] managedObjectIDForURIRepresentation: moURI];
-    if ( suid != nil ) {
-        [self.managedObjectContext performBlockAndWait:^{
-            theCurrentUser = (MBUser *)[_managedObjectContext existingObjectWithID: suid error: &errorLoading];
-        }];
-        self.currentUser = theCurrentUser;
-    }
 }
 - (void)createDefaultUser {
     __block MBUser *newUser = nil;
@@ -275,10 +226,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             DDLogVerbose(@"No initial User was found, inserted and saved an initial User: %@", newUser);
         }
     }];
-        
+    
     if (self.currentUser != nil) {
         [self saveCurrentUserPreference];
-    } 
+    }
 }
 - (void)createDefaultSidebarContent {
     MBSidebar* sidebar = [NSEntityDescription insertNewObjectForEntityForName:MBSideBarEntityName
@@ -339,16 +290,48 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             [self.managedObjectContext performBlockAndWait:^{
                 cUser = (MBUser *)[_managedObjectContext objectWithID: suid];
             }];
-
+            
             self.currentUser = cUser;
         }
         status = YES;
     }
     return status;
 }
+- (void)loadCurrentUser {
+    __block NSError *errorLoading = nil;
+    __block BOOL savedOK = NO;
+    __block MBUser* theCurrentUser;
+    
+    NSURL *moURI = [[NSUserDefaults standardUserDefaults] URLForKey: @"selectedUser"];
+    NSManagedObjectID *suid = [[self persistentStoreCoordinator] managedObjectIDForURIRepresentation: moURI];
+    if ( suid != nil ) {
+        [self.managedObjectContext performBlockAndWait:^{
+            theCurrentUser = (MBUser *)[_managedObjectContext existingObjectWithID: suid error: &errorLoading];
+        }];
+        self.currentUser = theCurrentUser;
+    }
+}
 
+
+/*
+ Monitor NSCollectionView indexes to update Message Window
+ */
+-(void) setSyncStatus:(BOOL) syncOn {
+    // Swap Cancel and Sync buttons
+    [self.accountSyncButton setHidden: syncOn];    
+    [self.accountSyncCancelButton setHidden: !syncOn];
+    //[self.accountSyncProgress setHidden: !syncOn];
+    
+    if(syncOn){
+        [self.accountSyncProgress startAnimation: self];
+        //[self.accountSyncProgress display];
+    } else {
+        [self.accountSyncProgress stopAnimation: self];
+    }    
+}
 
 #pragma mark - State
+///@name State
 - (void)saveCurrentUserPreference {
     NSURL *moURI = [[self.currentUser objectID] URIRepresentation];
     [[NSUserDefaults standardUserDefaults] setURL: moURI forKey:@"selectedUser"];
@@ -387,9 +370,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //TODO:Now
 /*!
  Load or cache a messageView from nib.
+ 
  Show the view in the proper pane
  
  View will use an ObjectController where the content is the assigned message.
+ 
+ @param selectedMessage MBMessage
  */
 -(void) showSelectedMessage:(MBMessage *)selectedMessage {
     
@@ -487,12 +473,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 #pragma mark - IMAPSync
+//name IMAPSync
 /*!
     ToDo
-    Change this to setup IMAPSync process
-    Need separate MOC, NSOperation, merge changes, observer
  
-    @param sender
+        Change this to setup IMAPSync process
+    
+        Need separate MOC, NSOperation, merge changes, observer
+ 
+    @param sender standard control action form
     @result an IBAction
  */
 - (IBAction)loadAllAccountFolders: (id) sender {
@@ -526,6 +515,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 #pragma mark - Core Data Boilerplate
+//name Core Data Boilerplate
 /**
  Returns the directory the application uses to store the Core Data store file. This code uses a directory named "TestCoreData" in the user's Library directory.
  New
@@ -630,11 +620,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 /*!
-    Some discussion here
- 
-    @param window
-    @result Returns the NSUndoManager for the application.  In this case, the manager
-    returned is that of the managed object context for the application.
+ Some discussion here
+
+ @param window NSWindow
+ @returns Returns the NSUndoManager for the application.  In this case, the manager
+ returned is that of the managed object context for the application.
  */
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
     return [self.managedObjectContext undoManager];
@@ -652,14 +642,14 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 #pragma mark - Clean up and terminate
+//name Clean up and terminate
 /*!
-    Performs the save action for the application, which is to send the save:
-    message to the application's managed object context.  Any encountered errors
-    are presented to the user.
- 
-    @param sender more later
- 
-    @result returns an IBAction
+Performs the save action for the application, which is to send the save:
+message to the application's managed object context.  Any encountered errors
+are presented to the user.
+
+@param sender standard IBAction form
+@returns returns an IBAction
  */
 - (IBAction) saveAction:(id)sender {
     __block NSError *error = nil;

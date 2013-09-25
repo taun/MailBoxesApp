@@ -17,11 +17,17 @@
 
 @class MBGroup;
 
+/*!
+ Accessors category add convenience accessors to MBSideBar.
+ */
 @interface MBSidebar (Accessors)
 
 /*!
  Groups are added to the end of the childNodes NSOrderedSet.
  In other words, Groups are listed in the order in which they are added.
+ 
+ @param identifier NSString
+ @param aName NSString
  */
 -(MBGroup*) addGroup: (NSString *)identifier name:(NSString *)aName;
   
