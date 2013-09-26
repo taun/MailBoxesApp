@@ -138,6 +138,12 @@ typedef UInt8 IMAPResponseStatus;
 -(void) responseFetchedMessageInternaldate;
 -(void) responseFetchedMessageRfc822;
 -(void) responseFetchedMessageRfc822Size;
+/*!
+ Adds header name as key and and token as value to the self.messageProperties dictionary.
+ 
+ Note: Only adds headers which are in the HeaderToModelMap static dictionary. 
+ 
+ */
 -(void) responseFetchedMessageRfc822Header;
 -(void) responseFetchedMessageRfc822Text;
 -(void) responseFetchedMessageBody;

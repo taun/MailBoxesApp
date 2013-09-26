@@ -583,4 +583,11 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 	http://gentlebytes.com/appledoc/\
 	http://simplicate.weebly.com/1/post/2013/07/using-appledoc-to-generate-xcode-help-part-2.html\
 \
+	When to process encoded headers. In IMAPResponse or IMAPResponseBuffer or When saving as Core Data properties?\
+	When saving as Core Data properties may be best?\
+	Has to be after parsing. Decoding changes the text and may be un-parseable after decoding. Means after Buffer tokenizing.\
+	Whether it is just before sending to Core Date from IMAPResponse or just after receiving at Core Data. It is the same point in the process. Just a matter of which is cleaner and more robust. Either way, the header are to be stored decoded.\
+	At the Core Data stage is definitely easier. IMAPResponse doesn't know about headers. It is just passing dictionary keys and values.\
+	***Can all charsets be converted to UTF8 by transformer and stored as UTF8? Even ISO and RU? Makes searching and indexing better.\
+\
 }

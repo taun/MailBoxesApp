@@ -27,6 +27,10 @@ static     NSSet *RespDataFetchCommandTokens;
 //static     NSSet *ClientStoreMessageTokens;
 //static     NSSet *ClientStoreMailBoxTokens;
 //static     NSSet *DelegateTokens;
+
+/*!
+ Static NSDictionary *HeaderToModelMap - Maps from IMAP header labels to MBox property names.
+ */
 static     NSDictionary *HeaderToModelMap;
 
 
