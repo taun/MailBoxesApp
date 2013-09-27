@@ -24,28 +24,14 @@
 		C502DE8E14185DDE000AA9E4 /* IMAPResponseParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C502DE8D14185DDE000AA9E4 /* IMAPResponseParserTests.m */; };
 		C50386BD146381C200BF6EB3 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50386BC146381C100BF6EB3 /* Quartz.framework */; };
 		C50978DB1433C6AA003FCD98 /* IMAPCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C50978DA1433C6AA003FCD98 /* IMAPCoreDataStore.m */; };
-		C50AF269148D6BC300F34992 /* MBTokenTree.m in Sources */ = {isa = PBXBuildFile; fileRef = C5776390148961ED00C60438 /* MBTokenTree.m */; };
-		C50AF26A148D6D3C00F34992 /* MBTokenTree.h in Resources */ = {isa = PBXBuildFile; fileRef = C577638F148961ED00C60438 /* MBTokenTree.h */; };
 		C50C437513F0298400AF7A65 /* IMAPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C50C437413F0298400AF7A65 /* IMAPClient.m */; };
 		C50C437813F04AC600AF7A65 /* MBAccountsCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = C50C437713F04AC600AF7A65 /* MBAccountsCoordinator.m */; };
-		C50CED581488374300FC4A5E /* SimpleRFC822Address.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C6AF14607F2800E739C5 /* SimpleRFC822Address.m */; };
-		C50CED591488374A00FC4A5E /* MBTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C59740671471972F0033E4CF /* MBTreeNode.m */; };
-		C50CED5A1488374F00FC4A5E /* MBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = C597403A14718FEA0033E4CF /* MBAccount.m */; };
-		C50CED5C1488376000FC4A5E /* MBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C59740821471AC110033E4CF /* MBUser.m */; };
-		C50CED5D1488376800FC4A5E /* IMAPResponseBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5724AAF145EF1C600E8C25F /* IMAPResponseBuffer.m */; };
-		C50CED5E1488381300FC4A5E /* IMAPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C5724AB2145EF2C600E8C25F /* IMAPResponse.m */; };
-		C50CED5F1488386D00FC4A5E /* MBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = C597403D14718FEA0033E4CF /* MBAddress.m */; };
-		C50CED65148838F900FC4A5E /* NSString+IMAPConversions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C6AC1460755F00E739C5 /* NSString+IMAPConversions.m */; };
-		C50CED671488532300FC4A5E /* IMAPClientStore.h in Resources */ = {isa = PBXBuildFile; fileRef = C50CED66148851B000FC4A5E /* IMAPClientStore.h */; };
-		C50CED681488532B00FC4A5E /* IMAPResponseDelegate.h in Resources */ = {isa = PBXBuildFile; fileRef = C540137F1435253800287C11 /* IMAPResponseDelegate.h */; };
-		C50CED691488567C00FC4A5E /* IMAPCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DB7E6D13FE9FDB00C73188 /* IMAPCommand.m */; };
 		C50DD7F013730284002A6CD6 /* MBPortalView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD7EF13730284002A6CD6 /* MBPortalView.m */; };
 		C50DD7F3137440FD002A6CD6 /* MBPortal+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD7F2137440FD002A6CD6 /* MBPortal+IMAP.m */; };
 		C50DD8171374F0BC002A6CD6 /* MBCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD8161374F0BB002A6CD6 /* MBCollectionView.m */; };
 		C530E47714781EA0000C78F6 /* MBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C530E47614781EA0000C78F6 /* MBox.m */; };
 		C530EECE134FA62D004CBB20 /* MBUser+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C530EECD134FA62D004CBB20 /* MBUser+IMAP.m */; };
 		C5338A151491A727006A3565 /* MBMimeDisposition.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A141491A727006A3565 /* MBMimeDisposition.m */; };
-		C5338A1A1491A73E006A3565 /* MBMimeDisposition.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A141491A727006A3565 /* MBMimeDisposition.m */; };
 		C5338A1D14925A43006A3565 /* MBMultiDigest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A1C14925A43006A3565 /* MBMultiDigest.m */; };
 		C5338A2014925A43006A3565 /* MBMimeApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A1F14925A43006A3565 /* MBMimeApplication.m */; };
 		C5338A2614925A44006A3565 /* MBMimeText.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A2514925A44006A3565 /* MBMimeText.m */; };
@@ -53,13 +39,6 @@
 		C5338A2C14925A45006A3565 /* MBMultiEncrypted.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A2B14925A45006A3565 /* MBMultiEncrypted.m */; };
 		C5338A3214925A46006A3565 /* MBMimeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A3114925A46006A3565 /* MBMimeImage.m */; };
 		C5338A3514925A47006A3565 /* MBMimeVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A3414925A47006A3565 /* MBMimeVideo.m */; };
-		C5338A3614925FC0006A3565 /* MBMultiDigest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A1C14925A43006A3565 /* MBMultiDigest.m */; };
-		C5338A3714925FC5006A3565 /* MBMimeApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A1F14925A43006A3565 /* MBMimeApplication.m */; };
-		C5338A3914925FCA006A3565 /* MBMimeText.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A2514925A44006A3565 /* MBMimeText.m */; };
-		C5338A3A14925FCF006A3565 /* MBMimeAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A2814925A45006A3565 /* MBMimeAudio.m */; };
-		C5338A3B14925FD1006A3565 /* MBMultiEncrypted.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A2B14925A45006A3565 /* MBMultiEncrypted.m */; };
-		C5338A3D14925FD8006A3565 /* MBMimeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A3114925A46006A3565 /* MBMimeImage.m */; };
-		C5338A3E14925FDB006A3565 /* MBMimeVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A3414925A47006A3565 /* MBMimeVideo.m */; };
 		C536D542142D97D5009EB3A1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C536D540142D97D5009EB3A1 /* CoreData.framework */; };
 		C54267C9149AA800005A49D8 /* MBMimeMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = C54267C8149AA800005A49D8 /* MBMimeMedia.m */; };
 		C54BE48112C1AF9700BCC20D /* MBAccountWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54BE47F12C1AF9700BCC20D /* MBAccountWindowController.m */; };
@@ -67,7 +46,6 @@
 		C5667CE914A12F8F008E6F42 /* MBMimeData+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5667CE814A12F8F008E6F42 /* MBMimeData+IMAP.m */; };
 		C56ACAA1134D01D600EA21B1 /* MBPortalPredicateEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56ACA9F134D01D600EA21B1 /* MBPortalPredicateEditor.xib */; };
 		C56B46A7143F83B900167121 /* MBVPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56B46A5143F83B900167121 /* MBVPortal.xib */; };
-		C56DFCA617E896110034E970 /* MIMERFC2047EncodeDecodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C56DFCA517E896110034E970 /* MIMERFC2047EncodeDecodeTests.m */; };
 		C56E15141405596D005CD1CD /* MBCriteria.m in Sources */ = {isa = PBXBuildFile; fileRef = C56E15131405596D005CD1CD /* MBCriteria.m */; };
 		C5724AB0145EF1C700E8C25F /* IMAPResponseBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5724AAF145EF1C600E8C25F /* IMAPResponseBuffer.m */; };
 		C5724AB3145EF2C600E8C25F /* IMAPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C5724AB2145EF2C600E8C25F /* IMAPResponse.m */; };
@@ -94,7 +72,6 @@
 		C58DC38717AAF75B009CB9B9 /* ConnectTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C58DC38617AAF75B009CB9B9 /* ConnectTestAppDelegate.m */; };
 		C58DC38A17AAF770009CB9B9 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C58DC38917AAF770009CB9B9 /* GCDAsyncSocket.m */; };
 		C58F658F14902CD800720D69 /* MBMessage+IntersectSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C58F658E14902CD800720D69 /* MBMessage+IntersectSetFix.m */; };
-		C58F65901490498500720D69 /* MBMessage+IntersectSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C58F658E14902CD800720D69 /* MBMessage+IntersectSetFix.m */; };
 		C594059817A2F1550016F179 /* FScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C594059717A2F1550016F179 /* FScript.framework */; };
 		C597401D147184D80033E4CF /* MBSidebarTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = C597401C147184D80033E4CF /* MBSidebarTableCellView.m */; };
 		C597402014718FE70033E4CF /* MBRFC2822.m in Sources */ = {isa = PBXBuildFile; fileRef = C597401F14718FE70033E4CF /* MBRFC2822.m */; };
@@ -123,9 +100,7 @@
 		C5A1017E145CAB2B005B941B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A1017D145CAB2B005B941B /* Security.framework */; };
 		C5AE2E021410374D0087CD93 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5C7A56D128B93EC006B1E86 /* Cocoa.framework */; };
 		C5AE2E0C1410374D0087CD93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5AE2E0A1410374D0087CD93 /* InfoPlist.strings */; };
-		C5AE2E0E1410374D0087CD93 /* LogicTests.h in Resources */ = {isa = PBXBuildFile; fileRef = C5AE2E0D1410374D0087CD93 /* LogicTests.h */; };
 		C5AE2E101410374D0087CD93 /* LogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE2E0F1410374D0087CD93 /* LogicTests.m */; };
-		C5AE2E1F1415BB280087CD93 /* IMAPClientTest.h in Resources */ = {isa = PBXBuildFile; fileRef = C5AE2E1C1415B55E0087CD93 /* IMAPClientTest.h */; };
 		C5AEC01914361BA20075B6F4 /* MBFlag+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEC01814361BA20075B6F4 /* MBFlag+IMAP.m */; };
 		C5B1CC0614219DCE008C5011 /* answers in Resources */ = {isa = PBXBuildFile; fileRef = C5B1CC0514219DCE008C5011 /* answers */; };
 		C5B3B2A812BFA4BF0051204B /* MainSplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B3B2A712BFA4BF0051204B /* MainSplitViewDelegate.m */; };
@@ -133,6 +108,11 @@
 		C5BCBF3F1475FC3C00EA0214 /* MBSidebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCBF3E1475FC3C00EA0214 /* MBSidebarView.m */; };
 		C5BCBF421475FD7600EA0214 /* MBSidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCBF411475FD7600EA0214 /* MBSidebarViewController.m */; };
 		C5C086741396AB880028D2FF /* MBAddress+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C086731396AB880028D2FF /* MBAddress+IMAP.m */; };
+		C5C49E1917F5CC31002C0475 /* IMAPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C5724AB2145EF2C600E8C25F /* IMAPResponse.m */; };
+		C5C49E1A17F5CC38002C0475 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74709168FD3A30055FE5E /* DDLog.m */; };
+		C5C49E1B17F5CC54002C0475 /* MBTokenTree.m in Sources */ = {isa = PBXBuildFile; fileRef = C5776390148961ED00C60438 /* MBTokenTree.m */; };
+		C5C49E1C17F5CC78002C0475 /* SimpleRFC822Address.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C6AF14607F2800E739C5 /* SimpleRFC822Address.m */; };
+		C5C49E1D17F5DD30002C0475 /* NSString+IMAPConversions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C6AC1460755F00E739C5 /* NSString+IMAPConversions.m */; };
 		C5C7A56E128B93EC006B1E86 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5C7A56D128B93EC006B1E86 /* Cocoa.framework */; };
 		C5C7A573128B93EC006B1E86 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5C7A571128B93EC006B1E86 /* InfoPlist.strings */; };
 		C5C7A575128B93EC006B1E86 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7A574128B93EC006B1E86 /* main.m */; };
@@ -147,58 +127,34 @@
 		C5C7A59C128B93ED006B1E86 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C5C7A59B128B93ED006B1E86 /* main.c */; };
 		C5C7A59E128B93ED006B1E86 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7A59D128B93ED006B1E86 /* GetMetadataForFile.m */; };
 		C5C7A5A1128B93ED006B1E86 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7A5A0128B93ED006B1E86 /* MySpotlightImporter.m */; };
+		C5C7E77217F5C3800053B08B /* MBMIME2047ValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7E77117F5C3800053B08B /* MBMIME2047ValueTransformer.m */; };
+		C5C7E77417F5CB230053B08B /* MIMERFC2047EncodeDecodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C56DFCA517E896110034E970 /* MIMERFC2047EncodeDecodeTests.m */; };
+		C5C7E77517F5CBA70053B08B /* IMAPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C50C437413F0298400AF7A65 /* IMAPClient.m */; };
+		C5C7E77617F5CBB70053B08B /* IMAPCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DB7E6D13FE9FDB00C73188 /* IMAPCommand.m */; };
+		C5C7E77717F5CBBB0053B08B /* IMAPCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C50978DA1433C6AA003FCD98 /* IMAPCoreDataStore.m */; };
+		C5C7E77817F5CBD40053B08B /* IMAPResponseBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5724AAF145EF1C600E8C25F /* IMAPResponseBuffer.m */; };
+		C5C7E77917F5CBE00053B08B /* RFC2822RawMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743A9143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m */; };
+		C5C7E77A17F5CBED0053B08B /* MBMIME2047ValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C7E77117F5C3800053B08B /* MBMIME2047ValueTransformer.m */; };
 		C5D016A4148812250048E00D /* MBMime+IntersectsSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D016A3148812250048E00D /* MBMime+IntersectsSetFix.m */; };
-		C5D1D4D71416857C002E5004 /* MBAccount+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6CD1F1407F3BF0042A444 /* MBAccount+IMAP.m */; };
-		C5D1D4D814168580002E5004 /* MBUser+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C530EECD134FA62D004CBB20 /* MBUser+IMAP.m */; };
-		C5D1D4DA14168588002E5004 /* MBMessage+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F2EB9D13183AA8005A95D7 /* MBMessage+IMAP.m */; };
-		C5D335C7148DC337005D56AC /* IMAPCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C50978DA1433C6AA003FCD98 /* IMAPCoreDataStore.m */; };
-		C5D335C8148E9C73005D56AC /* MailBoxesDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C577D857142DA4B500E03AF1 /* MailBoxesDataModel.xcdatamodeld */; };
-		C5D335CB148E9E49005D56AC /* MBAddress+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C086731396AB880028D2FF /* MBAddress+IMAP.m */; };
-		C5D335CC148E9E54005D56AC /* MBTreeNode+IntersectsSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE51131475628D000181C7 /* MBTreeNode+IntersectsSetFix.m */; };
-		C5D335CD148E9E5A005D56AC /* MBMime+IntersectsSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D016A3148812250048E00D /* MBMime+IntersectsSetFix.m */; };
-		C5D335CF148E9E74005D56AC /* MBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C530E47614781EA0000C78F6 /* MBox.m */; };
-		C5D335D0148E9E7A005D56AC /* MBox+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C57A945A140FDD25002196DB /* MBox+IMAP.m */; };
 		C5D335D3148EB323005D56AC /* MBMime+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D335D2148EB323005D56AC /* MBMime+IMAP.m */; };
-		C5D335D4148ECA5F005D56AC /* MBMultiParallel.m in Sources */ = {isa = PBXBuildFile; fileRef = C577637E14895B1D00C60438 /* MBMultiParallel.m */; };
-		C5D335D6148ECA5F005D56AC /* MBMultiMixed.m in Sources */ = {isa = PBXBuildFile; fileRef = C577637814895B1C00C60438 /* MBMultiMixed.m */; };
-		C5D335D7148ECA5F005D56AC /* MBMimeMulti.m in Sources */ = {isa = PBXBuildFile; fileRef = C577636F14895B1A00C60438 /* MBMimeMulti.m */; };
-		C5D335DA148ECA5F005D56AC /* MBMultiSigned.m in Sources */ = {isa = PBXBuildFile; fileRef = C577636314895B1700C60438 /* MBMultiSigned.m */; };
-		C5D335DB148ECA5F005D56AC /* MBMultiAlternative.m in Sources */ = {isa = PBXBuildFile; fileRef = C577635A14895B1600C60438 /* MBMultiAlternative.m */; };
-		C5D335DF148ECA5F005D56AC /* MBMultiRelated.m in Sources */ = {isa = PBXBuildFile; fileRef = C577634B14895B1300C60438 /* MBMultiRelated.m */; };
-		C5D335E3148ECA5F005D56AC /* MBMimeParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = C577638414895BAD00C60438 /* MBMimeParameter.m */; };
-		C5D335E5148ECA5F005D56AC /* MBMultiMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C577638114895BAD00C60438 /* MBMultiMessage.m */; };
-		C5D335E6148ECA8D005D56AC /* MBMime+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D335D2148EB323005D56AC /* MBMime+IMAP.m */; };
 		C5D3C6AD1460755F00E739C5 /* NSString+IMAPConversions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C6AC1460755F00E739C5 /* NSString+IMAPConversions.m */; };
 		C5D3C6B014607F2800E739C5 /* SimpleRFC822Address.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D3C6AF14607F2800E739C5 /* SimpleRFC822Address.m */; };
 		C5D3C6B21460CE4600E739C5 /* AppleTips.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C5D3C6B11460CE4600E739C5 /* AppleTips.rtf */; };
 		C5DB7E6E13FE9FDB00C73188 /* IMAPCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DB7E6D13FE9FDB00C73188 /* IMAPCommand.m */; };
 		C5DBB878143CDBD2006C1908 /* RFC2822RawMessageHeaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DBB877143CDBD2006C1908 /* RFC2822RawMessageHeaderTest.m */; };
-		C5DBB879143CEED9006C1908 /* RFC2822RawMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743A9143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m */; };
-		C5DD70CA14A257AE00F07BC3 /* MBMimeData.m in Sources */ = {isa = PBXBuildFile; fileRef = C5667CE514A12E1E008E6F42 /* MBMimeData.m */; };
-		C5DD70CB14A257C800F07BC3 /* MBMimeData+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5667CE814A12F8F008E6F42 /* MBMimeData+IMAP.m */; };
 		C5DD70CE14A25B3900F07BC3 /* MBMime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DD70CD14A25B3900F07BC3 /* MBMime.m */; };
-		C5DD70CF14A25C7900F07BC3 /* MBMime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DD70CD14A25B3900F07BC3 /* MBMime.m */; };
 		C5E5DD931443D031002A13B6 /* MBPortalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E5DD921443D031002A13B6 /* MBPortalViewController.m */; };
 		C5E65760142D38AD000D7D65 /* IMAPClientTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE2E1D1415B55E0087CD93 /* IMAPClientTest.m */; };
 		C5E6CD201407F3BF0042A444 /* MBAccount+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6CD1F1407F3BF0042A444 /* MBAccount+IMAP.m */; };
 		C5E7470D168FD3A30055FE5E /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74703168FD3A30055FE5E /* DDAbstractDatabaseLogger.m */; };
-		C5E7470E168FD3A30055FE5E /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74703168FD3A30055FE5E /* DDAbstractDatabaseLogger.m */; };
 		C5E7470F168FD3A30055FE5E /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74705168FD3A30055FE5E /* DDASLLogger.m */; };
-		C5E74710168FD3A30055FE5E /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74705168FD3A30055FE5E /* DDASLLogger.m */; };
 		C5E74711168FD3A30055FE5E /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74707168FD3A30055FE5E /* DDFileLogger.m */; };
-		C5E74712168FD3A30055FE5E /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74707168FD3A30055FE5E /* DDFileLogger.m */; };
 		C5E74713168FD3A30055FE5E /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74709168FD3A30055FE5E /* DDLog.m */; };
-		C5E74714168FD3A30055FE5E /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74709168FD3A30055FE5E /* DDLog.m */; };
 		C5E74715168FD3A30055FE5E /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E7470B168FD3A30055FE5E /* DDTTYLogger.m */; };
-		C5E74716168FD3A30055FE5E /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E7470B168FD3A30055FE5E /* DDTTYLogger.m */; };
 		C5E74717168FD3A30055FE5E /* Extensions in Resources */ = {isa = PBXBuildFile; fileRef = C5E7470C168FD3A30055FE5E /* Extensions */; };
 		C5E74718168FD3A30055FE5E /* Extensions in Resources */ = {isa = PBXBuildFile; fileRef = C5E7470C168FD3A30055FE5E /* Extensions */; };
 		C5E886EF137ACAF600ABD01D /* MBMessageFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E886EE137ACAF600ABD01D /* MBMessageFormatter.m */; };
 		C5EC8C7D17E39EBD0059863B /* MBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC8C7C17E39EBD0059863B /* MBMessage.m */; };
-		C5EC8C8017E76E410059863B /* MBMIME2047Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC8C7F17E76E410059863B /* MBMIME2047Formatter.m */; };
-		C5EC8C8117E76E410059863B /* MBMIME2047Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC8C7F17E76E410059863B /* MBMIME2047Formatter.m */; };
-		C5EC8C8417E7772F0059863B /* MBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EC8C7C17E39EBD0059863B /* MBMessage.m */; };
-		C5EFCF4A149BD35900F9781A /* MBMimeMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = C54267C8149AA800005A49D8 /* MBMimeMedia.m */; };
 		C5F2EB9E13183AA9005A95D7 /* MBMessage+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F2EB9D13183AA8005A95D7 /* MBMessage+IMAP.m */; };
 		C5FE51141475628D000181C7 /* MBTreeNode+IntersectsSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE51131475628D000181C7 /* MBTreeNode+IntersectsSetFix.m */; };
 		C5FE511714758C2B000181C7 /* MBAddressList.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE511614758C2B000181C7 /* MBAddressList.m */; };
@@ -414,6 +370,8 @@
 		C5C7A59F128B93ED006B1E86 /* MySpotlightImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySpotlightImporter.h; sourceTree = "<group>"; };
 		C5C7A5A0128B93ED006B1E86 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
 		C5C7A5A2128B93ED006B1E86 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
+		C5C7E77017F5C3800053B08B /* MBMIME2047ValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMIME2047ValueTransformer.h; sourceTree = "<group>"; };
+		C5C7E77117F5C3800053B08B /* MBMIME2047ValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMIME2047ValueTransformer.m; sourceTree = "<group>"; };
 		C5CB587213CFA4450034919B /* DesignNotes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = DesignNotes.rtf; sourceTree = "<group>"; };
 		C5D016A2148812250048E00D /* MBMime+IntersectsSetFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBMime+IntersectsSetFix.h"; path = "Classes/MBMime+IntersectsSetFix.h"; sourceTree = "<group>"; };
 		C5D016A3148812250048E00D /* MBMime+IntersectsSetFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBMime+IntersectsSetFix.m"; path = "Classes/MBMime+IntersectsSetFix.m"; sourceTree = "<group>"; };
@@ -449,8 +407,6 @@
 		C5E8C53E137B82DD00E87D8A /* MBMessage+Accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBMessage+Accessors.h"; path = "Classes/MBMessage+Accessors.h"; sourceTree = "<group>"; };
 		C5EC8C7B17E39EBD0059863B /* MBMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBMessage.h; path = Classes/MBMessage.h; sourceTree = "<group>"; };
 		C5EC8C7C17E39EBD0059863B /* MBMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBMessage.m; path = Classes/MBMessage.m; sourceTree = "<group>"; };
-		C5EC8C7E17E76E410059863B /* MBMIME2047Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMIME2047Formatter.h; sourceTree = "<group>"; };
-		C5EC8C7F17E76E410059863B /* MBMIME2047Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMIME2047Formatter.m; sourceTree = "<group>"; };
 		C5F2EB981318390D005A95D7 /* MBPortal+Accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBPortal+Accessors.h"; path = "Classes/MBPortal+Accessors.h"; sourceTree = "<group>"; };
 		C5F2EB9C13183AA8005A95D7 /* MBMessage+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBMessage+IMAP.h"; path = "Classes/MBMessage+IMAP.h"; sourceTree = "<group>"; };
 		C5F2EB9D13183AA8005A95D7 /* MBMessage+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "MBMessage+IMAP.m"; path = "Classes/MBMessage+IMAP.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -905,6 +861,8 @@
 		C5E886EA137ACA2000ABD01D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C5C7E77017F5C3800053B08B /* MBMIME2047ValueTransformer.h */,
+				C5C7E77117F5C3800053B08B /* MBMIME2047ValueTransformer.m */,
 				C597401B147184D80033E4CF /* MBSidebarTableCellView.h */,
 				C597401C147184D80033E4CF /* MBSidebarTableCellView.m */,
 				C50DD7EE13730284002A6CD6 /* MBPortalView.h */,
@@ -917,8 +875,6 @@
 				C5E886EE137ACAF600ABD01D /* MBMessageFormatter.m */,
 				C5BCBF3D1475FC3C00EA0214 /* MBSidebarView.h */,
 				C5BCBF3E1475FC3C00EA0214 /* MBSidebarView.m */,
-				C5EC8C7E17E76E410059863B /* MBMIME2047Formatter.h */,
-				C5EC8C7F17E76E410059863B /* MBMIME2047Formatter.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1053,12 +1009,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5B1CC0614219DCE008C5011 /* answers in Resources */,
-				C50AF26A148D6D3C00F34992 /* MBTokenTree.h in Resources */,
-				C5AE2E1F1415BB280087CD93 /* IMAPClientTest.h in Resources */,
-				C50CED671488532300FC4A5E /* IMAPClientStore.h in Resources */,
-				C50CED681488532B00FC4A5E /* IMAPResponseDelegate.h in Resources */,
 				C5AE2E0C1410374D0087CD93 /* InfoPlist.strings in Resources */,
-				C5AE2E0E1410374D0087CD93 /* LogicTests.h in Resources */,
 				C5E74718168FD3A30055FE5E /* Extensions in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1127,61 +1078,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5EC8C8417E7772F0059863B /* MBMessage.m in Sources */,
-				C50CED581488374300FC4A5E /* SimpleRFC822Address.m in Sources */,
-				C50AF269148D6BC300F34992 /* MBTokenTree.m in Sources */,
-				C5338A3614925FC0006A3565 /* MBMultiDigest.m in Sources */,
-				C50CED591488374A00FC4A5E /* MBTreeNode.m in Sources */,
-				C5D335CC148E9E54005D56AC /* MBTreeNode+IntersectsSetFix.m in Sources */,
-				C5338A3E14925FDB006A3565 /* MBMimeVideo.m in Sources */,
-				C5338A3D14925FD8006A3565 /* MBMimeImage.m in Sources */,
-				C5D335CD148E9E5A005D56AC /* MBMime+IntersectsSetFix.m in Sources */,
-				C5DD70CA14A257AE00F07BC3 /* MBMimeData.m in Sources */,
-				C50CED5F1488386D00FC4A5E /* MBAddress.m in Sources */,
-				C5DD70CB14A257C800F07BC3 /* MBMimeData+IMAP.m in Sources */,
-				C5D335CB148E9E49005D56AC /* MBAddress+IMAP.m in Sources */,
-				C5DD70CF14A25C7900F07BC3 /* MBMime.m in Sources */,
-				C5338A3B14925FD1006A3565 /* MBMultiEncrypted.m in Sources */,
-				C56DFCA617E896110034E970 /* MIMERFC2047EncodeDecodeTests.m in Sources */,
-				C50CED5A1488374F00FC4A5E /* MBAccount.m in Sources */,
-				C5D1D4DA14168588002E5004 /* MBMessage+IMAP.m in Sources */,
-				C5D335CF148E9E74005D56AC /* MBox.m in Sources */,
-				C5338A3914925FCA006A3565 /* MBMimeText.m in Sources */,
-				C5EFCF4A149BD35900F9781A /* MBMimeMedia.m in Sources */,
-				C5338A3714925FC5006A3565 /* MBMimeApplication.m in Sources */,
-				C5D335D4148ECA5F005D56AC /* MBMultiParallel.m in Sources */,
-				C5D335D6148ECA5F005D56AC /* MBMultiMixed.m in Sources */,
-				C5D335D7148ECA5F005D56AC /* MBMimeMulti.m in Sources */,
-				C5338A3A14925FCF006A3565 /* MBMimeAudio.m in Sources */,
-				C5D335DA148ECA5F005D56AC /* MBMultiSigned.m in Sources */,
-				C5D335DB148ECA5F005D56AC /* MBMultiAlternative.m in Sources */,
-				C5EC8C8117E76E410059863B /* MBMIME2047Formatter.m in Sources */,
-				C58F65901490498500720D69 /* MBMessage+IntersectSetFix.m in Sources */,
-				C5D335DF148ECA5F005D56AC /* MBMultiRelated.m in Sources */,
-				C5D335E3148ECA5F005D56AC /* MBMimeParameter.m in Sources */,
-				C5D335E5148ECA5F005D56AC /* MBMultiMessage.m in Sources */,
-				C50CED5C1488376000FC4A5E /* MBUser.m in Sources */,
-				C5338A1A1491A73E006A3565 /* MBMimeDisposition.m in Sources */,
-				C5D1D4D814168580002E5004 /* MBUser+IMAP.m in Sources */,
-				C50CED65148838F900FC4A5E /* NSString+IMAPConversions.m in Sources */,
-				C5D1D4D71416857C002E5004 /* MBAccount+IMAP.m in Sources */,
-				C5D335D0148E9E7A005D56AC /* MBox+IMAP.m in Sources */,
-				C5D335E6148ECA8D005D56AC /* MBMime+IMAP.m in Sources */,
+				C5C7E77517F5CBA70053B08B /* IMAPClient.m in Sources */,
+				C5C7E77617F5CBB70053B08B /* IMAPCommand.m in Sources */,
+				C5C7E77717F5CBBB0053B08B /* IMAPCoreDataStore.m in Sources */,
+				C5C7E77817F5CBD40053B08B /* IMAPResponseBuffer.m in Sources */,
+				C5C7E77917F5CBE00053B08B /* RFC2822RawMessageHeader.m in Sources */,
+				C5C7E77A17F5CBED0053B08B /* MBMIME2047ValueTransformer.m in Sources */,
+				C5C49E1917F5CC31002C0475 /* IMAPResponse.m in Sources */,
+				C5C49E1A17F5CC38002C0475 /* DDLog.m in Sources */,
 				C5AE2E101410374D0087CD93 /* LogicTests.m in Sources */,
-				C50CED5E1488381300FC4A5E /* IMAPResponse.m in Sources */,
-				C50CED691488567C00FC4A5E /* IMAPCommand.m in Sources */,
-				C50CED5D1488376800FC4A5E /* IMAPResponseBuffer.m in Sources */,
-				C5DBB879143CEED9006C1908 /* RFC2822RawMessageHeader.m in Sources */,
-				C5D335C7148DC337005D56AC /* IMAPCoreDataStore.m in Sources */,
-				C5D335C8148E9C73005D56AC /* MailBoxesDataModel.xcdatamodeld in Sources */,
 				C5E65760142D38AD000D7D65 /* IMAPClientTest.m in Sources */,
 				C502DE8E14185DDE000AA9E4 /* IMAPResponseParserTests.m in Sources */,
 				C5DBB878143CDBD2006C1908 /* RFC2822RawMessageHeaderTest.m in Sources */,
-				C5E7470E168FD3A30055FE5E /* DDAbstractDatabaseLogger.m in Sources */,
-				C5E74710168FD3A30055FE5E /* DDASLLogger.m in Sources */,
-				C5E74712168FD3A30055FE5E /* DDFileLogger.m in Sources */,
-				C5E74714168FD3A30055FE5E /* DDLog.m in Sources */,
-				C5E74716168FD3A30055FE5E /* DDTTYLogger.m in Sources */,
+				C5C49E1B17F5CC54002C0475 /* MBTokenTree.m in Sources */,
+				C5C49E1C17F5CC78002C0475 /* SimpleRFC822Address.m in Sources */,
+				C5C49E1D17F5DD30002C0475 /* NSString+IMAPConversions.m in Sources */,
+				C5C7E77417F5CB230053B08B /* MIMERFC2047EncodeDecodeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1205,6 +1117,7 @@
 				C5C086741396AB880028D2FF /* MBAddress+IMAP.m in Sources */,
 				C57F924C13ECE68A00C5136D /* QRunLoopOperation.m in Sources */,
 				C50C437513F0298400AF7A65 /* IMAPClient.m in Sources */,
+				C5C7E77217F5C3800053B08B /* MBMIME2047ValueTransformer.m in Sources */,
 				C50C437813F04AC600AF7A65 /* MBAccountsCoordinator.m in Sources */,
 				C5DB7E6E13FE9FDB00C73188 /* IMAPCommand.m in Sources */,
 				C56E15141405596D005CD1CD /* MBCriteria.m in Sources */,
@@ -1253,7 +1166,6 @@
 				C577634C14895B1300C60438 /* MBMultiRelated.m in Sources */,
 				C577635B14895B1600C60438 /* MBMultiAlternative.m in Sources */,
 				C577636414895B1800C60438 /* MBMultiSigned.m in Sources */,
-				C5EC8C8017E76E410059863B /* MBMIME2047Formatter.m in Sources */,
 				C577637014895B1A00C60438 /* MBMimeMulti.m in Sources */,
 				C577637914895B1C00C60438 /* MBMultiMixed.m in Sources */,
 				C577637F14895B1D00C60438 /* MBMultiParallel.m in Sources */,
@@ -1417,7 +1329,7 @@
 				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "";
 			};
 			name = Debug;
 		};
@@ -1438,7 +1350,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "LogicTests/LogicTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "";
 			};
 			name = Release;
 		};
@@ -1472,7 +1384,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				GENERATE_PROFILING_CODE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				MOMC_NO_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1508,7 +1420,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				GENERATE_PROFILING_CODE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				MOMC_NO_WARNINGS = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;

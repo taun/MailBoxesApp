@@ -713,7 +713,7 @@ are presented to the user.
         [alert addButtonWithTitle:quitButton];
         [alert addButtonWithTitle:cancelButton];
         
-        int answer = [alert runModal];
+        NSInteger answer = [alert runModal];
         if (answer == NSAlertAlternateReturn) return NSTerminateCancel;
         
     }

@@ -18,7 +18,7 @@
 
 }
  
-@property(strong)           IBOutlet      NSWindow                    *appWindow;
+@property(strong)         IBOutlet      NSWindow                    *appWindow;
 
 @property(strong)                       NSMetadataQuery             *query;
 @property(weak)           IBOutlet      NSPredicateEditor           *predicateEditor;

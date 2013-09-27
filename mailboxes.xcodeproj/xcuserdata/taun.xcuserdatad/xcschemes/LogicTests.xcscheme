@@ -102,9 +102,6 @@
                   Identifier = "IMAPResponseParserTests">
                </Test>
                <Test
-                  Identifier = "RFC2822RawMessageHeaderTest">
-               </Test>
-               <Test
                   Identifier = "LogicTests">
                </Test>
             </SkippedTests>

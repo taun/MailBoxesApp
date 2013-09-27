@@ -947,8 +947,8 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
         SimpleRFC822Address* rfcAddress = nil;
         
         if ([tokenized isKindOfClass: [NSString class]]) {
-            NSString* senderString = tokenized;
-            rfcAddress = [senderString rfc822Address];
+            NSString* decodedString = [[MBMessage encodedWordTransformer] transformedValue: tokenized];
+            rfcAddress = [decodedString rfc822Address];
         }
         
         address = [MBAddress addressWithEmail: rfcAddress.email createIfMissing: YES context: self.managedObjectContext];

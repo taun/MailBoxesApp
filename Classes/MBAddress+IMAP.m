@@ -63,7 +63,7 @@
 
 -(NSString *) stringRFC822AddressFormat {
     NSString *rfc822Email = nil;
-    if ([self.name length] == 0) {
+    if ( self.name.length != 0) {
         rfc822Email = [NSString stringWithFormat: @"%@ <%@>", self.name, self.email];
     } else {
         rfc822Email = [NSString stringWithFormat: @"<%@>", self.email];

@@ -72,7 +72,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         NSBundle *myBundle = [NSBundle bundleForClass:[self class]];
         NSNib *nib = [[NSNib alloc] initWithNibNamed:@"MBPortalPredicateEditor" bundle:myBundle];
         
-        BOOL success = [nib instantiateNibWithOwner:self topLevelObjects:nil];
+        NSArray* topLevelObjextsArray;
+        BOOL success = [nib instantiateNibWithOwner:self topLevelObjects: &topLevelObjextsArray];
+        // Check the topLevelObjects to see if theyy are strong outlets
         if (success != YES) {
             // should present error
             return;

@@ -121,8 +121,28 @@
 
 -(SimpleRFC822Address*) rfc822Address {
     SimpleRFC822Address* rfcaddress = [[SimpleRFC822Address alloc] init];
-    rfcaddress.name = self;
-    rfcaddress.email = self;
+
+    NSRange lastSpace = [self rangeOfString: @" " options: NSBackwardsSearch];
+
+    if (lastSpace.location == NSNotFound) {
+        rfcaddress.email = self;
+    } else {
+        rfcaddress.email = [[[self substringWithRange: NSMakeRange(lastSpace.location+1, self.length-lastSpace.location-1)]
+                            stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                            stringByReplacingOccurrencesOfString: @">" withString: @""];
+        rfcaddress.name =  [[self substringWithRange: NSMakeRange(0, lastSpace.location)] stringByReplacingOccurrencesOfString: @"\"" withString: @""];
+    }
+    
+    if (rfcaddress.email) {
+        NSMutableArray* subcomponents = [[rfcaddress.email componentsSeparatedByString: @"@"] mutableCopy];
+        if (subcomponents.count > 1) {
+            rfcaddress.domain = [subcomponents lastObject];
+            [subcomponents removeLastObject];
+            rfcaddress.mailbox = [subcomponents componentsJoinedByString: @"@"];
+        }
+    }
+    NSLog(@"range (%lu, %lu)", (unsigned long)lastSpace.location, (unsigned long)lastSpace.length);
+    
     return rfcaddress;
 }
 @end

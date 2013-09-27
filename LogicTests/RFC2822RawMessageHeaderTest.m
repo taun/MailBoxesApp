@@ -8,6 +8,9 @@
 
 #import "RFC2822RawMessageHeaderTest.h"
 #import "RFC2822RawMessageHeader.h"
+#import "MBMIME2047ValueTransformer.h"
+#import "NSString+IMAPConversions.h"
+#import "SimpleRFC822Address.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -87,4 +90,46 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     DDLogVerbose(@"Fields data: \r%@",  self.rfcRawHeader.fields);
 }
+
+/*
+ root@source.moedae.net (Cron Daemon)
+ =?utf-8?Q?customerservice@entertainmentbenefits.com?=
+ "=?utf-8?Q?Wyndham=20Vacation=20Resorts?=" <reservationprearrivals@wyndhamvacationresorts.com>
+ =?UTF-8?Q?The_general-purpose_Squ?= =?UTF-8?Q?eak_developers_list=C2=A0=C2=A0=C2=A0=C2=A0?= <squeak-dev@lists.squeakfoundation.org>
+ =?UTF-8?B?VEFVTiBDSEFQTUFO?= <taun@charcoalia.net>
+ */
+-(void) testFromAddressQEncodedNoName {
+    MBMIME2047ValueTransformer* decoder = [MBMIME2047ValueTransformer new];
+    
+    NSString* sampleAddress = @"=?utf-8?Q?customerservice@entertainmentbenefits.com?=";
+    
+    NSString* decodedAddress = [decoder transformedValue: sampleAddress];
+    
+    SimpleRFC822Address* address = [decodedAddress rfc822Address];
+    
+    XCTAssertEqualObjects(address.email, @"customerservice@entertainmentbenefits.com", @"bad address");
+}
+-(void) testFromAddressQEncodedName {
+    MBMIME2047ValueTransformer* decoder = [MBMIME2047ValueTransformer new];
+    
+    NSString* sampleAddress = @"\"=?utf-8?Q?Wyndham=20Vacation=20Resorts?=\" <reservationprearrivals@wyndhamvacationresorts.com>";
+    
+    NSString* decodedAddress = [decoder transformedValue: sampleAddress];
+    
+    SimpleRFC822Address* address = [decodedAddress rfc822Address];
+    
+    XCTAssertEqualObjects(address.email, @"reservationprearrivals@wyndhamvacationresorts.com", @"bad address");
+}
+-(void) testFromAddressQEncodedName {
+    MBMIME2047ValueTransformer* decoder = [MBMIME2047ValueTransformer new];
+    
+    NSString* sampleAddress = @"\"=?utf-8?Q?Wyndham=20Vacation=20Resorts?=\" <reservationprearrivals@wyndhamvacationresorts.com>";
+    
+    NSString* decodedAddress = [decoder transformedValue: sampleAddress];
+    
+    SimpleRFC822Address* address = [decodedAddress rfc822Address];
+    
+    XCTAssertEqualObjects(address.email, @"reservationprearrivals@wyndhamvacationresorts.com", @"bad address");
+}
+
 @end

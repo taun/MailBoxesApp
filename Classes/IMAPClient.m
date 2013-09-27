@@ -749,10 +749,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) sendCommand: (NSString*) aString {
     NSData * dataToSend = [aString dataUsingEncoding: NSUTF8StringEncoding allowLossyConversion: YES];
     if (_oStream) {
-        int remainingToWrite = [dataToSend length];
+        NSUInteger remainingToWrite = [dataToSend length];
         void * marker = (void *)[dataToSend bytes];
         while (remainingToWrite > 0) {
-            int actuallyWritten = 0;
+            NSUInteger actuallyWritten = 0;
             actuallyWritten = [(NSOutputStream*) _oStream write:marker maxLength:remainingToWrite];
             remainingToWrite -= actuallyWritten;
             marker += actuallyWritten;
