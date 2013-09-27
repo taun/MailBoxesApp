@@ -9,16 +9,16 @@
 #import <XCTest/XCTest.h>
 
 #import "RFC2822RawMessageHeader.h"
-#import "MBMIME2047Formatter.h"
+#import "MBMIME2047ValueTransformer.h"
 
 
 
 @interface MIMERFC2047EncodeDecodeTests : XCTestCase
 
-@property(nonatomic, strong) MBMIME2047Formatter        *mimeFormatter;
-@property(nonatomic, strong) NSBundle                   *testBundle;
-@property(nonatomic, strong) NSString                   *sampleHeader;
-@property(nonatomic, strong) RFC2822RawMessageHeader    *rfcRawHeader;
+@property(nonatomic, strong) MBMIME2047ValueTransformer     *mimeEncodingTransformer;
+@property(nonatomic, strong) NSBundle                       *testBundle;
+@property(nonatomic, strong) NSString                       *sampleHeader;
+@property(nonatomic, strong) RFC2822RawMessageHeader        *rfcRawHeader;
 
 @end
 
@@ -28,7 +28,7 @@
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    _mimeFormatter = [MBMIME2047Formatter new];
+    _mimeEncodingTransformer = [MBMIME2047ValueTransformer new];
     _testBundle = [NSBundle bundleWithIdentifier: @"com.moedae.LogicTests"];
     _sampleHeader = nil;
     _rfcRawHeader = nil;
@@ -46,7 +46,7 @@
     
     self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
     
-    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
     
     NSString* shouldBe = @"This is just plain text.";
 
@@ -62,7 +62,7 @@
     
     self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
 
-    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
     
     NSString* shouldBe = @"Your Wyndham Vacation is Almost Here - Resort Details Enclosed!";
     
@@ -79,7 +79,7 @@
     
     self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
     
-    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
     
     NSString* shouldBe = @"communications@plone.org,  \"plone-developers@lists. sourceforge. net developers\" <plone-developers@lists.sourceforge.net>,  \"plone-users@lists.sourceforge.net plone-users@lists.sourceforge.net\" <plone-users@lists.sourceforge.net>";
     
@@ -96,7 +96,7 @@
     
     self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
     
-    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
     
     NSString* shouldBe = @"The general-purpose Squeak developers list    <squeak-dev@lists.squeakfoundation.org>";
     
@@ -113,7 +113,7 @@
     
     self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
     
-    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"TO"]];
     
     XCTAssertEqualObjects(decoded, @"TAUN CHAPMAN<taun@charcoalia.net>", @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
@@ -128,7 +128,7 @@
     
     self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
     
-    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
     
     NSString* shouldBe = @"Survey: Google in the Enterprise - Chance to win a Samsung Smart TV";
     
@@ -145,7 +145,7 @@
     
     self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
     
-    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"THREAD-TOPIC"]];
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"THREAD-TOPIC"]];
     
     NSString* shouldBe = @"[squeak-dev] Something in the update process damagesthe    background";
     
@@ -162,7 +162,7 @@
     
     self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
     
-    NSString* decoded = [self.mimeFormatter stringForObjectValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
     
     NSString* shouldBe = @"мАВЩЕ, ДБЦЕ УБНЩЕ ЗТСЪОЩЕ УЕЛУХБМШОЩЕ ЖБОФБЪЙЙ, ПЦЙЧБАФ ЪДЕШ";
     

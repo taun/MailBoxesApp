@@ -794,6 +794,7 @@ static     NSDictionary *HeaderToModelMap;
 }
 
 #pragma message "ToDo: Change message summary to a real summary rather than raw header"
+#pragma message "ToDo: Perhaps get first 2 lines of text portion of body when fetching headers?"
 -(void) responseFetchedMessageRfc822Header {
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
     RFC2822RawMessageHeader *header = [[RFC2822RawMessageHeader alloc] initWithString: [self.tokens scanString]];

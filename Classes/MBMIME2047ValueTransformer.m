@@ -1,12 +1,12 @@
 //
-//  MBMIME2047Formatter.m
+//  MBMIME2047ValueTransformer.m
 //  MailBoxes
 //
 //  Created by Taun Chapman on 09/16/13.
 //  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBMIME2047Formatter.h"
+#import "MBMIME2047ValueTransformer.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -21,7 +21,7 @@ static NSRegularExpression *regexQSpaces;
 static NSDictionary *charsetMap;
 
 
-@implementation MBMIME2047Formatter
+@implementation MBMIME2047ValueTransformer
 
 +(void)initialize {
     NSError *error=nil;
@@ -248,13 +248,15 @@ static NSDictionary *charsetMap;
     return decodedString;
 }
 /*!
- When implementing a subclass, return the NSString object that textually represents the cell’s object for display and—if editingStringForObjectValue: is unimplemented—for editing. First test the passed-in object to see if it’s of the correct class. If it isn’t, return nil; but if it is of the right class, return a properly formatted and, if necessary, localized string. (See the specification of the NSString class for formatting and localizing details.)
+ Returns the result of transforming a given value.
  
- @param anObject The object for which a textual representation is returned.
- @returns An NSString object that textually represents object for display. Returns nil if object is not of the correct class.
+ A subclass should override this method to transform and return an object based on value.
+ 
+ @param anObject The value to transform. This object should be an string containing RFC 2047 MIME Encoded words. If there are no encoded words, it just returns a new string with the same content.
+ @returns The result of transforming value. Encoded words are replaced with their UTF8 encoding.
  
  */
-- (NSString *)stringForObjectValue:(id)anObject {
+- (id)transformedValue:(id)anObject {
     
     NSArray* matches;
     
@@ -335,37 +337,6 @@ static NSDictionary *charsetMap;
     }
     
     return decodedString;
-}
-/*
- NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:"/(.?)" options:0 error:NULL];
- 
- NSString *answer = [re replaceMatchesInString:"a/b/c"
- replacementStringForResult: ^NSString *(NSTextCheckingResult *result, NSString *inString, NSInteger offset) {
- 
- // See Note 1 NSRegularExpression *re = [result regularExpression];
- 
- // See Note 2 NSString *s1 = [re replacementStringForResult:result
- inString:inString
- offset:offset
- template:"$1"];
- 
- return [@"::" stringByAppendingString:[s1 uppercaseString]];
- }];
- NSLog(""%\"", answer);
- */
-/*!
-When implementing a subclass, return by reference the object anObject after creating it from string. Return YES if the conversion is successful. If you return NO, also return by indirection (in error) a localized user-presentable NSString object that explains the reason why the conversion failed; the delegate (if any) of the NSControl object managing the cell can then respond to the failure in control:didFailToFormatString:errorDescription:. However, if error is nil, the sender is not interested in the error description, and you should not attempt to assign one.
- 
- @param anObject If conversion is successful, upon return contains the object created from string.
- @param string The string to parse.
- @param error If non-nil, if there is a error during the conversion, upon return contains an NSString object that describes the problem.
- @returns YES if the conversion from string to cell content object was successful, otherwise NO.
- */
-- (BOOL)getObjectValue:(id *)anObject forString:(NSString *)string errorDescription:(NSString **)error {
-    BOOL result = NO;
-    
-    
-    return result;
 }
 
 @end

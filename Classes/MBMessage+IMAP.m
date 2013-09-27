@@ -30,13 +30,12 @@
 #import "MBMimeVideo.h"
 
 #import "MBMimeData.h"
-
-
 #import "MBTokenTree.h"
 
 #import "SimpleRFC822Address.h"
 
 #import "NSString+IMAPConversions.h"
+#import "MBMIME2047ValueTransformer.h"
 
 #include <time.h>
 #include <xlocale.h>
@@ -47,7 +46,11 @@
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
+static MBMIME2047ValueTransformer* EncodedWordsTransformer;
+
 @interface MBMessage (ConvenienceTransformers)
+
++(MBMIME2047ValueTransformer*) encodedWordTransformer;
 
 /*!
  a multi part composite mime
@@ -100,6 +103,13 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 //    }
 //    return automatic;
 //}
+
++(MBMIME2047ValueTransformer*) encodedWordTransformer {
+    if (!EncodedWordsTransformer) {
+        EncodedWordsTransformer = [[MBMIME2047ValueTransformer alloc] init];
+    }
+    return EncodedWordsTransformer;
+}
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -210,7 +220,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 -(void) setParsedSubject: (id) tokenized {
     if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
-        self.subject = (NSString*) tokenized;
+        NSString* decodedString = [[MBMessage encodedWordTransformer] transformedValue: tokenized];
+        self.subject = decodedString;
     }
 }
 -(void) setParsedSummary: (id) tokenized {

@@ -1217,7 +1217,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
 }
 
-#pragma message "TODO: IDLE will not complete until "done" is sent. results in a continue state."
+#pragma message "TODO: IDLE will not complete until \"done\" is sent. results in a continue state."
 // need to handle continue state and send done before future commands.
 
 /*!
