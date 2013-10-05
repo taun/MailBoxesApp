@@ -30,6 +30,7 @@
 -(void) setParsedBodystructure: (id) tokenized;
 -(void) setParsedBody: (id) tokenized;
 
+-(void) setFlag: (NSString*) flag;
 
 -(NSArray*) attachments;
 

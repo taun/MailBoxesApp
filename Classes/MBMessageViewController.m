@@ -14,6 +14,7 @@
 #import "MBAddress+IMAP.h"
 
 #import <QuartzCore/QuartzCore.h>
+#import <Quartz/Quartz.h>
 #import <WebKit/WebKit.h>
 
 #import "DDLog.h"
@@ -215,10 +216,44 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithHTML: html documentAttributes: nil]];
             });
+        } else if ([node.type isEqualToString: @"APPLICATION"]) {
+            if ([node.subtype isEqualToString: @"PDF"]) {
+                // Use PDF Kit
+                PDFView* pdfView = [PDFView new];
+                [pdfView setAutoScales: YES];
+                [pdfView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+                [pdfView setFrame: NSMakeRect(0, 0, 900, 900)];
+                
+                NSData* pdfBinary = [[NSData alloc] initWithBase64Encoding: messageText];
+                PDFDocument* document = [[PDFDocument alloc] initWithData: pdfBinary];
+                [pdfView setDocument: document];
+                dataView = pdfView;
+            } else if ([node.subtype isEqualToString: @"MSWORD"]) {
+                NSData* wordBinary = [[NSData alloc] initWithBase64Encoding: messageText];
+                NSAttributedString* wordString = [[NSAttributedString alloc] initWithDocFormat: wordBinary documentAttributes: nil];
+                [[dataView textStorage] setAttributedString: wordString];
+            }
+        
+        } else if ([node.type isEqualToString: @"IMAGE"]) {
+            NSData* imageBinary = [[NSData alloc] initWithBase64Encoding: messageText];
+            NSImage* messageImage = [[NSImage alloc] initWithData: imageBinary];
+            NSTextAttachmentCell *anAttachmentCell = [[NSTextAttachmentCell
+                                                       alloc] initImageCell: messageImage];
+            
+            NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
+            
+            [attachment setAttachmentCell: anAttachmentCell];
+            [attachment.fileWrapper setPreferredFilename: node.name];
+            
+            [[dataView textStorage] setAttributedString: [NSAttributedString attributedStringWithAttachment: attachment]];
         } else {
             [dataView setString: messageText];
         }
     }
+#pragma message "need to add timer for isSeenFlag AND save flag status."
+    MBMessage* message = node.messageReference;
+    message.isSeenFlag = @YES;
+
     [self.messageBodyViewContainer setDocumentView: dataView];
     [self.messageBodyViewContainer setNeedsDisplay: YES];
 }

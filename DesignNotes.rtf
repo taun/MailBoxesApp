@@ -598,7 +598,24 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 2013-09-27\
 	Changed build settings for tests to remove $(BUNDLE_LOADER) in TEST_HOST. Was causing double loading of classes.\
 	Tests pass with new MBMIME2047ValueTransformer class and OS X 10.8 deployment, 10.9 base SDK.\
-\
-\
+	Address decoding and parsing to email, name, domain, mailbox, now done.\
+	Next: Need to handle address lists. Treat every address field as a list parse to individual emails then send each email to the RFC822 parser finished above.\
+2013-10-01\
+	Improved portal fonts and layout. \
+2013-10-03\
+	Now parses standard flags.\
+	Indicates \\Seen and \\Flag by color icon in portal listing.\
+	Can display an image in the Message view.\
+	**Still need to decode MIME encoded body text.\
+	**PDF Handling, use PDF Kit\
+	How to parse body to show message & attachment properly?\
+		Multi-part alternate (one or the other) mixed (has attachment)\
+	How to handle "\\Seen"?\
+		Cases: \
+			1. Seen remotely and needs notification locally.\
+			2. Seen locally and needs to update IMAP server.\
+2013-10-04\
+	Figured out PDF and MSWord display\
+	** How to display multipart enriched text RFC 1896\
 \
 }

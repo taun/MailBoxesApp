@@ -230,7 +230,28 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
     }
 }
 -(void) setParsedFlags: (id) tokenized {
-    
+    for (id token in tokenized) {
+        [self setFlag: token];
+    }
+}
+-(void) setFlag:(NSString *)flag {
+    if (flag != nil && [flag isKindOfClass: [NSString class]]) {
+        // Handle standard flags
+        NSString* lowercaseFlag = [flag lowercaseString];
+        if ([lowercaseFlag isEqualToString: @"\\seen"]) {
+            self.isSeenFlag = @YES;
+        } else if ([lowercaseFlag isEqualToString: @"\\answered"]) {
+            self.isAnsweredFlag = @YES;
+        } else if ([lowercaseFlag isEqualToString: @"\\flagged"]) {
+            self.isFlaggedFlag = @YES;
+        } else if ([lowercaseFlag isEqualToString: @"\\deleted"]) {
+            self.isDeletedFlag = @YES;
+        } else if ([lowercaseFlag isEqualToString: @"\\draft"]) {
+            self.isDraftFlag = @YES;
+        } else if ([lowercaseFlag isEqualToString: @"\\recent"]) {
+            self.isRecentFlag = @YES;
+        }
+    }
 }
 #pragma message "ToDo: check performance of looping for part vs fetch request for part"
 /*!

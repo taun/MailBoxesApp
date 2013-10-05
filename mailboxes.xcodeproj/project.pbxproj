@@ -98,10 +98,12 @@
 		C59C7DA813FA055800D78D68 /* SpecialUseMailboxes.plist in Resources */ = {isa = PBXBuildFile; fileRef = C59C7DA713FA055800D78D68 /* SpecialUseMailboxes.plist */; };
 		C5A071F31313311A00D0E88A /* MBModifyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A071F11313311A00D0E88A /* MBModifyAccount.xib */; };
 		C5A1017E145CAB2B005B941B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A1017D145CAB2B005B941B /* Security.framework */; };
+		C5A582DF17FC9D45007F08B9 /* MBUnreadEmail.png in Resources */ = {isa = PBXBuildFile; fileRef = C5A582DE17FC9D45007F08B9 /* MBUnreadEmail.png */; };
 		C5AE2E021410374D0087CD93 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5C7A56D128B93EC006B1E86 /* Cocoa.framework */; };
 		C5AE2E0C1410374D0087CD93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5AE2E0A1410374D0087CD93 /* InfoPlist.strings */; };
 		C5AE2E101410374D0087CD93 /* LogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE2E0F1410374D0087CD93 /* LogicTests.m */; };
 		C5AEC01914361BA20075B6F4 /* MBFlag+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEC01814361BA20075B6F4 /* MBFlag+IMAP.m */; };
+		C5B07B8D17FDF41B00C37B31 /* MBFlaggedEmail.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B07B8C17FDF41B00C37B31 /* MBFlaggedEmail.png */; };
 		C5B1CC0614219DCE008C5011 /* answers in Resources */ = {isa = PBXBuildFile; fileRef = C5B1CC0514219DCE008C5011 /* answers */; };
 		C5B3B2A812BFA4BF0051204B /* MainSplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B3B2A712BFA4BF0051204B /* MainSplitViewDelegate.m */; };
 		C5B82E5D131FFC0E002AE3DF /* MBPPEWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B82E5C131FFC0E002AE3DF /* MBPPEWindowController.m */; };
@@ -326,6 +328,7 @@
 		C59C7DA713FA055800D78D68 /* SpecialUseMailboxes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SpecialUseMailboxes.plist; sourceTree = "<group>"; };
 		C5A071F21313311A00D0E88A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MBModifyAccount.xib; sourceTree = "<group>"; };
 		C5A1017D145CAB2B005B941B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C5A582DE17FC9D45007F08B9 /* MBUnreadEmail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MBUnreadEmail.png; path = Resources/MBUnreadEmail.png; sourceTree = "<group>"; };
 		C5AE2DFF1410374C0087CD93 /* LogicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5AE2E091410374D0087CD93 /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
 		C5AE2E0B1410374D0087CD93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -336,6 +339,7 @@
 		C5AE2E1D1415B55E0087CD93 /* IMAPClientTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IMAPClientTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C5AEC01714361BA20075B6F4 /* MBFlag+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBFlag+IMAP.h"; path = "Classes/MBFlag+IMAP.h"; sourceTree = "<group>"; };
 		C5AEC01814361BA20075B6F4 /* MBFlag+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBFlag+IMAP.m"; path = "Classes/MBFlag+IMAP.m"; sourceTree = "<group>"; };
+		C5B07B8C17FDF41B00C37B31 /* MBFlaggedEmail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MBFlaggedEmail.png; path = Resources/MBFlaggedEmail.png; sourceTree = "<group>"; };
 		C5B1CC0514219DCE008C5011 /* answers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = answers; sourceTree = "<group>"; };
 		C5B3B2A612BFA4BF0051204B /* MainSplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSplitViewDelegate.h; sourceTree = "<group>"; };
 		C5B3B2A712BFA4BF0051204B /* MainSplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewDelegate.m; sourceTree = "<group>"; };
@@ -522,6 +526,15 @@
 			name = IMAP;
 			sourceTree = "<group>";
 		};
+		C5A582DD17FC994C007F08B9 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C5B07B8C17FDF41B00C37B31 /* MBFlaggedEmail.png */,
+				C5A582DE17FC9D45007F08B9 /* MBUnreadEmail.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		C5AE2E031410374D0087CD93 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +621,7 @@
 		C5C7A564128B93EC006B1E86 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C5A582DD17FC994C007F08B9 /* Images */,
 				C58872FD1475B83200F2A9C6 /* Icons */,
 				C59C7DA613FA050300D78D68 /* IMAP */,
 				C5CB587213CFA4450034919B /* DesignNotes.rtf */,
@@ -1026,7 +1040,9 @@
 				C56ACAA1134D01D600EA21B1 /* MBPortalPredicateEditor.xib in Resources */,
 				C59C7DA813FA055800D78D68 /* SpecialUseMailboxes.plist in Resources */,
 				C57B8D8E1432BFF10052B67E /* MailBoxesDataModelModel.strings in Resources */,
+				C5B07B8D17FDF41B00C37B31 /* MBFlaggedEmail.png in Resources */,
 				C56B46A7143F83B900167121 /* MBVPortal.xib in Resources */,
+				C5A582DF17FC9D45007F08B9 /* MBUnreadEmail.png in Resources */,
 				C599F5A21451DDE7009C3E4F /* MBMessageView.xib in Resources */,
 				C5D3C6B21460CE4600E739C5 /* AppleTips.rtf in Resources */,
 				C58872FE1475B83200F2A9C6 /* Icons in Resources */,
