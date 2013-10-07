@@ -8,6 +8,9 @@
 
 #import "MBMime.h"
 #import "MBMime+IntersectsSetFix.h"
+#import "MBMimeData+IMAP.h"
+
+extern NSString* MBRichMessageViewAttributeName;
 
 /*!
  RFC 2045 - Internet Message Bodies
@@ -89,5 +92,7 @@
 
 -(NSArray*) childNodesArray;
 -(NSSet*) childNodesSet;
+
+-(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes;
 
 @end

@@ -398,10 +398,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [NSAnimationContext beginGrouping];
     //[[NSAnimationContext currentContext] setDuration: 1.25];
-
+    
     CATransition* moveIn = [CATransition animation];
-     [moveIn setType: kCATransitionMoveIn];
-     [moveIn setSubtype: kCATransitionFromTop];
+    [moveIn setType: kCATransitionReveal];
+    [moveIn setSubtype: kCATransitionFromBottom];
     
 //    CIFilter* pageCurl = [CIFilter filterWithName: @"CIPageCurlTransition"];
 //    [pageCurl setDefaults];

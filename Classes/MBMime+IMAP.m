@@ -7,13 +7,15 @@
 //
 
 #import "MBMime+IMAP.h"
-#import "MBMimeData+IMAP.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
+
 static const int ddLogLevel = LOG_LEVEL_WARN;
+
+NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
 
 @implementation MBMime (IMAP)
 
@@ -57,6 +59,14 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 -(NSSet*) childNodesSet {
     return [self.childNodes set];
+}
+
+-(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
+    NSData* nsData = [self.data.encoded dataUsingEncoding: NSASCIIStringEncoding];
+
+    NSAttributedString* returnString = [[NSAttributedString alloc] initWithData: nsData options: nil documentAttributes: &attributes error: nil];
+    
+    return returnString;
 }
 
 @end

@@ -9,9 +9,12 @@
 #import "MBMessageViewController.h"
 #import "MBMessage+IMAP.h"
 #import "MBMime+IMAP.h"
+#import "MBMimeImage+IMAP.h"
 #import "MBMimeData+IMAP.h"
 #import "MBMultiAlternative.h"
 #import "MBAddress+IMAP.h"
+#import "NSAttributedString+IMAPConversions.h"
+
 
 #import <QuartzCore/QuartzCore.h>
 #import <Quartz/Quartz.h>
@@ -178,9 +181,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             objectValue = [(MBMime*)item type];
         } else if ([tableColumn.identifier isEqualToString: @"mimeSubtype"]) {
             objectValue = [(MBMime*)item subtype];
+        } else if ([tableColumn.identifier isEqualToString: @"mimeIsAttachment"]) {
+            objectValue = [(MBMime*)item isAttachment];
+        } else if ([tableColumn.identifier isEqualToString: @"mimeIsInline"]) {
+        objectValue = [(MBMime*)item isInline];
         }
     }
-    
+
     return objectValue;
 }
 
@@ -216,6 +223,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithHTML: html documentAttributes: nil]];
             });
+        } else if ([node.subtype isEqualToString: @"ENRICHED"]) {
+            NSData* enriched = [messageText dataUsingEncoding: NSASCIIStringEncoding];
+            [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithData: enriched options: nil documentAttributes: nil error: nil]];
         } else if ([node.type isEqualToString: @"APPLICATION"]) {
             if ([node.subtype isEqualToString: @"PDF"]) {
                 // Use PDF Kit
@@ -235,19 +245,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             }
         
         } else if ([node.type isEqualToString: @"IMAGE"]) {
-            NSData* imageBinary = [[NSData alloc] initWithBase64Encoding: messageText];
-            NSImage* messageImage = [[NSImage alloc] initWithData: imageBinary];
-            NSTextAttachmentCell *anAttachmentCell = [[NSTextAttachmentCell
-                                                       alloc] initImageCell: messageImage];
-            
-            NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
-            
-            [attachment setAttachmentCell: anAttachmentCell];
-            [attachment.fileWrapper setPreferredFilename: node.name];
-            
-            [[dataView textStorage] setAttributedString: [NSAttributedString attributedStringWithAttachment: attachment]];
+            [[dataView textStorage] setAttributedString:  [node asAttributedStringWithOptions:nil attributes:nil]];
         } else {
-            [dataView setString: messageText];
+            [[dataView textStorage] setAttributedString: [node asAttributedStringWithOptions: nil attributes: nil]] ;
         }
     }
 #pragma message "need to add timer for isSeenFlag AND save flag status."

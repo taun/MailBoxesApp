@@ -105,6 +105,10 @@
 		C5AEC01914361BA20075B6F4 /* MBFlag+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEC01814361BA20075B6F4 /* MBFlag+IMAP.m */; };
 		C5B07B8D17FDF41B00C37B31 /* MBFlaggedEmail.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B07B8C17FDF41B00C37B31 /* MBFlaggedEmail.png */; };
 		C5B1CC0614219DCE008C5011 /* answers in Resources */ = {isa = PBXBuildFile; fileRef = C5B1CC0514219DCE008C5011 /* answers */; };
+		C5B21033180346A20093531A /* MBMultiAlternative+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B21032180346A20093531A /* MBMultiAlternative+IMAP.m */; };
+		C5B21034180346A20093531A /* MBMultiAlternative+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B21032180346A20093531A /* MBMultiAlternative+IMAP.m */; };
+		C5B21037180347160093531A /* MBMimeImage+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B21036180347160093531A /* MBMimeImage+IMAP.m */; };
+		C5B21038180347160093531A /* MBMimeImage+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B21036180347160093531A /* MBMimeImage+IMAP.m */; };
 		C5B3B2A812BFA4BF0051204B /* MainSplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B3B2A712BFA4BF0051204B /* MainSplitViewDelegate.m */; };
 		C5B82E5D131FFC0E002AE3DF /* MBPPEWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B82E5C131FFC0E002AE3DF /* MBPPEWindowController.m */; };
 		C5BCBF3F1475FC3C00EA0214 /* MBSidebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCBF3E1475FC3C00EA0214 /* MBSidebarView.m */; };
@@ -341,6 +345,10 @@
 		C5AEC01814361BA20075B6F4 /* MBFlag+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBFlag+IMAP.m"; path = "Classes/MBFlag+IMAP.m"; sourceTree = "<group>"; };
 		C5B07B8C17FDF41B00C37B31 /* MBFlaggedEmail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MBFlaggedEmail.png; path = Resources/MBFlaggedEmail.png; sourceTree = "<group>"; };
 		C5B1CC0514219DCE008C5011 /* answers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = answers; sourceTree = "<group>"; };
+		C5B21031180346A20093531A /* MBMultiAlternative+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBMultiAlternative+IMAP.h"; path = "Classes/MBMultiAlternative+IMAP.h"; sourceTree = "<group>"; };
+		C5B21032180346A20093531A /* MBMultiAlternative+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBMultiAlternative+IMAP.m"; path = "Classes/MBMultiAlternative+IMAP.m"; sourceTree = "<group>"; };
+		C5B21035180347160093531A /* MBMimeImage+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBMimeImage+IMAP.h"; path = "Classes/MBMimeImage+IMAP.h"; sourceTree = "<group>"; };
+		C5B21036180347160093531A /* MBMimeImage+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBMimeImage+IMAP.m"; path = "Classes/MBMimeImage+IMAP.m"; sourceTree = "<group>"; };
 		C5B3B2A612BFA4BF0051204B /* MainSplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSplitViewDelegate.h; sourceTree = "<group>"; };
 		C5B3B2A712BFA4BF0051204B /* MainSplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewDelegate.m; sourceTree = "<group>"; };
 		C5B82E5B131FFC0E002AE3DF /* MBPPEWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPPEWindowController.h; sourceTree = "<group>"; };
@@ -501,6 +509,10 @@
 				C58F658E14902CD800720D69 /* MBMessage+IntersectSetFix.m */,
 				C5667CE714A12F8F008E6F42 /* MBMimeData+IMAP.h */,
 				C5667CE814A12F8F008E6F42 /* MBMimeData+IMAP.m */,
+				C5B21035180347160093531A /* MBMimeImage+IMAP.h */,
+				C5B21036180347160093531A /* MBMimeImage+IMAP.m */,
+				C5B21031180346A20093531A /* MBMultiAlternative+IMAP.h */,
+				C5B21032180346A20093531A /* MBMultiAlternative+IMAP.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1095,7 +1107,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5C7E77517F5CBA70053B08B /* IMAPClient.m in Sources */,
+				C5B21034180346A20093531A /* MBMultiAlternative+IMAP.m in Sources */,
 				C5C7E77617F5CBB70053B08B /* IMAPCommand.m in Sources */,
+				C5B21038180347160093531A /* MBMimeImage+IMAP.m in Sources */,
 				C5C7E77717F5CBBB0053B08B /* IMAPCoreDataStore.m in Sources */,
 				C5C7E77817F5CBD40053B08B /* IMAPResponseBuffer.m in Sources */,
 				C5C7E77917F5CBE00053B08B /* RFC2822RawMessageHeader.m in Sources */,
@@ -1194,6 +1208,7 @@
 				C5338A151491A727006A3565 /* MBMimeDisposition.m in Sources */,
 				C5338A1D14925A43006A3565 /* MBMultiDigest.m in Sources */,
 				C5338A2014925A43006A3565 /* MBMimeApplication.m in Sources */,
+				C5B21033180346A20093531A /* MBMultiAlternative+IMAP.m in Sources */,
 				C5338A2614925A44006A3565 /* MBMimeText.m in Sources */,
 				C5338A2914925A45006A3565 /* MBMimeAudio.m in Sources */,
 				C5338A2C14925A45006A3565 /* MBMultiEncrypted.m in Sources */,
@@ -1203,6 +1218,7 @@
 				C54267C9149AA800005A49D8 /* MBMimeMedia.m in Sources */,
 				C5667CE614A12E1E008E6F42 /* MBMimeData.m in Sources */,
 				C5667CE914A12F8F008E6F42 /* MBMimeData+IMAP.m in Sources */,
+				C5B21037180347160093531A /* MBMimeImage+IMAP.m in Sources */,
 				C5DD70CE14A25B3900F07BC3 /* MBMime.m in Sources */,
 				C5E7470D168FD3A30055FE5E /* DDAbstractDatabaseLogger.m in Sources */,
 				C5E7470F168FD3A30055FE5E /* DDASLLogger.m in Sources */,
