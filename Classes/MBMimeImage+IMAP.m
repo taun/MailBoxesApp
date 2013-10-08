@@ -18,6 +18,8 @@
     NSTextAttachmentCell *anAttachmentCell = [[NSTextAttachmentCell
                                                alloc] initImageCell: messageImage];
     
+    //[anAttachmentCell setTitle: self.name];
+    
     NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
     
     [attachment setAttachmentCell: anAttachmentCell];

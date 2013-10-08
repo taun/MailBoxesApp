@@ -95,4 +95,6 @@ extern NSString* MBRichMessageViewAttributeName;
 
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes;
 
+-(BOOL) hasRichMessageViewOption: (NSDictionary*) options;
+
 @end

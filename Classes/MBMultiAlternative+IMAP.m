@@ -14,16 +14,25 @@
 
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     
-    BOOL useRichMessageView = NO;
-    id useRichMessageViewOption = [options objectForKey: MBRichMessageViewAttributeName];
+    NSOrderedSet* subNodes = self.childNodes;
     
-    if (useRichMessageViewOption && [useRichMessageViewOption isKindOfClass: [NSNumber class]]) {
-        useRichMessageView = [(NSNumber*)useRichMessageViewOption boolValue];
+    MBMime* plainText;
+    MBMime* richNode; // can be html or enriched
+    
+    for (MBMime* node in subNodes) {
+        // should only be two nodes, use an assert?
+        // could also just check the first node
+        // rather than depend on the order of childnodes, let's find the plain text alternative.
+        if ([node.type isEqualToString:@"TEXT"] && [node.subtype isEqualToString: @"PLAIN"]) {
+            plainText = node;
+        } else {
+            richNode = node;
+        }
     }
+    
+    MBMime* node = [self hasRichMessageViewOption: options] ? richNode : plainText;
 
-    NSData* nsData = [self.data.encoded dataUsingEncoding: NSASCIIStringEncoding];
-
-    NSAttributedString* returnString = [[NSAttributedString alloc] initWithData: nsData options: nil documentAttributes: &attributes error: nil];
+    NSAttributedString* returnString = [node asAttributedStringWithOptions: options attributes: attributes];
     
     return returnString;
 }

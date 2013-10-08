@@ -69,4 +69,16 @@ NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
     return returnString;
 }
 
+-(BOOL) hasRichMessageViewOption:(NSDictionary *)options {
+    BOOL useRichMessageView = NO;
+    
+    id useRichMessageViewOption = [options objectForKey: MBRichMessageViewAttributeName];
+    
+    if (useRichMessageViewOption && [useRichMessageViewOption isKindOfClass: [NSNumber class]]) {
+        useRichMessageView = [(NSNumber*)useRichMessageViewOption boolValue];
+    }
+    
+    return useRichMessageView;
+}
+
 @end

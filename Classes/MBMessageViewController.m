@@ -13,7 +13,6 @@
 #import "MBMimeData+IMAP.h"
 #import "MBMultiAlternative.h"
 #import "MBAddress+IMAP.h"
-#import "NSAttributedString+IMAPConversions.h"
 
 
 #import <QuartzCore/QuartzCore.h>
@@ -32,6 +31,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(void) setEnvelopeFields;
 -(NSString*) stringFromAddresses: (NSSet*) addresses;
+-(NSAttributedString*) attributedStringFromMessage: (MBMessage*) message;
 
 @end
 
@@ -124,6 +124,26 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self setEnvelopeFields];
     [self.outlineView reloadData];
     [self.outlineView expandItem: nil expandChildren: YES];
+    
+    id dataView;
+    dataView = [NSTextView new];
+    [dataView setHorizontallyResizable: YES];
+    [dataView setVerticallyResizable: YES];
+    [dataView setString: @"Loading....."];
+    if (self.message) {
+        [[dataView textStorage] setAttributedString: [self attributedStringFromMessage: self.message]];
+    }
+    [self.messageBodyViewContainer setDocumentView: dataView];
+    [self.messageBodyViewContainer setNeedsDisplay: YES];
+}
+
+-(NSAttributedString*) attributedStringFromMessage:(MBMessage *)message {
+    NSDictionary* attributes = [NSDictionary new];
+    NSMutableAttributedString* composition = [[NSMutableAttributedString alloc] initWithString: @"" attributes: attributes];
+    for (MBMime* node in message.childNodes) {
+        [composition appendAttributedString: [node asAttributedStringWithOptions: nil attributes: attributes]];
+    }
+    return [composition copy];
 }
 
 #pragma mark - Outline Datasource
