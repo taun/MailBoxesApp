@@ -245,14 +245,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         _isBufferComplete = YES;
         _spaceAvailable = NO;
         
-        _eventHandlers = [NSDictionary dictionaryWithObjectsAndKeys:
-                         @"iStreamHasBytesAvailable:",[NSNumber numberWithInt:NSStreamEventHasBytesAvailable] , 
-                         @"streamEndEncountered:",[NSNumber numberWithInt:NSStreamEventEndEncountered] ,  
-                         @"oStreamHasSpaceAvailable:",[NSNumber numberWithInt:NSStreamEventHasSpaceAvailable] ,  
-                         @"streamErrorOccurred:",[NSNumber numberWithInt:NSStreamEventErrorOccurred] ,  
-                         @"streamOpenCompleted:",[NSNumber numberWithInt:NSStreamEventOpenCompleted] ,
-                         @"streamEventNone:",[NSNumber numberWithInt:NSStreamEventNone] , 
-                          nil];
+        _eventHandlers = @{@(NSStreamEventHasBytesAvailable): @"iStreamHasBytesAvailable:" ,
+                         @(NSStreamEventEndEncountered): @"streamEndEncountered:" ,
+                         @(NSStreamEventHasSpaceAvailable): @"oStreamHasSpaceAvailable:" ,
+                         @(NSStreamEventErrorOccurred): @"streamErrorOccurred:" ,
+                         @(NSStreamEventOpenCompleted): @"streamOpenCompleted:" ,
+                         @(NSStreamEventNone): @"streamEventNone:"};
         
         _commandIdentifier = 0;
         
@@ -336,12 +334,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                 [_iStream setProperty: NSStreamSocketSecurityLevelNone forKey: NSStreamSocketSecurityLevelKey];
                 [_oStream setProperty: NSStreamSocketSecurityLevelNone forKey: NSStreamSocketSecurityLevelKey];
 
-                NSDictionary *settings = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                          [NSNumber numberWithBool:YES], kCFStreamSSLAllowsExpiredCertificates,
-                                          [NSNumber numberWithBool:YES], kCFStreamSSLAllowsAnyRoot,
-                                          [NSNumber numberWithBool:NO], kCFStreamSSLValidatesCertificateChain,
-                                          kCFNull,kCFStreamSSLPeerName,
-                                          nil];
+                NSDictionary *settings = @{(id)kCFStreamSSLAllowsExpiredCertificates: @YES,
+                                          (id)kCFStreamSSLAllowsAnyRoot: @YES,
+                                          (id)kCFStreamSSLValidatesCertificateChain: @NO,
+                                          (id)(id)kCFStreamSSLPeerName: (id)kCFNull};
                 
                 CFReadStreamSetProperty((CFReadStreamRef)_iStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
                 CFWriteStreamSetProperty((CFWriteStreamRef)_oStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
@@ -682,7 +678,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 - (void)stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent {
-    NSString* eventHandler = [self.eventHandlers objectForKey: [NSNumber numberWithInt: streamEvent] ];
+    NSString* eventHandler = (self.eventHandlers)[@(streamEvent)];
     if([self respondsToSelector:NSSelectorFromString(eventHandler)]){
         [self performSelector:NSSelectorFromString(eventHandler)
                    withObject: theStream];

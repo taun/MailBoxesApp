@@ -91,19 +91,19 @@
 //    }
     
     NSMutableDictionary *firstLineAttributes = [attributes mutableCopy];
-    NSMutableParagraphStyle *firstParagraphStyle = [[firstLineAttributes objectForKey: NSParagraphStyleAttributeName] mutableCopy];
+    NSMutableParagraphStyle *firstParagraphStyle = [firstLineAttributes[NSParagraphStyleAttributeName] mutableCopy];
     
     // clear default tabs
-    [firstParagraphStyle setTabStops:[NSArray array]];
+    [firstParagraphStyle setTabStops:@[]];
     
     // add tab stop for right justifying the date
     [firstParagraphStyle addTabStop:[[NSTextTab alloc] initWithType: NSRightTabStopType location: 3.0*72.0]];
     
     [firstParagraphStyle setLineBreakMode: NSLineBreakByTruncatingMiddle];
-    [firstLineAttributes setObject: firstParagraphStyle forKey: NSParagraphStyleAttributeName];
+    firstLineAttributes[NSParagraphStyleAttributeName] = firstParagraphStyle;
     
     // Want attributes to make from field bigger and bold.
-    [firstLineAttributes setObject:[NSFont fontWithName:@"LucidaGrande-Bold" size: 13.0] forKey: NSFontAttributeName];
+    firstLineAttributes[NSFontAttributeName] = [NSFont fontWithName:@"LucidaGrande-Bold" size: 13.0];
     // NSForegroundColorAttributeName
     
     NSString *fromName = [anObject valueForKey: @"addressFrom.name"];
@@ -114,8 +114,8 @@
                                           attributes: firstLineAttributes];
 
     // want to make the date blue
-    [firstLineAttributes setObject:[NSFont fontWithName:@"LucidaGrande" size: 12.0] forKey:NSFontAttributeName];
-    [firstLineAttributes setObject: [NSColor blueColor] forKey: NSForegroundColorAttributeName];
+    firstLineAttributes[NSFontAttributeName] = [NSFont fontWithName:@"LucidaGrande" size: 12.0];
+    firstLineAttributes[NSForegroundColorAttributeName] = [NSColor blueColor];
     NSDate *date = [anObject  valueForKey: @"dateSent"];
     
     NSAttributedString *dateAttrString = [[NSAttributedString alloc] 
@@ -124,11 +124,11 @@
         
     
     NSMutableDictionary *secondLineAttributes = [attributes mutableCopy];
-    NSMutableParagraphStyle *secondParagraphStyle = [[secondLineAttributes objectForKey: NSParagraphStyleAttributeName] mutableCopy];
+    NSMutableParagraphStyle *secondParagraphStyle = [secondLineAttributes[NSParagraphStyleAttributeName] mutableCopy];
     
     [secondParagraphStyle setLineBreakMode: NSLineBreakByTruncatingTail];
-    [secondLineAttributes setObject: secondParagraphStyle forKey: NSParagraphStyleAttributeName];
-    [secondLineAttributes setObject:[NSFont fontWithName:@"LucidaGrande-Bold" size: 11.0] forKey:NSFontAttributeName];
+    secondLineAttributes[NSParagraphStyleAttributeName] = secondParagraphStyle;
+    secondLineAttributes[NSFontAttributeName] = [NSFont fontWithName:@"LucidaGrande-Bold" size: 11.0];
     
     NSAttributedString *subjectAttrString = [[NSAttributedString alloc] 
                                              initWithString: [NSString stringWithFormat:@"\n%@", [anObject valueForKey: @"subject"]]
@@ -142,11 +142,11 @@
     //[newAttributes setObject: paragraphStyle forKey: NSParagraphStyleAttributeName];
 
     NSMutableDictionary *bodyAttributes = [attributes mutableCopy];
-    NSMutableParagraphStyle *bodyParagraphStyle = [[bodyAttributes objectForKey: NSParagraphStyleAttributeName] mutableCopy];
+    NSMutableParagraphStyle *bodyParagraphStyle = [bodyAttributes[NSParagraphStyleAttributeName] mutableCopy];
     
     [bodyParagraphStyle setLineBreakMode: NSLineBreakByWordWrapping];
-    [bodyAttributes setObject: bodyParagraphStyle forKey: NSParagraphStyleAttributeName];
-    [bodyAttributes setObject:[NSFont fontWithName:@"LucidaGrande" size: 11.0] forKey:NSFontAttributeName];
+    bodyAttributes[NSParagraphStyleAttributeName] = bodyParagraphStyle;
+    bodyAttributes[NSFontAttributeName] = [NSFont fontWithName:@"LucidaGrande" size: 11.0];
 
     NSString *body = [anObject valueForKey: @"summary"];
     NSAttributedString *bodyAttrString = [[NSAttributedString alloc] 

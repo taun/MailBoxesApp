@@ -8,7 +8,7 @@
 
 #import "MBMimeApplication+IMAP.h"
 #import "MBMime+IMAP.h"
-
+#import <Quartz/Quartz.h>
 
 NSString* attachmentIconName = @"attach_48.png";
 
@@ -39,49 +39,29 @@ NSString* attachmentIconName = @"attach_48.png";
 
 -(NSAttributedString*) pdfAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;
-    
-    if (YES) {
+    NSData* nsData = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
+
+    PDFDocument* document = [[PDFDocument alloc] initWithData: nsData];
+
+    if ([self.isInline boolValue] == YES) {
         // as attachment
-        NSImage* attachmentImage = [NSImage imageNamed: attachmentIconName];
-        NSTextAttachmentCell *anAttachmentCell = [[NSTextAttachmentCell
-                                                   alloc] initImageCell: attachmentImage];
-        
-        //[anAttachmentCell setTitle: self.name];
-        
-        NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
-        
-        [attachment setAttachmentCell: anAttachmentCell];
-        [attachment.fileWrapper setPreferredFilename: self.name];
-        
-        returnString = [NSAttributedString attributedStringWithAttachment: attachment];
+        returnString = [self createAttachmentWithData: nsData imageName: attachmentIconName name: self.name attributes: attributes];
     } else {
         // inline
-        NSData* nsData = [self.data.encoded dataUsingEncoding: NSASCIIStringEncoding];
-        returnString = [[NSAttributedString alloc] initWithData: nsData options: nil documentAttributes: &attributes error: nil];
+        returnString = [[NSAttributedString alloc] initWithString: document.string attributes: attributes];
     }
     
     return returnString;
 }
 -(NSAttributedString*) mswordAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;
+    NSData* nsData = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
     
-    if (YES) {
+    if ([self.isInline boolValue] == NO) {
         // as attachment
-        NSImage* attachmentImage = [NSImage imageNamed: attachmentIconName];
-        NSTextAttachmentCell *anAttachmentCell = [[NSTextAttachmentCell
-                                                   alloc] initImageCell: attachmentImage];
-        
-        //[anAttachmentCell setTitle: self.name];
-        
-        NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
-        
-        [attachment setAttachmentCell: anAttachmentCell];
-        [attachment.fileWrapper setPreferredFilename: self.name];
-        
-        returnString = [NSAttributedString attributedStringWithAttachment: attachment];
+        returnString = [self createAttachmentWithData: nsData imageName: attachmentIconName name: self.name attributes: attributes];
     } else {
         // inline
-        NSData* nsData = [self.data.encoded dataUsingEncoding: NSASCIIStringEncoding];
         returnString = [[NSAttributedString alloc] initWithDocFormat: nsData documentAttributes: &attributes];
     }
     
@@ -89,29 +69,37 @@ NSString* attachmentIconName = @"attach_48.png";
 }
 -(NSAttributedString*) unknownAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;
+    NSData* nsData = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
     
-    if (YES) {
+    if ([self.isInline boolValue] == NO) {
         // as attachment
-        NSImage* attachmentImage = [NSImage imageNamed: attachmentIconName];
-        NSTextAttachmentCell *anAttachmentCell = [[NSTextAttachmentCell
-                                                   alloc] initImageCell: attachmentImage];
-        
-        //[anAttachmentCell setTitle: self.name];
-        
-        NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
-        
-        [attachment setAttachmentCell: anAttachmentCell];
-        [attachment.fileWrapper setPreferredFilename: self.name];
-        
-        returnString = [NSAttributedString attributedStringWithAttachment: attachment];
+        returnString = [self createAttachmentWithData: nsData imageName: attachmentIconName name: self.name attributes: attributes];
     } else {
         // inline
-        NSData* nsData = [self.data.encoded dataUsingEncoding: NSASCIIStringEncoding];
         returnString = [[NSAttributedString alloc] initWithData: nsData options: nil documentAttributes: &attributes error: nil];
     }
     
     return returnString;
 }
 
+-(NSAttributedString*) createAttachmentWithData: (NSData*) data imageName: (NSString*) image name: (NSString*) name attributes: (NSDictionary*) attributes {
+    NSImage* attachmentImage = [NSImage imageNamed: image];
+    
+    NSTextAttachmentCell *attachmentCell = [[NSTextAttachmentCell alloc] initImageCell: attachmentImage];
+    attachmentCell.identifier = name;
+    
+    NSFileWrapper* file = [[NSFileWrapper alloc] initRegularFileWithContents: data];
+    [file setPreferredFilename: name];
+    [file setFilename: name];
+    
+    NSTextAttachment* attachment = [[NSTextAttachment alloc] initWithFileWrapper: file];
+    
+    [attachment setAttachmentCell: attachmentCell];
+    [attachment.fileWrapper setPreferredFilename: self.name];
+    
+    NSMutableAttributedString* attachmentString = [[NSAttributedString attributedStringWithAttachment: attachment] mutableCopy];
+    [attachmentString appendAttributedString: [[NSAttributedString alloc] initWithString: self.name attributes: attributes]];
+    return [attachmentString copy];
+}
 
 @end

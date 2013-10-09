@@ -30,7 +30,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     __block NSError *error = nil;
     
     NSDictionary *substitutionDictionary = 
-    [NSDictionary dictionaryWithObjectsAndKeys: uid, @"aUID", self.accountReference, @"ACCOUNTOBJECT",nil];
+    @{@"aUID": uid, @"ACCOUNTOBJECT": self.accountReference};
     
     NSFetchRequest *fetchRequest = 
     [model fetchRequestFromTemplateWithName:@"MBMessageForUID"
@@ -46,7 +46,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     // ToDo deal with error
     // There should always be only one. Don't know what error to post if > 1
     if ( ([fetchedObjects count] == 1) ) {
-        message = [fetchedObjects objectAtIndex: 0];
+        message = fetchedObjects[0];
     }
     
     return message;
@@ -134,7 +134,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     __block NSError *error = nil;
     
-    NSDictionary *substitutionDictionary = [NSDictionary dictionaryWithObjectsAndKeys: serverName, @"SNAME",nil];
+    NSDictionary *substitutionDictionary = @{@"SNAME": serverName};
     
     __block NSArray *fetchedObjects;
     
@@ -150,7 +150,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     // ToDo deal with error
     // There should always be only one. Don't know what error to post if > 1
     if ( ([fetchedObjects count] == 1) ) {
-        flag = [fetchedObjects objectAtIndex: 0];
+        flag = fetchedObjects[0];
     }
     
     return flag;
@@ -173,7 +173,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:@"uid"];
     
     // Create an expression to represent the minimum value at the key path 'creationDate'
-    NSExpression *minExpression = [NSExpression expressionForFunction:@"min:" arguments:[NSArray arrayWithObject:keyPathExpression]];
+    NSExpression *minExpression = [NSExpression expressionForFunction:@"min:" arguments:@[keyPathExpression]];
     
     // Create an expression description using the minExpression and returning a date.
     NSExpressionDescription *expressionDescription = [[NSExpressionDescription alloc] init];
@@ -184,7 +184,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [expressionDescription setExpressionResultType:NSInteger64AttributeType];
     
     // Set the request's properties to fetch just the property represented by the expressions.
-    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObject:expressionDescription]];
+    [fetchRequest setPropertiesToFetch:@[expressionDescription]];
     
     // Execute the fetch.
      NSError *error = nil;
@@ -198,7 +198,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     else {
         if ([objects count] > 0) {
             DDLogVerbose(@"Minimum UID: %@", [[objects objectAtIndex:0] valueForKey:@"minUID"]);
-            lowestUID = [[objects objectAtIndex:0] valueForKey:@"minUID"];
+            lowestUID = [objects[0] valueForKey:@"minUID"];
         }
     }
     

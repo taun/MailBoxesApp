@@ -127,12 +127,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 ///@name Startup
 + (void)initialize {
     NSDictionary *defaults = 
-    [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSNumber numberWithInt:20],@"messageQuanta",
-        [NSNumber numberWithFloat:275.0],@"accountSplitWidth",
-        @"NO",@"isAccountCollapsed",
-        @"", @"selectedUser",
-     nil];
+    @{@"messageQuanta": @20,
+        @"accountSplitWidth": @275.0f,
+        @"isAccountCollapsed": @"NO",
+        @"selectedUser": @""};
     
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
 
@@ -191,7 +189,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (NSArray*) accountsACSortDescriptors {
     if(_accountsACSortDescriptors == nil) {
         NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector: @selector(localizedCaseInsensitiveCompare:)];
-        _accountsACSortDescriptors = [NSArray arrayWithObject: sort];
+        _accountsACSortDescriptors = @[sort];
     }
     return _accountsACSortDescriptors;
 }
@@ -199,7 +197,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (NSArray*) portalsACSortDescriptors {
     if(_portalsACSortDescriptors == nil) {
         NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES selector: @selector(compare:)];
-        _portalsACSortDescriptors = [NSArray arrayWithObject: sort];
+        _portalsACSortDescriptors = @[sort];
     }
     return _portalsACSortDescriptors;
 }
@@ -241,15 +239,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [sidebar addGroup: MBGroupAccountsIdentifier name:@"Accounts"];
     
     MBGroup* favorites = [sidebar addGroup: MBGroupFavoritesIdentifier name:@"Favorites"];
-    favorites.isOwner = [NSNumber numberWithBool: NO];
-    favorites.isExpandable = [NSNumber numberWithBool: YES];
+    favorites.isOwner = @NO;
+    favorites.isExpandable = @YES;
     
     [sidebar addGroup: MBGroupSmartFoldersIdentifier name:@"SmartFolders"];
     
     
     MBGroup* lists = [sidebar addGroup: MBGroupListsIdentifier name:@"Lists"];
-    lists.isOwner = [NSNumber numberWithBool: NO];
-    lists.isExpandable = [NSNumber numberWithBool: YES];
+    lists.isOwner = @NO;
+    lists.isExpandable = @YES;
 }
 - (void)createDefaultPortal {
     MBViewPortalSelection* selectionPortal = [NSEntityDescription insertNewObjectForEntityForName: @"MBViewPortalSelection"
@@ -282,7 +280,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         suid = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation: moURI];
         if ( suid == nil ) {
             //no currently stored default user so take the first from the store
-            self.currentUser = [fetchedObjects objectAtIndex: 0];
+            self.currentUser = fetchedObjects[0];
         }
         else {
             __block MBUser *cUser = nil;
@@ -408,7 +406,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //    
 //    [moveIn setFilter: pageCurl];
 
-     NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: moveIn, @"subviews", nil];
+     NSDictionary* dict = @{@"subviews": moveIn};
      [[self inPaneMessageView] setAnimations: dict];
 
     NSRect messageFrame = self.inPaneMessageView.frame;
@@ -555,7 +553,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
         NSError *error = nil;
         
-        NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsDirectoryKey] error:&error];
+        NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
         
         if (!properties) {
             BOOL ok = NO;
@@ -568,7 +566,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             }
         }
         else {
-            if ([[properties objectForKey:NSURLIsDirectoryKey] boolValue] != YES) {
+            if ([properties[NSURLIsDirectoryKey] boolValue] != YES) {
                 // Customize and localize this error.
                 NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]]; 
                 

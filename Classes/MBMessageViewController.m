@@ -127,6 +127,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     id dataView;
     dataView = [NSTextView new];
+    [dataView setEditable: NO];
     [dataView setHorizontallyResizable: YES];
     [dataView setVerticallyResizable: YES];
     [dataView setString: @"Loading....."];
@@ -152,10 +153,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     MBMime* node = nil;
     
     if (!item) {
-        node = [self.message.childNodes objectAtIndex: index];
+        node = (self.message.childNodes)[index];
     } else {
         if ([item isKindOfClass:[MBMime class]]) {
-            node = [[(MBMime*)item childNodes] objectAtIndex: index];
+            node = [(MBMime*)item childNodes][index];
         }
     }
     
@@ -231,6 +232,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     id dataView;
     dataView = [NSTextView new];
+    //NSLayoutManager* layoutManager = [dataView layoutManager];
+    //[layoutManager addTextContainer: nil];
+
+    [dataView setEditable: NO];
     [dataView setHorizontallyResizable: YES];
     [dataView setVerticallyResizable: YES];
     [dataView setString: @"Loading....."];

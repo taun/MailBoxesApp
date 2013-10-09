@@ -114,7 +114,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if ([self.dataBuffers count]==0) {
         //fresh new buffer from scratch
         [self.dataBuffers addObject: newDataBuffer];
-        self.currentBuffer = [self.dataBuffers objectAtIndex: 0];
+        self.currentBuffer = (self.dataBuffers)[0];
         [self resetCurrentCharLocation];
     } else {
         // appending buffer to be used later
@@ -236,7 +236,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if ([self isBufferAtEnd]) {
         // end of the buffer, see if there is another or wait for timeout
         if ([self.dataBuffers count]>1) {
-            [self.currentBuffer appendData: [self.dataBuffers objectAtIndex: 1]];
+            [self.currentBuffer appendData: (self.dataBuffers)[1]];
             [self.dataBuffers removeObjectAtIndex: 1];
         } else {
             if (self.result == IMAPParseComplete) {
@@ -258,7 +258,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
                     // check for new buffer avail
                     if ([self.dataBuffers count] > 1) {
-                        [self.currentBuffer appendData: [self.dataBuffers objectAtIndex: 1]];
+                        [self.currentBuffer appendData: (self.dataBuffers)[1]];
                         [self.dataBuffers removeObjectAtIndex: 1];
                     }
                 }
@@ -445,7 +445,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     while (([now timeIntervalSinceNow] > self.timeOutPeriod) && ((self.result == IMAPParsing) || (self.result == IMAPParseWaiting)) && [self.currentBuffer length] < (tokenRange.location+tokenRange.length)) {
         self.result = IMAPParseWaiting;
         if ([self.dataBuffers count]>1) {
-            [self.currentBuffer appendData: [self.dataBuffers objectAtIndex: 1]];
+            [self.currentBuffer appendData: (self.dataBuffers)[1]];
             [self.dataBuffers removeObjectAtIndex: 1];
             if ([self.currentBuffer length] >= (tokenRange.location+tokenRange.length)) {
                 // we have enough data for current desired range

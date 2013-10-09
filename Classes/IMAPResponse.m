@@ -140,18 +140,17 @@ static     NSDictionary *HeaderToModelMap;
                                       @"UID", nil];
     }
     if (HeaderToModelMap == nil) {
-        HeaderToModelMap = [NSDictionary dictionaryWithObjectsAndKeys:@"",@"",
-                            @"Subject",@"SUBJECT",
-                            @"DateSent",@"DATE",
-                            @"AddressFrom",@"FROM",
-                            @"AddressSender",@"SENDER",
-                            @"AddressReplyTo",@"REPLY-TO",
-                            @"DateReceived",@"RECEIVED",
-                            @"AddressesTo",@"TO",
-                            @"AddressesCc",@"CC",
-                            @"AddressesBcc",@"BCC",
-                            @"MessageId",@"MESSAGE-ID",
-                            nil];
+        HeaderToModelMap = @{@"": @"",
+                            @"SUBJECT": @"Subject",
+                            @"DATE": @"DateSent",
+                            @"FROM": @"AddressFrom",
+                            @"SENDER": @"AddressSender",
+                            @"REPLY-TO": @"AddressReplyTo",
+                            @"RECEIVED": @"DateReceived",
+                            @"TO": @"AddressesTo",
+                            @"CC": @"AddressesCc",
+                            @"BCC": @"AddressesBcc",
+                            @"MESSAGE-ID": @"MessageId"};
     }
 }
 
@@ -324,7 +323,7 @@ static     NSDictionary *HeaderToModelMap;
         if ([RespDataPostfixCommandTokens containsObject: secondToken]){
             // these are the commands which are number then command such as "12312 EXISTS"
             // extract number and store in argument then send to command
-            NSNumber* dataArg = [NSNumber numberWithInteger: [firstToken integerValue]];
+            NSNumber* dataArg = @([firstToken integerValue]);
             
             if (dataArg != 0) {
                 // valid number, put back in number string token
@@ -704,11 +703,11 @@ static     NSDictionary *HeaderToModelMap;
         id tmp;
         
         NSDictionary* uidKeyValue = [self.tokens scanForKeyValue: @"UID"];
-        if ((tmp=[uidKeyValue objectForKey: @"UID"]) != nil) {
+        if ((tmp=uidKeyValue[@"UID"]) != nil) {
             if ([tmp isKindOfClass: [NSString class]]) {
                 integerUid = [((NSString *)tmp) longLongValue];
                 if (integerUid != 0) {
-                    messageUid = [NSNumber numberWithUnsignedInteger: integerUid];
+                    messageUid = @(integerUid);
                 }
             }
         }
@@ -718,7 +717,7 @@ static     NSDictionary *HeaderToModelMap;
             // reset messageProperties
             messageProperties = nil;
             
-            [self.messageProperties setObject: [NSNumber numberWithInteger: [sequence integerValue]] forKey: @"Sequence"];
+            (self.messageProperties)[@"Sequence"] = @([sequence integerValue]);
             
             NSString *token;
             while (![self.tokens isEmpty]) {
@@ -759,7 +758,7 @@ static     NSDictionary *HeaderToModelMap;
 
 -(void) responseFetchedMessageFlags {
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
-    [self.messageProperties setObject: [self.tokens scanToken] forKey: @"Flags"];
+    (self.messageProperties)[@"Flags"] = [self.tokens scanToken];
 }
 -(void) responseFetchedMessageEnvelope {
     // nothing yet, just dispose
@@ -777,7 +776,7 @@ static     NSDictionary *HeaderToModelMap;
     
     NSDate* dateSent = [self.tokens scanDateFromRFC3501Format];
     if (dateSent) {
-        [self.messageProperties setObject: dateSent forKey: @"DateSent"];
+        (self.messageProperties)[@"DateSent"] = dateSent;
     }
 }
 
@@ -789,7 +788,7 @@ static     NSDictionary *HeaderToModelMap;
     
     NSNumber* rfcSize = [self.tokens scanNumber];
     if (rfcSize != nil) {
-        [self.messageProperties setObject: rfcSize forKey: @"Rfc2822size"];
+        (self.messageProperties)[@"Rfc2822size"] = rfcSize;
     }
 }
 
@@ -802,12 +801,12 @@ static     NSDictionary *HeaderToModelMap;
     // Rewrite to just pass a dictionary to the clientStore and let it process everything at once.
     // Maybe can even dispatch it async.
     
-    [self.messageProperties setObject: header.unfolded forKey: @"Summary"];
+    (self.messageProperties)[@"Summary"] = header.unfolded;
     
     for (NSString* headerKey in header.fields) {
-        NSString* modelKey = [HeaderToModelMap objectForKey: headerKey];
+        NSString* modelKey = HeaderToModelMap[headerKey];
         if (modelKey) {
-            [self.messageProperties setObject: [header.fields objectForKey: headerKey] forKey: modelKey];
+            (self.messageProperties)[modelKey] = (header.fields)[headerKey];
         }
     }
 }
@@ -834,8 +833,8 @@ static     NSDictionary *HeaderToModelMap;
     if (bodyPartTree) {
         NSString* bodyPart = [bodyPartTree scanString];
         NSString* data = [self.tokens scanToken];
-        NSArray* bodyArray = [[NSArray alloc] initWithObjects: bodyPart, data, nil];
-        [self.messageProperties setObject: bodyArray forKey: [@"body" stringAsSelectorSafeCamelCase]];
+        NSArray* bodyArray = @[bodyPart, data];
+        (self.messageProperties)[[@"body" stringAsSelectorSafeCamelCase]] = bodyArray;
     }
 //    [self.messageProperties setObject: [bodyPart tokenArray] forKey: [@"bodystructure" stringAsSelectorSafeCamelCase]];
 //    // should be no objects left in bodystructure
@@ -854,7 +853,7 @@ static     NSDictionary *HeaderToModelMap;
     // to a nested array of tokens
     MBTokenTree* bodystructure = [self.tokens scanSubTree];
     if (bodystructure) {
-        [self.messageProperties setObject: [bodystructure tokenArray] forKey: [@"bodystructure" stringAsSelectorSafeCamelCase]];
+        (self.messageProperties)[[@"bodystructure" stringAsSelectorSafeCamelCase]] = [bodystructure tokenArray];
         // should be no objects left in bodystructure
         DDLogVerbose(@"%@ bodystructure count after cache: %@", NSStringFromSelector(_cmd),bodystructure);
     }

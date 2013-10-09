@@ -41,11 +41,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self.view setFloatsGroupRows: NO];
     //[self expandItem:nil expandChildren:YES];
     
-    [self.view registerForDraggedTypes:[NSArray arrayWithObjects: 
-                                        @"MBSmartFolder", 
+    [self.view registerForDraggedTypes:@[@"MBSmartFolder", 
                                         @"MBAccount", 
                                         @"MBFavorites", 
-                                        @"MBAddressList", nil]];
+                                        @"MBAddressList"]];
     
     [self.view setDraggingSourceOperationMask: NSDragOperationEvery forLocal:YES];
     
@@ -62,9 +61,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void) managedObjectContextDidChange: (NSNotification *)notification {
     //    NSManagedObjectContext *context = [self managedObjectContext];
-    NSSet *updatedObjects = [[notification userInfo] objectForKey:NSUpdatedObjectsKey]; 
-    NSSet *insertedObjects = [[notification userInfo] objectForKey:NSInsertedObjectsKey]; 
-    NSSet *deletedObjects = [[notification userInfo] objectForKey:NSDeletedObjectsKey]; 
+    NSSet *updatedObjects = [notification userInfo][NSUpdatedObjectsKey]; 
+    NSSet *insertedObjects = [notification userInfo][NSInsertedObjectsKey]; 
+    NSSet *deletedObjects = [notification userInfo][NSDeletedObjectsKey]; 
     
     BOOL sidebarReload = NO;
     
@@ -279,7 +278,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void) exportAccountSettingsFor:(MBAccount*)account {
     NSString *error;
-    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *rootPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     
     NSString* fileName = [NSString stringWithFormat: @"%@.plist", account.name];
     
@@ -365,9 +364,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     id result;
     if (item == nil) {
         // wants root item
-        result = [[self.currentUser.sidebar childNodes] objectAtIndex: index];
+        result = [self.currentUser.sidebar childNodes][index];
     } else {
-        result = [[item childNodes] objectAtIndex: index];
+        result = [item childNodes][index];
     }
     return result;
 }

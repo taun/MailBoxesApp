@@ -71,7 +71,7 @@ static NSRegularExpression *regexHeaderField;
                                         if (match.numberOfRanges==3) {
                                             field = [[self.unfolded substringWithRange: [match rangeAtIndex: 1]] uppercaseString];
                                             value = [self.unfolded substringWithRange: [match rangeAtIndex: 2]];
-                                            [self.fields setObject: value forKey: field];
+                                            (self.fields)[field] = value;
                                         }
     }];
 }

@@ -77,7 +77,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     _error = nil;
     
     if ([self.tokenArray count]>0) {
-        result = [self.tokenArray objectAtIndex: 0];
+        result = (self.tokenArray)[0];
     } else {
         DDLogError(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
@@ -97,7 +97,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     _error = nil;
     
     if ([self.tokenArray count]>=2) {
-        result = [self.tokenArray objectAtIndex: 1];
+        result = (self.tokenArray)[1];
     } else {
         DDLogError(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
@@ -219,7 +219,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     if ((text = [self scanString])) {
         NSInteger tempArg = [text longLongValue];
         if (tempArg != 0) {
-            result = [NSNumber numberWithInteger:tempArg];
+            result = @(tempArg);
         }
     }
     return result;
@@ -240,7 +240,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     for (id element in self.tokenArray) {
         if (keyFound) {
             // element after key is found
-            result = [[NSDictionary alloc] initWithObjectsAndKeys: element, key, nil];
+            result = @{key: element};
             break;
         } else {
             if ([element isKindOfClass: [NSString class]]) {

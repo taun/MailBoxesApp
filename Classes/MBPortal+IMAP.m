@@ -14,8 +14,7 @@
 + (NSArray *)keysToBeCopied {
     static NSArray *keysToBeCopied = nil;
     if (keysToBeCopied == nil) {
-        keysToBeCopied = [[NSArray alloc] initWithObjects:
-                          @"name", @"desc", @"position", @"predicate", nil];
+        keysToBeCopied = @[@"name", @"desc", @"position", @"predicate"];
     }
     return keysToBeCopied;
 }

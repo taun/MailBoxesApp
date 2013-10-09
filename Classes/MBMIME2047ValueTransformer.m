@@ -39,12 +39,11 @@ static NSDictionary *charsetMap;
         NSLog(@"Q Spaces Error: %@", error);
     }
     
-    charsetMap = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt: NSASCIIStringEncoding], @"US-ASCII",
-                  [NSNumber numberWithInt: NSUTF8StringEncoding], @"UTF-8",
-                  [NSNumber numberWithInt: NSISOLatin1StringEncoding], @"ISO-8859-1",
-                  [NSNumber numberWithInt: NSWindowsCP1251StringEncoding], @"KOI8-R",
-                  [NSNumber numberWithInt: NSNonLossyASCIIStringEncoding], @"US-ASCII2",
-                  nil];
+    charsetMap = @{@"US-ASCII": @(NSASCIIStringEncoding),
+                  @"UTF-8": @(NSUTF8StringEncoding),
+                  @"ISO-8859-1": @(NSISOLatin1StringEncoding),
+                  @"KOI8-R": @(NSWindowsCP1251StringEncoding),
+                  @"US-ASCII2": @(NSNonLossyASCIIStringEncoding)};
 }
 
 /*!
@@ -214,7 +213,7 @@ static NSDictionary *charsetMap;
                             // bad value skip
                         }
                         utf8Chars[++unicodeIndex] = 0; // null terminate
-                        [decodedMutableString appendString: [NSString stringWithCString: utf8Chars encoding: NSUTF8StringEncoding]];
+                        [decodedMutableString appendString: @(utf8Chars)];
                     } else {
                         // not UTF-8 > 7F
                         utf8Chars[++unicodeIndex] = 0; // null terminate
@@ -302,7 +301,7 @@ static NSDictionary *charsetMap;
             }
             
             NSRange encodedRange;
-            int encoding = [[charsetMap objectForKey: charsetString] intValue];
+            int encoding = [charsetMap[charsetString] intValue];
             if ([tcr rangeAtIndex: bCodeRangeIndex].length != 0) {
                 // b encoded
                 encodedRange = [tcr rangeAtIndex: bCodeRangeIndex];

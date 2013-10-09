@@ -79,10 +79,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     MBAccount* account = [self accountForID: accountID];
     
     if (account) {
-        client = [self.accountConnections objectForKey: account.name];
+        client = (self.accountConnections)[account.name];
         if (!client) {
             client = [[IMAPClient alloc] initWithParentContext: self.user.managedObjectContext AccountID: accountID];
-            [self.accountConnections setObject: client forKey: account.name];
+            (self.accountConnections)[account.name] = client;
         }
     }
 
@@ -100,12 +100,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     for (MBAccount *account in accounts) {
         self.isFinished = NO;
         IMAPClient* client = [[IMAPClient alloc] initWithParentContext: [_user managedObjectContext] AccountID: account.objectID];
-        [self.accountConnections setObject: client forKey: account.name];
+        (self.accountConnections)[account.name] = client;
     }
     
     dispatch_queue_t mQueue = dispatch_get_main_queue();
     for (id key in self.accountConnections) {
-        IMAPClient* client = [self.accountConnections objectForKey: key];
+        IMAPClient* client = (self.accountConnections)[key];
         dispatch_async(self.accountQueue, ^{
             [client refreshAll];
             dispatch_async(mQueue, ^{ [self clientFinished: client];}); // could this be sync not async?
@@ -116,8 +116,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void) testIMAPClientComm {
     for (id key in self.accountConnections) {
-        IMAPClient* client = [self.accountConnections objectForKey: key];
-        NSArray* command = [[NSArray alloc] initWithObjects:@"testMessage:", @"queued command", nil];
+        IMAPClient* client = (self.accountConnections)[key];
+        NSArray* command = @[@"testMessage:", @"queued command"];
         [client.mainCommandQueue addObject: command];
     }
 }
@@ -152,7 +152,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 -(void) closeAll {
     for (id key in self.accountConnections) {
-        IMAPClient *client = [self.accountConnections objectForKey: key];
+        IMAPClient *client = (self.accountConnections)[key];
         client.isCancelled = YES;
     }    
 }

@@ -39,7 +39,7 @@ CGFloat ONEROW = 18.0;
 - (NSArray*) collectionItemSortDescriptors {
     if(_collectionItemSortDescriptors == nil) {
         NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey:@"dateSent" ascending:NO selector: @selector(compare:)];
-        _collectionItemSortDescriptors = [NSArray arrayWithObject: sort];
+        _collectionItemSortDescriptors = @[sort];
     }
     return _collectionItemSortDescriptors;
 }
@@ -69,8 +69,9 @@ CGFloat ONEROW = 18.0;
  
  */
 -(NSPredicate *) compoundPredicate {
-    NSPredicate* results = [NSCompoundPredicate andPredicateWithSubpredicates: [NSArray arrayWithObjects: self.searchPredicate, nil]];
-    return results;
+    //NSPredicate* results = [NSCompoundPredicate andPredicateWithSubpredicates: @[self.searchPredicate]];
+    //return results;
+    return nil;
             //[NSPredicate predicateWithFormat: [self valueForKeyPath: @"representedObject.predicateString"]], self.searchPredicate, nil]];    
 }
 
@@ -157,7 +158,7 @@ CGFloat ONEROW = 18.0;
     MailBoxesAppDelegate *app = (MailBoxesAppDelegate *)[[NSApplication sharedApplication] delegate];
     NSInteger selectedRow = [self.tableView selectedRow];
     if (selectedRow != -1) {
-        MBMessage *selectedMessage = (MBMessage *)[[self.messagesController arrangedObjects] objectAtIndex: selectedRow];
+        MBMessage *selectedMessage = (MBMessage *)[self.messagesController arrangedObjects][selectedRow];
         [app showSelectedMessage: selectedMessage];
         MBCollectionView *cv = (MBCollectionView *)app.collectionView;
         [cv setSelectionIndexes: [NSIndexSet indexSetWithIndex: [[cv subviews] indexOfObject: [self view]]]];

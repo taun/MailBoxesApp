@@ -105,7 +105,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             if (errorCode == NSValidationMultipleErrorsError) {
                 // For an NSValidationMultipleErrorsError, the original errors
                 // are in an array in the userInfo dictionary for key NSDetailedErrorsKey
-                NSArray *detailedErrors = [[*error userInfo] objectForKey:NSDetailedErrorsKey];
+                NSArray *detailedErrors = [*error userInfo][NSDetailedErrorsKey];
                 
                 // For this example, only present error messages for up to 3 validation errors at a time.
                 
@@ -121,7 +121,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 NSUInteger i, displayErrors = numErrors > 3 ? 3 : numErrors;
                 for (i = 0; i < displayErrors; i++) {
                     [errorString appendFormat:@"%@\n",
-                     [[detailedErrors objectAtIndex:i] localizedDescription]];
+                     [detailedErrors[i] localizedDescription]];
                 }        
             } else {
                 errorString = [NSMutableString stringWithFormat: @"%@>%@", [*error localizedDescription], [*error localizedFailureReason]];
@@ -181,13 +181,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(BOOL) setMailBoxReadOnly: (NSString *) fullPath {
     MBox* mbox = [self fetchMBox: fullPath];
-    mbox.isReadWrite = [NSNumber numberWithBool: NO];
+    mbox.isReadWrite = @NO;
     return YES;
 }
 
 -(BOOL) setMailBoxReadWrite: (NSString *) fullPath {
     MBox* mbox = [self fetchMBox: fullPath];
-    mbox.isReadWrite = [NSNumber numberWithBool: YES];
+    mbox.isReadWrite = @YES;
     return YES;
 }
 
@@ -207,7 +207,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             // flag folder
         } else if ([flagTokens containsObject: @"\\Marked"]) {
             //apply marked flag so sync can focus on marked folders first
-            mbox.isMarked = [NSNumber numberWithBool: YES];
+            mbox.isMarked = @YES;
             
         } else if ([flagTokens containsObject: @"\\All"]) {
             //enable special use flag
@@ -303,7 +303,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         // If server UIDvalidity changes, then no message UIDs are valid 
         // and all messages need to be reloaded from scratch
         // this is done be reseting lastSeenUID to 1
-        mbox.lastSeenUID = [NSNumber numberWithInt: 1];
+        mbox.lastSeenUID = @1;
         mbox.serverUIDValidity = uidValidity;
     }
     return  YES;

@@ -25,11 +25,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 + (NSArray *)keysToBeCopied {
     static NSArray *keysToBeCopied = nil;
     if (keysToBeCopied == nil) {
-        keysToBeCopied = [[NSArray alloc] initWithObjects:
-                          @"name", @"username", @"password", @"server", 
+        keysToBeCopied = @[@"name", @"username", @"password", @"server", 
                           @"port", @"address", @"desc", @"useTLS", 
-                          @"priority", @"messageQuanta", @"accountType", 
-                          nil];
+                          @"priority", @"messageQuanta", @"accountType"];
     }
     return keysToBeCopied;
 }
@@ -120,7 +118,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     __block NSError *error = nil;
     
     NSDictionary *substitutionDictionary =
-    [NSDictionary dictionaryWithObjectsAndKeys: aPath, @"PATH", self, @"ACCOUNTOBJECT", nil];
+    @{@"PATH": aPath, @"ACCOUNTOBJECT": self};
     
     NSFetchRequest *fetchRequest =
     [model fetchRequestFromTemplateWithName:@"MBoxForPath"
@@ -135,7 +133,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     // ToDo deal with error
     // There should always be only one. Don't know what error to post if > 1
     if ( ([fetchedObjects count] == 1) ) {
-        node = [fetchedObjects objectAtIndex: 0];
+        node = fetchedObjects[0];
     }
     
     return node;
@@ -198,7 +196,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         node.accountReference = self;
         node.imageName = MBoxImageName;
         //node.parentNodes = [NSOrderedSet orderedSetWithObjects: (MBox  *)parent, nil];
-        node.isLeaf = [NSNumber numberWithBool: YES];
+        node.isLeaf = @YES;
         
         
         // add node to parent set.
@@ -206,7 +204,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         // parent might be MBox or MBAccount
         MBTreeNode* parentNode = (MBTreeNode*)parent;
         [parentNode addChildNodesObject: node];
-        [parentNode setIsLeaf: [NSNumber numberWithBool: NO]];
+        [parentNode setIsLeaf: @NO];
         
     }
     return node;

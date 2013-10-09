@@ -41,7 +41,7 @@
         __block NSError *error = nil;
         
         NSDictionary *substitutionDictionary = 
-        [NSDictionary dictionaryWithObjectsAndKeys: email, @"EMAIL",nil];
+        @{@"EMAIL": email};
         
         NSFetchRequest *fetchRequest = 
         [model fetchRequestFromTemplateWithName:@"MBAddressForEmail"
@@ -54,7 +54,7 @@
         // ToDo deal with error
         // There should always be only one. Don't know what error to post if > 1
         if ( ([fetchedObjects count] == 1) ) {
-            address = [fetchedObjects objectAtIndex: 0];
+            address = fetchedObjects[0];
         }
     }
     

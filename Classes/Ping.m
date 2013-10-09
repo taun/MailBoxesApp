@@ -183,10 +183,7 @@ static uint16_t in_cksum(const void *buffer, size_t bufferLen)
     NSError *       error;
     
     if (streamError.domain == kCFStreamErrorDomainNetDB) {
-        userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                    [NSNumber numberWithInteger:streamError.error], kCFGetAddrInfoFailureKey,
-                    nil
-                    ];
+        userInfo = @{(id)kCFGetAddrInfoFailureKey: @(streamError.error)};
     } else {
         userInfo = nil;
     }

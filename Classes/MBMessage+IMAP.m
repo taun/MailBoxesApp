@@ -119,7 +119,7 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
         for (id aKey in aDictionary) {
             NSString* method;
             
-            id aValue = [aDictionary objectForKey: aKey];
+            id aValue = aDictionary[aKey];
             method = [NSString stringWithFormat: @"setParsed%@:",aKey];
             [self performSelector: NSSelectorFromString(method) withObject: aValue];
         }
@@ -134,7 +134,7 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
     if ([tokenized isKindOfClass: [NSString class]]) {
         NSString* sequenceString = tokenized;
         
-        sequence = [NSNumber numberWithLongLong:[sequenceString longLongValue]];
+        sequence = @([sequenceString longLongValue]);
         
     } else if ([tokenized isKindOfClass: [NSNumber class]]) {
         sequence = tokenized;
@@ -147,7 +147,7 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
     if ([tokenized isKindOfClass: [NSString class]]) {
         NSString* rfc2822SizeString = tokenized;
         
-        rfc2822Size = [NSNumber numberWithLongLong:[rfc2822SizeString longLongValue]];
+        rfc2822Size = @([rfc2822SizeString longLongValue]);
         
     } else if ([tokenized isKindOfClass: [NSNumber class]]) {
         rfc2822Size = tokenized;
@@ -262,8 +262,8 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
  @param tokenized tokenized IMAPResponse
 */
 -(void) setParsedBody:(id)tokenized {
-    NSString* partIdentity = [tokenized objectAtIndex: 0];
-    NSString* partData = [tokenized objectAtIndex: 1];
+    NSString* partIdentity = tokenized[0];
+    NSString* partData = tokenized[1];
     
     NSSet* allParts = self.allParts;
     
@@ -544,7 +544,7 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
             MBMime* subPart = [self unpackCompositeMimeFrom: firstToken];
             if (subPart) {
                 [mimeParts addObject: subPart];
-                subPart.subPartNumber = [NSNumber numberWithUnsignedInteger: partIndex];
+                subPart.subPartNumber = @(partIndex);
                 [self addAllPartsObject: subPart];
             }
             // get the next subPart if there is one
@@ -740,9 +740,9 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
         if (disposition!=nil) {
             newPart.disposition = disposition;
             if ([disposition.type caseInsensitiveCompare: @"inline"] == NSOrderedSame) {
-                newPart.isInline = [NSNumber numberWithBool: YES];
+                newPart.isInline = @YES;
             } else if ([disposition.type caseInsensitiveCompare: @"attachment"] == NSOrderedSame) {
-                newPart.isAttachment = [NSNumber numberWithBool: YES];
+                newPart.isAttachment = @YES;
             }
         }
     } else {
@@ -808,7 +808,7 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
             
         }
         newPart.type = type;
-        newPart.isLeaf = [NSNumber numberWithBool: YES];
+        newPart.isLeaf = @YES;
     }
     // Need to dispatch based on type "partTypeMessage:" "partTypeText:",....
     
@@ -868,11 +868,11 @@ static MBMIME2047ValueTransformer* EncodedWordsTransformer;
 //            newPart.disposition = disposition;
             [disposition setMime: newPart];
             if ([disposition.type caseInsensitiveCompare: @"inline"] == NSOrderedSame) {
-                newPart.isInline = [NSNumber numberWithBool: YES];
+                newPart.isInline = @YES;
             } else 
             if ([disposition.type caseInsensitiveCompare: @"attachment"] == NSOrderedSame) {
-                newPart.isAttachment = [NSNumber numberWithBool: YES];
-                self.hasAttachment = [NSNumber numberWithBool: YES];
+                newPart.isAttachment = @YES;
+                self.hasAttachment = @YES;
             }
             if (disposition.parameters != nil) {
                 for (MBMimeParameter* parameter in disposition.parameters) {
