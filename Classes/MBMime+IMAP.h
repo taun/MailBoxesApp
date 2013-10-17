@@ -9,6 +9,11 @@
 #import "MBMime.h"
 #import "MBMime+IntersectsSetFix.h"
 #import "MBMimeData+IMAP.h"
+#import "MBMIME2047ValueTransformer.h"
+#import "MBMIMEQuotedPrintableTranformer.h"
+
+static MBMIME2047ValueTransformer* EncodedWordsTransformer;
+static MBMIMEQuotedPrintableTranformer* QuotedPrintableTransformer;
 
 extern NSString* MBRichMessageViewAttributeName;
 
@@ -86,9 +91,41 @@ extern NSString* MBRichMessageViewAttributeName;
  */
 @interface MBMime (IMAP)
 
++(MBMIME2047ValueTransformer*) encodedWordTransformer;
++(MBMIMEQuotedPrintableTranformer*) quotedPrintableTransformer;
+
 - (void)encodeWithCoder:(NSCoder *)coder;
 
 - (void) addEncodedData: (NSString*) encodedData;
+/*!
+ MIME Class specific method to decode MIME string data
+ 
+ Needs to decode data.
+ Set decoded property.
+ Set isDecoded property.
+ */
+-(void) decoder;
+/*!
+ Decode mime decode data
+ 
+ Converts encoded data to decoded data
+ Erases encoded data
+ sets isDecoded flag
+  
+ @result YES if successfully decoded.
+ */
+-(BOOL) decode;
+/*!
+ 
+ MBMimeData decoding is deferred until getDecodedData is called on MBMime. Calling MBMimeData.decoded
+ will result in nil. This is to save the overhead of converting and storing conversions which may never be used.
+ The downside is this may make search less useful and we may need to switch to decoding data during initial storage.
+ 
+ Maybe a preference or variable to switch modes. Either way, getDecodedData will work the same.
+ 
+ @result nil if there is no data or it cannot be decoded.
+ */
+-(NSData*) getDecodedData;
 
 -(NSArray*) childNodesArray;
 -(NSSet*) childNodesSet;

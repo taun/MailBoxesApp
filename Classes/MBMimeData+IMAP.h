@@ -10,15 +10,4 @@
 
 @interface MBMimeData (IMAP)
 
-
-/*!
- Decode mime encode data
- 
- Converts encoded data to decoded data
- Erases encoded data
- sets isDecoded flag
- 
- */
--(BOOL) decode;
-
 @end

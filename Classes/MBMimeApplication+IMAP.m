@@ -14,6 +14,17 @@ NSString* attachmentIconName = @"attach_48.png";
 
 @implementation MBMimeApplication (IMAP)
 
+-(void) decoder {
+    
+    if (self.data.encoded != nil) {
+        NSData* decoded = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
+        if (decoded) {
+            self.data.decoded = decoded;
+            self.data.isDecoded = @YES;
+        }
+    }
+}
+
 /*!
  Need to decode data based on the subtype.
  Subtypes can be
@@ -39,7 +50,7 @@ NSString* attachmentIconName = @"attach_48.png";
 
 -(NSAttributedString*) pdfAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;
-    NSData* nsData = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
+    NSData* nsData = [self getDecodedData];
 
     PDFDocument* document = [[PDFDocument alloc] initWithData: nsData];
 
@@ -55,7 +66,7 @@ NSString* attachmentIconName = @"attach_48.png";
 }
 -(NSAttributedString*) mswordAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;
-    NSData* nsData = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
+    NSData* nsData = [self getDecodedData];
     
     if ([self.isInline boolValue] == NO) {
         // as attachment
@@ -69,7 +80,7 @@ NSString* attachmentIconName = @"attach_48.png";
 }
 -(NSAttributedString*) unknownAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;
-    NSData* nsData = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
+    NSData* nsData = [self getDecodedData];
     
     if ([self.isInline boolValue] == NO) {
         // as attachment

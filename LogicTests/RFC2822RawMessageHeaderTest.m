@@ -120,16 +120,5 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     XCTAssertEqualObjects(address.email, @"reservationprearrivals@wyndhamvacationresorts.com", @"bad address");
 }
--(void) testFromAddressQEncodedName {
-    MBMIME2047ValueTransformer* decoder = [MBMIME2047ValueTransformer new];
-    
-    NSString* sampleAddress = @"\"=?utf-8?Q?Wyndham=20Vacation=20Resorts?=\" <reservationprearrivals@wyndhamvacationresorts.com>";
-    
-    NSString* decodedAddress = [decoder transformedValue: sampleAddress];
-    
-    SimpleRFC822Address* address = [decodedAddress rfc822Address];
-    
-    XCTAssertEqualObjects(address.email, @"reservationprearrivals@wyndhamvacationresorts.com", @"bad address");
-}
 
 @end

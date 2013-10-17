@@ -15,11 +15,30 @@
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
+static MBMIME2047ValueTransformer* EncodedWordsTransformer;
+
+static MBMIMEQuotedPrintableTranformer* QuotedPrintableTransformer;
+
 NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
 
 @implementation MBMime (IMAP)
 
 #pragma mark - encoding decoding
+
++(MBMIME2047ValueTransformer*) encodedWordTransformer {
+    if (!EncodedWordsTransformer) {
+        EncodedWordsTransformer = [[MBMIME2047ValueTransformer alloc] init];
+    }
+    return EncodedWordsTransformer;
+}
+
++(MBMIMEQuotedPrintableTranformer*) quotedPrintableTransformer {
+    if (!QuotedPrintableTransformer) {
+        QuotedPrintableTransformer = [[MBMIMEQuotedPrintableTranformer alloc] init];
+    }
+    return QuotedPrintableTransformer;
+}
+
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 
@@ -43,6 +62,7 @@ NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
     [coder encodeObject: self.subtype forKey:@"subtype"];
     [coder encodeObject: self.type forKey:@"type"];
     [coder encodeObject: self.childNodes forKey:@"childNodes"];
+    // need to add encoding of self.data?
 }
 
 - (void) addEncodedData:(NSString *)encodedData {
@@ -53,7 +73,24 @@ NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
     mimeData.encoding = self.encoding;
     [mimeData setMimeStructure: self];
 }
-
+-(void) decoder {
+}
+-(BOOL) decode {
+    if (![self.data.isDecoded boolValue] && self.data.encoded != nil){
+        [self decoder];
+        if ([self.data.isDecoded boolValue] && (self.data.decoded != nil)) {
+            self.data.encoded = nil;
+        }
+    }
+    return [self.data.isDecoded boolValue];
+}
+-(NSData*) getDecodedData {
+    NSData* decodedData;
+    if ([self decode]) {
+        decodedData = self.data.decoded;
+    }
+    return decodedData;
+}
 -(NSArray*) childNodesArray {
     return [self.childNodes array];
 }

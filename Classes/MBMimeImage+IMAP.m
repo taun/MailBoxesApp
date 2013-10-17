@@ -11,8 +11,19 @@
 
 @implementation MBMimeImage (DataTransforms)
 
+-(void) decoder {
+    if (self.data.encoded != nil) {
+        NSData* decoded = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
+        if (decoded) {
+            self.data.decoded = decoded;
+            self.data.isDecoded = @YES;
+        }
+    }
+    
+}
+
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
-    NSData* nsData = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
+    NSData* nsData = [self getDecodedData];
     
     NSImage* messageImage = [[NSImage alloc] initWithData: nsData];
     NSTextAttachmentCell *anAttachmentCell = [[NSTextAttachmentCell

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MBMIMECharsetTransformer.h"
 
 /*!
  Transforms string with RFC 2047 encoded words to UTF8 string.
@@ -16,5 +17,7 @@
  Use transformedValue: to transform an encoded string to decoded.
  */
 @interface MBMIME2047ValueTransformer : NSValueTransformer
+
++(NSDictionary*) CharsetMap;
 
 @end

@@ -1,0 +1,3 @@
+Thread-Topic: [squeak-dev] Something in the update process damages
+	=?ISO-8859-1?B?dGhloKCgoGJhY2tncm91bmQ=?=
+

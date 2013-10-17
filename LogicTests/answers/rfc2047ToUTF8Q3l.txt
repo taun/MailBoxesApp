@@ -1,0 +1,4 @@
+To: =?UTF-8?Q?The_general-purpose_Squ?=
+	=?UTF-8?Q?eak_developers_list=C2=A0=C2=A0=C2=A0=C2=A0?=
+	<squeak-dev@lists.squeakfoundation.org>
+

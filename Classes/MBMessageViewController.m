@@ -139,10 +139,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 -(NSAttributedString*) attributedStringFromMessage:(MBMessage *)message {
-    NSDictionary* attributes = [NSDictionary new];
+    NSDictionary* options = @{MBRichMessageViewAttributeName:@YES};
+    NSDictionary* attributes = nil;
+
     NSMutableAttributedString* composition = [[NSMutableAttributedString alloc] initWithString: @"" attributes: attributes];
     for (MBMime* node in message.childNodes) {
-        [composition appendAttributedString: [node asAttributedStringWithOptions: nil attributes: attributes]];
+        NSAttributedString* subComposition = [node asAttributedStringWithOptions: options attributes: attributes];
+        if (subComposition) {
+            [composition appendAttributedString: subComposition];
+        }
     }
     return [composition copy];
 }
@@ -227,8 +232,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return shouldSelect;
 }
 -(void) displayNode: (MBMime*) node {
-    MBMimeData* data = node.data;
-    NSString* messageText = [data encoded];
+    NSData* messageData = [node getDecodedData];
     
     id dataView;
     dataView = [NSTextView new];
@@ -240,17 +244,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [dataView setVerticallyResizable: YES];
     [dataView setString: @"Loading....."];
     
-    if (!messageText) {
+    if (!messageData) {
         [dataView setString: @"No Data"];
     } else {
         if ([node.subtype isEqualToString: @"HTML"]) {
-            NSData* html = [messageText dataUsingEncoding: NSASCIIStringEncoding];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithHTML: html documentAttributes: nil]];
+                [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithHTML: messageData documentAttributes: nil]];
             });
         } else if ([node.subtype isEqualToString: @"ENRICHED"]) {
-            NSData* enriched = [messageText dataUsingEncoding: NSASCIIStringEncoding];
-            [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithData: enriched options: nil documentAttributes: nil error: nil]];
+            [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithData: messageData options: nil documentAttributes: nil error: nil]];
         } else if ([node.type isEqualToString: @"APPLICATION"]) {
             if ([node.subtype isEqualToString: @"PDF"]) {
                 // Use PDF Kit
@@ -259,13 +261,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                 [pdfView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
                 [pdfView setFrame: NSMakeRect(0, 0, 900, 900)];
                 
-                NSData* pdfBinary = [[NSData alloc] initWithBase64Encoding: messageText];
-                PDFDocument* document = [[PDFDocument alloc] initWithData: pdfBinary];
+                PDFDocument* document = [[PDFDocument alloc] initWithData: messageData];
                 [pdfView setDocument: document];
                 dataView = pdfView;
             } else if ([node.subtype isEqualToString: @"MSWORD"]) {
-                NSData* wordBinary = [[NSData alloc] initWithBase64Encoding: messageText];
-                NSAttributedString* wordString = [[NSAttributedString alloc] initWithDocFormat: wordBinary documentAttributes: nil];
+                NSAttributedString* wordString = [[NSAttributedString alloc] initWithDocFormat: messageData documentAttributes: nil];
                 [[dataView textStorage] setAttributedString: wordString];
             }
         

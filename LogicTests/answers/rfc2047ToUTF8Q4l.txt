@@ -1,0 +1,6 @@
+To: communications@plone.org, 
+	"=?utf-8?Q?plone-developers=40lists._sourceforge._net_developers?="
+	<plone-developers@lists.sourceforge.net>, 
+	"=?utf-8?Q?plone-users=40lists.sourceforge.net_plone-users=40lists.sourceforge.net?="
+	<plone-users@lists.sourceforge.net>
+

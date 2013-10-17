@@ -10,5 +10,4 @@
 
 @implementation MBMimeData (IMAP)
 
-
 @end

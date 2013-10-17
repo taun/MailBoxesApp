@@ -18,8 +18,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 static NSRegularExpression *regexEncodingFields;
 static NSRegularExpression *regexQSpaces;
 
-static NSDictionary *charsetMap;
-
 
 @implementation MBMIME2047ValueTransformer
 
@@ -39,11 +37,6 @@ static NSDictionary *charsetMap;
         NSLog(@"Q Spaces Error: %@", error);
     }
     
-    charsetMap = @{@"US-ASCII": @(NSASCIIStringEncoding),
-                  @"UTF-8": @(NSUTF8StringEncoding),
-                  @"ISO-8859-1": @(NSISOLatin1StringEncoding),
-                  @"KOI8-R": @(NSWindowsCP1251StringEncoding),
-                  @"US-ASCII2": @(NSNonLossyASCIIStringEncoding)};
 }
 
 /*!
@@ -213,11 +206,17 @@ static NSDictionary *charsetMap;
                             // bad value skip
                         }
                         utf8Chars[++unicodeIndex] = 0; // null terminate
-                        [decodedMutableString appendString: @(utf8Chars)];
+                        NSString* newString = @(utf8Chars);
+                        if (newString) {
+                            [decodedMutableString appendString: newString];
+                        }
                     } else {
                         // not UTF-8 > 7F
                         utf8Chars[++unicodeIndex] = 0; // null terminate
-                        [decodedMutableString appendString: [NSString stringWithCString: utf8Chars encoding: encodingCharset]];
+                        NSString* newString = [NSString stringWithCString: utf8Chars encoding: encodingCharset];
+                        if (newString) {
+                            [decodedMutableString appendString: newString];
+                        }
                     }
                 } else {
                     // no valid code found
@@ -227,7 +226,9 @@ static NSDictionary *charsetMap;
                 }
             }
         } else {
-            [decodedMutableString appendString: currentCharacter];
+            if (currentCharacter) {
+                [decodedMutableString appendString: currentCharacter];
+            }
             [scanner setScanLocation: ++(scanner.scanLocation)];
         }
         
@@ -301,7 +302,10 @@ static NSDictionary *charsetMap;
             }
             
             NSRange encodedRange;
-            int encoding = [charsetMap[charsetString] intValue];
+            NSNumber* encodingNumber = [[MBMIMECharsetTransformer new] transformedValue: charsetString];
+            
+#pragma message "Need to handle charset not found"
+            int encoding = [encodingNumber intValue]; //TODO: handle charset not found.
             if ([tcr rangeAtIndex: bCodeRangeIndex].length != 0) {
                 // b encoded
                 encodedRange = [tcr rangeAtIndex: bCodeRangeIndex];
