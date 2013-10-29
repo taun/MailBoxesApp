@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="12F45" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <deployment version="1070" defaultVersion="1080" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -838,7 +838,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1057">
-                                        <rect key="frame" x="0.0" y="24.999999999999989" width="271" height="626"/>
+                                        <rect key="frame" x="0.0" y="25" width="271" height="626"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="kgZ-jh-3MW">
                                             <rect key="frame" x="1" y="1" width="269" height="624"/>
@@ -981,7 +981,7 @@
                                 <rect key="frame" x="273" y="0.0" width="751" height="651"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <splitView wantsLayer="YES" focusRingType="none" autosaveName="MainPaneSplitterAutosave" dividerStyle="thin" id="1080">
+                                    <splitView focusRingType="none" autosaveName="MainPaneSplitterAutosave" dividerStyle="thin" id="1080">
                                         <rect key="frame" x="0.0" y="0.0" width="751" height="651"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
@@ -1021,9 +1021,33 @@
                                                     </scrollView>
                                                 </subviews>
                                             </customView>
-                                            <customView wantsLayer="YES" focusRingType="none" id="1082" userLabel="Message View">
+                                            <customView focusRingType="none" id="1082" userLabel="Message View">
                                                 <rect key="frame" x="0.0" y="319" width="751" height="332"/>
                                                 <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="pFV-se-nab">
+                                                        <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                        <clipView key="contentView" id="Thy-zV-kUM">
+                                                            <rect key="frame" x="1" y="1" width="749" height="330"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <view id="2aS-tU-8HM">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="749" height="330"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                </view>
+                                                            </subviews>
+                                                        </clipView>
+                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="kkK-f0-y4d">
+                                                            <rect key="frame" x="-100" y="-100" width="749" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="vq3-BO-ibo">
+                                                            <rect key="frame" x="735" y="1" width="15" height="330"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                    </scrollView>
+                                                </subviews>
                                                 <animations>
                                                     <caTransition key="subviews">
                                                         <mutableData key="keyedArchiveRepresentation">
@@ -1181,7 +1205,7 @@ EQAaACMALQAyADcAQQBHAFAAVwBcAGQAeQB7AH0AfwCBAIkAkACVAKAAowClAKcAqQCxALYAwQDKANIA
                 <outlet property="accountSyncProgress" destination="1212" id="1213"/>
                 <outlet property="appWindow" destination="371" id="1403"/>
                 <outlet property="collectionView" destination="1128" id="1402"/>
-                <outlet property="inPaneMessageView" destination="1082" id="1423"/>
+                <outlet property="inPaneMessageView" destination="pFV-se-nab" id="LK4-Pi-KgS"/>
                 <outlet property="mainSplitViewDelegate" destination="854" id="858"/>
                 <outlet property="messagesSplitView" destination="1080" id="1406"/>
                 <outlet property="portalsArrayController" destination="1133" id="Ygp-fz-nuP"/>
