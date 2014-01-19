@@ -30,6 +30,9 @@
 #import "MBSidebarViewController.h"
 #import "MBAccountsCoordinator.h"
 #import "MBPortalViewController.h"
+#import "MBMessageHeaderView.h"
+#import "MBMessageView.h"
+#import "NSView+MBConstraintsDebug.h"
 
 #import <FScript/FScript.h>
 #import <QuartzCore/QuartzCore.h>
@@ -96,33 +99,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MailBoxesAppDelegate
 
-//@synthesize persistentStoreCoordinator;
-//@synthesize managedObjectModel;
-//@synthesize managedObjectContext;
-//
-//@synthesize nibManagedObjectContext;
-//
-//@synthesize appWindow;
-//@synthesize mainSplitViewDelegate;
-//@synthesize portalsACSortDescriptors;
-//@synthesize inPaneMessageView;
-//@synthesize accountsACSortDescriptors;
-//@synthesize selectedUserController;
-//@synthesize messageViewController;
-//@synthesize sidebarViewController;
-//
-//@synthesize currentUser;
-//
-//@synthesize preferencesWindow;
-//@synthesize accountSyncProgress;
-//@synthesize accountSyncButton;
-//@synthesize accountSyncCancelButton;
-//@synthesize portalsController;
-//@synthesize collectionView;
-//
-//@synthesize accountsCoordinator;
-//@synthesize syncQueue;
-
 #pragma mark - Startup
 ///@name Startup
 + (void)initialize {
@@ -130,7 +106,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     @{@"messageQuanta": @20,
         @"accountSplitWidth": @275.0f,
         @"isAccountCollapsed": @"NO",
-        @"selectedUser": @""};
+        @"selectedUser": @"",
+        @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints": @"YES"};
     
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
 
@@ -150,6 +127,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)awakeFromNib {
     
+//    NSClipView* clipView = [self.inPaneMessageView contentView];
+//    [clipView setTranslatesAutoresizingMaskIntoConstraints: NO];
+
     return;
 }
 
@@ -382,6 +362,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     // show "loading message...."
     // self.accountsCoordinator loadFullMessageID: ...
     // Should show body automatically when context is save on IMAPClient thread?
+    
+//    [self.inPaneMessageView.documentView setTranslatesAutoresizingMaskIntoConstraints: YES];
 
     if ([selectedMessage.isFullyCached boolValue] == NO ) {
         // need to load the body
@@ -392,58 +374,25 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         [self.accountsCoordinator loadFullMessageID: messageID forAccountID: accountID];
     }
     
-    [self.inPaneMessageView setWantsLayer: YES];
+    [self.viewedMessagesArrayController addObjects: @[selectedMessage]];
     
-    [NSAnimationContext beginGrouping];
-    //[[NSAnimationContext currentContext] setDuration: 1.25];
+    // Scroll to top of page
+//    NSPoint newScrollOrigin;
+//
+//    // assume that the scrollview is an existing variable
+//    if ([[self.inPaneMessageView documentView] isFlipped]) {
+//        newScrollOrigin=NSMakePoint(0.0,0.0);
+//
+//    } else {
+//        newScrollOrigin=NSMakePoint(0.0, NSMaxY([[self.inPaneMessageView documentView] frame])
+//                                    -NSHeight([[self.inPaneMessageView contentView] bounds]));
+//        
+//    }
+//
+//    [[self.inPaneMessageView documentView] scrollPoint:newScrollOrigin];
+   
     
-    CATransition* moveIn = [CATransition animation];
-    [moveIn setType: kCATransitionReveal];
-    [moveIn setSubtype: kCATransitionFromBottom];
-    
-//    CIFilter* pageCurl = [CIFilter filterWithName: @"CIPageCurlTransition"];
-//    [pageCurl setDefaults];
-//    
-//    [moveIn setFilter: pageCurl];
-
-     NSDictionary* dict = @{@"subviews": moveIn};
-     [[self inPaneMessageView] setAnimations: dict];
-
-    NSRect messageFrame = self.inPaneMessageView.frame;
-    NSSize newSize;
-    newSize.width = NSWidth(messageFrame);
-    newSize.height = NSHeight(messageFrame);
-    
-    
-    if (self.messageViewController == nil) {        
-
-        if (newSize.width < 500.0) {
-            //
-            newSize.width = 500.0;
-        }
-        if (newSize.height < 320.0) {
-            //
-            newSize.height = 320.0;
-        }
-        
-        [[self.inPaneMessageView animator]  setFrameSize: newSize];
-        //[self.inPaneMessageView display];
-        
-        self.messageViewController = [[MBMessageViewController alloc] initWithNibName: @"MBMessageView" bundle: nil];
-        [self.messageViewController.view setFrameSize: newSize];
-        [[self.inPaneMessageView animator] addSubview: self.messageViewController.view];
-         self.messageViewController.message = selectedMessage;
-     } else {
-         MBMessageViewController* oldController = self.messageViewController;
-         self.messageViewController = [[MBMessageViewController alloc] initWithNibName: @"MBMessageView" bundle: nil];
-         [self.messageViewController.view setFrameSize: newSize];
-         self.messageViewController.message = selectedMessage;
-         
-         [[[self inPaneMessageView] animator] replaceSubview: [oldController view] with: [self.messageViewController view]];
-         oldController = nil;
-     }
-    [NSAnimationContext endGrouping];
-    [self.inPaneMessageView setWantsLayer: NO];
+//    [self.appWindow visualizeConstraints: [self.messageViewController.messageHeader constraintsAffectingLayoutForOrientation: NSLayoutConstraintOrientationHorizontal]];
 }
 
 #pragma MBSidebarViewDelegate Protocol
@@ -740,5 +689,17 @@ are presented to the user.
 }
 
 - (IBAction)resetPortals:(id)sender {
+}
+
+- (IBAction)visualizeConstraints:(id)sender {
+    [self.appWindow visualizeConstraints: [self.self.messageViewController.view mbAllConstraints]];
+    
+    CGRect tvFrame = self.messageViewController.messageBodyView.frame;
+    CGSize tcSize = [[(NSTextView*)self.messageViewController.messageBodyView textContainer] containerSize];
+    NSLog(@"TextView Frame: %@; TextContainer Size: %@", NSStringFromRect(tvFrame), NSStringFromSize(tcSize));
+    
+    CGRect bodyContainerFrame = self.messageViewController.messageBodyViewContainer.frame;
+    CGRect messageFrame = self.messageViewController.messageBodyViewContainer.superview.frame;
+    NSLog(@"Body Frame: %@; Message Frame: %@", NSStringFromRect(bodyContainerFrame), NSStringFromRect(messageFrame));
 }
 @end

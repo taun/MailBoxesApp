@@ -12,6 +12,7 @@
 
 NSString* attachmentIconName = @"attach_48.png";
 
+
 @implementation MBMimeApplication (IMAP)
 
 -(void) decoder {
@@ -51,7 +52,7 @@ NSString* attachmentIconName = @"attach_48.png";
 -(NSAttributedString*) pdfAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;
     NSData* nsData = [self getDecodedData];
-
+    
     PDFDocument* document = [[PDFDocument alloc] initWithData: nsData];
 
     if ([self.isInline boolValue] == YES) {

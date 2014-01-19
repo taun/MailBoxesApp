@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="12F45" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13B3116" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1070" defaultVersion="1080" identifier="macosx"/>
+        <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
     </dependencies>
     <objects>
@@ -13,6 +13,528 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <userDefaultsController id="583"/>
+        <window title="MailBoxes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
+            <windowPositionMask key="initialPositionMask" topStrut="YES"/>
+            <rect key="contentRect" x="449" y="410" width="1024" height="687"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <value key="minSize" type="size" width="1024" height="687"/>
+            <view key="contentView" focusRingType="none" id="372">
+                <rect key="frame" x="0.0" y="0.0" width="1024" height="687"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="1505">
+                        <rect key="frame" x="0.0" y="651" width="1024" height="36"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <view key="contentView">
+                            <rect key="frame" x="0.0" y="0.0" width="1024" height="36"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button toolTip="Minimize the Accounts listing" id="852" userLabel="Collapse Square Button">
+                                    <rect key="frame" x="260" y="8" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoLeftTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSGoRightTemplate" imageScaling="proportionallyDown" inset="2" id="853">
+                                        <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <accessibility description="Minimize or restore account listing"/>
+                                    <connections>
+                                        <action selector="toggleAccountView:" target="854" id="861"/>
+                                    </connections>
+                                </button>
+                                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="1212">
+                                    <rect key="frame" x="293" y="10" width="16" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </progressIndicator>
+                                <button toolTip="Synchronize accounts" id="1077" userLabel="Load Accounts Button">
+                                    <rect key="frame" x="108" y="8" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1078">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <accessibility description="Synchronize accounts"/>
+                                    <connections>
+                                        <action selector="loadAllAccountFolders:" target="494" id="1085"/>
+                                    </connections>
+                                </button>
+                                <button hidden="YES" toolTip="Synchronize accounts" id="1273" userLabel="Cancel Load Accounts Button">
+                                    <rect key="frame" x="108" y="8" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStopProgressTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1274">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <accessibility description="Synchronize accounts"/>
+                                    <connections>
+                                        <action selector="cancelLoadAllAccountFolders:" target="494" id="1280"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Open a portal editor" id="1103">
+                                    <rect key="frame" x="964" y="8" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1104">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <accessibility description="Open Portal Editor"/>
+                                    <connections>
+                                        <action selector="add:" target="1388" id="1392"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" name="windowFrameColor" catalog="System" colorSpace="catalog"/>
+                    </box>
+                    <splitView focusRingType="none" autosaveName="SidePaneSplitterAutosave" dividerStyle="thin" vertical="YES" id="838">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="651"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView focusRingType="none" id="839" userLabel="Accounts View">
+                                <rect key="frame" x="0.0" y="0.0" width="272" height="651"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1057">
+                                        <rect key="frame" x="0.0" y="25" width="271" height="626"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                        <clipView key="contentView" id="kgZ-jh-3MW">
+                                            <rect key="frame" x="1" y="1" width="269" height="624"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" typeSelect="NO" autosaveName="AccountSidebarView" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="14" outlineTableColumn="1062" id="1061" customClass="MBSidebarView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="269" height="624"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <size key="intercellSpacing" width="3" height="0.0"/>
+                                                    <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                                    <tableColumns>
+                                                        <tableColumn identifier="Name" editable="NO" width="266" minWidth="16" maxWidth="1000" id="1062" userLabel="Table Column - Mail Boxes">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Mail Boxes">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" continuous="YES" allowsUndo="NO" alignment="left" title="Text Cell" usesSingleLineMode="YES" id="1065">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <prototypeCellViews>
+                                                                <tableCellView identifier="HeaderCell" id="1413" userLabel="HeaderCell">
+                                                                    <rect key="frame" x="1" y="0.0" width="266" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" id="1414">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="266" height="17"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" continuous="YES" sendsActionOnEndEditing="YES" title="Header View" id="1415">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <connections>
+                                                                        <outlet property="textField" destination="1414" id="1416"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                                <tableCellView identifier="MainCell" id="1463" userLabel="MainCell" customClass="MBSidebarTableCellView">
+                                                                    <rect key="frame" x="1" y="17" width="266" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                    <subviews>
+                                                                        <imageView id="1464">
+                                                                            <rect key="frame" x="3" y="0.0" width="17" height="17"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="1467"/>
+                                                                        </imageView>
+                                                                        <textField verticalHuggingPriority="750" id="1465">
+                                                                            <rect key="frame" x="25" y="0.0" width="241" height="17"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="node view" id="1466">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <button verticalHuggingPriority="750" id="1470">
+                                                                            <rect key="frame" x="136" y="0.0" width="122" height="19"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                            <buttonCell key="cell" type="roundRect" title="Unread" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1471">
+                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <font key="font" metaFont="cellTitle"/>
+                                                                            </buttonCell>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <connections>
+                                                                        <outlet property="button" destination="1470" id="1472"/>
+                                                                        <outlet property="imageView" destination="1464" id="1468"/>
+                                                                        <outlet property="textField" destination="1465" id="1469"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                            </prototypeCellViews>
+                                                        </tableColumn>
+                                                    </tableColumns>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="1529" id="1530"/>
+                                                        <outlet property="delegate" destination="1529" id="1531"/>
+                                                        <outlet property="menu" destination="1451" id="1543"/>
+                                                    </connections>
+                                                </outlineView>
+                                            </subviews>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </clipView>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1060">
+                                            <rect key="frame" x="1" y="609.00001275539398" width="268.99999904632568" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="1058">
+                                            <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <accessibility description="Accounts listings"/>
+                                    </scrollView>
+                                    <popUpButton toolTip="Pop up a menu to add an account or folder" id="1569" userLabel="Sidebar Add Menu">
+                                        <rect key="frame" x="6" y="3" width="61" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" id="1570">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <menu key="menu" title="Add Item" id="1571">
+                                                <items>
+                                                    <menuItem state="on" image="NSAddTemplate" hidden="YES" id="1572">
+                                                        <accessibility description="Placeholder"/>
+                                                    </menuItem>
+                                                    <menuItem title="Add Account" id="1573">
+                                                        <connections>
+                                                            <action selector="addAccount:" target="1529" id="1586"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Add Favorite" id="1600">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="addFavorite:" target="1529" id="1601"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Add List" id="1574">
+                                                        <connections>
+                                                            <action selector="addList:" target="1529" id="1602"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Add SmartFolder" id="1599">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="addSmartFolder:" target="1529" id="1603"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
+                                        <accessibility description="Popup a menu to add an account or folder"/>
+                                    </popUpButton>
+                                </subviews>
+                            </customView>
+                            <customView focusRingType="none" id="840" userLabel="Messages View">
+                                <rect key="frame" x="273" y="0.0" width="751" height="651"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <splitView focusRingType="none" autosaveName="MainPaneSplitterAutosave" dividerStyle="thin" id="1080">
+                                        <rect key="frame" x="0.0" y="0.0" width="751" height="651"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <customView focusRingType="none" id="1081" userLabel="Portals View">
+                                                <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1125">
+                                                        <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                        <clipView key="contentView" copiesOnScroll="NO" id="Wgf-b4-naE">
+                                                            <rect key="frame" x="1" y="1" width="749" height="316"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <collectionView focusRingType="none" selectable="YES" maxNumberOfColumns="6" id="1128" userLabel="Collection View" customClass="MBCollectionView">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="749" height="316"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    <connections>
+                                                                        <binding destination="1133" name="content" keyPath="arrangedObjects" id="1144"/>
+                                                                        <binding destination="1133" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="1144" id="1224"/>
+                                                                        <outlet property="itemPrototype" destination="1271" id="1272"/>
+                                                                    </connections>
+                                                                </collectionView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                                        </clipView>
+                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1127">
+                                                            <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="1126">
+                                                            <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                    </scrollView>
+                                                </subviews>
+                                            </customView>
+                                            <customView focusRingType="none" id="1082" userLabel="Message View">
+                                                <rect key="frame" x="0.0" y="319" width="751" height="332"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="4nl-lT-u52">
+                                                        <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <clipView key="contentView" wantsLayer="YES" id="15f-SP-Ip9">
+                                                            <rect key="frame" x="1" y="1" width="749" height="330"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <collectionView selectable="YES" allowsMultipleSelection="YES" maxNumberOfColumns="1" id="FVd-10-TQj">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="749" height="330"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <animations>
+                                                                        <caTransition key="subviews">
+                                                                            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGKitYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKsHCBMU
+FRYdHgsfJVUkbnVsbNUJCgsMDQ4PEBESViRjbGFzc1tlbmRQcm9ncmVzc1R0eXBlV3N1YnR5cGVfEBJf
+X0NBQ29kaW5nQ29udGVudHOACoACgASAA4AFIj+AAABXZnJvbVRvcFZtb3ZlSW7SFwkYHFpOUy5vYmpl
+Y3RzoxkaG4AGgAeACIAJW2VuZFByb2dyZXNzV3N1YnR5cGXSICEiI1okY2xhc3NuYW1lWCRjbGFzc2Vz
+V05TQXJyYXmiIiRYTlNPYmplY3TSICEmJ1xDQVRyYW5zaXRpb26jKCkkXENBVHJhbnNpdGlvbltDQUFu
+aW1hdGlvbl8QD05TS2V5ZWRBcmNoaXZlctEsLVRyb290gAEACAARABoAIwAtADIANwBDAEkAVABbAGcA
+bAB0AIkAiwCNAI8AkQCTAJgAoACnAKwAtwC7AL0AvwDBAMMAzwDXANwA5wDwAPgA+wEEAQkBFgEaAScB
+MwFFAUgBTQAAAAAAAAIBAAAAAAAAAC4AAAAAAAAAAAAAAAAAAAFPA
+</mutableData>
+                                                                        </caTransition>
+                                                                    </animations>
+                                                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    <connections>
+                                                                        <binding destination="CbG-mD-A5W" name="content" keyPath="arrangedObjects" id="lfz-86-hSn"/>
+                                                                        <binding destination="CbG-mD-A5W" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="lfz-86-hSn" id="Zjm-gW-ARz"/>
+                                                                        <outlet property="itemPrototype" destination="ram-oA-swT" id="HJu-R4-5yy"/>
+                                                                    </connections>
+                                                                </collectionView>
+                                                            </subviews>
+                                                        </clipView>
+                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="pFN-S1-7Nu">
+                                                            <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="JIr-dd-yCH">
+                                                            <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                    </scrollView>
+                                                </subviews>
+                                                <animations/>
+                                                <accessibility description="Selected messages"/>
+                                            </customView>
+                                        </subviews>
+                                        <holdingPriorities>
+                                            <real value="250"/>
+                                            <real value="250"/>
+                                        </holdingPriorities>
+                                    </splitView>
+                                </subviews>
+                            </customView>
+                        </subviews>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                        <connections>
+                            <outlet property="delegate" destination="854" id="857"/>
+                        </connections>
+                    </splitView>
+                </subviews>
+                <accessibility description="View of accounts, subject lines and selected message."/>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="E356A4FE-476A-4FD5-A341-8A52EF556796" displayMode="iconAndLabel" sizeMode="regular" id="841">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="842"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="843"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="845"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="846"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="847"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="844"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarCustomizeToolbarItem" id="848"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="842"/>
+                    <toolbarItem reference="843"/>
+                    <toolbarItem reference="845"/>
+                    <toolbarItem reference="846"/>
+                    <toolbarItem reference="847"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <connections>
+                <outlet property="delegate" destination="-2" id="595"/>
+            </connections>
+        </window>
+        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="823">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <rect key="contentRect" x="235" y="289" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <view key="contentView" id="824">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" id="825">
+                        <rect key="frame" x="141" y="236" width="112" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Message Quanta:" id="826">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="827">
+                        <rect key="frame" x="258" y="233" width="202" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="828">
+                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#0.###" negativeFormat="#0.###" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="0" maximumFractionDigits="3" id="829">
+                                <real key="roundingIncrement" value="0.0"/>
+                                <real key="minimum" value="20"/>
+                                <real key="maximum" value="200"/>
+                                <metadata>
+                                    <bool key="localizesFormat" value="YES"/>
+                                </metadata>
+                            </numberFormatter>
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <binding destination="583" name="value" keyPath="values.messageQuanta" id="836">
+                                <dictionary key="options">
+                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                    <bool key="NSValidatesImmediately" value="YES"/>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="869">
+                        <rect key="frame" x="153" y="211" width="100" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Acounts Width:" id="870">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="871">
+                        <rect key="frame" x="258" y="206" width="202" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="872">
+                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#0.###" negativeFormat="#0.###" numberStyle="decimal" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="0" maximumFractionDigits="3" id="873">
+                                <real key="roundingIncrement" value="0.0"/>
+                                <real key="minimum" value="0.0"/>
+                                <real key="maximum" value="300"/>
+                                <metadata>
+                                    <bool key="localizesFormat" value="YES"/>
+                                </metadata>
+                            </numberFormatter>
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <binding destination="583" name="value" keyPath="values.accountSplitWidth" id="878">
+                                <dictionary key="options">
+                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </textField>
+                    <button id="879">
+                        <rect key="frame" x="256" y="170" width="90" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Collapsed?" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="880">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="583" name="value" keyPath="values.isAccountCollapsed" id="883"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="494" id="868"/>
+            </connections>
+        </window>
+        <customObject id="420" customClass="NSFontManager"/>
+        <customObject id="494" customClass="MailBoxesAppDelegate">
+            <connections>
+                <outlet property="accountSyncButton" destination="1077" id="1214"/>
+                <outlet property="accountSyncCancelButton" destination="1273" id="1279"/>
+                <outlet property="accountSyncProgress" destination="1212" id="1213"/>
+                <outlet property="appWindow" destination="371" id="1403"/>
+                <outlet property="collectionView" destination="1128" id="1402"/>
+                <outlet property="inPaneMessageView" destination="FVd-10-TQj" id="r5a-qf-lGC"/>
+                <outlet property="mainSplitViewDelegate" destination="854" id="858"/>
+                <outlet property="messagesSplitView" destination="1080" id="1406"/>
+                <outlet property="portalsArrayController" destination="1133" id="Ygp-fz-nuP"/>
+                <outlet property="preferencesWindow" destination="823" id="837"/>
+                <outlet property="selectedUserController" destination="1020" id="1046"/>
+                <outlet property="sidebarViewController" destination="1529" id="1535"/>
+                <outlet property="viewedMessagesArrayController" destination="CbG-mD-A5W" id="Qjf-Zm-Ue6"/>
+            </connections>
+        </customObject>
+        <customObject id="854" customClass="MainSplitViewDelegate">
+            <connections>
+                <outlet property="accountView" destination="839" id="860"/>
+                <outlet property="collapseButton" destination="852" id="1460"/>
+                <outlet property="rightView" destination="840" id="856"/>
+            </connections>
+        </customObject>
+        <customObject id="1529" customClass="MBSidebarViewController">
+            <connections>
+                <outlet property="delegate" destination="494" id="1541"/>
+                <outlet property="editAccountSheet" destination="1393" id="1578"/>
+                <outlet property="menuSidebarAccountGroup" destination="1473" id="1566"/>
+                <outlet property="menuSidebarAccountNode" destination="1478" id="1565"/>
+                <outlet property="menuSidebarFavoriteGroup" destination="1554" id="1568"/>
+                <outlet property="menuSidebarGroup" destination="1473" id="1533"/>
+                <outlet property="menuSidebarMailBoxNode" destination="1544" id="1567"/>
+                <outlet property="menuSidebarNode" destination="1478" id="1532"/>
+                <outlet property="sidebarOutlineView" destination="1061" id="1534"/>
+                <outlet property="userController" destination="1020" id="1537"/>
+                <outlet property="view" destination="1061" id="1536"/>
+            </connections>
+        </customObject>
+        <objectController mode="entity" entityName="MBUser" editable="NO" automaticallyPreparesContent="YES" id="1020" userLabel="Selected User Controller">
+            <connections>
+                <binding destination="494" name="contentObject" keyPath="currentUser" id="1196"/>
+                <binding destination="494" name="managedObjectContext" keyPath="nibManagedObjectContext" id="1379"/>
+            </connections>
+        </objectController>
+        <arrayController mode="entity" entityName="MBPortal" usesLazyFetching="YES" editable="NO" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="1133" userLabel="Portals Array Controller">
+            <connections>
+                <binding destination="494" name="managedObjectContext" keyPath="nibManagedObjectContext" id="1381"/>
+                <binding destination="494" name="sortDescriptors" keyPath="portalsACSortDescriptors" id="1194"/>
+                <binding destination="1020" name="contentSet" keyPath="selection.self.portals" id="1486">
+                    <dictionary key="options">
+                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                    </dictionary>
+                </binding>
+            </connections>
+        </arrayController>
+        <collectionViewItem nibName="MBVPortal" id="1271" userLabel="Collection View Item - MBVPortal" customClass="MBPortalViewController"/>
+        <customObject id="1388" userLabel="EditPortalSheet" customClass="MBPPEWindowController">
+            <connections>
+                <outlet property="appSelectedUserObjectController" destination="1020" id="1397"/>
+                <outlet property="appWindow" destination="371" id="1389"/>
+                <outlet property="portalsArrayController" destination="1133" id="O1k-h3-t6M"/>
+            </connections>
+        </customObject>
+        <customObject id="1393" userLabel="EditAccountSheet" customClass="MBAccountWindowController">
+            <connections>
+                <outlet property="appSelectedUserObjectController" destination="1020" id="1398"/>
+                <outlet property="appWindow" destination="371" id="1394"/>
+            </connections>
+        </customObject>
+        <arrayController id="CbG-mD-A5W" userLabel="ViewedMessages Array Controller"/>
+        <collectionViewItem nibName="MBMessageViewController" id="ram-oA-swT" customClass="MBMessageViewController"/>
         <menu title="AMainMenu" systemMenu="main" id="29">
             <items>
                 <menuItem title="MailBoxes" id="56">
@@ -732,6 +1254,12 @@
                                     <action selector="resetPortals:" target="494" id="V1f-Xr-kcA"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Constraints" id="ggO-hW-Jdl">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="visualizeConstraints:" target="494" id="sc2-hp-Uxb"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -755,518 +1283,6 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="MailBoxes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
-            <windowPositionMask key="initialPositionMask" topStrut="YES"/>
-            <rect key="contentRect" x="449" y="410" width="1024" height="687"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
-            <value key="minSize" type="size" width="1024" height="687"/>
-            <view key="contentView" focusRingType="none" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="1024" height="687"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="1505">
-                        <rect key="frame" x="0.0" y="651" width="1024" height="36"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
-                            <rect key="frame" x="0.0" y="0.0" width="1024" height="36"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button toolTip="Minimize the Accounts listing" id="852" userLabel="Collapse Square Button">
-                                    <rect key="frame" x="260" y="8" width="20" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoLeftTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSGoRightTemplate" imageScaling="proportionallyDown" inset="2" id="853">
-                                        <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <accessibility description="Minimize or restore account listing"/>
-                                    <connections>
-                                        <action selector="toggleAccountView:" target="854" id="861"/>
-                                    </connections>
-                                </button>
-                                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="1212">
-                                    <rect key="frame" x="293" y="10" width="16" height="16"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </progressIndicator>
-                                <button toolTip="Synchronize accounts" id="1077" userLabel="Load Accounts Button">
-                                    <rect key="frame" x="108" y="8" width="20" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1078">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <accessibility description="Synchronize accounts"/>
-                                    <connections>
-                                        <action selector="loadAllAccountFolders:" target="494" id="1085"/>
-                                    </connections>
-                                </button>
-                                <button hidden="YES" toolTip="Synchronize accounts" id="1273" userLabel="Cancel Load Accounts Button">
-                                    <rect key="frame" x="108" y="8" width="20" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStopProgressTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1274">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <accessibility description="Synchronize accounts"/>
-                                    <connections>
-                                        <action selector="cancelLoadAllAccountFolders:" target="494" id="1280"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Open a portal editor" id="1103">
-                                    <rect key="frame" x="964" y="8" width="20" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1104">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <accessibility description="Open Portal Editor"/>
-                                    <connections>
-                                        <action selector="add:" target="1388" id="1392"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" name="windowFrameColor" catalog="System" colorSpace="catalog"/>
-                    </box>
-                    <splitView focusRingType="none" autosaveName="SidePaneSplitterAutosave" dividerStyle="thin" vertical="YES" id="838">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="651"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                        <subviews>
-                            <customView focusRingType="none" id="839" userLabel="Accounts View">
-                                <rect key="frame" x="0.0" y="0.0" width="272" height="651"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1057">
-                                        <rect key="frame" x="0.0" y="25" width="271" height="626"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                        <clipView key="contentView" id="kgZ-jh-3MW">
-                                            <rect key="frame" x="1" y="1" width="269" height="624"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" typeSelect="NO" autosaveName="AccountSidebarView" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="14" outlineTableColumn="1062" id="1061" customClass="MBSidebarView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="269" height="624"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <size key="intercellSpacing" width="3" height="0.0"/>
-                                                    <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                    <tableColumns>
-                                                        <tableColumn identifier="Name" editable="NO" width="266" minWidth="16" maxWidth="1000" id="1062" userLabel="Table Column - Mail Boxes">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Mail Boxes">
-                                                                <font key="font" metaFont="smallSystem"/>
-                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" continuous="YES" allowsUndo="NO" alignment="left" title="Text Cell" usesSingleLineMode="YES" id="1065">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                            <prototypeCellViews>
-                                                                <tableCellView identifier="HeaderCell" id="1413" userLabel="HeaderCell">
-                                                                    <rect key="frame" x="1" y="0.0" width="266" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                    <subviews>
-                                                                        <textField verticalHuggingPriority="750" id="1414">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="266" height="17"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" continuous="YES" sendsActionOnEndEditing="YES" title="Header View" id="1415">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
-                                                                    </subviews>
-                                                                    <connections>
-                                                                        <outlet property="textField" destination="1414" id="1416"/>
-                                                                    </connections>
-                                                                </tableCellView>
-                                                                <tableCellView identifier="MainCell" id="1463" userLabel="MainCell" customClass="MBSidebarTableCellView">
-                                                                    <rect key="frame" x="1" y="17" width="266" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                    <subviews>
-                                                                        <imageView id="1464">
-                                                                            <rect key="frame" x="3" y="0.0" width="17" height="17"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="1467"/>
-                                                                        </imageView>
-                                                                        <textField verticalHuggingPriority="750" id="1465">
-                                                                            <rect key="frame" x="25" y="0.0" width="241" height="17"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="node view" id="1466">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
-                                                                        <button verticalHuggingPriority="750" id="1470">
-                                                                            <rect key="frame" x="136" y="0.0" width="122" height="19"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                            <buttonCell key="cell" type="roundRect" title="Unread" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1471">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="cellTitle"/>
-                                                                            </buttonCell>
-                                                                        </button>
-                                                                    </subviews>
-                                                                    <connections>
-                                                                        <outlet property="button" destination="1470" id="1472"/>
-                                                                        <outlet property="imageView" destination="1464" id="1468"/>
-                                                                        <outlet property="textField" destination="1465" id="1469"/>
-                                                                    </connections>
-                                                                </tableCellView>
-                                                            </prototypeCellViews>
-                                                        </tableColumn>
-                                                    </tableColumns>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="1529" id="1530"/>
-                                                        <outlet property="delegate" destination="1529" id="1531"/>
-                                                        <outlet property="menu" destination="1451" id="1543"/>
-                                                    </connections>
-                                                </outlineView>
-                                            </subviews>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1060">
-                                            <rect key="frame" x="1" y="710" width="270" height="15"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="1058">
-                                            <rect key="frame" x="256" y="17" width="15" height="693"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </scroller>
-                                        <accessibility description="Accounts listings"/>
-                                    </scrollView>
-                                    <popUpButton toolTip="Pop up a menu to add an account or folder" id="1569" userLabel="Sidebar Add Menu">
-                                        <rect key="frame" x="6" y="3" width="61" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" id="1570">
-                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <menu key="menu" title="Add Item" id="1571">
-                                                <items>
-                                                    <menuItem state="on" image="NSAddTemplate" hidden="YES" id="1572">
-                                                        <accessibility description="Placeholder"/>
-                                                    </menuItem>
-                                                    <menuItem title="Add Account" id="1573">
-                                                        <connections>
-                                                            <action selector="addAccount:" target="1529" id="1586"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Add Favorite" id="1600">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="addFavorite:" target="1529" id="1601"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Add List" id="1574">
-                                                        <connections>
-                                                            <action selector="addList:" target="1529" id="1602"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Add SmartFolder" id="1599">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="addSmartFolder:" target="1529" id="1603"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </popUpButtonCell>
-                                        <accessibility description="Popup a menu to add an account or folder"/>
-                                    </popUpButton>
-                                </subviews>
-                            </customView>
-                            <customView focusRingType="none" id="840" userLabel="Messages View">
-                                <rect key="frame" x="273" y="0.0" width="751" height="651"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <splitView focusRingType="none" autosaveName="MainPaneSplitterAutosave" dividerStyle="thin" id="1080">
-                                        <rect key="frame" x="0.0" y="0.0" width="751" height="651"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <customView focusRingType="none" id="1081" userLabel="Portals View">
-                                                <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <subviews>
-                                                    <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1125">
-                                                        <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                                        <clipView key="contentView" copiesOnScroll="NO" id="Wgf-b4-naE">
-                                                            <rect key="frame" x="1" y="1" width="749" height="316"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                            <subviews>
-                                                                <collectionView focusRingType="none" selectable="YES" maxNumberOfColumns="6" id="1128" userLabel="Collection View" customClass="MBCollectionView">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="749" height="316"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                    <connections>
-                                                                        <binding destination="1133" name="content" keyPath="arrangedObjects" id="1144"/>
-                                                                        <binding destination="1133" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="1144" id="1224"/>
-                                                                        <outlet property="delegate" destination="494" id="1222"/>
-                                                                        <outlet property="itemPrototype" destination="1271" id="1272"/>
-                                                                    </connections>
-                                                                </collectionView>
-                                                            </subviews>
-                                                            <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                                                        </clipView>
-                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1127">
-                                                            <rect key="frame" x="1" y="144" width="233" height="15"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                        </scroller>
-                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="1126">
-                                                            <rect key="frame" x="234" y="1" width="15" height="143"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                        </scroller>
-                                                    </scrollView>
-                                                </subviews>
-                                            </customView>
-                                            <customView focusRingType="none" id="1082" userLabel="Message View">
-                                                <rect key="frame" x="0.0" y="319" width="751" height="332"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <subviews>
-                                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="pFV-se-nab">
-                                                        <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                                        <clipView key="contentView" id="Thy-zV-kUM">
-                                                            <rect key="frame" x="1" y="1" width="749" height="330"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                            <subviews>
-                                                                <view id="2aS-tU-8HM">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="749" height="330"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                </view>
-                                                            </subviews>
-                                                        </clipView>
-                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="kkK-f0-y4d">
-                                                            <rect key="frame" x="-100" y="-100" width="749" height="16"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                        </scroller>
-                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="vq3-BO-ibo">
-                                                            <rect key="frame" x="735" y="1" width="15" height="330"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                        </scroller>
-                                                    </scrollView>
-                                                </subviews>
-                                                <animations>
-                                                    <caTransition key="subviews">
-                                                        <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGJSZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKkHCBES
-ExkKGiBVJG51bGzUCQoLDA0ODxBWJGNsYXNzVHR5cGVXc3VidHlwZV8QEl9fQ0FDb2RpbmdDb250ZW50
-c4AIgAOAAoAEV2Zyb21Ub3BWbW92ZUlu0hQJFRhaTlMub2JqZWN0c6IWF4AFgAaAB1dzdWJ0eXBl0hsc
-HR5aJGNsYXNzbmFtZVgkY2xhc3Nlc1dOU0FycmF5oh0fWE5TT2JqZWN00hscISJcQ0FUcmFuc2l0aW9u
-oyMkH1xDQVRyYW5zaXRpb25bQ0FBbmltYXRpb25fEA9OU0tleWVkQXJjaGl2ZXLRJyhUcm9vdIABAAgA
-EQAaACMALQAyADcAQQBHAFAAVwBcAGQAeQB7AH0AfwCBAIkAkACVAKAAowClAKcAqQCxALYAwQDKANIA
-1QDeAOMA8AD0AQEBDQEfASIBJwAAAAAAAAIBAAAAAAAAACkAAAAAAAAAAAAAAAAAAAEpA
-</mutableData>
-                                                    </caTransition>
-                                                </animations>
-                                                <accessibility description="Selected messages"/>
-                                            </customView>
-                                        </subviews>
-                                        <holdingPriorities>
-                                            <real value="250"/>
-                                            <real value="250"/>
-                                        </holdingPriorities>
-                                    </splitView>
-                                </subviews>
-                            </customView>
-                        </subviews>
-                        <holdingPriorities>
-                            <real value="250"/>
-                            <real value="250"/>
-                        </holdingPriorities>
-                        <connections>
-                            <outlet property="delegate" destination="854" id="857"/>
-                        </connections>
-                    </splitView>
-                </subviews>
-                <accessibility description="View of accounts, subject lines and selected message."/>
-            </view>
-            <toolbar key="toolbar" implicitIdentifier="E356A4FE-476A-4FD5-A341-8A52EF556796" displayMode="iconAndLabel" sizeMode="regular" id="841">
-                <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="842"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="843"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="845"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="846"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="847"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="844"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarCustomizeToolbarItem" id="848"/>
-                </allowedToolbarItems>
-                <defaultToolbarItems>
-                    <toolbarItem reference="842"/>
-                    <toolbarItem reference="843"/>
-                    <toolbarItem reference="845"/>
-                    <toolbarItem reference="846"/>
-                    <toolbarItem reference="847"/>
-                </defaultToolbarItems>
-            </toolbar>
-            <connections>
-                <outlet property="delegate" destination="-2" id="595"/>
-            </connections>
-        </window>
-        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="823">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
-            <rect key="contentRect" x="235" y="289" width="480" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
-            <view key="contentView" id="824">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <textField verticalHuggingPriority="750" id="825">
-                        <rect key="frame" x="141" y="236" width="112" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Message Quanta:" id="826">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" id="827">
-                        <rect key="frame" x="258" y="233" width="202" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="828">
-                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#0.###" negativeFormat="#0.###" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="0" maximumFractionDigits="3" id="829">
-                                <real key="roundingIncrement" value="0.0"/>
-                                <real key="minimum" value="20"/>
-                                <real key="maximum" value="200"/>
-                                <metadata>
-                                    <bool key="localizesFormat" value="YES"/>
-                                </metadata>
-                            </numberFormatter>
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <binding destination="583" name="value" keyPath="values.messageQuanta" id="836">
-                                <dictionary key="options">
-                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                    <bool key="NSValidatesImmediately" value="YES"/>
-                                </dictionary>
-                            </binding>
-                        </connections>
-                    </textField>
-                    <textField verticalHuggingPriority="750" id="869">
-                        <rect key="frame" x="153" y="211" width="100" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Acounts Width:" id="870">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" id="871">
-                        <rect key="frame" x="258" y="206" width="202" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="872">
-                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#0.###" negativeFormat="#0.###" numberStyle="decimal" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="0" maximumFractionDigits="3" id="873">
-                                <real key="roundingIncrement" value="0.0"/>
-                                <real key="minimum" value="0.0"/>
-                                <real key="maximum" value="300"/>
-                                <metadata>
-                                    <bool key="localizesFormat" value="YES"/>
-                                </metadata>
-                            </numberFormatter>
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <binding destination="583" name="value" keyPath="values.accountSplitWidth" id="878">
-                                <dictionary key="options">
-                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                </dictionary>
-                            </binding>
-                        </connections>
-                    </textField>
-                    <button id="879">
-                        <rect key="frame" x="256" y="170" width="90" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Collapsed?" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="880">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <binding destination="583" name="value" keyPath="values.isAccountCollapsed" id="883"/>
-                        </connections>
-                    </button>
-                </subviews>
-            </view>
-            <connections>
-                <outlet property="delegate" destination="494" id="868"/>
-            </connections>
-        </window>
-        <customObject id="420" customClass="NSFontManager"/>
-        <customObject id="494" customClass="MailBoxesAppDelegate">
-            <connections>
-                <outlet property="accountSyncButton" destination="1077" id="1214"/>
-                <outlet property="accountSyncCancelButton" destination="1273" id="1279"/>
-                <outlet property="accountSyncProgress" destination="1212" id="1213"/>
-                <outlet property="appWindow" destination="371" id="1403"/>
-                <outlet property="collectionView" destination="1128" id="1402"/>
-                <outlet property="inPaneMessageView" destination="pFV-se-nab" id="LK4-Pi-KgS"/>
-                <outlet property="mainSplitViewDelegate" destination="854" id="858"/>
-                <outlet property="messagesSplitView" destination="1080" id="1406"/>
-                <outlet property="portalsArrayController" destination="1133" id="Ygp-fz-nuP"/>
-                <outlet property="preferencesWindow" destination="823" id="837"/>
-                <outlet property="selectedUserController" destination="1020" id="1046"/>
-                <outlet property="sidebarViewController" destination="1529" id="1535"/>
-            </connections>
-        </customObject>
-        <customObject id="854" customClass="MainSplitViewDelegate">
-            <connections>
-                <outlet property="accountView" destination="839" id="860"/>
-                <outlet property="collapseButton" destination="852" id="1460"/>
-                <outlet property="rightView" destination="840" id="856"/>
-            </connections>
-        </customObject>
-        <customObject id="1529" customClass="MBSidebarViewController">
-            <connections>
-                <outlet property="delegate" destination="494" id="1541"/>
-                <outlet property="editAccountSheet" destination="1393" id="1578"/>
-                <outlet property="menuSidebarAccountGroup" destination="1473" id="1566"/>
-                <outlet property="menuSidebarAccountNode" destination="1478" id="1565"/>
-                <outlet property="menuSidebarFavoriteGroup" destination="1554" id="1568"/>
-                <outlet property="menuSidebarGroup" destination="1473" id="1533"/>
-                <outlet property="menuSidebarMailBoxNode" destination="1544" id="1567"/>
-                <outlet property="menuSidebarNode" destination="1478" id="1532"/>
-                <outlet property="sidebarOutlineView" destination="1061" id="1534"/>
-                <outlet property="userController" destination="1020" id="1537"/>
-                <outlet property="view" destination="1061" id="1536"/>
-            </connections>
-        </customObject>
-        <objectController mode="entity" entityName="MBUser" editable="NO" automaticallyPreparesContent="YES" id="1020" userLabel="Selected User Controller">
-            <connections>
-                <binding destination="494" name="contentObject" keyPath="currentUser" id="1196"/>
-                <binding destination="494" name="managedObjectContext" keyPath="nibManagedObjectContext" id="1379"/>
-            </connections>
-        </objectController>
-        <arrayController mode="entity" entityName="MBPortal" usesLazyFetching="YES" editable="NO" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="1133" userLabel="Portals Array Controller">
-            <connections>
-                <binding destination="494" name="managedObjectContext" keyPath="nibManagedObjectContext" id="1381"/>
-                <binding destination="494" name="sortDescriptors" keyPath="portalsACSortDescriptors" id="1194"/>
-                <binding destination="1020" name="contentSet" keyPath="selection.self.portals" id="1486">
-                    <dictionary key="options">
-                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                    </dictionary>
-                </binding>
-            </connections>
-        </arrayController>
-        <collectionViewItem nibName="MBVPortal" id="1271" userLabel="Collection View Item - MBVPortal" customClass="MBPortalViewController"/>
-        <customObject id="1388" userLabel="EditPortalSheet" customClass="MBPPEWindowController">
-            <connections>
-                <outlet property="appSelectedUserObjectController" destination="1020" id="1397"/>
-                <outlet property="appWindow" destination="371" id="1389"/>
-                <outlet property="portalsArrayController" destination="1133" id="O1k-h3-t6M"/>
-            </connections>
-        </customObject>
-        <customObject id="1393" userLabel="EditAccountSheet" customClass="MBAccountWindowController">
-            <connections>
-                <outlet property="appSelectedUserObjectController" destination="1020" id="1398"/>
-                <outlet property="appWindow" destination="371" id="1394"/>
-            </connections>
-        </customObject>
         <menu title="SidebarAccountNode" id="1478">
             <items>
                 <menuItem title="Refresh Mail" id="1455">
@@ -1352,9 +1368,31 @@ EQAaACMALQAyADcAQQBHAFAAVwBcAGQAeQB7AH0AfwCBAIkAkACVAKAAowClAKcAqQCxALYAwQDKANIA
                 <outlet property="delegate" destination="1529" id="1540"/>
             </connections>
         </menu>
+        <menu title="Message Menu" id="sgg-E5-vk1">
+            <items>
+                <menuItem title="Log Parts" id="WlU-Wd-fCu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showPartsInLog:" target="ram-oA-swT" id="9bW-67-gGI"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Log Message" id="X9e-yU-g4n">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showMessageDebug:" target="ram-oA-swT" id="RUD-Lm-W5D"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Refresh Message" id="2U2-NL-S3K">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="refreshMessageDisplay:" target="ram-oA-swT" id="4wd-eJ-bbU"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
     </objects>
     <resources>
-        <image name="NSActionTemplate" width="15" height="15"/>
+        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="8" height="8"/>
         <image name="NSGoLeftTemplate" width="9" height="9"/>
         <image name="NSGoRightTemplate" width="9" height="9"/>

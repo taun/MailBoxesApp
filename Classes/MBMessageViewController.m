@@ -13,6 +13,8 @@
 #import "MBMimeData+IMAP.h"
 #import "MBMultiAlternative.h"
 #import "MBAddress+IMAP.h"
+#import "MBMessageView.h"
+#import "MBMessageHeaderView.h"
 
 
 #import <QuartzCore/QuartzCore.h>
@@ -29,8 +31,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @property (strong, nonatomic) NSArray* cachedOrderedMessageParts;
 
--(void) setEnvelopeFields;
--(NSString*) stringFromAddresses: (NSSet*) addresses;
 -(NSAttributedString*) attributedStringFromMessage: (MBMessage*) message;
 
 @end
@@ -38,70 +38,42 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @implementation MBMessageViewController
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // init code
-        [[self view] setWantsLayer: YES];
-//        [NSAnimationContext beginGrouping];
-//        [[NSAnimationContext currentContext] setDuration: 1.0];
-//        
-//        CABasicAnimation* alphaAnim = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
-//        [alphaAnim setFromValue: [NSNumber numberWithFloat: 0.0]];
-//        [alphaAnim setToValue: [NSNumber numberWithFloat: 1.0]];
-//        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: alphaAnim, @"alphaValue", nil];
-//        [[self view] setAnimations: dict];
-    }
-    return self;
-}
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        // init code
+//        [[self view] setWantsLayer: YES];
+//        [self.view.window visualizeConstraints: self.view.constraints];
+////        [NSAnimationContext beginGrouping];
+////        [[NSAnimationContext currentContext] setDuration: 1.0];
+////        
+////        CABasicAnimation* alphaAnim = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+////        [alphaAnim setFromValue: [NSNumber numberWithFloat: 0.0]];
+////        [alphaAnim setToValue: [NSNumber numberWithFloat: 1.0]];
+////        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: alphaAnim, @"alphaValue", nil];
+////        [[self view] setAnimations: dict];
+//    }
+//    return self;
+//}
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 
     if ([keyPath isEqualToString: @"defaultContent"]) {
         [self refreshMessageDisplay: nil];
     } else if ([keyPath isEqualToString: @"data"]) {
-        [self displayNode: object];
+//        [self displayNode: object];
     }
 
 }
 
 -(void) setMessage:(MBMessage *)message {
     if (message != _message) {
-        if (_message != nil) {
-//            [_message removeObserver: self forKeyPath: @"defaultContent"];
-            if (self.outlineView.selectedRow > -1) {
-                MBMime* previousSelectedNode = [self.outlineView itemAtRow: [self.outlineView selectedRow]];
-                [previousSelectedNode removeObserver: self forKeyPath: @"data"];
-            }
-        }
         _message = message;
 //        [_message addObserver: self forKeyPath: @"defaultContent" options: NSKeyValueObservingOptionNew context: NULL];
+        self.messageHeader.message = _message;
     }
     [self refreshMessageDisplay: nil];
-}
--(NSString*) stringFromAddresses:(NSSet *)addresses {
-    NSMutableString* addressesAsString = [NSMutableString new];
-    for (MBAddress* address in addresses) {
-        if ([addresses isKindOfClass:[MBAddress class]]) {
-            [addressesAsString appendString: [address stringRFC822AddressFormat]];
-        }
-    }
-    return addressesAsString;
-}
--(void) setEnvelopeFields {
-    
-    if (self.message.addressFrom) {
-        [self.sender setStringValue: [self.message.addressFrom stringRFC822AddressFormat]];
-    }
-    
-    [self.dateSent setObjectValue: self.message.dateSent];
-
-    if ([self.message.addressesTo count]>0) {
-        [self.recipients setStringValue: [self stringFromAddresses: self.message.addressesTo]];
-    }
-    
-    [self.subject setStringValue: self.message.subject];
 }
 - (IBAction)showMessageDebug:(id)sender {
     DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.message);
@@ -121,20 +93,81 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (IBAction)refreshMessageDisplay:(id)sender {
-    [self setEnvelopeFields];
-    [self.outlineView reloadData];
-    [self.outlineView expandItem: nil expandChildren: YES];
+    MBMessageView* messageView = (MBMessageView*)self.view;
+    [messageView setTitle: self.message.subject];
+
+    NSSize messageSize = self.view.frame.size;
+    CGFloat headerHeight = self.messageHeader.frame.size.height;
+    CGPoint headerOrigin = self.messageHeader.frame.origin;
+
+    CGFloat dataViewHeight = messageSize.height-headerHeight-40;
+    CGFloat dataViewWidth = messageSize.width - 40;
     
-    id dataView;
-    dataView = [NSTextView new];
+    NSTextView* dataView;
+    NSRect dataViewFrame = NSMakeRect(headerOrigin.x, 0, dataViewWidth, FLT_MAX);
+    dataView = [[NSTextView alloc] initWithFrame: dataViewFrame];
     [dataView setEditable: NO];
-    [dataView setHorizontallyResizable: YES];
+    [dataView setMinSize: NSMakeSize(0, dataViewHeight)];
+    [dataView setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
+    [dataView setHorizontallyResizable: NO];
     [dataView setVerticallyResizable: YES];
+//    [dataView setAutoresizingMask: NSViewWidthSizable]; //??
+    [dataView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    
+    [[dataView textContainer] setContainerSize: NSMakeSize(dataViewWidth, FLT_MAX)]; // -40 based on default margin. Need way to not hard code this.
+                                                                                           // message frame size is correct but header is not yet laidout so incorrect width.
+    [[dataView textContainer] setWidthTracksTextView:YES];
+    
     [dataView setString: @"Loading....."];
     if (self.message) {
         [[dataView textStorage] setAttributedString: [self attributedStringFromMessage: self.message]];
     }
-    [self.messageBodyViewContainer setDocumentView: dataView];
+//    [[self.messageBodyViewContainer superview] replaceSubview: self.messageBodyViewContainer with: dataView];
+    NSTextContainer* tc = [dataView textContainer];
+    NSLayoutManager* lm = [tc layoutManager];
+    [lm glyphRangeForTextContainer: tc];
+    
+    CGFloat textHeight = [lm usedRectForTextContainer: tc].size.height;
+//    NSSize tcSize = [tc containerSize];
+    
+//    [tc setContainerSize: NSMakeSize(tcSize.width, textHeight+30)];
+    
+    if (self.messageBodyView) {
+        [self.messageBodyViewContainer replaceSubview: self.messageBodyView with: dataView];
+    } else {
+        [self.messageBodyViewContainer addSubview: dataView];
+    }
+    self.messageBodyView = dataView; // save for future use in replaceSubview:
+
+    NSLayoutPriority hcompRes = [dataView contentCompressionResistancePriorityForOrientation: NSLayoutConstraintOrientationVertical];
+    NSLayoutPriority vcompRes = [dataView contentCompressionResistancePriorityForOrientation: NSLayoutConstraintOrientationHorizontal];
+
+    NSDictionary *views = NSDictionaryOfVariableBindings(dataView, _messageBodyViewContainer);
+
+    [self.messageBodyViewContainer addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[dataView]-0-|"
+                                                                   options:0
+                                                                   metrics:nil
+                                                                     views:views]];
+
+    [self.messageBodyViewContainer addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[dataView]-0-|"
+                                                                        options:0
+                                                                        metrics:nil
+                                                                          views:views]];
+    
+    [dataView setContentCompressionResistancePriority: NSLayoutPriorityRequired forOrientation: NSLayoutConstraintOrientationVertical];
+    [self.messageBodyViewContainer setContentCompressionResistancePriority: NSLayoutPriorityRequired forOrientation: NSLayoutConstraintOrientationVertical];
+    
+//    [self.messageBodyViewContainer addSubview: dataView];
+//    [self.messageBodyViewContainer setFrame: [dataView frame]];
+    CGFloat finalMessageHeight = textHeight+headerHeight+40;
+    CGFloat originX = 0.0;
+    CGFloat originY = 0.0;
+    
+    NSRect vf = self.view.frame;
+    [self.view setFrame: NSMakeRect(originX, originY, vf.size.width, finalMessageHeight)];
+//    NSSize isize = [self.view fittingSize];
+//    [dataView setFrame: [(NSView*)self.messageBodyViewContainer frame]];
+    
     [self.messageBodyViewContainer setNeedsDisplay: YES];
 }
 
@@ -150,142 +183,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         }
     }
     return [composition copy];
-}
-
-#pragma mark - Outline Datasource
-
-- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
-    MBMime* node = nil;
-    
-    if (!item) {
-        node = (self.message.childNodes)[index];
-    } else {
-        if ([item isKindOfClass:[MBMime class]]) {
-            node = [(MBMime*)item childNodes][index];
-        }
-    }
-    
-    return node;
-}
-
-- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
-    BOOL expandable = NO;
-    if ([item isKindOfClass:[MBMime class]]) {
-        if ([[(MBMime*)item childNodes] count] > 0) {
-            expandable = YES;
-        }
-    }
-
-        return expandable;
-}
-
-- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
-    NSInteger count = 0;
-    
-    if (!item) {
-        count = [self.message.childNodes count];
-    } else {
-        if ([item isKindOfClass:[MBMime class]]) {
-            count = [[(MBMime*)item childNodes] count];
-        }
-    }
-    
-    
-    return count;
-}
-
-- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
-    id objectValue;
-    
-    if ([item isKindOfClass:[MBMime class]]) {
-        if ([tableColumn.identifier isEqualToString: @"mimeName"]) {
-            objectValue = [(MBMime*)item name];
-            if (!objectValue) {
-                objectValue = @"NoName";
-            }
-        } else if ([tableColumn.identifier isEqualToString: @"mimeType"]) {
-            objectValue = [(MBMime*)item type];
-        } else if ([tableColumn.identifier isEqualToString: @"mimeSubtype"]) {
-            objectValue = [(MBMime*)item subtype];
-        } else if ([tableColumn.identifier isEqualToString: @"mimeIsAttachment"]) {
-            objectValue = [(MBMime*)item isAttachment];
-        } else if ([tableColumn.identifier isEqualToString: @"mimeIsInline"]) {
-        objectValue = [(MBMime*)item isInline];
-        }
-    }
-
-    return objectValue;
-}
-
-#pragma mark - Outline Delegate
-
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
-    BOOL shouldSelect = YES;
-    if ([item isKindOfClass:[MBMultiAlternative class]]) {
-        shouldSelect = NO;
-    }
-    
-    if (shouldSelect && (self.outlineView.selectedRow > -1)) {
-        MBMime* previousSelectedNode = [self.outlineView itemAtRow: [self.outlineView selectedRow]];
-        [previousSelectedNode removeObserver: self forKeyPath: @"data"];
-    }
-    return shouldSelect;
-}
--(void) displayNode: (MBMime*) node {
-    NSData* messageData = [node getDecodedData];
-    
-    id dataView;
-    dataView = [NSTextView new];
-    //NSLayoutManager* layoutManager = [dataView layoutManager];
-    //[layoutManager addTextContainer: nil];
-
-    [dataView setEditable: NO];
-    [dataView setHorizontallyResizable: YES];
-    [dataView setVerticallyResizable: YES];
-    [dataView setString: @"Loading....."];
-    
-    if (!messageData) {
-        [dataView setString: @"No Data"];
-    } else {
-        if ([node.subtype isEqualToString: @"HTML"]) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithHTML: messageData documentAttributes: nil]];
-            });
-        } else if ([node.subtype isEqualToString: @"ENRICHED"]) {
-            [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithData: messageData options: nil documentAttributes: nil error: nil]];
-        } else if ([node.type isEqualToString: @"APPLICATION"]) {
-            if ([node.subtype isEqualToString: @"PDF"]) {
-                // Use PDF Kit
-                PDFView* pdfView = [PDFView new];
-                [pdfView setAutoScales: YES];
-                [pdfView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
-                [pdfView setFrame: NSMakeRect(0, 0, 900, 900)];
-                
-                PDFDocument* document = [[PDFDocument alloc] initWithData: messageData];
-                [pdfView setDocument: document];
-                dataView = pdfView;
-            } else if ([node.subtype isEqualToString: @"MSWORD"]) {
-                NSAttributedString* wordString = [[NSAttributedString alloc] initWithDocFormat: messageData documentAttributes: nil];
-                [[dataView textStorage] setAttributedString: wordString];
-            }
-        
-        } else if ([node.type isEqualToString: @"IMAGE"]) {
-            [[dataView textStorage] setAttributedString:  [node asAttributedStringWithOptions:nil attributes:nil]];
-        } else {
-            [[dataView textStorage] setAttributedString: [node asAttributedStringWithOptions: nil attributes: nil]] ;
-        }
-    }
-#pragma message "need to add timer for isSeenFlag AND save flag status."
-    MBMessage* message = node.messageReference;
-    message.isSeenFlag = @YES;
-
-    [self.messageBodyViewContainer setDocumentView: dataView];
-    [self.messageBodyViewContainer setNeedsDisplay: YES];
-}
-- (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    MBMime* node = [self.outlineView itemAtRow: [self.outlineView selectedRow]];
-    [node addObserver: self forKeyPath: @"data" options: NSKeyValueObservingOptionNew context: NULL];
-    [self displayNode: node];
 }
 
 @end

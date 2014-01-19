@@ -1,16 +1,16 @@
 //
-//  MBMessageViewController.h
+//  MBMessageOutlineViewController.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 10/21/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 10/29/13.
+//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-@class MBMessage;
-@class MBMessageHeaderView;
 
-@interface MBMessageViewController : NSCollectionViewItem
+@class MBMessage;
+
+@interface MBMessageOutlineViewController : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
 @property (strong, nonatomic) IBOutlet NSObjectController *messageController;
 @property (strong, nonatomic)          MBMessage*         message;
@@ -21,16 +21,14 @@
 @property (weak) IBOutlet NSTextField *recipients;
 @property (weak) IBOutlet NSTextField *sender;
 
-@property (weak) IBOutlet MBMessageHeaderView *messageHeader;
-
 @property (weak) IBOutlet NSView* messageBodyViewContainer;
 
 #pragma Body
-
-@property (strong) NSView* messageBodyView;
+@property (weak) IBOutlet NSOutlineView *outlineView;
 
 - (IBAction)showMessageDebug:(id)sender;
 - (IBAction)showPartsInLog:(id)sender;
 - (IBAction)refreshMessageDisplay:(id)sender;
 
 @end
+

@@ -32,12 +32,12 @@ NSString *PortalEditingEndedKey;
 
 /// @name Main window views and controls
 /*! Standard AppDelegate window */
-@property(strong)           IBOutlet NSWindow                 *appWindow;
-@property(strong)           IBOutlet MainSplitViewDelegate    *mainSplitViewDelegate;
-@property(strong)           IBOutlet NSView                   *inPaneMessageView;
-@property(strong)           IBOutlet NSObjectController       *selectedUserController;
-@property(strong)                    MBMessageViewController  *messageViewController;
-@property (weak)            IBOutlet MBSidebarViewController  *sidebarViewController;
+@property(strong)   IBOutlet NSWindow                       *appWindow;
+@property(strong)   IBOutlet MainSplitViewDelegate          *mainSplitViewDelegate;
+@property(strong)   IBOutlet NSCollectionView               *inPaneMessageView;
+@property(strong)   IBOutlet NSObjectController             *selectedUserController;
+@property(strong)            MBMessageViewController        *messageViewController;
+@property (weak)    IBOutlet MBSidebarViewController        *sidebarViewController;
 
 @property(nonatomic,readonly,strong) NSArray                  *portalsACSortDescriptors;
 @property(nonatomic,readonly,strong) NSArray                  *accountsACSortDescriptors;
@@ -66,6 +66,8 @@ NSString *PortalEditingEndedKey;
  */
 @property(strong)           IBOutlet MBCollectionView         *collectionView;
 @property(strong)           IBOutlet NSSplitView              *messagesSplitView;
+
+@property (weak)            IBOutlet NSArrayController          *viewedMessagesArrayController;
 
 /// @name Model root
 /*!
@@ -113,6 +115,7 @@ NSString *PortalEditingEndedKey;
 - (IBAction)resetMailStore:(id)sender;
 - (IBAction)resetCoreData:(id)sender;
 - (IBAction)resetPortals:(id)sender;
+- (IBAction)visualizeConstraints:(id)sender;
 
 
 -(void) displayContextSaveError: (NSError*) theError;

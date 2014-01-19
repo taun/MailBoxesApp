@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf400
+{\rtf1\ansi\ansicpg1252\cocoartf1265
 {\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fnil\fcharset0 LucidaGrande;\f2\fnil\fcharset0 Menlo-Regular;
 \f3\fnil\fcharset0 Menlo-Bold;\f4\fnil\fcharset0 Menlo-Italic;\f5\fswiss\fcharset0 Helvetica;
 \f6\fnil\fcharset0 Monaco;}
@@ -645,7 +645,32 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 	Mime subTypes should be subclasses?\
 2013-10-17\
 	**Refresh display if message is no longer working.\
-\
-\
+2013-10-28\
+	Spent last 10 days on Qualcomm paperwork.\
+	Design message component views, use view hierarchy - Message textView, richView, outlineView, conversationView, rawView, MimePart textView, richView, attachmentView? ???, Header textView, richView, hopsView, \
+2014-01-11\
+	First look since October. All Qualcomm, Zimbra and Plone related work.\
+	Was trying to make message view look like a letter. In particular, the header layout.\
+	Was having trouble with AutoLayout!\
+	Learned - don't trim message view, that is what the NSClipView is for!\
+2014-01-14\
+	Scroll views and messageView\
+		Create enclosing view class with white background to hold MBMimeMessageView? mimeMessage is true size.\
+		Enclosing view is never smaller than window and never smaller than mimeMessage. Whichever is largest.\
+		This allows multiple mimeMessages in the top level view. ie. Conversation view or showing list of messages.\
+		Make messageView at least as large as view window and put header and mime content at top left of top level message view.\
+		messageView should not shrink less than the min content size.\
+		messageViews bigger than the view window are their natural size.\
+		Then add the messageView as documentView to the scroll view. This will set the clipView frame.\
+	How to influence intrinsic size?\
+		want header to have a minimum and maximum size for autolayout set by the class not in IB. Review autolayout instrinsic size of class\
+		want body to have a minimum and maximum size for autolayout.\
+		Which is master for widths? header or body? \
+			body min might be > header min, use body min.\
+			body max might be > header max, allow body to be bigger and keep header at max, like a left justified tab.\
+		Future Notes -\
+			Header view class with header xib, ability to show details\
+			Multiple mime views without xib\
+		\
 \
 }
