@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MBAddress.h"
+#import "NSManagedObject+Shortcuts.h"
 
 @interface MBAddress (IMAP)
 
@@ -18,7 +19,6 @@
 + (MBAddress*) findAddressForEMail: (NSString *) emailAddress 
                            context: (NSManagedObjectContext*) context;
 
--(NSString*) stringRFC822AddressFormat;
 
 //+ (NSSet *) addressesFromCoreAddressSet: (NSSet *) coreAddressSet context: aContext;
 

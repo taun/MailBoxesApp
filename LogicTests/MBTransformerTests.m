@@ -11,6 +11,9 @@
 #import "MBMIMECharsetTransformer.h"
 #import "MBMIMEQuotedPrintableTranformer.h"
 #import "MBMIME2047ValueTransformer.h"
+#import "MBSimpleRFC822AddressToStringTransformer.h"
+
+#pragma message "ToDo: need stub MBAddress class for testing transformer."
 
 @interface MBTransformerTests : XCTestCase
 
@@ -63,6 +66,10 @@
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 -(void)testCharsetUTF8ToNS {
+    
+}
+
+-(void)testMBAddressToRFC822StringTransformerValue {
     
 }
 

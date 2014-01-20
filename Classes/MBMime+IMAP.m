@@ -15,29 +15,12 @@
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
-static MBMIME2047ValueTransformer* EncodedWordsTransformer;
-
-static MBMIMEQuotedPrintableTranformer* QuotedPrintableTransformer;
 
 NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
 
 @implementation MBMime (IMAP)
 
 #pragma mark - encoding decoding
-
-+(MBMIME2047ValueTransformer*) encodedWordTransformer {
-    if (!EncodedWordsTransformer) {
-        EncodedWordsTransformer = [[MBMIME2047ValueTransformer alloc] init];
-    }
-    return EncodedWordsTransformer;
-}
-
-+(MBMIMEQuotedPrintableTranformer*) quotedPrintableTransformer {
-    if (!QuotedPrintableTransformer) {
-        QuotedPrintableTransformer = [[MBMIMEQuotedPrintableTranformer alloc] init];
-    }
-    return QuotedPrintableTransformer;
-}
 
 
 - (void)encodeWithCoder:(NSCoder *)coder {

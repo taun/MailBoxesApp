@@ -12,8 +12,6 @@
 #import "MBMIME2047ValueTransformer.h"
 #import "MBMIMEQuotedPrintableTranformer.h"
 
-static MBMIME2047ValueTransformer* EncodedWordsTransformer;
-static MBMIMEQuotedPrintableTranformer* QuotedPrintableTransformer;
 
 extern NSString* MBRichMessageViewAttributeName;
 
@@ -91,8 +89,6 @@ extern NSString* MBRichMessageViewAttributeName;
  */
 @interface MBMime (IMAP)
 
-+(MBMIME2047ValueTransformer*) encodedWordTransformer;
-+(MBMIMEQuotedPrintableTranformer*) quotedPrintableTransformer;
 
 - (void)encodeWithCoder:(NSCoder *)coder;
 

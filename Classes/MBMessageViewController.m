@@ -71,7 +71,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if (message != _message) {
         _message = message;
 //        [_message addObserver: self forKeyPath: @"defaultContent" options: NSKeyValueObservingOptionNew context: NULL];
-        self.messageHeader.message = _message;
+//        self.messageHeader.message = _message;
     }
     [self refreshMessageDisplay: nil];
 }

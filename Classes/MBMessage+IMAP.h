@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MBMessage+IntersectSetFix.h"
+#import "NSManagedObject+Shortcuts.h"
 
 @interface MBMessage (IMAP) //<NSCopying>
 

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "MBMIMECharsetTransformer.h"
 
+#define VTRFC2047EncodedToString @"rfc2047EncodedToString"
+
 /*!
  Transforms string with RFC 2047 encoded words to UTF8 string.
  

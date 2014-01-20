@@ -34,6 +34,12 @@
 #import "MBMessageView.h"
 #import "NSView+MBConstraintsDebug.h"
 
+#import "MBSimpleRFC822AddressToStringTransformer.h"
+#import "MBSimpleRFC822AddressSetToStringTransformer.h"
+#import "MBMIME2047ValueTransformer.h"
+#import "MBMIMECharsetTransformer.h"
+#import "MBMIMEQuotedPrintableTranformer.h"
+
 #import <FScript/FScript.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -42,6 +48,7 @@
 #import "DDTTYLogger.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 
 #define MBCoreDataErrorDomain @"com.moedae.MailBoxes.CoreData"
 #define MBStoreDataName @"MailBoxes.storedata"
@@ -113,6 +120,19 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
     AccountEditingEndedKey = @"AccountEditingEnded";
     PortalEditingEndedKey = @"PortalEditingEnded";
+    
+    [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressToStringTransformer new]
+                                    forName: VTAddressToString];
+    
+    [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressSetToStringTransformer new]
+                                    forName: VTAddressesToString];
+    
+    [NSValueTransformer setValueTransformer: [MBMIME2047ValueTransformer new]
+                                    forName: VTRFC2047EncodedToString];
+
+    [NSValueTransformer setValueTransformer: [MBMIMEQuotedPrintableTranformer new]
+                                    forName: VTQuotedPrintableToString];
+
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqual:@"isFinished"]) {

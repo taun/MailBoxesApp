@@ -67,6 +67,11 @@
 		C50DD8171374F0BC002A6CD6 /* MBCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD8161374F0BB002A6CD6 /* MBCollectionView.m */; };
 		C524A82A180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C524A829180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m */; };
 		C524A82B180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C524A829180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m */; };
+		C527915F188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C527915E188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m */; };
+		C5279160188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C527915E188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m */; };
+		C5279163188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5279162188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.m */; };
+		C5279164188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5279162188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.m */; };
+		C5279167188DC66500298D01 /* NSManagedObject+Shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = C5279166188DC66500298D01 /* NSManagedObject+Shortcuts.m */; };
 		C530E47714781EA0000C78F6 /* MBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C530E47614781EA0000C78F6 /* MBox.m */; };
 		C530EECE134FA62D004CBB20 /* MBUser+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C530EECD134FA62D004CBB20 /* MBUser+IMAP.m */; };
 		C5338A151491A727006A3565 /* MBMimeDisposition.m in Sources */ = {isa = PBXBuildFile; fileRef = C5338A141491A727006A3565 /* MBMimeDisposition.m */; };
@@ -258,6 +263,12 @@
 		C50DD8161374F0BB002A6CD6 /* MBCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCollectionView.m; sourceTree = "<group>"; };
 		C524A828180F3CB100F1E0D1 /* MBMIMECharsetTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMIMECharsetTransformer.h; sourceTree = "<group>"; };
 		C524A829180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMIMECharsetTransformer.m; sourceTree = "<group>"; };
+		C527915D188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSimpleRFC822AddressToStringTransformer.h; sourceTree = "<group>"; };
+		C527915E188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSimpleRFC822AddressToStringTransformer.m; sourceTree = "<group>"; };
+		C5279161188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSimpleRFC822AddressSetToStringTransformer.h; sourceTree = "<group>"; };
+		C5279162188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSimpleRFC822AddressSetToStringTransformer.m; sourceTree = "<group>"; };
+		C5279165188DC66500298D01 /* NSManagedObject+Shortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Shortcuts.h"; path = "Classes/NSManagedObject+Shortcuts.h"; sourceTree = "<group>"; };
+		C5279166188DC66500298D01 /* NSManagedObject+Shortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Shortcuts.m"; path = "Classes/NSManagedObject+Shortcuts.m"; sourceTree = "<group>"; };
 		C530E47514781EA0000C78F6 /* MBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBox.h; path = Classes/MBox.h; sourceTree = "<group>"; };
 		C530E47614781EA0000C78F6 /* MBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBox.m; path = Classes/MBox.m; sourceTree = "<group>"; };
 		C530EECC134FA62D004CBB20 /* MBUser+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBUser+IMAP.h"; path = "Classes/MBUser+IMAP.h"; sourceTree = "<group>"; };
@@ -618,6 +629,8 @@
 				C5B2103E180482160093531A /* MBMultiMixed+IMAP.m */,
 				C5B21041180483C80093531A /* MBMimeApplication+IMAP.h */,
 				C5B21042180483C80093531A /* MBMimeApplication+IMAP.m */,
+				C5279165188DC66500298D01 /* NSManagedObject+Shortcuts.h */,
+				C5279166188DC66500298D01 /* NSManagedObject+Shortcuts.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1029,6 +1042,10 @@
 				C5A7B3E4181ECFF100DE00AE /* MessageViews */,
 				C5C7E77017F5C3800053B08B /* MBMIME2047ValueTransformer.h */,
 				C5C7E77117F5C3800053B08B /* MBMIME2047ValueTransformer.m */,
+				C527915D188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.h */,
+				C527915E188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m */,
+				C5279161188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.h */,
+				C5279162188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.m */,
 				C597401B147184D80033E4CF /* MBSidebarTableCellView.h */,
 				C597401C147184D80033E4CF /* MBSidebarTableCellView.m */,
 				C50DD7EE13730284002A6CD6 /* MBPortalView.h */,
@@ -1257,6 +1274,7 @@
 			files = (
 				C5052DFB181056D100696782 /* MBPortal.m in Sources */,
 				C5052DE61810568800696782 /* MBMessage.m in Sources */,
+				C5279164188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.m in Sources */,
 				C5052DE71810568800696782 /* MBAddress.m in Sources */,
 				C5052DE81810568800696782 /* MBFlag.m in Sources */,
 				C5052DE91810568800696782 /* MBMime.m in Sources */,
@@ -1287,6 +1305,7 @@
 				C5052DE21810562500696782 /* MBMimeData+IMAP.m in Sources */,
 				C5052DE31810562500696782 /* MBMimeImage+IMAP.m in Sources */,
 				C5052DE41810562500696782 /* MBMimeText+IMAP.m in Sources */,
+				C5279160188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m in Sources */,
 				C5052DE51810562500696782 /* MBMultiMixed+IMAP.m in Sources */,
 				C5052DDA1810548600696782 /* MBMIMEQuotedPrintableTranformer.m in Sources */,
 				C5C7E77517F5CBA70053B08B /* IMAPClient.m in Sources */,
@@ -1384,6 +1403,7 @@
 				C5A8283C181FF527009F56EA /* MBMessageOutlineViewController.m in Sources */,
 				C5FE51141475628D000181C7 /* MBTreeNode+IntersectsSetFix.m in Sources */,
 				C5FE511714758C2B000181C7 /* MBAddressList.m in Sources */,
+				C527915F188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m in Sources */,
 				C5FE511A14758D4C000181C7 /* MBGroup+Accessors.m in Sources */,
 				C5BCBF3F1475FC3C00EA0214 /* MBSidebarView.m in Sources */,
 				C5BCBF421475FD7600EA0214 /* MBSidebarViewController.m in Sources */,
@@ -1398,7 +1418,9 @@
 				C577637914895B1C00C60438 /* MBMultiMixed.m in Sources */,
 				C577637F14895B1D00C60438 /* MBMultiParallel.m in Sources */,
 				C577638214895BAD00C60438 /* MBMultiMessage.m in Sources */,
+				C5279163188DA8DD00298D01 /* MBSimpleRFC822AddressSetToStringTransformer.m in Sources */,
 				C577638514895BAD00C60438 /* MBMimeParameter.m in Sources */,
+				C5279167188DC66500298D01 /* NSManagedObject+Shortcuts.m in Sources */,
 				C577638E14895EC100C60438 /* NSObject+MBShorthand.m in Sources */,
 				C5776391148961ED00C60438 /* MBTokenTree.m in Sources */,
 				C5D335D3148EB323005D56AC /* MBMime+IMAP.m in Sources */,

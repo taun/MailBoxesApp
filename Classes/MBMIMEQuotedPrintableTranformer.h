@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define VTQuotedPrintableToString @"quotedPrintableToString"
+
 /*!
  RFC 2045 Internet Message Bodies
  

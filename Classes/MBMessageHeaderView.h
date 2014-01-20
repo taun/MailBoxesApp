@@ -11,7 +11,7 @@
 
 @interface MBMessageHeaderView : NSView
 
-@property (strong, nonatomic)          MBMessage*         message;
+//@property (strong, nonatomic)          MBMessage*         message;
 
 @property (weak) IBOutlet NSTextField *subject;
 @property (weak) IBOutlet NSTextField *dateSent;

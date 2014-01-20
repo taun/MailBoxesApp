@@ -17,6 +17,5 @@
 
 -(NSString*) stringAsSelectorSafeCamelCase;
 
--(SimpleRFC822Address*) rfc822Address; 
 
 @end

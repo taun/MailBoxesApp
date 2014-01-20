@@ -33,7 +33,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @property (strong, nonatomic) NSArray* cachedOrderedMessageParts;
 
 -(void) setEnvelopeFields;
--(NSString*) stringFromAddresses: (NSSet*) addresses;
 -(NSAttributedString*) attributedStringFromMessage: (MBMessage*) message;
 
 @end
@@ -82,29 +81,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         //        [_message addObserver: self forKeyPath: @"defaultContent" options: NSKeyValueObservingOptionNew context: NULL];
     }
     [self refreshMessageDisplay: nil];
-}
--(NSString*) stringFromAddresses:(NSSet *)addresses {
-    NSMutableString* addressesAsString = [NSMutableString new];
-    for (MBAddress* address in addresses) {
-        if ([addresses isKindOfClass:[MBAddress class]]) {
-            [addressesAsString appendString: [address stringRFC822AddressFormat]];
-        }
-    }
-    return addressesAsString;
-}
--(void) setEnvelopeFields {
-    
-    if (self.message.addressFrom) {
-        [self.sender setStringValue: [self.message.addressFrom stringRFC822AddressFormat]];
-    }
-    
-    [self.dateSent setObjectValue: self.message.dateSent];
-    
-    if ([self.message.addressesTo count]>0) {
-        [self.recipients setStringValue: [self stringFromAddresses: self.message.addressesTo]];
-    }
-    
-    [self.subject setStringValue: self.message.subject];
 }
 - (IBAction)showMessageDebug:(id)sender {
     DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.message);

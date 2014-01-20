@@ -27,7 +27,7 @@
         // use charset mapping from ? encoded-word transform
         if ([[self.encoding uppercaseString] isEqualToString: @"QUOTED-PRINTABLE"]) {
             //
-            stringToDecode = [[MBMime quotedPrintableTransformer] transformedValue: self.data.encoded];
+            stringToDecode = [[MBMIMEQuotedPrintableTranformer new] transformedValue: self.data.encoded];
         }
         
         decoded = [stringToDecode dataUsingEncoding: nsEncodingInt];
