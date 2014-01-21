@@ -15,7 +15,11 @@
 #import "MBAddress+IMAP.h"
 #import "MBMessageView.h"
 #import "MBMessageHeaderView.h"
+#import "MBox+IMAP.h"
+#import "MBAccount+IMAP.h"
 
+#import "MailBoxesAppDelegate.h"
+#import "MBAccountsCoordinator.h"
 
 #import <QuartzCore/QuartzCore.h>
 #import <Quartz/Quartz.h>
@@ -37,6 +41,22 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MBMessageViewController
 
+-(void) setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+    if ([representedObject isKindOfClass: [MBMessage class]]) {
+        MBMessage* myMessage = (MBMessage*)representedObject;
+        if ([myMessage.isFullyCached boolValue] == NO ) {
+            // need to load the body
+            // ask accountsCoordinator to load body for selectedMessage
+            // request will be processed in background and should show up in view when done.
+            NSManagedObjectID* accountID = [[[myMessage mbox] accountReference] objectID];
+            NSManagedObjectID* messageID = [myMessage objectID];
+            MailBoxesAppDelegate *app = (MailBoxesAppDelegate *)[[NSApplication sharedApplication] delegate];
+            [app.accountsCoordinator loadFullMessageID: messageID forAccountID: accountID];
+        }
+
+    }
+}
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{

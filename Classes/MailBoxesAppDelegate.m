@@ -23,7 +23,7 @@
 #import "MBPortal+Accessors.h"
 #import "MBCriteria.h"
 #import "MBPortalView.h"
-#import "MBCollectionView.h"
+#import "MBPortalsCollectionView.h"
 #import "MBMessageViewController.h"
 #import "MBViewPortalSelection.h"
 #import "MBAddressList.h"
@@ -366,56 +366,30 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 #pragma message "TODO:Now"
-/*!
- Load or cache a messageView from nib.
- 
- Show the view in the proper pane
- 
- View will use an ObjectController where the content is the assigned message.
- 
- @param selectedMessage MBMessage
- */
--(void) showSelectedMessage:(MBMessage *)selectedMessage {
-    
-    // Check if the message body is nil?
-    // If so, 
-    // show "loading message...."
-    // self.accountsCoordinator loadFullMessageID: ...
-    // Should show body automatically when context is save on IMAPClient thread?
-    
-//    [self.inPaneMessageView.documentView setTranslatesAutoresizingMaskIntoConstraints: YES];
 
-    if ([selectedMessage.isFullyCached boolValue] == NO ) {
-        // need to load the body
-        // ask accountsCoordinator to load body for selectedMessage
-        // request will be processed in background and should show up in view when done.
-        NSManagedObjectID* accountID = [[[selectedMessage mbox] accountReference] objectID];
-        NSManagedObjectID* messageID = [selectedMessage objectID];
-        [self.accountsCoordinator loadFullMessageID: messageID forAccountID: accountID];
-    }
-    
-    [self.viewedMessagesArrayController addObjects: @[selectedMessage]];
-    
-    // Scroll to top of page
-//    NSPoint newScrollOrigin;
-//
-//    // assume that the scrollview is an existing variable
-//    if ([[self.inPaneMessageView documentView] isFlipped]) {
-//        newScrollOrigin=NSMakePoint(0.0,0.0);
-//
-//    } else {
-//        newScrollOrigin=NSMakePoint(0.0, NSMaxY([[self.inPaneMessageView documentView] frame])
-//                                    -NSHeight([[self.inPaneMessageView contentView] bounds]));
-//        
-//    }
-//
-//    [[self.inPaneMessageView documentView] scrollPoint:newScrollOrigin];
-   
-    
-//    [self.appWindow visualizeConstraints: [self.messageViewController.messageHeader constraintsAffectingLayoutForOrientation: NSLayoutConstraintOrientationHorizontal]];
+#pragma mark - NSCollectionViewDelegate Protocol
+/* Perhaps should be moved to the CollectionViewController class ? */
+/* Invoked when the mouse is released over a collection view that previously allowed a drop. */
+- (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id < NSDraggingInfo >)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation {
+    return NO;
 }
-
-#pragma MBSidebarViewDelegate Protocol
+/* Returns whether the collection view can attempt to initiate a drag for the given event and items. */
+- (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexes:(NSIndexSet *)indexes withEvent:(NSEvent *)event {
+    return NO;
+}
+/* Sent to the delegate to allow creation of a custom image to represent collection view items during a drag operation. */
+- (NSImage *)collectionView:(NSCollectionView *)collectionView draggingImageForItemsAtIndexes:(NSIndexSet *)indexes withEvent:(NSEvent *)event offset:(NSPointPointer)dragImageOffset {
+    return nil;
+}
+/* Invoked to determine a valid drop target. */
+- (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id < NSDraggingInfo >)draggingInfo proposedIndex:(NSInteger *)proposedDropIndex dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
+    return nil;
+}
+/* Invoked after it has been determined that a drag should begin, but before the drag has been started. */
+- (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard {
+    return NO;
+}
+#pragma mark - MBSidebarViewDelegate Protocol
 
 /*
  Update portals which depend on node selection

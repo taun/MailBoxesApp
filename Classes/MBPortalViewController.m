@@ -7,7 +7,7 @@
 //
 
 #import "MailBoxesAppDelegate.h"
-#import "MBCollectionView.h"
+#import "MBPortalsCollectionView.h"
 #import "MBPortalViewController.h"
 #import "MBMessage+IMAP.h"
 #import "MBPortal.h"
@@ -26,6 +26,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @property (strong,nonatomic,readwrite)     NSArray         *messagesArray;
 @property (strong,nonatomic,readwrite)     NSArray         *collectionItemSortDescriptors;
 @property (strong,nonatomic,readwrite)     NSPredicate     *compoundPredicate;
+@property (strong,nonatomic,readwrite)     NSSet           *selectedMessages;
 @end
 
 @implementation MBPortalViewController
@@ -34,7 +35,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 CGFloat ONEROW = 18.0;
 
 
+-(void) setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+    [self addObserver: self forKeyPath: @"collectionView" options: NSKeyValueObservingOptionOld context: NULL];
+}
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString: @"collectionView"]) {
+        //
+        [self addObserver: self.collectionView forKeyPath: @"selectedMessages" options: NSKeyValueObservingOptionOld context: NULL];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 
 - (NSArray*) collectionItemSortDescriptors {
     if(_collectionItemSortDescriptors == nil) {
@@ -89,6 +103,8 @@ CGFloat ONEROW = 18.0;
 }
 
 #pragma clang diagnostic pop
+
+
 
 #pragma mark -
 #pragma mark Actions
@@ -155,14 +171,20 @@ CGFloat ONEROW = 18.0;
             }
         }
     }];
-    MailBoxesAppDelegate *app = (MailBoxesAppDelegate *)[[NSApplication sharedApplication] delegate];
-    NSInteger selectedRow = [self.tableView selectedRow];
-    if (selectedRow != -1) {
-        MBMessage *selectedMessage = (MBMessage *)[self.messagesController arrangedObjects][selectedRow];
-        [app showSelectedMessage: selectedMessage];
-        MBCollectionView *cv = (MBCollectionView *)app.collectionView;
-        [cv setSelectionIndexes: [NSIndexSet indexSetWithIndex: [[cv subviews] indexOfObject: [self view]]]];
+
+    NSIndexSet* selectedRows = [self.tableView selectedRowIndexes];
+    
+    NSMutableSet* messages = [NSMutableSet new];
+    NSUInteger index=[selectedRows firstIndex];
+    while(index != NSNotFound)
+    {
+        
+        MBMessage *selectedMessage = (MBMessage *)[self.messagesController arrangedObjects][index];
+        [messages addObject: selectedMessage];
+        index=[selectedRows indexGreaterThanIndex: index];
     }
+    
+    self.selectedMessages = [messages copy];
 }
 
 /*
@@ -174,6 +196,7 @@ CGFloat ONEROW = 18.0;
 //}
 
 - (void)dealloc {
+    [self removeObserver: self.collectionView forKeyPath: @"selectedMessages"];
     [_tableView setDelegate: nil];
 }
 

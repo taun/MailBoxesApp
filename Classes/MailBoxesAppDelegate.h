@@ -16,7 +16,7 @@
 @class MBPPEWindowController;
 @class MainSplitViewDelegate;
 @class MBUser;
-@class MBCollectionView;
+@class MBPortalsCollectionView;
 @class MBAccountsCoordinator;
 @class MBMessage;
 @class MBMessageViewController;
@@ -28,7 +28,7 @@ NSString *PortalEditingEndedKey;
  The standard AppDelegate class.
  
  */
-@interface MailBoxesAppDelegate : NSObject <NSApplicationDelegate, MBSidebarViewDelegate>
+@interface MailBoxesAppDelegate : NSObject <NSApplicationDelegate, MBSidebarViewDelegate, NSCollectionViewDelegate>
 
 /// @name Main window views and controls
 /*! Standard AppDelegate window */
@@ -64,10 +64,8 @@ NSString *PortalEditingEndedKey;
  @see MBCollectionView
  @see MBPortalViewController
  */
-@property(strong)           IBOutlet MBCollectionView         *collectionView;
+@property(strong)           IBOutlet MBPortalsCollectionView         *collectionView;
 @property(strong)           IBOutlet NSSplitView              *messagesSplitView;
-
-@property (weak)            IBOutlet NSArrayController          *viewedMessagesArrayController;
 
 /// @name Model root
 /*!
@@ -105,7 +103,6 @@ NSString *PortalEditingEndedKey;
 - (IBAction)cancelLoadAllAccountFolders:(id)sender;
 - (IBAction)toggleMessagesVerticalView:(id)sender;
 - (IBAction)testIMAPClient:(id)sender;
-- (void) showSelectedMessage: (MBMessage *) selectedMessage; 
 
 - (IBAction)exportSelectedPortalSettings:(id)sender;
 - (IBAction)exportAllPortalSettings:(id)sender;

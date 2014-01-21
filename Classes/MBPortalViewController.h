@@ -33,6 +33,7 @@
 @property (strong,nonatomic,readonly)     NSArray         *collectionItemSortDescriptors;
 @property (strong,nonatomic,readonly)     NSPredicate     *compoundPredicate;
 @property (strong,nonatomic)              NSPredicate     *searchPredicate;
+@property (strong,nonatomic,readonly)     NSSet           *selectedMessages;
 
 @property (strong) IBOutlet     NSArrayController       *messagesController;
 @property (strong) IBOutlet     NSTableView             *tableView;

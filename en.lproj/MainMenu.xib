@@ -254,14 +254,16 @@
                                                             <rect key="frame" x="1" y="1" width="749" height="316"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <collectionView focusRingType="none" selectable="YES" maxNumberOfColumns="6" id="1128" userLabel="Collection View" customClass="MBCollectionView">
+                                                                <collectionView focusRingType="none" selectable="YES" maxNumberOfColumns="6" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="749" height="316"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     <connections>
                                                                         <binding destination="1133" name="content" keyPath="arrangedObjects" id="1144"/>
                                                                         <binding destination="1133" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="1144" id="1224"/>
+                                                                        <outlet property="delegate" destination="494" id="bxJ-PX-seD"/>
                                                                         <outlet property="itemPrototype" destination="1271" id="1272"/>
+                                                                        <outlet property="viewedMessagesArrayController" destination="CbG-mD-A5W" id="2Ub-Y7-fRL"/>
                                                                     </connections>
                                                                 </collectionView>
                                                             </subviews>
@@ -285,27 +287,14 @@
                                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="4nl-lT-u52">
                                                         <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <clipView key="contentView" wantsLayer="YES" id="15f-SP-Ip9">
+                                                        <clipView key="contentView" id="15f-SP-Ip9">
                                                             <rect key="frame" x="1" y="1" width="749" height="330"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <collectionView selectable="YES" allowsMultipleSelection="YES" maxNumberOfColumns="1" id="FVd-10-TQj">
+                                                                <collectionView selectable="YES" allowsMultipleSelection="YES" maxNumberOfColumns="1" id="FVd-10-TQj" userLabel="Messages Collection View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="749" height="330"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <animations>
-                                                                        <caTransition key="subviews">
-                                                                            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGKitYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKsHCBMU
-FRYdHgsfJVUkbnVsbNUJCgsMDQ4PEBESViRjbGFzc1tlbmRQcm9ncmVzc1R0eXBlV3N1YnR5cGVfEBJf
-X0NBQ29kaW5nQ29udGVudHOACoACgASAA4AFIj+AAABXZnJvbVRvcFZtb3ZlSW7SFwkYHFpOUy5vYmpl
-Y3RzoxkaG4AGgAeACIAJW2VuZFByb2dyZXNzV3N1YnR5cGXSICEiI1okY2xhc3NuYW1lWCRjbGFzc2Vz
-V05TQXJyYXmiIiRYTlNPYmplY3TSICEmJ1xDQVRyYW5zaXRpb26jKCkkXENBVHJhbnNpdGlvbltDQUFu
-aW1hdGlvbl8QD05TS2V5ZWRBcmNoaXZlctEsLVRyb290gAEACAARABoAIwAtADIANwBDAEkAVABbAGcA
-bAB0AIkAiwCNAI8AkQCTAJgAoACnAKwAtwC7AL0AvwDBAMMAzwDXANwA5wDwAPgA+wEEAQkBFgEaAScB
-MwFFAUgBTQAAAAAAAAIBAAAAAAAAAC4AAAAAAAAAAAAAAAAAAAFPA
-</mutableData>
-                                                                        </caTransition>
-                                                                    </animations>
+                                                                    <animations/>
                                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     <connections>
                                                                         <binding destination="CbG-mD-A5W" name="content" keyPath="arrangedObjects" id="lfz-86-hSn"/>
@@ -477,7 +466,6 @@ MwFFAUgBTQAAAAAAAAIBAAAAAAAAAC4AAAAAAAAAAAAAAAAAAAFPA
                 <outlet property="preferencesWindow" destination="823" id="837"/>
                 <outlet property="selectedUserController" destination="1020" id="1046"/>
                 <outlet property="sidebarViewController" destination="1529" id="1535"/>
-                <outlet property="viewedMessagesArrayController" destination="CbG-mD-A5W" id="Qjf-Zm-Ue6"/>
             </connections>
         </customObject>
         <customObject id="854" customClass="MainSplitViewDelegate">
