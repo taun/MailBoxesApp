@@ -89,6 +89,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(MBAddress*) checkAddress: (id) token;
 
+-(NSString*) decode2047: (NSString*) encodedString;
+-(NSString*) checkAnd2047DecodeToken: (id) token;
+-(NSDate*) checkAndDecodeTokenAsDate: (id) token;
+
 @end
 
 @implementation MBMessage (IMAP)
@@ -143,7 +147,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) setParsedRfc2822size: (id) tokenized {
     NSNumber* rfc2822Size = nil;
     
-    if ([tokenized isKindOfClass: [NSString class]]) {
+    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
         NSString* rfc2822SizeString = tokenized;
         
         rfc2822Size = @([rfc2822SizeString longLongValue]);
@@ -154,63 +158,33 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.rfc2822Size = rfc2822Size;
 }
 -(void) setParsedDateReceived: (id) tokenized {
-    NSDate* dateReceived = nil;
-
-    if ([tokenized isKindOfClass: [NSString class]]) {
-        NSString* dateReceivedString = tokenized;
-        
-        dateReceived = [dateReceivedString dateFromRFC3501Format];
-        if (!dateReceived) {
-            dateReceived = [dateReceivedString dateFromRFC822Format];
-        }
-        
-    } else if ([tokenized isKindOfClass: [NSDate class]]) {
-        dateReceived = tokenized;
-    }
-    self.dateReceived = dateReceived;    
+    self.dateReceived = [self checkAndDecodeTokenAsDate: tokenized];
 }
 -(void) setParsedDateSent: (id) tokenized {
-    NSDate* dateSent = nil;
-    
-    if ([tokenized isKindOfClass: [NSString class]]) {
-        NSString* dateSentString = tokenized;
-        
-        dateSent = [dateSentString dateFromRFC822Format];
-        if (!dateSent) {
-            dateSent = [dateSentString dateFromRFC3501Format];
-        }
-        
-    } else if ([tokenized isKindOfClass: [NSDate class]]) {
-        dateSent = tokenized;
-    }
-    self.dateSent = dateSent;    
+    self.dateSent = [self checkAndDecodeTokenAsDate: tokenized];
 }
 -(void) setParsedAddressSender: (id) tokenized {
-    MBAddress* address = [self checkAddress: tokenized];
-    if (address) {
-        self.addressSender = address;
-    }
+    self.addressSender = [self checkAddress: tokenized];
 }
 -(void) setParsedAddressFrom: (id) tokenized {
-    MBAddress* address = [self checkAddress: tokenized];
-    if (address) {
-        self.addressFrom = address;
-    }
+    self.addressFrom = [self checkAddress: tokenized];
 }
 -(void) setParsedAddressReplyTo: (id) tokenized {
-    MBAddress* address = [self checkAddress: tokenized];
-    if (address) {
-        self.addressReplyTo = address;
-    }
+    self.addressReplyTo = [self checkAddress: tokenized];
 }
 /*
  "Nancy Reigel" <ndreigel@bellatlantic.net>, "'Carl Davies'" <carl_davies99@yahoo.com>, "'Taun'" <taun@charcoalia.net>, "'Michael B. Parmet'" <mbparmet@parmetech.com>, <geminikc9@yahoo.com>, <richard.hankin@hankingroup.com>, <DBoscher@CNTUS.JNJ.COM>, <mark@mccay.com>, <canniff@canniff.net>, <ndreigel@verizon.net>, <monckma@yahoo.com>, "'Alicia Shultz'" <AliciaShultz@princetowncable.com>, "'Laurie'" <reelmom5@verizon.net>, "'Wagner, Tim [NCSUS]'" <twagner@ncsus.jnj.com>, <jppsd@msn.com>, <karen_vanbemmel@yahoo.com>
 */
 -(void) setParsedAddressesTo: (id) tokenized {
-    if ([tokenized isKindOfClass: [NSString class]]) {
+    DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
+    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
+        
         NSMutableSet* mbAddressSet = [NSMutableSet new];
+        
         NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
+        
         NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
+        
         if (simpleAddressSet) {
             for (SimpleRFC822Address* rfcAddress in simpleAddressSet) {
                 MBAddress* mbAddress = [self checkAddress: rfcAddress];
@@ -224,7 +198,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 }
 -(void) setParsedAddressesBcc: (id) tokenized {
-    if ([tokenized isKindOfClass: [NSString class]]) {
+    DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
+    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
         NSMutableSet* mbAddressSet = [NSMutableSet new];
         NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
         NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
@@ -241,7 +216,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
 }
 -(void) setParsedAddressesCc: (id) tokenized {
-    if ([tokenized isKindOfClass: [NSString class]]) {
+    DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
+    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
         NSMutableSet* mbAddressSet = [NSMutableSet new];
         NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
         NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
@@ -263,17 +239,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
 }
 -(void) setParsedSubject: (id) tokenized {
-    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
-        NSValueTransformer* encodedWordTransformer = [NSValueTransformer valueTransformerForName: VTRFC2047EncodedToString];
-        
-        NSString* decodedString = [encodedWordTransformer transformedValue: tokenized];
-        self.subject = decodedString;
-    }
+    self.subject = [self checkAnd2047DecodeToken: tokenized];
 }
 -(void) setParsedSummary: (id) tokenized {
-    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
-        self.summary = (NSString*) tokenized;
-    }
+    self.summary = [self checkAnd2047DecodeToken: tokenized];
 }
 -(void) setParsedFlags: (id) tokenized {
     for (id token in tokenized) {
@@ -1014,12 +983,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         SimpleRFC822Address* rfcAddress = nil;
         
         if ([tokenized isKindOfClass: [NSString class]]) {
-            NSValueTransformer* encodedWordTransformer = [NSValueTransformer valueTransformerForName: VTRFC2047EncodedToString];
-            
-            NSString* decodedString = [encodedWordTransformer transformedValue: tokenized];
             
             NSValueTransformer* rfcAddressTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
-            rfcAddress = [rfcAddressTransformer reverseTransformedValue: decodedString];
+            rfcAddress = [rfcAddressTransformer reverseTransformedValue: [self checkAnd2047DecodeToken: tokenized]];
         } else {
             rfcAddress = tokenized;
         }
@@ -1052,6 +1018,35 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return result;
 }
 
+-(NSString*) decode2047:(NSString *)encodedString {
+    NSValueTransformer* encodedWordTransformer = [NSValueTransformer valueTransformerForName: VTRFC2047EncodedToString];
+    
+    return [encodedWordTransformer transformedValue: encodedString];
+}
+-(NSString*) checkAnd2047DecodeToken:(id)token {
+    NSString* decodedString;
+    if (token != nil && [token isKindOfClass: [NSString class]]) {
+        decodedString = [self decode2047: token];
+    }
+    return decodedString;
+}
+-(NSDate*) checkAndDecodeTokenAsDate:(id)token {
+    NSDate* decodedDate;
+
+    if (token != nil && [token isKindOfClass: [NSString class]]) {
+        NSString* dateString = token;
+        
+        decodedDate = [dateString dateFromRFC3501Format];
+        if (!decodedDate) {
+            decodedDate = [dateString dateFromRFC822Format];
+        }
+        
+    } else if ([token isKindOfClass: [NSDate class]]) {
+        decodedDate = token;
+    }
+
+    return decodedDate;
+}
 //-(id)copyWithZone:(NSZone *)zone { // shallow copy
 //    // Want to pass a Dictionary to an NSFormatter rather than a copy of a value.
 //    

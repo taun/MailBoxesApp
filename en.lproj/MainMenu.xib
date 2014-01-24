@@ -18,7 +18,7 @@
             <windowPositionMask key="initialPositionMask" topStrut="YES"/>
             <rect key="contentRect" x="449" y="410" width="1024" height="687"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
-            <value key="minSize" type="size" width="1024" height="687"/>
+            <value key="minSize" type="size" width="800" height="687"/>
             <view key="contentView" focusRingType="none" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="687"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -37,7 +37,7 @@
                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                    <accessibility description="Minimize or restore account listing"/>
+                                    <accessibility description="Minimize or restore account listing" help="Hide or restore account listing"/>
                                     <connections>
                                         <action selector="toggleAccountView:" target="854" id="861"/>
                                     </connections>
@@ -45,6 +45,7 @@
                                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="1212">
                                     <rect key="frame" x="293" y="10" width="16" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <accessibility help="Syncing email"/>
                                 </progressIndicator>
                                 <button toolTip="Synchronize accounts" id="1077" userLabel="Load Accounts Button">
                                     <rect key="frame" x="108" y="8" width="20" height="20"/>
@@ -65,7 +66,7 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                    <accessibility description="Synchronize accounts"/>
+                                    <accessibility description="Synchronize accounts" help="Synchronize accounts"/>
                                     <connections>
                                         <action selector="cancelLoadAllAccountFolders:" target="494" id="1280"/>
                                     </connections>
@@ -73,11 +74,11 @@
                                 <button toolTip="Open a portal editor" id="1103">
                                     <rect key="frame" x="964" y="8" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1104">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="1104">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                    <accessibility description="Open Portal Editor"/>
+                                    <accessibility description="Open Portal Editor" help="Add a new portal"/>
                                     <connections>
                                         <action selector="add:" target="1388" id="1392"/>
                                     </connections>
@@ -86,6 +87,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" name="windowFrameColor" catalog="System" colorSpace="catalog"/>
+                        <accessibility help="Message toolbar"/>
                     </box>
                     <splitView focusRingType="none" autosaveName="SidePaneSplitterAutosave" dividerStyle="thin" vertical="YES" id="838">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="651"/>
@@ -134,8 +136,10 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <accessibility help="Heading name"/>
                                                                         </textField>
                                                                     </subviews>
+                                                                    <accessibility help="Heading"/>
                                                                     <connections>
                                                                         <outlet property="textField" destination="1414" id="1416"/>
                                                                     </connections>
@@ -148,6 +152,7 @@
                                                                             <rect key="frame" x="3" y="0.0" width="17" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="1467"/>
+                                                                            <accessibility help="Folder image"/>
                                                                         </imageView>
                                                                         <textField verticalHuggingPriority="750" id="1465">
                                                                             <rect key="frame" x="25" y="0.0" width="241" height="17"/>
@@ -157,6 +162,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <accessibility help="Account or folder name"/>
                                                                         </textField>
                                                                         <button verticalHuggingPriority="750" id="1470">
                                                                             <rect key="frame" x="136" y="0.0" width="122" height="19"/>
@@ -165,8 +171,10 @@
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="cellTitle"/>
                                                                             </buttonCell>
+                                                                            <accessibility help="Unread message count"/>
                                                                         </button>
                                                                     </subviews>
+                                                                    <accessibility description="An Account or folder" help="An Account or folder"/>
                                                                     <connections>
                                                                         <outlet property="button" destination="1470" id="1472"/>
                                                                         <outlet property="imageView" destination="1464" id="1468"/>
@@ -193,7 +201,7 @@
                                             <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <accessibility description="Accounts listings"/>
+                                        <accessibility description="Acount and folder lists" help="Acount and folder lists"/>
                                     </scrollView>
                                     <popUpButton toolTip="Pop up a menu to add an account or folder" id="1569" userLabel="Sidebar Add Menu">
                                         <rect key="frame" x="6" y="3" width="61" height="20"/>
@@ -231,7 +239,7 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
-                                        <accessibility description="Popup a menu to add an account or folder"/>
+                                        <accessibility description="Popup a menu to add an account or folder" help="Add a new folder or account"/>
                                     </popUpButton>
                                 </subviews>
                             </customView>
@@ -247,17 +255,18 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1125">
+                                                    <scrollView toolTip="Drag and drop folders into this view to create a new portal. " focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1125">
                                                         <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="Wgf-b4-naE">
                                                             <rect key="frame" x="1" y="1" width="749" height="316"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <collectionView focusRingType="none" selectable="YES" maxNumberOfColumns="6" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
+                                                                <collectionView toolTip="Drag a folder here to create a new portal." focusRingType="none" selectable="YES" maxNumberOfColumns="6" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="749" height="316"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    <accessibility description="Drag a folder here to create a new portal." help="Portals"/>
                                                                     <connections>
                                                                         <binding destination="1133" name="content" keyPath="arrangedObjects" id="1144"/>
                                                                         <binding destination="1133" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="1144" id="1224"/>
@@ -268,6 +277,7 @@
                                                                 </collectionView>
                                                             </subviews>
                                                             <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                                            <accessibility help="Portals"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1127">
                                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
@@ -277,14 +287,16 @@
                                                             <rect key="frame" x="234" y="1" width="15" height="143"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
+                                                        <accessibility description="A place to drag and drop folders to create new portals." help="Portal Collections"/>
                                                     </scrollView>
                                                 </subviews>
+                                                <accessibility help="Portals"/>
                                             </customView>
                                             <customView focusRingType="none" id="1082" userLabel="Message View">
                                                 <rect key="frame" x="0.0" y="319" width="751" height="332"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="4nl-lT-u52">
+                                                    <scrollView toolTip="Messages" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="4nl-lT-u52">
                                                         <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <clipView key="contentView" id="15f-SP-Ip9">
@@ -295,7 +307,8 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="749" height="330"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <animations/>
-                                                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="primaryBackgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    <accessibility help="Message contents"/>
                                                                     <connections>
                                                                         <binding destination="CbG-mD-A5W" name="content" keyPath="arrangedObjects" id="lfz-86-hSn"/>
                                                                         <binding destination="CbG-mD-A5W" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="lfz-86-hSn" id="Zjm-gW-ARz"/>
@@ -303,6 +316,7 @@
                                                                     </connections>
                                                                 </collectionView>
                                                             </subviews>
+                                                            <accessibility help="Selected messages"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="pFN-S1-7Nu">
                                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
@@ -312,18 +326,21 @@
                                                             <rect key="frame" x="234" y="1" width="15" height="143"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
+                                                        <accessibility description="A view displaying the currently selected messages." help="Selected message view"/>
                                                     </scrollView>
                                                 </subviews>
                                                 <animations/>
-                                                <accessibility description="Selected messages"/>
+                                                <accessibility description="Selected messages" help="Selected messages"/>
                                             </customView>
                                         </subviews>
                                         <holdingPriorities>
                                             <real value="250"/>
                                             <real value="250"/>
                                         </holdingPriorities>
+                                        <accessibility help="Portals and Messages"/>
                                     </splitView>
                                 </subviews>
+                                <accessibility help="Portals and Messages"/>
                             </customView>
                         </subviews>
                         <holdingPriorities>
@@ -335,7 +352,7 @@
                         </connections>
                     </splitView>
                 </subviews>
-                <accessibility description="View of accounts, subject lines and selected message."/>
+                <accessibility description="View of accounts, subject lines and selected message." help="View of accounts, subject lines and selected message."/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="E356A4FE-476A-4FD5-A341-8A52EF556796" displayMode="iconAndLabel" sizeMode="regular" id="841">
                 <allowedToolbarItems>

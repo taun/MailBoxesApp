@@ -26,10 +26,9 @@
  */
 - (id)transformedValue:(id)value {
     NSString* addressString;
-    MBAddress* address;
     
     if ([value isKindOfClass:[MBAddress class]] || [value isKindOfClass:[SimpleRFC822Address class]]) {
-        if ( address.name.length != 0) {
+        if ( [[value name] length] != 0) {
             addressString = [NSString stringWithFormat: @"%@ <%@>", [value name], [value email]];
         } else {
             addressString = [NSString stringWithFormat: @"%@", [value email]];
@@ -49,7 +48,7 @@
     SimpleRFC822Address* rfcaddress = [SimpleRFC822Address new];
     
     if ([value isKindOfClass: [NSString class]]) {
-        NSString* addressString = (NSString*) value;
+        NSString* addressString = [(NSString*)value stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         NSRange lastSpace = [addressString rangeOfString: @" " options: NSBackwardsSearch];
         

@@ -8,10 +8,13 @@
 
 #import <XCTest/XCTest.h>
 
+#import "SimpleRFC822Address.h"
+
 #import "MBMIMECharsetTransformer.h"
 #import "MBMIMEQuotedPrintableTranformer.h"
 #import "MBMIME2047ValueTransformer.h"
 #import "MBSimpleRFC822AddressToStringTransformer.h"
+#import "MBSimpleRFC822AddressSetToStringTransformer.h"
 
 #pragma message "ToDo: need stub MBAddress class for testing transformer."
 
@@ -28,6 +31,18 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     _testBundle = [NSBundle bundleWithIdentifier: @"com.moedae.LogicTests"];
+
+    [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressToStringTransformer new]
+                                    forName: VTAddressToString];
+    
+    [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressSetToStringTransformer new]
+                                    forName: VTAddressesToString];
+    
+    [NSValueTransformer setValueTransformer: [MBMIME2047ValueTransformer new]
+                                    forName: VTRFC2047EncodedToString];
+    
+    [NSValueTransformer setValueTransformer: [MBMIMEQuotedPrintableTranformer new]
+                                    forName: VTQuotedPrintableToString];
 }
 
 - (void)tearDown {
@@ -69,8 +84,40 @@
     
 }
 
--(void)testMBAddressToRFC822StringTransformerValue {
-    
+-(NSString*) tranformAddress: (id) address {
+    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
+    NSString* addressString = [addressToStringTransformer transformedValue: address];
+    return addressString;
+}
+-(SimpleRFC822Address*) reverseTranformAddress: (NSString*) string {
+    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
+    SimpleRFC822Address* address = [addressToStringTransformer reverseTransformedValue: string];
+    return address;
 }
 
+-(NSSet*) reverseTranformAddresses: (NSString*) string {
+    NSValueTransformer* addressesToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
+    NSSet* addresses = [addressesToStringTransformer reverseTransformedValue: string];
+    return addresses;
+}
+
+-(NSString*) transformAddressesToString: (NSSet*) addresses {
+    NSValueTransformer* addressesToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
+    NSString* string = [addressesToStringTransformer transformedValue: addresses];
+    return string;
+}
+
+-(void)testStringToAddress1 {
+    SimpleRFC822Address* address = [self reverseTranformAddress: @"Taun Chapman <taun@taun.org>"];
+    SimpleRFC822Address* reference = [SimpleRFC822Address newAddressName: @"Taun Chapman" email: @"taun@taun.org"];
+    XCTAssertEqualObjects(address, reference, @"%@ & %@ should be the same.", address, reference);
+}
+
+-(void)testMultipleAddressesStringToSet {
+    NSString* addresses = [NSString stringWithFormat: @"Taun Chapman <taun@taun.org>, Taun Chapman <news@taun.org>, myrna@charcoalia.net"];
+    NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
+    NSString* reference = [self transformAddressesToString: simpleAddressSet];
+    
+    XCTAssertEqualObjects(addresses, reference, @"%@ & %@ Should be equal.", addresses, reference);
+}
 @end

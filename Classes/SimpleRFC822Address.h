@@ -15,6 +15,10 @@
 @property (strong) NSString* mailbox;
 @property (strong) NSString* domain;
 
++(instancetype) newAddressName: (NSString*) name email: (NSString*) email;
+
+-(instancetype) initWithName: (NSString*) name email: (NSString*) email;
+
 -(NSString *) stringRFC822AddressFormat;
 
 @end

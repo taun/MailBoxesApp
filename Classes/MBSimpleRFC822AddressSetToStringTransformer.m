@@ -36,10 +36,10 @@
         
         NSMutableArray* addressStringArray = [NSMutableArray new];
         
-        for (MBAddress* address in value) {
+        for (id address in value) {
             NSString* addressString = @"";
             
-            if ([address isKindOfClass: [MBAddress class]]) {
+            if ([address isKindOfClass: [MBAddress class]] || [address isKindOfClass:[SimpleRFC822Address class]]) {
                 
                 addressString = [addressTranformer transformedValue: address];
 

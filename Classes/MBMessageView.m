@@ -39,5 +39,15 @@
     [self setTitlePosition: NSNoTitle];
 }
 
-
+//-(void) updateConstraints {
+//    NSView* collectionView = [self superview];
+//    NSView* messageView = self;
+//    NSDictionary *views = NSDictionaryOfVariableBindings(collectionView, messageView);
+//    
+//    [collectionView addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[messageView]-10-|"
+//                                                                            options:0
+//                                                                            metrics:nil
+//                                                                              views:views]];
+//
+//}
 @end

@@ -13,7 +13,6 @@
 @interface MBMessageViewController : NSCollectionViewItem
 
 @property (strong, nonatomic) IBOutlet NSObjectController *messageController;
-@property (strong, nonatomic)          MBMessage*         message;
 
 #pragma Envelope Fields
 @property (weak) IBOutlet NSTextField *subject;
@@ -27,10 +26,10 @@
 
 #pragma Body
 
-@property (strong) NSView* messageBodyView;
+//@property (strong) NSView* messageBodyView;
 
 - (IBAction)showMessageDebug:(id)sender;
 - (IBAction)showPartsInLog:(id)sender;
-- (IBAction)refreshMessageDisplay:(id)sender;
+//- (IBAction)refreshMessageDisplay:(id)sender;
 
 @end

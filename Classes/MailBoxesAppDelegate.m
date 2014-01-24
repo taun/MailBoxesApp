@@ -688,12 +688,12 @@ are presented to the user.
 - (IBAction)visualizeConstraints:(id)sender {
     [self.appWindow visualizeConstraints: [self.self.messageViewController.view mbAllConstraints]];
     
-    CGRect tvFrame = self.messageViewController.messageBodyView.frame;
-    CGSize tcSize = [[(NSTextView*)self.messageViewController.messageBodyView textContainer] containerSize];
-    NSLog(@"TextView Frame: %@; TextContainer Size: %@", NSStringFromRect(tvFrame), NSStringFromSize(tcSize));
+//    CGRect tvFrame = self.messageViewController.messageBodyView.frame;
+//    CGSize tcSize = [[(NSTextView*)self.messageViewController.messageBodyView textContainer] containerSize];
+//    NSLog(@"TextView Frame: %@; TextContainer Size: %@", NSStringFromRect(tvFrame), NSStringFromSize(tcSize));
     
-    CGRect bodyContainerFrame = self.messageViewController.messageBodyViewContainer.frame;
-    CGRect messageFrame = self.messageViewController.messageBodyViewContainer.superview.frame;
-    NSLog(@"Body Frame: %@; Message Frame: %@", NSStringFromRect(bodyContainerFrame), NSStringFromRect(messageFrame));
+//    CGRect bodyContainerFrame = self.messageViewController.messageBodyViewContainer.frame;
+//    CGRect messageFrame = self.messageViewController.messageBodyViewContainer.superview.frame;
+//    NSLog(@"Body Frame: %@; Message Frame: %@", NSStringFromRect(bodyContainerFrame), NSStringFromRect(messageFrame));
 }
 @end

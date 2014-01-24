@@ -104,6 +104,9 @@
                <Test
                   Identifier = "LogicTests">
                </Test>
+               <Test
+                  Identifier = "MIMERFC2047EncodeDecodeTests">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>
