@@ -1387,12 +1387,6 @@
                         <action selector="showMessageDebug:" target="ram-oA-swT" id="RUD-Lm-W5D"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Refresh Message" id="2U2-NL-S3K">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="refreshMessageDisplay:" target="ram-oA-swT" id="4wd-eJ-bbU"/>
-                    </connections>
-                </menuItem>
             </items>
         </menu>
     </objects>

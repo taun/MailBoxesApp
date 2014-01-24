@@ -10,7 +10,7 @@
 @class MBMessage;
 @class MBMessageHeaderView;
 
-@interface MBMessageViewController : NSCollectionViewItem
+@interface MBMessageViewController : NSCollectionViewItem <NSComboBoxDataSource, NSComboBoxDelegate>
 
 @property (strong, nonatomic) IBOutlet NSObjectController *messageController;
 
@@ -21,6 +21,7 @@
 @property (weak) IBOutlet NSTextField *sender;
 
 @property (weak) IBOutlet MBMessageHeaderView *messageHeader;
+@property (weak) IBOutlet NSComboBox *recipientsBox;
 
 @property (weak) IBOutlet NSView* messageBodyViewContainer;
 

@@ -17,6 +17,7 @@
 #import "MBMessageHeaderView.h"
 #import "MBox+IMAP.h"
 #import "MBAccount+IMAP.h"
+#import "MBSimpleRFC822AddressToStringTransformer.h"
 
 #import "MailBoxesAppDelegate.h"
 #import "MBAccountsCoordinator.h"
@@ -34,6 +35,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @interface MBMessageViewController ()
 
 @property (strong, nonatomic) NSArray* cachedOrderedMessageParts;
+@property (strong,nonatomic) NSArray* cachedAddressesTo;
 
 -(NSAttributedString*) attributedStringFromMessage: (MBMessage*) message;
 
@@ -41,10 +43,18 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MBMessageViewController
 
--(void) setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-    if ([representedObject isKindOfClass: [MBMessage class]]) {
-        MBMessage* myMessage = (MBMessage*)representedObject;
+-(NSArray*) cachedAddressesTo {
+    if (_cachedAddressesTo == nil) {
+        MBMessage* message = (MBMessage*) self.representedObject;
+        NSSortDescriptor* sorting = [NSSortDescriptor sortDescriptorWithKey: @"email" ascending: YES];
+        _cachedAddressesTo = [message.addressesTo sortedArrayUsingDescriptors: @[sorting]];
+    }
+    return _cachedAddressesTo;
+}
+
+-(void) awakeFromNib {
+    if ([self.representedObject isKindOfClass: [MBMessage class]]) {
+        MBMessage* myMessage = (MBMessage*)self.representedObject;
         if ([myMessage.isFullyCached boolValue] == NO ) {
             // need to load the body
             // ask accountsCoordinator to load body for selectedMessage
@@ -55,6 +65,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             [app.accountsCoordinator loadFullMessageID: messageID forAccountID: accountID];
         }
     }
+    MBMessage* myMessage = (MBMessage*)self.representedObject;
+    NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTAddressToString];
+    NSString* cellcontent = [addressToString transformedValue: [self.cachedAddressesTo objectAtIndex: 0]];
+    [self.recipientsBox setObjectValue: cellcontent];
 }
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -198,5 +212,36 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
     return [composition copy];
 }
+
+#pragma mark - Combo Data Source
+
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
+    MBMessage* message = (MBMessage*) self.representedObject;
+    NSInteger count = 0;
+    if (message) {
+        count = [message.addressesTo count];
+    }
+    return count;
+}
+
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index {
+    id cellcontent;
+    
+    if (index <= self.cachedAddressesTo.count) {
+        MBAddress* address = self.cachedAddressesTo[index];
+        NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTAddressToString];
+        cellcontent = [addressToString transformedValue: address];
+    }
+    return cellcontent;
+}
+
+- (NSUInteger)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)aString {
+    NSUInteger index = 0;
+
+    index = [self.cachedAddressesTo indexOfObject: aString];
+    return index;
+}
+
+#pragma mark - Combo Delegate
 
 @end

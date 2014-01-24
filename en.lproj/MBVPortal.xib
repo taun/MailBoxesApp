@@ -126,7 +126,7 @@
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
-                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="gridColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="255" minWidth="40" maxWidth="1000" id="205">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
@@ -190,10 +190,10 @@
                                                                     <connections>
                                                                         <binding destination="209" name="value" keyPath="objectValue.addressFrom" id="bHK-Oc-WLx">
                                                                             <dictionary key="options">
-                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                 <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
+                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                                             </dictionary>
                                                                         </binding>
                                                                     </connections>
