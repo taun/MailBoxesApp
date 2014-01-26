@@ -50,7 +50,12 @@
 }
 
 -(NSString*) description {
-    return [NSString stringWithFormat:@"%@ Name: %@; E-Mail: %@;", [super description], self.name, self.email];
+    return [NSString stringWithFormat:@"%@ Name: %@; E-Mail: %@; Mailbox: %@; Domain: %@;",
+            [super description], self.name, self.email, self.mailbox, self.domain];
+}
+-(NSString*) debugDescription {
+    return [NSString stringWithFormat:@"%@ Name: %@; E-Mail: %@; Mailbox: %@; Domain: %@;",
+            [super description], self.name, self.email, self.mailbox, self.domain];
 }
 
 - (NSUInteger)hash {

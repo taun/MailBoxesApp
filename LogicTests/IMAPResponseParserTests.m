@@ -53,6 +53,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return answerTokens;
 }
 
+/* sets up the necessary house keeping for the response to be able to evaluate the tokens */
 - (void)configDefaultResponse:(IMAPResponse *)response {
     response.delegate = self;
     response.clientStore = self;
@@ -75,13 +76,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSMutableArray *answerTokens = [self loadAnswersFor: answer];
     
-    XCTAssertEqualObjects(tokens, answerTokens, @"Parse result: %i", result);
+    BOOL success = [tokens isEqualToArray: answerTokens];
+    XCTAssertTrue(success, @"Parse result: %i; Should be: %@; Is: %@;", result, answerTokens, tokens);
     XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
     
     if (methodName!=nil) {
         [self configDefaultResponse:response];
         [response evaluate];
-        XCTAssertTrue([methodName compare: self.actionCalled] == NSOrderedSame, @"Response method called should be: %@, was: %@", methodName, self.actionCalled);
+        success = [methodName isEqualToString: self.actionCalled];
+        XCTAssertTrue(success, @"Response method called should be: %@, was: %@", methodName, self.actionCalled);
     }
     // need to assert result of above
     // set an ivar in delegate method with name and arguments passed to delegate method
@@ -223,7 +226,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSMutableArray *answerTokens = [self loadAnswersFor: NSStringFromSelector(_cmd)];
     
-    XCTAssertEqualObjects(tokens, answerTokens, @"Parse result: %i", result);
+    BOOL success = [tokens isEqualToArray: answerTokens];
+    XCTAssertTrue(success, @"Parse result: %i", result);
     XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
 }
 
@@ -261,6 +265,35 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)testFetchRFC822Header {
     
     NSString *path = [testBundle pathForResource: @"uidfetchrfc822header" ofType: @"txt" inDirectory: @"answers"];
+    
+    NSMutableData *newData = [[NSMutableData alloc] initWithContentsOfFile: path];
+    
+    [parser addDataBuffer: newData];
+    
+    IMAPResponse* response = nil;
+    IMAPParseResult result;
+    //MBTokenTree *tokens = nil;
+    NSString *responseMethodName = @"commandDone:";
+    int i = 1;
+    
+    do {
+        response = nil;
+        result = [self.parser parseBuffer: &response];
+        //tokens = parser.tokens;
+        if (result == IMAPParseComplete) {
+            [self configDefaultResponse:response];
+            [response evaluate];
+        }
+        i++;
+    } while ([self.actionCalled compare: responseMethodName] != NSOrderedSame && i < 201);
+    
+    
+    XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
+}
+
+- (void)testFetchGrandMastersSampleRFC822Header {
+    
+    NSString *path = [testBundle pathForResource: @"GrandMastersSampleHeader1" ofType: @"txt" inDirectory: @"answers"];
     
     NSMutableData *newData = [[NSMutableData alloc] initWithContentsOfFile: path];
     

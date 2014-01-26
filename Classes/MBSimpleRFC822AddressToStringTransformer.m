@@ -29,9 +29,9 @@
     
     if ([value isKindOfClass:[MBAddress class]] || [value isKindOfClass:[SimpleRFC822Address class]]) {
         if ( [[value name] length] != 0) {
-            addressString = [NSString stringWithFormat: @"%@ <%@>", [value name], [value email]];
+            addressString = [NSString stringWithFormat: @"\"%@\" <%@>", [value name], [value email]];
         } else {
-            addressString = [NSString stringWithFormat: @"%@", [value email]];
+            addressString = [NSString stringWithFormat: @"<%@>", [value email]];
         }
     } else {
         addressString = @"";
@@ -50,15 +50,24 @@
     if ([value isKindOfClass: [NSString class]]) {
         NSString* addressString = [(NSString*)value stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
+        NSMutableCharacterSet* addressDelimiters = [NSMutableCharacterSet characterSetWithCharactersInString: @"<>"];
+        [addressDelimiters formUnionWithCharacterSet: [NSCharacterSet whitespaceCharacterSet]];
+
+        NSMutableCharacterSet* nameDelimiters = [NSMutableCharacterSet characterSetWithCharactersInString: @"\""];
+        [nameDelimiters formUnionWithCharacterSet: [NSCharacterSet whitespaceCharacterSet]];
+
+        // Find space between name and address "first last <mailbox@domain>"
         NSRange lastSpace = [addressString rangeOfString: @" " options: NSBackwardsSearch];
         
-        if (lastSpace.location == NSNotFound) {
-            rfcaddress.email = addressString;
+        if (lastSpace.location != NSNotFound) {
+            rfcaddress.name =  [[addressString substringWithRange: NSMakeRange(0, lastSpace.location)]
+                                stringByTrimmingCharactersInSet: nameDelimiters];
+
+            rfcaddress.email = [[addressString substringWithRange: NSMakeRange(lastSpace.location+1, addressString.length-lastSpace.location-1)]
+                                stringByTrimmingCharactersInSet: addressDelimiters];
         } else {
-            rfcaddress.email = [[[addressString substringWithRange: NSMakeRange(lastSpace.location+1, addressString.length-lastSpace.location-1)]
-                                 stringByReplacingOccurrencesOfString: @"<" withString: @""]
-                                stringByReplacingOccurrencesOfString: @">" withString: @""];
-            rfcaddress.name =  [[addressString substringWithRange: NSMakeRange(0, lastSpace.location)] stringByReplacingOccurrencesOfString: @"\"" withString: @""];
+            // only have <mailbox@domain>
+            rfcaddress.email = [addressString stringByTrimmingCharactersInSet: addressDelimiters];
         }
         
         if (rfcaddress.email) {

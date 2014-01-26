@@ -114,9 +114,18 @@
 }
 
 -(void)testMultipleAddressesStringToSet {
-    NSString* addresses = [NSString stringWithFormat: @"Taun Chapman <taun@taun.org>, Taun Chapman <news@taun.org>, myrna@charcoalia.net"];
+    NSString* addresses = [NSString stringWithFormat: @"\"Taun Chapman\" <taun@taun.org>, \"Taun Chapman\" <news@taun.org>, <myrna@charcoalia.net>"];
     NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
     NSString* reference = [self transformAddressesToString: simpleAddressSet];
+    
+    XCTAssertEqualObjects(addresses, reference, @"%@ & %@ Should be equal.", addresses, reference);
+}
+
+-(void)testLongAddressesStringNamesWithCommasToSet {
+    NSString* addresses = [NSString stringWithFormat: @"\"Mike Lee\" <mlee@rdpartners.com>, <wilkins@umbi.umd.edu>, \"Clayton Cardin\" <clayton.cardin@verizon.net>, \"PaGeN\" <pagen@io.com>, \"David Wieger\" <davidmichaelw@hotmail.com>, \"Gary Seldon\" <garyseldon@earthlink.net>, \"Jeff Malmgren\" <coord@vul.bc.ca>, \"Mark Walker\" <mwalker@skyytek.com>, \"Nick Roberts\" <nroberts@cyberus.ca>, \"peter roper\" <roper@portofolio.com>, \"Pieter Botman\" <P.BOTMAN@IEEE.ORG>, <Puttyhead@aol.com>, \"rob seidenberg\" <robseidenberg@yahoo.com>, <apeters@bhsusa.com>, \"Jamie Demarest\" <Jamie_demarest@newton.mec.edu>, \"Charles Shoemaker\" <charles.shoemaker@tufts.edu>, \"Scott Todd\" <sasha@scottsasha.com>, \"Michael Fortman\" <mcfortman@yahoo.com>, \"Matt J and Lori B\" <maplerowfarm@yahoo.com>, \"terry plotkin\" <tplotkin@earthlink.net>, \"Bowen, Mike\" <mike.bowen@bmonb.com>, \"Mark Corsey\" <eclipsemc@earthlink.net>, \"rob botman\" <rob.botman@gmail.com>, \"Moran, Mark D\" <mdmoran@kpmg.ca>, \"Jeffrey Wood\" <jeff@agencynextdoor.com>, \"Glenn Ulmer\" <GUlmer@syscom-consulting.com>, \"Tim Friesen\" <tim.friesen@telusplanet.net>, \"David Finn\" <finner64@gmail.com>, <stephen.wiencke@bmo.com>, \"Bruton, Peter\" <bruton@NRCan.gc.ca>, \"Fielding, Craig\" <Craig.Fielding@cra-arc.gc.ca>, \"J. Invencio\" <bosgmasters@mac.com>, <canniff@canniff.net>, \"Dave Wilkins\" <wilkins@umbi.umd.edu>, \"B KIRBY\" <ber01906@berk.com>, \"Taun\" <taun@charcoalia.net>"];
+    NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
+    NSString* reference = [self transformAddressesToString: simpleAddressSet];
+    NSSet* simpleAddressSet2 = [self reverseTranformAddresses: reference];
     
     XCTAssertEqualObjects(addresses, reference, @"%@ & %@ Should be equal.", addresses, reference);
 }

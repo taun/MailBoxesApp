@@ -56,8 +56,10 @@
 }
 /*
  takes comma separated string of email address like below
- "Nancy Reigel" <ndreigel@bellatlantic.net>, "'Carl Davies'" <carl_davies99@yahoo.com>, "'Taun'" <taun@charcoalia.net>, "'Michael B. Parmet'" <mbparmet@parmetech.com>, <geminikc9@yahoo.com>, <richard.hankin@hankingroup.com>, <DBoscher@CNTUS.JNJ.COM>, <mark@mccay.com>, <canniff@canniff.net>, <ndreigel@verizon.net>, <monckma@yahoo.com>, "'Alicia Shultz'" <AliciaShultz@princetowncable.com>, "'Laurie'" <reelmom5@verizon.net>, "'Wagner, Tim [NCSUS]'" <twagner@ncsus.jnj.com>, <jppsd@msn.com>, <karen_vanbemmel@yahoo.com>
+ "Nancy Reigel" <ndreigel@bellatlantic.net>, "'Carl, Davies'" <carl_davies99@yahoo.com>, "'Taun'" <taun@charcoalia.net>, "'Michael B. Parmet'" <mbparmet@parmetech.com>, <geminikc9@yahoo.com>, <richard.hankin@hankingroup.com>, <DBoscher@CNTUS.JNJ.COM>, <mark@mccay.com>, <canniff@canniff.net>, <ndreigel@verizon.net>, <monckma@yahoo.com>, "'Alicia Shultz'" <AliciaShultz@princetowncable.com>, "'Laurie'" <reelmom5@verizon.net>, "'Wagner, Tim [NCSUS]'" <twagner@ncsus.jnj.com>, <jppsd@msn.com>, <karen_vanbemmel@yahoo.com>
 
+ Look for ">,"
+ 
  returns NSSet of SimpleRFC822Addresses
  
  */
@@ -66,11 +68,17 @@
     NSMutableSet* addresses = [NSMutableSet new];
     
     if ([value isKindOfClass: [NSString class]]) {
-        NSArray* addressesArray = [(NSString*)value componentsSeparatedByString: @","];
+        NSArray* addressesArray = [(NSString*)value componentsSeparatedByString: @">, "];
+        
+        NSMutableArray* fixedAddressesArray = [NSMutableArray new];
+        for (NSString* address in addressesArray) {
+            // put back the ">" removed by using the componentsSeparatedByString method with ">, "
+            [fixedAddressesArray addObject: [NSString stringWithFormat: @"%@>", address]];
+        }
         
         NSValueTransformer* addressTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
         
-        for (NSString* addressString in addressesArray) {
+        for (NSString* addressString in fixedAddressesArray) {
             SimpleRFC822Address* rfcAddress = [addressTransformer reverseTransformedValue: addressString];
             if (rfcAddress) {
                 [addresses addObject: rfcAddress];

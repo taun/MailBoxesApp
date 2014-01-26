@@ -20,7 +20,7 @@
     NSBundle            *testBundle;
 }
 
-@property (retain) IMAPResponseBuffer *parser;
+@property (strong) IMAPResponseBuffer *parser;
 @property (copy)     NSString         *actionCalled;
 
 
