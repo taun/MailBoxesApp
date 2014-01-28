@@ -1,0 +1,71 @@
+* 133 FETCH (UID 186605 RFC822.HEADER {3776}
+Return-Path: <Larivee-J-F@positron911.com>
+X-Original-To: taun@charcoalia.net
+Delivered-To: taun@charcoalia.net
+Received: from localhost (unknown [127.0.0.1])
+	by stargate.moedae.net (Postfix) with ESMTP id 7879A15344A
+	for <taun@charcoalia.net>; Tue, 16 Oct 2007 20:28:57 +0000 (UTC)
+Received: from stargate.moedae.net ([127.0.0.1])
+ by localhost (stargate [127.0.0.1]) (amavisd-new, port 10024) with ESMTP
+ id 06316-05 for <taun@charcoalia.net>; Tue, 16 Oct 2007 16:28:57 -0400 (EDT)
+Received: from stsnycon1.corp.root.ipc.com (ipcny.ipc.com [65.244.37.61])
+	by stargate.moedae.net (Postfix) with ESMTP id 49B05148FED
+	for <taun@charcoalia.net>; Tue, 16 Oct 2007 16:28:56 -0400 (EDT)
+Received: from exnanycmbx2.corp.root.ipc.com ([159.63.92.16]) by stsnycon1.corp.root.ipc.com with Microsoft SMTPSVC(6.0.3790.1830);
+	 Tue, 16 Oct 2007 16:28:55 -0400
+X-MimeOLE: Produced By Microsoft Exchange V6.5
+Content-class: urn:content-classes:message
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----_=_NextPart_001_01C81033.1708910A"
+Subject: RE: 2nd North American Grand Masters Championship  - update #8 
+Date: Tue, 16 Oct 2007 16:28:18 -0400
+Message-ID: <52A3D503AA6840409339EBD9ED738E450186492D@exnanycmbx2.corp.root.ipc.com>
+In-Reply-To: <033201c81024$35833f00$6700a8c0@mikelee1>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Thread-Topic: 2nd North American Grand Masters Championship  - update #8 
+thread-index: AcanRFUkyQJPbsuDR5CnEXAvgvzuuQAAP63gSZLYjLAErggDsAEpoq5wAoeaDsABLj/FgAFvIMrwAYWuRdAARftS8APbyd5gAAR9izA=
+References: <003701c6a745$7b6b9d30$6a00a8c0@mikelee1> <001a01c7cd93$4eb8a9c0$6700a8c0@mikelee1> <007a01c7e04b$ad82fbc0$6700a8c0@mikelee1>  <0e6101c7ef0e$a796ffa0$6700a8c0@mikelee1> <017e01c7f3c8$f7d09800$6700a8c0@mikelee1> <006301c7f984$5ee984f0$6700a8c0@mikelee1> <00ab01c7ff9a$e8084110$6700a8c0@mikelee1> <00b101c800b3$89449ba0$6700a8c0@mikelee1> <033201c81024$35833f00$6700a8c0@mikelee1>
+From: =?iso-8859-1?Q?Lariv=E9e=2C_Jean-Fran=E7ois?= <Larivee-J-F@positron911.com>
+To: "Mike Lee" <mlee@rdpartners.com>, <wilkins@umbi.umd.edu>,
+	"Clayton Cardin" <clayton.cardin@verizon.net>,
+	"PaGeN" <pagen@io.com>, "David Wieger" <davidmichaelw@hotmail.com>,
+	"Gary Seldon" <garyseldon@earthlink.net>,
+	"Jeff Malmgren" <coord@vul.bc.ca>,
+	"Mark Walker" <mwalker@skyytek.com>,
+	"Nick Roberts" <nroberts@cyberus.ca>,
+	"peter roper" <roper@portofolio.com>,
+	"Pieter Botman" <P.BOTMAN@IEEE.ORG>, <Puttyhead@aol.com>,
+	"rob seidenberg" <robseidenberg@yahoo.com>, <apeters@bhsusa.com>,
+	"Jamie Demarest" <Jamie_demarest@newton.mec.edu>,
+	"Charles Shoemaker" <charles.shoemaker@tufts.edu>,
+	"Scott Todd" <sasha@scottsasha.com>,
+	"Michael Fortman" <mcfortman@yahoo.com>,
+	"Matt J and Lori B" <maplerowfarm@yahoo.com>,
+	"terry plotkin" <tplotkin@earthlink.net>,
+	"Bowen, Mike" <mike.bowen@bmonb.com>,
+	"Mark Corsey" <eclipsemc@earthlink.net>,
+	"rob botman" <rob.botman@gmail.com>,
+	"Moran, Mark D" <mdmoran@kpmg.ca>,
+	"Jeffrey Wood" <jeff@agencynextdoor.com>,
+	"Glenn Ulmer" <GUlmer@syscom-consulting.com>,
+	"Tim Friesen" <tim.friesen@telusplanet.net>,
+	"David Finn" <finner64@gmail.com>, <stephen.wiencke@bmo.com>,
+	"Bruton, Peter" <bruton@NRCan.gc.ca>,
+	"Fielding, Craig" <Craig.Fielding@cra-arc.gc.ca>,
+	"J. Invencio" <bosgmasters@mac.com>, <canniff@canniff.net>,
+	"Dave Wilkins" <wilkins@umbi.umd.edu>, "B KIRBY" <ber01906@berk.com>,
+	"Taun" <taun@charcoalia.net>
+Cc: "Mike Kropveld" <grandmasters@operamail.com>,
+	"Laurie Dotto" <laurie.dotto@abbott.com>,
+	"Lorne Beckman" <lorne@orl.mcgill.ca>,
+	"Shiellah Quintos" <shiellah@sympatico.ca>
+X-OriginalArrivalTime: 16 Oct 2007 20:28:55.0400 (UTC) FILETIME=[2C612680:01C81033]
+Status: O
+X-Status: 
+X-Keywords: NonJunk $NotJunk 
+X-UID: 132
+
+)
+a18 OK UID FETCH completed

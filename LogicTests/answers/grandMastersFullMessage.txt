@@ -1,0 +1,1852 @@
+Return-Path: <Larivee-J-F@positron911.com>
+X-Original-To: taun@charcoalia.net
+Delivered-To: taun@charcoalia.net
+Received: from localhost (unknown [127.0.0.1])
+	by stargate.moedae.net (Postfix) with ESMTP id 7879A15344A
+	for <taun@charcoalia.net>; Tue, 16 Oct 2007 20:28:57 +0000 (UTC)
+Received: from stargate.moedae.net ([127.0.0.1])
+ by localhost (stargate [127.0.0.1]) (amavisd-new, port 10024) with ESMTP
+ id 06316-05 for <taun@charcoalia.net>; Tue, 16 Oct 2007 16:28:57 -0400 (EDT)
+Received: from stsnycon1.corp.root.ipc.com (ipcny.ipc.com [65.244.37.61])
+	by stargate.moedae.net (Postfix) with ESMTP id 49B05148FED
+	for <taun@charcoalia.net>; Tue, 16 Oct 2007 16:28:56 -0400 (EDT)
+Received: from exnanycmbx2.corp.root.ipc.com ([159.63.92.16]) by stsnycon1.corp.root.ipc.com with Microsoft SMTPSVC(6.0.3790.1830);
+	 Tue, 16 Oct 2007 16:28:55 -0400
+X-MimeOLE: Produced By Microsoft Exchange V6.5
+Content-class: urn:content-classes:message
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----_=_NextPart_001_01C81033.1708910A"
+Subject: RE: 2nd North American Grand Masters Championship  - update #8 
+Date: Tue, 16 Oct 2007 16:28:18 -0400
+Message-ID: <52A3D503AA6840409339EBD9ED738E450186492D@exnanycmbx2.corp.root.ipc.com>
+In-Reply-To: <033201c81024$35833f00$6700a8c0@mikelee1>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Thread-Topic: 2nd North American Grand Masters Championship  - update #8 
+thread-index: AcanRFUkyQJPbsuDR5CnEXAvgvzuuQAAP63gSZLYjLAErggDsAEpoq5wAoeaDsABLj/FgAFvIMrwAYWuRdAARftS8APbyd5gAAR9izA=
+References: <003701c6a745$7b6b9d30$6a00a8c0@mikelee1> <001a01c7cd93$4eb8a9c0$6700a8c0@mikelee1> <007a01c7e04b$ad82fbc0$6700a8c0@mikelee1>  <0e6101c7ef0e$a796ffa0$6700a8c0@mikelee1> <017e01c7f3c8$f7d09800$6700a8c0@mikelee1> <006301c7f984$5ee984f0$6700a8c0@mikelee1> <00ab01c7ff9a$e8084110$6700a8c0@mikelee1> <00b101c800b3$89449ba0$6700a8c0@mikelee1> <033201c81024$35833f00$6700a8c0@mikelee1>
+From: =?iso-8859-1?Q?Lariv=E9e=2C_Jean-Fran=E7ois?= <Larivee-J-F@positron911.com>
+To: "Mike Lee" <mlee@rdpartners.com>, <wilkins@umbi.umd.edu>,
+	"Clayton Cardin" <clayton.cardin@verizon.net>,
+	"PaGeN" <pagen@io.com>, "David Wieger" <davidmichaelw@hotmail.com>,
+	"Gary Seldon" <garyseldon@earthlink.net>,
+	"Jeff Malmgren" <coord@vul.bc.ca>,
+	"Mark Walker" <mwalker@skyytek.com>,
+	"Nick Roberts" <nroberts@cyberus.ca>,
+	"peter roper" <roper@portofolio.com>,
+	"Pieter Botman" <P.BOTMAN@IEEE.ORG>, <Puttyhead@aol.com>,
+	"rob seidenberg" <robseidenberg@yahoo.com>, <apeters@bhsusa.com>,
+	"Jamie Demarest" <Jamie_demarest@newton.mec.edu>,
+	"Charles Shoemaker" <charles.shoemaker@tufts.edu>,
+	"Scott Todd" <sasha@scottsasha.com>,
+	"Michael Fortman" <mcfortman@yahoo.com>,
+	"Matt J and Lori B" <maplerowfarm@yahoo.com>,
+	"terry plotkin" <tplotkin@earthlink.net>,
+	"Bowen, Mike" <mike.bowen@bmonb.com>,
+	"Mark Corsey" <eclipsemc@earthlink.net>,
+	"rob botman" <rob.botman@gmail.com>,
+	"Moran, Mark D" <mdmoran@kpmg.ca>,
+	"Jeffrey Wood" <jeff@agencynextdoor.com>,
+	"Glenn Ulmer" <GUlmer@syscom-consulting.com>,
+	"Tim Friesen" <tim.friesen@telusplanet.net>,
+	"David Finn" <finner64@gmail.com>, <stephen.wiencke@bmo.com>,
+	"Bruton, Peter" <bruton@NRCan.gc.ca>,
+	"Fielding, Craig" <Craig.Fielding@cra-arc.gc.ca>,
+	"J. Invencio" <bosgmasters@mac.com>, <canniff@canniff.net>,
+	"Dave Wilkins" <wilkins@umbi.umd.edu>, "B KIRBY" <ber01906@berk.com>,
+	"Taun" <taun@charcoalia.net>
+Cc: "Mike Kropveld" <grandmasters@operamail.com>,
+	"Laurie Dotto" <laurie.dotto@abbott.com>,
+	"Lorne Beckman" <lorne@orl.mcgill.ca>,
+	"Shiellah Quintos" <shiellah@sympatico.ca>
+X-OriginalArrivalTime: 16 Oct 2007 20:28:55.0400 (UTC) FILETIME=[2C612680:01C81033]
+Status: O
+X-Status: 
+X-Keywords: NonJunk $NotJunk 
+X-UID: 132
+
+This is a multi-part message in MIME format.
+
+------_=_NextPart_001_01C81033.1708910A
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Mike for all the good work !!
+=20
+Jeff
+=20
+
+=20
+
+=20
+
+________________________________
+
+From: Mike Lee [mailto:mlee@rdpartners.com]=20
+Sent: Tuesday, October 16, 2007 2:42 PM
+To: 'Mike Lee'; wilkins@umbi.umd.edu; 'Clayton Cardin'; 'PaGeN'; 'David =
+Wieger'; 'Gary Seldon'; 'Jeff Malmgren'; 'Mark Walker'; 'Nick Roberts'; =
+'peter roper'; 'Pieter Botman'; Puttyhead@aol.com; 'rob seidenberg'; =
+apeters@bhsusa.com; 'Jamie Demarest'; 'Charles Shoemaker'; 'Scott Todd'; =
+'Michael Fortman'; 'Matt J and Lori B'; 'terry plotkin'; 'Bowen, Mike'; =
+'Mark Corsey'; 'rob botman'; 'Moran, Mark D'; 'Jeffrey Wood'; 'Glenn =
+Ulmer'; 'Tim Friesen'; 'David Finn'; stephen.wiencke@bmo.com; 'Bruton, =
+Peter'; 'Fielding, Craig'; 'J. Invencio'; canniff@canniff.net; 'Dave =
+Wilkins'; 'B KIRBY'; 'Taun'
+Cc: 'Mike Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; 'Shiellah =
+Quintos'; Lariv=E9e, Jean-Fran=E7ois
+Subject: RE: 2nd North American Grand Masters Championship - update #8=20
+
+
+
+Teams,
+
+=20
+
+Great tournament. May have been the largest gathering of Grand Masters =
+Ultimate players to date - with player coming from as far away as Texas =
+- and the level of play certainly increased. We had great weather which =
+we old guys/girls really appreciate.=20
+
+=20
+
+The final standings were:
+
+1. Ottawa =20
+
+2. Montreal =20
+
+3. Maryland
+
+4. NY/Conn
+
+5. Toronto
+
+6. Montreal/Western Mass Spirit Team
+
+=20
+
+Thanks to all for participating. On behalf of the Ottawa team $500 will =
+be donated to a charity of their choice - let me know which one guys. =
+For next year we have been trying to get the tournament on an earlier =
+date, but so far the tentative date for the tourney next year is Sept. =
+27 and 28, 2007.  Mark it in your calendars.
+
+=20
+
+Keep those legs moving and discs flying,
+
+=20
+
+Mike & Mike
+
+________________________________
+
+From: Mike Lee [mailto:mlee@rdpartners.com]=20
+Sent: September 26, 2007 11:07 PM
+To: 'Mike Lee'; wilkins@umbi.umd.edu; 'Clayton Cardin'; 'PaGeN'; 'David =
+Wieger'; 'Gary Seldon'; 'Jeff Malmgren'; 'Mark Walker'; 'Nick Roberts'; =
+'peter roper'; 'Pieter Botman'; Puttyhead@aol.com; 'rob seidenberg'; =
+apeters@bhsusa.com; 'Jamie Demarest'; 'Charles Shoemaker'; 'Scott Todd'; =
+'Michael Fortman'; 'Matt J and Lori B'; 'terry plotkin'; 'Bowen, Mike'; =
+'Mark Corsey'; 'rob botman'; 'Moran, Mark D'; 'Jeffrey Wood'; 'Glenn =
+Ulmer'; 'Tim Friesen'; 'David Finn'; stephen.wiencke@bmo.com; 'Bruton, =
+Peter'; 'Fielding, Craig'; 'J. Invencio'; canniff@canniff.net; 'Dave =
+Wilkins'; 'B KIRBY'; 'Taun'
+Cc: 'Mike Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; 'Shiellah =
+Quintos'; 'Lariv=E9e, Jean-Fran=E7ois'
+Subject: RE: 2nd North American Grand Masters Championship - update #7
+
+=20
+
+Teams,
+
+=20
+
+A couple of minor reminders that have been passed onto me:
+
+=20
+
+1.	No drugs alcohol on the fields, but dogs are allowed=20
+2.	For environment reasons, there are no plastic/paper plates supplied =
+on the fields at lunch for the burgers and munchies, so bring a plate =
+and fork (often people just bring a disk and a spoon) or whatever you =
+like. Note that you can also get by with you hands, but it may get a =
+little messy.=20
+
+=20
+
+First pull is at 10am sharp,
+
+=20
+
+Mike
+
+________________________________
+
+From: Mike Lee [mailto:mlee@rdpartners.com]=20
+Sent: September 25, 2007 1:39 PM
+To: 'Mike Lee'; wilkins@umbi.umd.edu; 'Clayton Cardin'; 'PaGeN'; 'David =
+Wieger'; 'Gary Seldon'; 'Jeff Malmgren'; 'Mark Walker'; 'Nick Roberts'; =
+'peter roper'; 'Pieter Botman'; Puttyhead@aol.com; 'rob seidenberg'; =
+apeters@bhsusa.com; 'Jamie Demarest'; 'Charles Shoemaker'; 'Scott Todd'; =
+'Michael Fortman'; 'Matt J and Lori B'; 'terry plotkin'; 'Bowen, Mike'; =
+'Mark Corsey'; 'rob botman'; 'Moran, Mark D'; 'Jeffrey Wood'; 'Glenn =
+Ulmer'; 'Tim Friesen'; 'David Finn'; stephen.wiencke@bmo.com; 'Bruton, =
+Peter'; 'Fielding, Craig'; 'J. Invencio'; canniff@canniff.net; 'Dave =
+Wilkins'; 'B KIRBY'; 'Taun'
+Cc: 'Mike Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; 'Shiellah =
+Quintos'; 'Lariv=E9e, Jean-Fran=E7ois'
+Subject: RE: 2nd North American Grand Masters Championship - update #6
+
+=20
+
+Teams,
+
+=20
+
+Below is the list of the updated teams and captain names for the =
+tournament in ranked order.
+
+=20
+
+Maryland - Dave Wilkins
+
+Western Mass/Montreal - Clayton Cardin
+
+Ottawa - Peter Burton
+
+Toronto/Montreal - Jeff Wood
+
+NY/Connecticut - Matt J
+
+Montreal/Philly - Stephen Wienke
+
+=20
+
+We can still add some players or teams as required. Going to be a =
+competitive, yet fun tourney. Weather forecast still looks great.
+
+=20
+
+Mike
+
+=20
+
+________________________________
+
+From: Mike Lee [mailto:mlee@rdpartners.com]=20
+Sent: September 17, 2007 7:42 PM
+To: 'Mike Lee'; wilkins@umbi.umd.edu; 'Clayton Cardin'; 'PaGeN'; 'David =
+Wieger'; 'Gary Seldon'; 'Jeff Malmgren'; 'Mark Walker'; 'Nick Roberts'; =
+'peter roper'; 'Pieter Botman'; Puttyhead@aol.com; 'rob seidenberg'; =
+apeters@bhsusa.com; 'Jamie Demarest'; 'Charles Shoemaker'; 'Scott Todd'; =
+'Michael Fortman'; 'Matt J and Lori B'; 'terry plotkin'; 'Bowen, Mike'; =
+'Mark Corsey'; 'rob botman'; 'Moran, Mark D'; 'Jeffrey Wood'; 'Glenn =
+Ulmer'; 'Tim Friesen'; 'David Finn'; stephen.wiencke@bmo.com; 'Bruton, =
+Peter'; 'Fielding, Craig'; 'J. Invencio'; canniff@canniff.net; 'Dave =
+Wilkins'; 'B KIRBY'; taun@charcolia.net
+Cc: 'Mike Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; 'Shiellah =
+Quintos'; 'Lariv=E9e, Jean-Fran=E7ois'
+Subject: RE: 2nd North American Grand Masters Championship - update #5
+
+=20
+
+Captains and Players,
+
+=20
+
+Make sure to book your hotel rooms soon as the PGA is also hosting a =
+tournament in town that weekend. The free camping option is always =
+available as well - see below.=20
+
+=20
+
+We are planning on a group dinner for those that are interested on =
+Saturday night at Magnan's - a classic Montreal joint. We will need to =
+get an idea of numbers by the start of the tourney.
+
+=20
+
+Finally, there will be a BBQ, bagels, water, and other assorted food at =
+the fields, as well as a physio and other stuff.=20
+
+=20
+
+Mike
+
+________________________________
+
+From: Mike Lee [mailto:mlee@rdpartners.com]=20
+Sent: September 10, 2007 12:38 PM
+To: 'Mike Lee'; wilkins@umbi.umd.edu; 'Clayton Cardin'; 'PaGeN'; 'David =
+Wieger'; 'Gary Seldon'; 'Jeff Malmgren'; 'Mark Walker'; 'Nick Roberts'; =
+'peter roper'; 'Pieter Botman'; Puttyhead@aol.com; 'rob seidenberg'; =
+apeters@bhsusa.com; 'Jamie Demarest'; 'Charles Shoemaker'; 'Scott Todd'; =
+'Michael Fortman'; 'Matt J and Lori B'; 'terry plotkin'; 'Bowen, Mike'; =
+'Mark Corsey'; 'rob botman'; 'Moran, Mark D'; 'Jeffrey Wood'; 'Glenn =
+Ulmer'; 'Tim Friesen'; 'David Finn'; stephen.wiencke@bmo.com; 'Bruton, =
+Peter'; 'Fielding, Craig'; 'J. Invencio'; canniff@canniff.net; 'Dave =
+Wilkins'; 'B KIRBY'; taun@charcolia.net
+Cc: 'Mike Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; 'Shiellah =
+Quintos'; 'Lariv=E9e, Jean-Fran=E7ois'
+Subject: RE: 2nd North American Grand Masters Championship - update #4
+
+=20
+
+Captains and Players,
+
+=20
+
+Wow...this could be the biggest gathering of Grand Masters to date! =
+Please forward this email on to any other interested players/teams.
+
+=20
+
+Confirmed (Thanks to all that sent their cheques. Those that have not =
+please send your cheque ASAP).=20
+
+=20
+
+Montreal=20
+
+Ottawa - Screaming Yellow Zonkers
+
+Maryland =20
+
+NY/Connecticut =20
+
+Boston=20
+
+Toronto - That 70's Show
+
+Philly (looking for a few players - see below)
+
+Philly Grandmasters are a few players short and would like some pickups. =
+ If you're interested in picking up for the tourney please contact Taun =
+Chapman (taun@charcolia.net) or Brian Canniff (canniff@canniff.net) ASAP
+
+Montreal #2 (may need a few players) - contact stephen.wiencke@bmo.com
+
+=20
+
+Interested by not yet Confirmed=20
+
+=20
+
+Albany
+
+=20
+
+Interested for 2008=20
+
+=20
+
+Newfoundland (probably in 2008)
+
+Vancouver (probably in 2008)
+
+=20
+
+We are limited on fields so please send you cheque ("check" for the US =
+guys) asap to guarantee your spot - see details below for cheque =
+details.
+
+=20
+
+Thanks,
+
+=20
+
+Mike
+
+________________________________
+
+From: Mike Lee [mailto:mlee@rdpartners.com]=20
+Sent: September 4, 2007 12:14 PM
+To: 'Mike Lee'; 'Mike Lee'
+Cc: 'Mike Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; 'Shiellah =
+Quintos'; 'Lariv=E9e, Jean-Fran=E7ois'
+Subject: RE: 2nd North American Grand Masters Championship - update #3
+
+=20
+
+Captains and Players,
+
+=20
+
+Confirmed (Thanks to all that sent their cheques. Those that have not =
+please send your cheque ASAP).=20
+
+=20
+
+Montreal=20
+
+Ottawa - Screaming Yellow Zonkers
+
+Maryland =20
+
+NY/Connecticut =20
+
+Boston=20
+
+Toronto - That 70's Show
+
+=20
+
+Interested by not yet Confirmed (confirm first and then get your cheques =
+in to ensure you get a spot)
+
+=20
+
+Albany
+
+Philly
+
+Newfoundland
+
+Vancouver (probably in 2008)
+
+Montreal #2
+
+Maryland #2
+
+=20
+
+We are limited on fields so it is the first to confirm (you must =
+definitely confirm with me first) and then pay.=20
+
+=20
+
+Mike
+
+=20
+
+________________________________
+
+From: Mike Lee [mailto:mlee@montrealconsulting.com]=20
+Sent: August 16, 2007 5:23 PM
+To: 'Mike Lee'; 'Clayton Cardin'; 'David Wieger'; 'Gary Seldon'; 'Jeff =
+Malmgren'; 'Mark Walker'; 'Nick Roberts'; 'peter roper'; 'Pieter =
+Botman'; Puttyhead@aol.com; 'rob seidenberg'; apeters@bhsusa.com; 'Jamie =
+Demarest'; 'Charles Shoemaker'; 'Scott Todd'; 'Michael Fortman'; 'Matt J =
+and Lori B'; 'Peters, Alexander'; 'terry plotkin'; wilkins@umbi.umd.edu; =
+'Bowen, Mike'; 'Mark Corsey'; 'rob botman'; 'Moran, Mark D'; 'PaGeN'; =
+'Jeffrey Wood'; 'Glenn Ulmer'; 'Tim Friesen'; 'David Finn'; =
+stephen.wiencke@bmo.com
+Cc: 'Mike Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; 'Shiellah =
+Quintos'; 'Lariv=E9e, Jean-Fran=E7ois'; 'Mike Lee'
+Subject: RE: 2nd North American Grand Masters Championship - update #1
+
+=20
+
+Captains and Players,
+
+=20
+
+Confirmation and Payment
+=20
+1) We have had a number of inquiries this week, but are limited in terms =
+of fields so please confirm you spot as soon as possible.
+=20
+2) For those teams that have confirmed, please send you cheque asap.
+=20
+More Tourney Info
+=20
+Below is the link to the directions to the Douglas fields. Note that the =
+fields are near the river and a nice place to play.
+http://www.montrealultimate.ca/sfields.htm
+=20
+Accommodations Ideas
+   =20
+Tournament Hotel - Clarion Hotel & Suites 2100 de Maisonneuve West, =
+Montreal, Quebec, Canada. Room Rate: $130 CDN per night + taxes. =
+Reservations can be made at info@clarionmontreal.com, by fax at =
+514-931-7726, or toll free, in the US and Canada, at 1-800-361-7191. You
+must mention Ultimate Frisbee. All reservations must be confirmed with a =
+major credit card upon booking. Cancellation policy is 24 hours prior to
+arrival date.
+=20
+
+Tournament Camping - Jeff Larivee (email Larivee-J-F@positron911.com =
+<mailto:Larivee-J-F@positron911.com>  - see attachment for details) has =
+graciously offered his place for free country style camping.=20
+
+=20
+
+Other hotel options: http://www.montrealultimate.ca/coe/accomm.html
+
+=20
+
+Get ready to run,
+
+=20
+
+Mike
+
+=20
+
+________________________________
+
+From: Mike Lee [mailto:mlee@rdpartners.com]=20
+Sent: July 23, 2007 9:38 PM
+To: 'Clayton Cardin'; 'David Wieger'; 'Gary Seldon'; 'Jeff Malmgren'; =
+'Mark Walker'; 'Nick Roberts'; 'peter roper'; 'Pieter Botman'; =
+Puttyhead@aol.com; 'rob seidenberg'; apeters@bhsusa.com; 'Jamie =
+Demarest'; 'Charles Shoemaker'; 'Scott Todd'; 'Michael Fortman'; 'Matt J =
+and Lori B'; 'Peters, Alexander'; 'terry plotkin'; wilkins@umbi.umd.edu; =
+'Bowen, Mike'; 'Mark Corsey'; 'rob botman'; 'Moran, Mark D'; 'PaGeN'
+Cc: 'Mike Kropveld'; 'Laurie Dotto'; 'Mike Lee'; 'Lorne Beckman'; =
+'Shiellah Quintos'
+Subject: RE: 2nd North American Grand Masters Championship=20
+
+=20
+
+Captains and Players,
+
+=20
+
+The tournament last year worked out great with a very high and fairly =
+even level of play.  We are looking to expand it and the defending =
+champions from Maryland are ready to defend their title! We had teams =
+from different places in the US and Canada and since last year's =
+tournament have had interest from a few new places in North America.=20
+
+=20
+
+The 2nd North American Grand Masters Championship will be held in =
+Montreal, Canada on September 29th and 30th, 2007. The Open class =
+tournament is open to all guys at least 40 years old by December 31, =
+2007 and women at least 35 years old by December 31, 2007. The =
+tournament will be played on the very nice grounds of the Douglas =
+Hospital next to the St-Laurence River on the Island of Montreal.=20
+
+=20
+
+The tournament fee is $250 Canadian or $240 US. The cheque should be =
+made payable to Michael Lee and sent to 1117 Sainte-Catherine Street =
+West, Suite 709, Montreal, Quebec, H3B 1H9. Please also send the =
+following information: Team name and city; team contact name (plus =
+email, telephone number, and full address) and number of players on your =
+team. Profits from the tournament will be sent to a registered Canadian =
+charity selected by the winning team. Note that the tournament =
+participants have contributed over $600 to charities over the last two =
+years.
+
+=20
+
+Additional information on hotels, camping, and other aspects will be =
+sent out shortly.
+
+=20
+
+Registration is officially open until August 31, 2007 and space is =
+limited, with late bids accepted if space is available. Please contact =
+mlee@montrealconsulting.com or at 514 840-0938 if you are interested =
+prior to sending your cheque and contact info. Early registration is =
+much appreciated by the organizers and also by distant teams sizing up =
+the competition and tournament. Maryland will be tough to beat!
+
+=20
+
+Looking forward to seeing those discs fly,
+
+=20
+
+Mike
+
+R&D Partners / Montreal Consulting =20
+
+1117 Sainte-Catherine ouest, suite 709
+
+Montr=E9al (Qu=E9bec)
+
+H3B 1H9
+
+T=E9l (514) 824-0938
+
+Fax (514) 227-5490
+
+www.rdpartners.com <http://www.rdpartners.com/>=20
+
+www.montrealconsulting.com <http://www.montrealconsulting.com/>=20
+
+=20
+
+=20
+
+
+------_=_NextPart_001_01C81033.1708910A
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML xmlns=3D"http://www.w3.org/TR/REC-html40" xmlns:v =3D=20
+"urn:schemas-microsoft-com:vml" xmlns:o =3D=20
+"urn:schemas-microsoft-com:office:office" xmlns:w =3D=20
+"urn:schemas-microsoft-com:office:word" xmlns:st1 =3D=20
+"urn:schemas-microsoft-com:office:smarttags"><HEAD>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Diso-8859-1">
+<META content=3D"MSHTML 6.00.2900.3157" name=3DGENERATOR><!--[if !mso]>
+<STYLE>v\:* {
+	BEHAVIOR: url(#default#VML)
+}
+o\:* {
+	BEHAVIOR: url(#default#VML)
+}
+w\:* {
+	BEHAVIOR: url(#default#VML)
+}
+.shape {
+	BEHAVIOR: url(#default#VML)
+}
+</STYLE>
+<![endif]--><o:SmartTagType name=3D"PostalCode"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><o:SmartTagType=20
+name=3D"State"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><o:SmartTagType=20
+name=3D"City"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><o:SmartTagType=20
+name=3D"place"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><o:SmartTagType=20
+name=3D"address"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><o:SmartTagType=20
+name=3D"country-region"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><o:SmartTagType=20
+name=3D"PlaceType"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><o:SmartTagType=20
+name=3D"PlaceName"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><o:SmartTagType=20
+name=3D"Street"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><o:SmartTagType=20
+name=3D"PersonName"=20
+namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"></o:SmartTagT=
+ype><!--[if !mso]>
+<STYLE>st1\:* {
+	BEHAVIOR: url(#default#ieooui)
+}
+</STYLE>
+<![endif]-->
+<STYLE>@font-face {
+	font-family: Tahoma;
+}
+@page Section1 {size: 612.0pt 792.0pt; margin: 72.0pt 90.0pt 72.0pt =
+90.0pt; }
+P.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0cm 0cm 0pt; FONT-FAMILY: "Times New Roman"
+}
+LI.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0cm 0cm 0pt; FONT-FAMILY: "Times New Roman"
+}
+DIV.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0cm 0cm 0pt; FONT-FAMILY: "Times New Roman"
+}
+A:link {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+SPAN.MsoHyperlink {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+A:visited {
+	COLOR: purple; TEXT-DECORATION: underline
+}
+SPAN.MsoHyperlinkFollowed {
+	COLOR: purple; TEXT-DECORATION: underline
+}
+PRE {
+	FONT-SIZE: 10pt; MARGIN: 0cm 0cm 0pt; COLOR: black; FONT-FAMILY: =
+"Courier New"
+}
+SPAN.EmailStyle18 {
+	FONT-WEIGHT: normal; COLOR: windowtext; FONT-STYLE: normal; =
+FONT-FAMILY: "Times New Roman"; TEXT-DECORATION: none; mso-style-type: =
+personal
+}
+SPAN.EmailStyle19 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal
+}
+SPAN.EmailStyle20 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal
+}
+SPAN.EmailStyle21 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal
+}
+SPAN.EmailStyle22 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal
+}
+SPAN.EmailStyle23 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal
+}
+SPAN.EmailStyle24 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal
+}
+SPAN.EmailStyle25 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal
+}
+SPAN.EmailStyle26 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal
+}
+SPAN.EmailStyle27 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal
+}
+SPAN.EmailStyle29 {
+	FONT-WEIGHT: normal; COLOR: blue; FONT-STYLE: normal; FONT-FAMILY: =
+"Times New Roman"; TEXT-DECORATION: none; mso-style-type: personal-reply
+}
+DIV.Section1 {
+	page: Section1
+}
+OL {
+	MARGIN-BOTTOM: 0cm
+}
+UL {
+	MARGIN-BOTTOM: 0cm
+}
+</STYLE>
+</HEAD>
+<BODY lang=3DEN-US vLink=3Dpurple link=3Dblue>
+<DIV dir=3Dltr align=3Dleft><SPAN class=3D628062820-16102007><FONT =
+face=3DArial=20
+color=3D#0000ff size=3D2>Thanks Mike for all the good work =
+!!</FONT></SPAN></DIV>
+<DIV dir=3Dltr align=3Dleft><SPAN class=3D628062820-16102007><FONT =
+face=3DArial=20
+color=3D#0000ff size=3D2></FONT></SPAN>&nbsp;</DIV>
+<DIV dir=3Dltr align=3Dleft><SPAN class=3D628062820-16102007><FONT =
+face=3DArial=20
+color=3D#0000ff size=3D2>Jeff</FONT></SPAN></DIV>
+<DIV>&nbsp;</DIV><!-- Converted from text/rtf format -->
+<P>&nbsp;</P>
+<DIV>&nbsp;</DIV><BR>
+<DIV class=3DOutlookMessageHeader lang=3Den-us dir=3Dltr align=3Dleft>
+<HR tabIndex=3D-1>
+<FONT face=3DTahoma size=3D2><B>From:</B> Mike Lee =
+[mailto:mlee@rdpartners.com]=20
+<BR><B>Sent:</B> Tuesday, October 16, 2007 2:42 PM<BR><B>To:</B> 'Mike =
+Lee';=20
+wilkins@umbi.umd.edu; 'Clayton Cardin'; 'PaGeN'; 'David Wieger'; 'Gary =
+Seldon';=20
+'Jeff Malmgren'; 'Mark Walker'; 'Nick Roberts'; 'peter roper'; 'Pieter =
+Botman';=20
+Puttyhead@aol.com; 'rob seidenberg'; apeters@bhsusa.com; 'Jamie =
+Demarest';=20
+'Charles Shoemaker'; 'Scott Todd'; 'Michael Fortman'; 'Matt J and Lori =
+B';=20
+'terry plotkin'; 'Bowen, Mike'; 'Mark Corsey'; 'rob botman'; 'Moran, =
+Mark D';=20
+'Jeffrey Wood'; 'Glenn Ulmer'; 'Tim Friesen'; 'David Finn';=20
+stephen.wiencke@bmo.com; 'Bruton, Peter'; 'Fielding, Craig'; 'J. =
+Invencio';=20
+canniff@canniff.net; 'Dave Wilkins'; 'B KIRBY'; 'Taun'<BR><B>Cc:</B> =
+'Mike=20
+Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; 'Shiellah Quintos'; =
+Lariv=E9e,=20
+Jean-Fran=E7ois<BR><B>Subject:</B> RE: 2nd North American Grand Masters=20
+Championship - update #8 <BR></FONT><BR></DIV>
+<DIV></DIV>
+<DIV class=3DSection1>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Teams,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Great tournament. May have been =
+the largest=20
+gathering of Grand Masters Ultimate players to date =96 with player =
+coming from as=20
+far away as <st1:place w:st=3D"on"><st1:State=20
+w:st=3D"on">Texas</st1:State></st1:place> - and the level of play =
+certainly=20
+increased. We had great weather which we old guys/girls really =
+appreciate.=20
+<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">The final standings=20
+were:<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">1. <st1:place =
+w:st=3D"on"><st1:City=20
+w:st=3D"on">Ottawa</st1:City></st1:place> =
+&nbsp;<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">2. <st1:City =
+w:st=3D"on"><st1:place=20
+w:st=3D"on">Montreal</st1:place></st1:City> =
+&nbsp;<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">3. <st1:place =
+w:st=3D"on"><st1:State=20
+w:st=3D"on">Maryland</st1:State></st1:place><o:p></o:p></SPAN></FONT></P>=
+
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">4. =
+NY/Conn<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">5. <st1:City =
+w:st=3D"on"><st1:place=20
+w:st=3D"on">Toronto</st1:place></st1:City><o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">6. Montreal/Western Mass Spirit=20
+Team<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Thanks to all for participating. =
+On behalf=20
+of the <st1:City w:st=3D"on"><st1:place =
+w:st=3D"on">Ottawa</st1:place></st1:City>=20
+team $500 will be donated to a charity of their choice =96 let me know =
+which one=20
+guys. For next year we have been trying to get the tournament on an =
+earlier=20
+date, but so far the tentative date for the tourney next year is Sept. =
+27 and=20
+28, 2007. &nbsp;Mark it in your calendars.<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Keep those legs moving and discs=20
+flying,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Mike &amp;=20
+Mike<o:p></o:p></SPAN></FONT></P>
+<DIV>
+<DIV class=3DMsoNormal style=3D"TEXT-ALIGN: center" align=3Dcenter><FONT =
+
+face=3D"Times New Roman" size=3D3><SPAN style=3D"FONT-SIZE: 12pt">
+<HR tabIndex=3D-1 align=3Dcenter width=3D"100%" SIZE=3D2>
+</SPAN></FONT></DIV>
+<P class=3DMsoNormal><B><FONT face=3DTahoma size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma">From:</SPAN></FONT></B><FONT=20
+face=3DTahoma size=3D2><SPAN style=3D"FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma"> Mike Lee=20
+[mailto:mlee@rdpartners.com] <BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Sent:</SPAN></B> September 26, 2007 11:07=20
+PM<BR><B><SPAN style=3D"FONT-WEIGHT: bold">To:</SPAN></B> 'Mike Lee';=20
+wilkins@umbi.umd.edu; 'Clayton Cardin'; 'PaGeN'; 'David Wieger'; 'Gary =
+Seldon';=20
+'Jeff Malmgren'; 'Mark Walker'; 'Nick Roberts'; 'peter roper'; 'Pieter =
+Botman';=20
+Puttyhead@aol.com; 'rob seidenberg'; apeters@bhsusa.com; 'Jamie =
+Demarest';=20
+'Charles Shoemaker'; 'Scott Todd'; 'Michael Fortman'; 'Matt J and Lori =
+B';=20
+'terry plotkin'; 'Bowen, Mike'; 'Mark Corsey'; 'rob botman'; 'Moran, =
+Mark D';=20
+'Jeffrey Wood'; 'Glenn Ulmer'; 'Tim Friesen'; 'David Finn';=20
+stephen.wiencke@bmo.com; 'Bruton, Peter'; 'Fielding, Craig'; 'J. =
+Invencio';=20
+canniff@canniff.net; 'Dave Wilkins'; 'B KIRBY'; 'Taun'<BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Cc:</SPAN></B> 'Mike Kropveld'; 'Laurie =
+Dotto'; 'Lorne=20
+Beckman'; 'Shiellah Quintos'; 'Lariv=E9e, Jean-Fran=E7ois'<BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Subject:</SPAN></B> RE: 2nd North American =
+Grand=20
+Masters Championship - update #7</SPAN></FONT><o:p></o:p></P></DIV>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Teams,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">A couple of minor reminders that =
+have been=20
+passed onto me:<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<OL style=3D"MARGIN-TOP: 0cm" type=3D1>
+  <LI class=3DMsoNormal style=3D"COLOR: blue; mso-list: l0 level1 =
+lfo3"><FONT=20
+  face=3D"Times New Roman" color=3Dblue size=3D2><SPAN =
+style=3D"FONT-SIZE: 11pt">No=20
+  drugs alcohol on the fields, but dogs are =
+allowed<o:p></o:p></SPAN></FONT>=20
+  <LI class=3DMsoNormal style=3D"COLOR: blue; mso-list: l0 level1 =
+lfo3"><FONT=20
+  face=3D"Times New Roman" color=3Dblue size=3D2><SPAN =
+style=3D"FONT-SIZE: 11pt">For=20
+  environment reasons, there are no plastic/paper plates supplied on the =
+fields=20
+  at lunch for the burgers and munchies, so bring a plate and fork =
+(often people=20
+  just bring a disk and a spoon) or whatever you like. Note that you can =
+also=20
+  get by with you hands, but it may get a little =
+messy.<o:p></o:p></SPAN></FONT>=20
+  </LI></OL>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">First pull is at 10am=20
+sharp,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Mike<o:p></o:p></SPAN></FONT></P>
+<DIV>
+<DIV class=3DMsoNormal style=3D"TEXT-ALIGN: center" align=3Dcenter><FONT =
+
+face=3D"Times New Roman" size=3D3><SPAN style=3D"FONT-SIZE: 12pt">
+<HR tabIndex=3D-1 align=3Dcenter width=3D"100%" SIZE=3D2>
+</SPAN></FONT></DIV>
+<P class=3DMsoNormal><B><FONT face=3DTahoma size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma">From:</SPAN></FONT></B><FONT=20
+face=3DTahoma size=3D2><SPAN style=3D"FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma"> Mike Lee=20
+[mailto:mlee@rdpartners.com] <BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Sent:</SPAN></B> September 25, 2007 1:39=20
+PM<BR><B><SPAN style=3D"FONT-WEIGHT: bold">To:</SPAN></B> 'Mike Lee';=20
+<st1:PersonName w:st=3D"on">wilkins@umbi.umd.edu</st1:PersonName>; =
+'Clayton=20
+Cardin'; 'PaGeN'; 'David Wieger'; 'Gary Seldon'; 'Jeff Malmgren'; 'Mark =
+Walker';=20
+'Nick Roberts'; 'peter roper'; 'Pieter Botman'; Puttyhead@aol.com; 'rob=20
+seidenberg'; apeters@bhsusa.com; 'Jamie Demarest'; 'Charles Shoemaker'; =
+'Scott=20
+Todd'; 'Michael Fortman'; 'Matt J and Lori B'; 'terry plotkin'; 'Bowen, =
+Mike';=20
+'Mark Corsey'; 'rob botman'; 'Moran, Mark D'; 'Jeffrey Wood'; 'Glenn =
+Ulmer';=20
+'Tim Friesen'; 'David Finn'; stephen.wiencke@bmo.com; 'Bruton, Peter';=20
+'Fielding, Craig'; 'J. Invencio'; canniff@canniff.net; 'Dave Wilkins'; =
+'B=20
+KIRBY'; 'Taun'<BR><B><SPAN style=3D"FONT-WEIGHT: bold">Cc:</SPAN></B> =
+'Mike=20
+Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; <st1:PersonName =
+w:st=3D"on">'Shiellah=20
+Quintos'</st1:PersonName>; 'Lariv=E9e, Jean-Fran=E7ois'<BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Subject:</SPAN></B> RE: 2nd North American =
+Grand=20
+Masters Championship - update #6</SPAN></FONT><o:p></o:p></P></DIV>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Teams,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Below is the list of the updated =
+teams and=20
+captain names for the tournament in ranked =
+order.<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:State w:st=3D"on"><FONT =
+
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Maryland</SPAN></FONT></st1:State></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> =96 =
+Dave=20
+Wilkins<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Western Mass/Montreal =96 =
+<st1:PersonName=20
+w:st=3D"on">Clayton</st1:PersonName> Cardin<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Ottawa</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> =96 =
+Peter=20
+Burton<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Toronto/Montreal =96 Jeff=20
+Wood<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">NY/Connecticut =96 Matt=20
+J<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Montreal</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">/Philly =96 Stephen=20
+Wienke<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">We can still add some players or =
+teams as=20
+required. Going to be a competitive, yet fun tourney. Weather forecast =
+still=20
+looks great.<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Mike<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<DIV>
+<DIV class=3DMsoNormal style=3D"TEXT-ALIGN: center" align=3Dcenter><FONT =
+
+face=3D"Times New Roman" size=3D3><SPAN style=3D"FONT-SIZE: 12pt">
+<HR tabIndex=3D-1 align=3Dcenter width=3D"100%" SIZE=3D2>
+</SPAN></FONT></DIV>
+<P class=3DMsoNormal><B><FONT face=3DTahoma size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma">From:</SPAN></FONT></B><FONT=20
+face=3DTahoma size=3D2><SPAN style=3D"FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma"> Mike Lee=20
+[mailto:mlee@rdpartners.com] <BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Sent:</SPAN></B> September 17, 2007 7:42=20
+PM<BR><B><SPAN style=3D"FONT-WEIGHT: bold">To:</SPAN></B> 'Mike Lee';=20
+<st1:PersonName w:st=3D"on">wilkins@umbi.umd.edu</st1:PersonName>;=20
+'<st1:PersonName w:st=3D"on">Clayton</st1:PersonName> Cardin'; 'PaGeN'; =
+'David=20
+Wieger'; 'Gary Seldon'; 'Jeff Malmgren'; 'Mark Walker'; 'Nick Roberts'; =
+'peter=20
+roper'; 'Pieter Botman'; Puttyhead@aol.com; 'rob seidenberg';=20
+apeters@bhsusa.com; 'Jamie Demarest'; 'Charles Shoemaker'; 'Scott Todd'; =
+
+'Michael Fortman'; 'Matt J and Lori B'; 'terry plotkin'; 'Bowen, Mike'; =
+'Mark=20
+Corsey'; 'rob botman'; 'Moran, Mark D'; 'Jeffrey Wood'; 'Glenn Ulmer'; =
+'Tim=20
+Friesen'; 'David Finn'; stephen.wiencke@bmo.com; 'Bruton, Peter'; =
+'Fielding,=20
+Craig'; 'J. Invencio'; canniff@canniff.net; 'Dave Wilkins'; 'B KIRBY';=20
+taun@charcolia.net<BR><B><SPAN style=3D"FONT-WEIGHT: =
+bold">Cc:</SPAN></B> 'Mike=20
+Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; <st1:PersonName =
+w:st=3D"on">'Shiellah=20
+Quintos'</st1:PersonName>; 'Lariv=E9e, Jean-Fran=E7ois'<BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Subject:</SPAN></B> RE: 2nd North American =
+Grand=20
+Masters Championship - update #5</SPAN></FONT><o:p></o:p></P></DIV>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Captains and=20
+Players,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Make sure to book your hotel =
+rooms soon as=20
+the PGA is also hosting a tournament in town that weekend. The free =
+camping=20
+option is always available as well =96 see below. =
+<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">We are planning on a group dinner =
+for those=20
+that are interested on Saturday night at Magnan=92s =96 a classic =
+<st1:place=20
+w:st=3D"on"><st1:City w:st=3D"on">Montreal</st1:City></st1:place> joint. =
+We will=20
+need to get an idea of numbers by the start of the=20
+tourney.<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Finally, there will be a BBQ, =
+bagels,=20
+water, and other assorted food at the fields, as well as a physio and =
+other=20
+stuff. <o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Mike<o:p></o:p></SPAN></FONT></P>
+<DIV>
+<DIV class=3DMsoNormal style=3D"TEXT-ALIGN: center" align=3Dcenter><FONT =
+
+face=3D"Times New Roman" size=3D3><SPAN style=3D"FONT-SIZE: 12pt">
+<HR tabIndex=3D-1 align=3Dcenter width=3D"100%" SIZE=3D2>
+</SPAN></FONT></DIV>
+<P class=3DMsoNormal><B><FONT face=3DTahoma size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma">From:</SPAN></FONT></B><FONT=20
+face=3DTahoma size=3D2><SPAN style=3D"FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma"> Mike Lee=20
+[mailto:mlee@rdpartners.com] <BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Sent:</SPAN></B> September 10, 2007 12:38=20
+PM<BR><B><SPAN style=3D"FONT-WEIGHT: bold">To:</SPAN></B> 'Mike Lee';=20
+<st1:PersonName w:st=3D"on">wilkins@umbi.umd.edu</st1:PersonName>;=20
+'<st1:PersonName w:st=3D"on">Clayton</st1:PersonName> Cardin'; 'PaGeN'; =
+'David=20
+Wieger'; 'Gary Seldon'; 'Jeff Malmgren'; 'Mark Walker'; 'Nick Roberts'; =
+'peter=20
+roper'; 'Pieter Botman'; Puttyhead@aol.com; 'rob seidenberg';=20
+apeters@bhsusa.com; 'Jamie Demarest'; 'Charles Shoemaker'; 'Scott Todd'; =
+
+'Michael Fortman'; 'Matt J and Lori B'; 'terry plotkin'; 'Bowen, Mike'; =
+'Mark=20
+Corsey'; 'rob botman'; 'Moran, Mark D'; 'Jeffrey Wood'; 'Glenn Ulmer'; =
+'Tim=20
+Friesen'; 'David Finn'; stephen.wiencke@bmo.com; 'Bruton, Peter'; =
+'Fielding,=20
+Craig'; 'J. Invencio'; canniff@canniff.net; 'Dave Wilkins'; 'B KIRBY';=20
+taun@charcolia.net<BR><B><SPAN style=3D"FONT-WEIGHT: =
+bold">Cc:</SPAN></B> 'Mike=20
+Kropveld'; 'Laurie Dotto'; 'Lorne Beckman'; <st1:PersonName =
+w:st=3D"on">'Shiellah=20
+Quintos'</st1:PersonName>; 'Lariv=E9e, Jean-Fran=E7ois'<BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Subject:</SPAN></B> RE: 2nd North American =
+Grand=20
+Masters Championship - update #4</SPAN></FONT><o:p></o:p></P></DIV>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Captains and=20
+Players,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: =
+11pt"><o:p>&nbsp;</o:p></SPAN></FONT></B></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Wow=85this could be the biggest =
+gathering of=20
+Grand Masters to date! Please forward this email on to any other =
+interested=20
+players/teams.<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: =
+11pt"><o:p>&nbsp;</o:p></SPAN></FONT></B></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" color=3Dblack =
+size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11pt; COLOR: black">Confirmed =
+(Thanks to=20
+all that sent their cheques. Those that have not please send your cheque =
+
+</SPAN></FONT></B><B><FONT color=3Dred size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11pt; COLOR: =
+red">ASAP</SPAN></FONT></B><B><FONT=20
+color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11pt; COLOR: blue">).=20
+</SPAN></FONT></B><FONT color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue"><o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Montreal</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue">=20
+<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Ottawa</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> =96 =
+Screaming Yellow=20
+Zonkers<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:State w:st=3D"on"><FONT =
+
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Maryland</SPAN></FONT></st1:State></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue">=20
+&nbsp;<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">NY/Connecticut=20
+&nbsp;<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Boston</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue">=20
+<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Toronto</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> =96 =
+That 70=92s=20
+Show<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Philly (looking for a few players =
+=96 see=20
+below)<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3DArial size=3D2><SPAN=20
+style=3D"FONT-SIZE: 10pt; FONT-FAMILY: Arial">Philly Grandmasters are a =
+few=20
+players short and would like some pickups.&nbsp; If you=92re interested =
+in picking=20
+up for the tourney please contact Taun Chapman (taun@charcolia.net) or =
+Brian=20
+Canniff (<A title=3Dblocked::mailto:canniff@canniff.net=20
+href=3D"mailto:canniff@canniff.net">canniff@canniff.net</A>)=20
+ASAP</SPAN></FONT><FONT color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue"><o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Montreal</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> #2 =
+(may need a few=20
+players) - contact <A=20
+href=3D"mailto:stephen.wiencke@bmo.com">stephen.wiencke@bmo.com</A><o:p><=
+/o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: =
+11pt"><o:p>&nbsp;</o:p></SPAN></FONT></B></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11pt">Interested by not yet =
+Confirmed=20
+<o:p></o:p></SPAN></FONT></B></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Albany</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue"><o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11pt">Interested for 2008=20
+<o:p></o:p></SPAN></FONT></B></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:State w:st=3D"on"><FONT =
+
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Newfoundland</SPAN></FONT></st1:State></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> =
+(probably in=20
+2008)<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Vancouver</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> =
+(probably in=20
+2008)<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dred =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: red">We are limited on fields so please =
+send you=20
+cheque (=93check=94 for the <st1:place w:st=3D"on"><st1:country-region=20
+w:st=3D"on">US</st1:country-region></st1:place> guys) asap to guarantee =
+your spot=20
+=96 see details below for cheque details</SPAN></FONT><FONT color=3Dblue =
+
+size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">.<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Thanks,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Mike<o:p></o:p></SPAN></FONT></P>
+<DIV>
+<DIV class=3DMsoNormal style=3D"TEXT-ALIGN: center" align=3Dcenter><FONT =
+
+face=3D"Times New Roman" size=3D3><SPAN style=3D"FONT-SIZE: 12pt">
+<HR tabIndex=3D-1 align=3Dcenter width=3D"100%" SIZE=3D2>
+</SPAN></FONT></DIV>
+<P class=3DMsoNormal><B><FONT face=3DTahoma size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma">From:</SPAN></FONT></B><FONT=20
+face=3DTahoma size=3D2><SPAN style=3D"FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma"> Mike Lee=20
+[mailto:mlee@rdpartners.com] <BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Sent:</SPAN></B> September 4, 2007 12:14=20
+PM<BR><B><SPAN style=3D"FONT-WEIGHT: bold">To:</SPAN></B> 'Mike Lee'; =
+'Mike=20
+Lee'<BR><B><SPAN style=3D"FONT-WEIGHT: bold">Cc:</SPAN></B> 'Mike =
+Kropveld';=20
+'Laurie Dotto'; <st1:PersonName w:st=3D"on">'Lorne =
+Beckman'</st1:PersonName>;=20
+<st1:PersonName w:st=3D"on">'Shiellah Quintos'</st1:PersonName>; =
+'Lariv=E9e,=20
+Jean-Fran=E7ois'<BR><B><SPAN style=3D"FONT-WEIGHT: =
+bold">Subject:</SPAN></B> RE: 2nd=20
+North American Grand Masters Championship - update=20
+#3</SPAN></FONT><o:p></o:p></P></DIV>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Captains and=20
+Players,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: =
+11pt"><o:p>&nbsp;</o:p></SPAN></FONT></B></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" color=3Dblack =
+size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11pt; COLOR: black">Confirmed =
+(Thanks to=20
+all that sent their cheques. Those that have not please send your cheque =
+
+</SPAN></FONT></B><B><FONT color=3Dred size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11pt; COLOR: =
+red">ASAP</SPAN></FONT></B><B><FONT=20
+color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11pt; COLOR: blue">).=20
+</SPAN></FONT></B><FONT color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue"><o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Montreal</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue">=20
+<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Ottawa</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> =96 =
+Screaming Yellow=20
+Zonkers<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:State w:st=3D"on"><FONT =
+
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Maryland</SPAN></FONT></st1:State></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue">=20
+&nbsp;<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">NY/Connecticut=20
+&nbsp;<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Boston</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue">=20
+<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Toronto</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> =96 =
+That 70=92s=20
+Show<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11pt">Interested by not yet =
+Confirmed=20
+(confirm first and then get your cheques in to ensure you get a=20
+spot)<o:p></o:p></SPAN></FONT></B></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Albany</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue"><o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Philly<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:State w:st=3D"on"><FONT =
+
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Newfoundland</SPAN></FONT></st1:State></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue"><o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Vancouver</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue"> =
+(probably in=20
+2008)<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:City w:st=3D"on"><FONT=20
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Montreal</SPAN></FONT></st1:City></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue">=20
+#2<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><st1:place w:st=3D"on"><st1:State w:st=3D"on"><FONT =
+
+face=3D"Times New Roman" color=3Dblue size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue">Maryland</SPAN></FONT></st1:State></st1:place><FONT=20
+color=3Dblue size=3D2><SPAN style=3D"FONT-SIZE: 11pt; COLOR: blue">=20
+#2<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">We are limited on fields so it is =
+the first=20
+to confirm (you must definitely confirm with me first) and then pay.=20
+<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">Mike<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: =
+blue"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<DIV>
+<DIV class=3DMsoNormal style=3D"TEXT-ALIGN: center" align=3Dcenter><FONT =
+
+face=3D"Times New Roman" size=3D3><SPAN style=3D"FONT-SIZE: 12pt">
+<HR tabIndex=3D-1 align=3Dcenter width=3D"100%" SIZE=3D2>
+</SPAN></FONT></DIV>
+<P class=3DMsoNormal><B><FONT face=3DTahoma size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma">From:</SPAN></FONT></B><FONT=20
+face=3DTahoma size=3D2><SPAN style=3D"FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma"> Mike Lee=20
+[mailto:mlee@montrealconsulting.com] <BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Sent:</SPAN></B> August 16, 2007 5:23 =
+PM<BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">To:</SPAN></B> 'Mike Lee'; '<st1:PersonName=20
+w:st=3D"on">Clayton</st1:PersonName> Cardin'; 'David Wieger'; 'Gary =
+Seldon'; 'Jeff=20
+Malmgren'; 'Mark Walker'; 'Nick Roberts'; 'peter roper'; 'Pieter =
+Botman';=20
+Puttyhead@aol.com; 'rob seidenberg'; apeters@bhsusa.com; 'Jamie =
+Demarest';=20
+'Charles Shoemaker'; 'Scott Todd'; 'Michael Fortman'; 'Matt J and Lori =
+B';=20
+'Peters, Alexander'; 'terry plotkin'; <st1:PersonName=20
+w:st=3D"on">wilkins@umbi.umd.edu</st1:PersonName>; 'Bowen, Mike'; 'Mark =
+Corsey';=20
+'rob botman'; 'Moran, Mark D'; 'PaGeN'; 'Jeffrey Wood'; 'Glenn Ulmer'; =
+'Tim=20
+Friesen'; 'David Finn'; stephen.wiencke@bmo.com<BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Cc:</SPAN></B> 'Mike Kropveld'; 'Laurie =
+Dotto';=20
+<st1:PersonName w:st=3D"on">'Lorne Beckman'</st1:PersonName>; =
+<st1:PersonName=20
+w:st=3D"on">'Shiellah Quintos'</st1:PersonName>; 'Lariv=E9e, =
+Jean-Fran=E7ois'; 'Mike=20
+Lee'<BR><B><SPAN style=3D"FONT-WEIGHT: bold">Subject:</SPAN></B> RE: 2nd =
+North=20
+American Grand Masters Championship - update=20
+#1</SPAN></FONT><o:p></o:p></P></DIV>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt">Captains and =
+Players,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: =
+12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P><PRE><B><FONT face=3D"Times New =
+Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-WEIGHT: bold; =
+FONT-SIZE: 11pt; FONT-FAMILY: 'Times New Roman'">Confirmation and =
+Payment<o:p></o:p></SPAN></FONT></B></PRE><PRE><FONT face=3D"Times New =
+Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; =
+FONT-FAMILY: 'Times New =
+Roman'"><o:p>&nbsp;</o:p></SPAN></FONT></PRE><PRE><FONT face=3D"Times =
+New Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; =
+FONT-FAMILY: 'Times New Roman'">1) We have had a number of inquiries =
+this week, but are limited in terms of fields so please confirm you spot =
+as soon as possible.<o:p></o:p></SPAN></FONT></PRE><PRE><FONT =
+face=3D"Times New Roman" color=3Dblack size=3D2><SPAN =
+style=3D"FONT-SIZE: 11pt; FONT-FAMILY: 'Times New =
+Roman'"><o:p>&nbsp;</o:p></SPAN></FONT></PRE><PRE><FONT face=3D"Times =
+New Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; =
+FONT-FAMILY: 'Times New Roman'">2) For those teams that have confirmed, =
+please send you cheque asap.<o:p></o:p></SPAN></FONT></PRE><PRE><FONT =
+face=3D"Times New Roman" color=3Dblack size=3D2><SPAN =
+style=3D"FONT-SIZE: 11pt; FONT-FAMILY: 'Times New =
+Roman'"><o:p>&nbsp;</o:p></SPAN></FONT></PRE><PRE><B><FONT face=3D"Times =
+New Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-WEIGHT: bold; =
+FONT-SIZE: 11pt; FONT-FAMILY: 'Times New Roman'">More Tourney =
+Info<o:p></o:p></SPAN></FONT></B></PRE><PRE><FONT face=3D"Times New =
+Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; =
+FONT-FAMILY: 'Times New =
+Roman'">&nbsp;<o:p></o:p></SPAN></FONT></PRE><PRE><FONT face=3D"Times =
+New Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; =
+FONT-FAMILY: 'Times New Roman'">Below is the link to the directions to =
+the <ST1:PLACE u1:st=3D"on"><st1:place =
+w:st=3D"on">Douglas</st1:place></ST1:PLACE> fields. Note that the fields =
+are near the river and a nice place to =
+play.<o:p></o:p></SPAN></FONT></PRE><PRE><FONT face=3D"Times New Roman" =
+color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; FONT-FAMILY: =
+'Times New Roman'"><A =
+title=3Dblocked::http://www.montrealultimate.ca/sfields.htm =
+href=3D"http://www.montrealultimate.ca/sfields.htm">http://www.montrealul=
+timate.ca/sfields.htm</A><o:p></o:p></SPAN></FONT></PRE><PRE><FONT =
+face=3D"Times New Roman" color=3Dblack size=3D2><SPAN =
+style=3D"FONT-SIZE: 11pt; FONT-FAMILY: 'Times New =
+Roman'"><o:p>&nbsp;</o:p></SPAN></FONT></PRE><PRE><B><FONT face=3D"Times =
+New Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-WEIGHT: bold; =
+FONT-SIZE: 11pt; FONT-FAMILY: 'Times New Roman'">Accommodations =
+Ideas<o:p></o:p></SPAN></FONT></B></PRE><PRE><FONT face=3D"Times New =
+Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; =
+FONT-FAMILY: 'Times New Roman'">&nbsp;&nbsp;&nbsp; =
+<o:p></o:p></SPAN></FONT></PRE><PRE wrap=3D""><FONT face=3D"Times New =
+Roman" color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; =
+FONT-FAMILY: 'Times New Roman'">Tournament Hotel - Clarion Hotel &amp; =
+<st1:address w:st=3D"on"><st1:address w:st=3D"on"><st1:Street =
+w:st=3D"on">Suites</st1:Street></st1:address> 2100</st1:address> de =
+Maisonneuve West, <st1:place w:st=3D"on"><st1:City =
+w:st=3D"on">Montreal</st1:City>, <st1:State =
+w:st=3D"on">Quebec</st1:State>, <st1:country-region =
+w:st=3D"on">Canada</st1:country-region></st1:place>. Room Rate: $130 CDN =
+per night + taxes. Reservations can be made at <A =
+title=3Dblocked::mailto:info@clarionmontreal.com =
+href=3D"mailto:info@clarionmontreal.com">info@clarionmontreal.com</A>, =
+by fax at 514-931-7726, or toll free, in the <st1:country-region =
+w:st=3D"on">US</st1:country-region> and <st1:place =
+w:st=3D"on"><st1:country-region =
+w:st=3D"on">Canada</st1:country-region></st1:place>, at 1-800-361-7191. =
+You<o:p></o:p></SPAN></FONT></PRE><PRE><FONT face=3D"Times New Roman" =
+color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; FONT-FAMILY: =
+'Times New Roman'"><ST1:ADDRESS u1:st=3D"on"><ST1:STREET =
+u1:st=3D"on"></ST1:STREET></ST1:ADDRESS><ST1:STATE =
+u1:st=3D"on"></ST1:STATE><ST1:COUNTRY-REGION =
+u1:st=3D"on"></ST1:COUNTRY-REGION><ST1:COUNTRY-REGION =
+u1:st=3D"on"></ST1:COUNTRY-REGION><ST1:COUNTRY-REGION =
+u1:st=3D"on"><ST1:PLACE =
+u1:st=3D"on"></ST1:PLACE></ST1:COUNTRY-REGION>must mention Ultimate =
+Frisbee. All reservations must be confirmed with a major credit card =
+upon booking. Cancellation policy is 24 hours prior =
+to<o:p></o:p></SPAN></FONT></PRE><PRE><FONT face=3D"Times New Roman" =
+color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; FONT-FAMILY: =
+'Times New Roman'">arrival =
+date.<o:p></o:p></SPAN></FONT></PRE><PRE><FONT face=3D"Times New Roman" =
+color=3Dblack size=3D2><SPAN style=3D"FONT-SIZE: 11pt; FONT-FAMILY: =
+'Times New Roman'"><o:p>&nbsp;</o:p></SPAN></FONT></PRE>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt">Tournament Camping - Jeff Larivee (email=20
+</SPAN></FONT><FONT size=3D2><SPAN lang=3DFR-CA style=3D"FONT-SIZE: =
+11pt"><A=20
+href=3D"mailto:Larivee-J-F@positron911.com"><SPAN=20
+lang=3DEN-US>Larivee-J-F@positron911.com</SPAN></A><FONT =
+color=3Dblue><SPAN=20
+style=3D"COLOR: blue"> </SPAN></FONT></SPAN></FONT><FONT color=3Dblue =
+size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt; COLOR: blue">=96 see attachment for=20
+details</SPAN></FONT><FONT size=3D2><SPAN style=3D"FONT-SIZE: 11pt">) =
+has graciously=20
+offered his place for free country style camping. =
+<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt">Other hotel options:=20
+http://www.montrealultimate.ca/coe/accomm.html<o:p></o:p></SPAN></FONT></=
+P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt">Get ready to run,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt">Mike<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<DIV>
+<DIV class=3DMsoNormal style=3D"TEXT-ALIGN: center" align=3Dcenter><FONT =
+
+face=3D"Times New Roman" size=3D3><SPAN style=3D"FONT-SIZE: 12pt">
+<HR tabIndex=3D-1 align=3Dcenter width=3D"100%" SIZE=3D2>
+</SPAN></FONT></DIV>
+<P class=3DMsoNormal><B><FONT face=3DTahoma size=3D2><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma">From:</SPAN></FONT></B><FONT=20
+face=3DTahoma size=3D2><SPAN style=3D"FONT-SIZE: 10pt; FONT-FAMILY: =
+Tahoma"> Mike Lee=20
+[mailto:mlee@rdpartners.com] <BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Sent:</SPAN></B> July 23, 2007 9:38 =
+PM<BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">To:</SPAN></B> '<st1:PersonName=20
+w:st=3D"on">Clayton</st1:PersonName> Cardin'; 'David Wieger'; 'Gary =
+Seldon'; 'Jeff=20
+Malmgren'; 'Mark Walker'; 'Nick Roberts'; 'peter roper'; 'Pieter =
+Botman';=20
+Puttyhead@aol.com; 'rob seidenberg'; apeters@bhsusa.com; 'Jamie =
+Demarest';=20
+'Charles Shoemaker'; 'Scott Todd'; 'Michael Fortman'; 'Matt J and Lori =
+B';=20
+'Peters, Alexander'; 'terry plotkin'; <st1:PersonName=20
+w:st=3D"on">wilkins@umbi.umd.edu</st1:PersonName>; 'Bowen, Mike'; 'Mark =
+Corsey';=20
+'rob botman'; 'Moran, Mark D'; 'PaGeN'<BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Cc:</SPAN></B> 'Mike Kropveld'; 'Laurie =
+Dotto'; 'Mike=20
+Lee'; <st1:PersonName w:st=3D"on">'Lorne Beckman'</st1:PersonName>;=20
+<st1:PersonName w:st=3D"on">'Shiellah =
+Quintos'</st1:PersonName><BR><B><SPAN=20
+style=3D"FONT-WEIGHT: bold">Subject:</SPAN></B> RE: 2nd North American =
+Grand=20
+Masters Championship </SPAN></FONT><o:p></o:p></P></DIV>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt">Captains and =
+Players,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt">The tournament last year worked out great with =
+a very=20
+high and fairly even level of play. &nbsp;We are looking to expand it =
+and the=20
+defending champions from <st1:place w:st=3D"on"><st1:State=20
+w:st=3D"on">Maryland</st1:State></st1:place> are ready to defend their =
+title<FONT=20
+color=3Dblue><SPAN style=3D"COLOR: blue">!</SPAN></FONT> We had teams =
+from different=20
+places in the <st1:country-region w:st=3D"on">US</st1:country-region> =
+and=20
+<st1:country-region w:st=3D"on">Canada</st1:country-region> and since =
+last year=92s=20
+tournament have had interest from a few new places in <st1:place =
+w:st=3D"on">North=20
+America</st1:place>. <o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt">The 2nd North American Grand Masters =
+Championship will=20
+be held in <st1:place w:st=3D"on"><st1:City =
+w:st=3D"on">Montreal</st1:City>,=20
+<st1:country-region w:st=3D"on">Canada</st1:country-region></st1:place> =
+on=20
+September 29th and 30th, 2007. The Open class tournament is open to all =
+guys at=20
+least 40 years old by December 31, 2007 and women at least 35 years old =
+by=20
+December 31, 2007. The tournament will be played on the very nice =
+grounds of the=20
+<st1:PlaceName w:st=3D"on">Douglas</st1:PlaceName> <st1:PlaceName=20
+w:st=3D"on">Hospital</st1:PlaceName> next to the <st1:PlaceName=20
+w:st=3D"on">St-Laurence</st1:PlaceName> <st1:PlaceType=20
+w:st=3D"on">River</st1:PlaceType> on the <st1:place =
+w:st=3D"on"><st1:PlaceType=20
+w:st=3D"on">Island</st1:PlaceType> of <st1:PlaceName=20
+w:st=3D"on">Montreal</st1:PlaceName></st1:place>. =
+<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt">The tournament fee is $250 Canadian or $240 =
+US. The=20
+cheque should be made payable to Michael Lee and sent to <st1:address=20
+w:st=3D"on"><st1:Street w:st=3D"on">1117 Sainte-Catherine Street West, =
+Suite=20
+709</st1:Street>, <st1:City w:st=3D"on">Montreal</st1:City>, <st1:State=20
+w:st=3D"on">Quebec</st1:State>, <st1:PostalCode w:st=3D"on">H3B=20
+1H9</st1:PostalCode></st1:address>. Please also send the following =
+information:=20
+Team name and city; team contact name (plus email, telephone number, and =
+full=20
+address) and number of players on your team. Profits from the tournament =
+will be=20
+sent to a registered Canadian charity selected by the winning team. Note =
+that=20
+the tournament participants have contributed over $600 to charities over =
+the=20
+last two years.<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt">Additional information on hotels, camping, and =
+other=20
+aspects will be sent out shortly.<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt">Registration is officially open until August =
+31, 2007=20
+and space is limited, with late bids accepted if space is available. =
+Please=20
+contact mlee@montrealconsulting.com or at 514 840-0938 if you are =
+interested=20
+prior to sending your cheque and contact info. Early registration is =
+much=20
+appreciated by the organizers and also by distant teams sizing up the=20
+competition and tournament. <st1:place w:st=3D"on"><st1:State=20
+w:st=3D"on">Maryland</st1:State></st1:place> will be tough to=20
+beat!<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt">Looking forward to seeing those discs=20
+fly,<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN=20
+style=3D"FONT-SIZE: 12pt">Mike<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><B><FONT face=3D"Times New Roman" color=3Dblue =
+size=3D4><SPAN=20
+style=3D"FONT-WEIGHT: bold; FONT-SIZE: 13pt; COLOR: blue">R&amp;D =
+Partners /=20
+<st1:place w:st=3D"on"><st1:City =
+w:st=3D"on">Montreal</st1:City></st1:place>=20
+Consulting</SPAN></FONT></B>&nbsp;<STRONG><B><FONT=20
+face=3D"Times New Roman">&nbsp;</FONT></B></STRONG><o:p></o:p></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt">1117&nbsp;Sainte-Catherine ouest, <st1:address =
+
+w:st=3D"on"><st1:Street w:st=3D"on">suite</st1:Street>=20
+709</st1:address></SPAN></FONT><o:p></o:p></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN =
+lang=3DFR=20
+style=3D"FONT-SIZE: 11pt">Montr=E9al =
+(Qu=E9bec)<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN =
+lang=3DFR=20
+style=3D"FONT-SIZE: 11pt">H3B 1H9</SPAN></FONT><SPAN=20
+lang=3DFR><o:p></o:p></SPAN></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN =
+lang=3DFR=20
+style=3D"FONT-SIZE: 11pt">T=E9l&nbsp;(514) =
+824-0938<o:p></o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN =
+lang=3DFR-CA=20
+style=3D"FONT-SIZE: 11pt">Fax (514) 227-5490</SPAN></FONT><SPAN=20
+lang=3DFR-CA><o:p></o:p></SPAN></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN =
+lang=3DFR-CA=20
+style=3D"FONT-SIZE: 11pt"><A=20
+href=3D"http://www.rdpartners.com/">www.rdpartners.com</A></SPAN></FONT><=
+SPAN=20
+lang=3DFR-CA><o:p></o:p></SPAN></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D2><SPAN=20
+style=3D"FONT-SIZE: 11pt"><A title=3Dhttp://www.montrealconsulting.com=20
+href=3D"http://www.montrealconsulting.com/"><SPAN=20
+lang=3DFR-CA>www.montrealconsulting.com</SPAN></A></SPAN></FONT><SPAN=20
+lang=3DFR-CA><o:p></o:p></SPAN></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN =
+lang=3DFR-CA=20
+style=3D"FONT-SIZE: 12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P>
+<P class=3DMsoNormal><FONT face=3D"Times New Roman" size=3D3><SPAN =
+lang=3DFR-CA=20
+style=3D"FONT-SIZE: =
+12pt"><o:p>&nbsp;</o:p></SPAN></FONT></P></DIV></BODY></HTML>
+
+------_=_NextPart_001_01C81033.1708910A--
