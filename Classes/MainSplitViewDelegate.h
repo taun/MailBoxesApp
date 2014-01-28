@@ -18,6 +18,8 @@
 @property(assign)             CGFloat       lastDividerPosition;
 @property (weak)      IBOutlet NSButton     *collapseButton;
 
+@property (strong) IBOutlet NSLayoutConstraint *leftSplitMinWidthConstraint;
+
 - (IBAction) toggleAccountView: sender;
 
 - (void) saveViewSettingsOn: (NSUserDefaults *) theUserDefaults;

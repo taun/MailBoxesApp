@@ -25,17 +25,6 @@
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @implementation MBSidebarViewController
-@synthesize menuSidebarMailBoxNode;
-@synthesize menuSidebarFavoriteGroup;
-@synthesize editAccountSheet;
-@synthesize menuSidebarAccountNode;
-@synthesize menuSidebarAccountGroup;
-@synthesize delegate;
-@synthesize userController;
-@synthesize currentUser;
-@synthesize view;
-@synthesize draggedNodes;
-@synthesize managedObjectContext;
 
 - (void) awakeFromNib {
     [self.view setFloatsGroupRows: NO];

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13B3116" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13B3116" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
@@ -17,22 +17,24 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES"/>
             <rect key="contentRect" x="449" y="410" width="1024" height="687"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
-            <value key="minSize" type="size" width="800" height="687"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" focusRingType="none" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="687"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="1505">
+                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1505">
                         <rect key="frame" x="0.0" y="651" width="1024" height="36"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <view key="contentView">
                             <rect key="frame" x="0.0" y="0.0" width="1024" height="36"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Minimize the Accounts listing" id="852" userLabel="Collapse Square Button">
-                                    <rect key="frame" x="260" y="8" width="20" height="20"/>
+                                <button toolTip="Minimize the Accounts listing" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="852" userLabel="Collapse Square Button">
+                                    <rect key="frame" x="263" y="8" width="9" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="WNR-eR-b6y"/>
+                                    </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoLeftTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSGoRightTemplate" imageScaling="proportionallyDown" inset="2" id="853">
                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -42,12 +44,16 @@
                                         <action selector="toggleAccountView:" target="854" id="861"/>
                                     </connections>
                                 </button>
-                                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="1212">
-                                    <rect key="frame" x="293" y="10" width="16" height="16"/>
+                                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="1212">
+                                    <rect key="frame" x="285" y="10" width="16" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="czh-ef-ghK"/>
+                                        <constraint firstAttribute="width" constant="16" id="uhi-X2-i4i"/>
+                                    </constraints>
                                     <accessibility help="Syncing email"/>
                                 </progressIndicator>
-                                <button toolTip="Synchronize accounts" id="1077" userLabel="Load Accounts Button">
+                                <button toolTip="Synchronize accounts" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1077" userLabel="Load Accounts Button">
                                     <rect key="frame" x="108" y="8" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1078">
@@ -59,9 +65,13 @@
                                         <action selector="loadAllAccountFolders:" target="494" id="1085"/>
                                     </connections>
                                 </button>
-                                <button hidden="YES" toolTip="Synchronize accounts" id="1273" userLabel="Cancel Load Accounts Button">
+                                <button hidden="YES" toolTip="Synchronize accounts" translatesAutoresizingMaskIntoConstraints="NO" id="1273" userLabel="Cancel Load Accounts Button">
                                     <rect key="frame" x="108" y="8" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="STg-s0-riz"/>
+                                        <constraint firstAttribute="height" constant="20" id="plv-dh-Yzd"/>
+                                    </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStopProgressTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1274">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -71,9 +81,13 @@
                                         <action selector="cancelLoadAllAccountFolders:" target="494" id="1280"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Open a portal editor" id="1103">
+                                <button toolTip="Open a portal editor" translatesAutoresizingMaskIntoConstraints="NO" id="1103">
                                     <rect key="frame" x="964" y="8" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="d4l-lu-edg"/>
+                                        <constraint firstAttribute="width" constant="20" id="rW2-Ih-OQz"/>
+                                    </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="1104">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -85,26 +99,40 @@
                                 </button>
                             </subviews>
                         </view>
+                        <constraints>
+                            <constraint firstItem="1273" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="108" id="6dy-wg-ow2"/>
+                            <constraint firstItem="1212" firstAttribute="leading" secondItem="852" secondAttribute="trailing" constant="13" id="EiL-LZ-IL5"/>
+                            <constraint firstAttribute="bottom" secondItem="1103" secondAttribute="bottom" constant="8" id="MBT-j2-0Mc"/>
+                            <constraint firstItem="852" firstAttribute="top" secondItem="1505" secondAttribute="top" constant="8" id="NEn-dQ-jSM"/>
+                            <constraint firstItem="1273" firstAttribute="top" secondItem="1505" secondAttribute="top" constant="8" id="Qx2-tm-w8t"/>
+                            <constraint firstAttribute="height" constant="36" id="TUD-Qg-tlS"/>
+                            <constraint firstAttribute="bottom" secondItem="852" secondAttribute="bottom" constant="8" id="TeY-CC-U4T"/>
+                            <constraint firstItem="852" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1505" secondAttribute="leading" constant="20" id="byI-gw-I0D"/>
+                            <constraint firstAttribute="trailing" secondItem="1103" secondAttribute="trailing" constant="40" id="etp-em-KId"/>
+                            <constraint firstItem="1103" firstAttribute="top" secondItem="1505" secondAttribute="top" constant="8" id="hoO-TY-2C2"/>
+                            <constraint firstAttribute="bottom" secondItem="1212" secondAttribute="bottom" constant="10" id="oQk-8m-n96"/>
+                            <constraint firstItem="1212" firstAttribute="top" secondItem="1505" secondAttribute="top" constant="10" id="pJE-OX-z3y"/>
+                        </constraints>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" name="windowFrameColor" catalog="System" colorSpace="catalog"/>
                         <accessibility help="Message toolbar"/>
                     </box>
-                    <splitView focusRingType="none" autosaveName="SidePaneSplitterAutosave" dividerStyle="thin" vertical="YES" id="838">
+                    <splitView wantsLayer="YES" focusRingType="none" autosaveName="SidePaneSplitterAutosave" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="838">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="651"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView focusRingType="none" id="839" userLabel="Accounts View">
+                            <customView wantsLayer="YES" focusRingType="none" id="839" userLabel="Accounts View">
                                 <rect key="frame" x="0.0" y="0.0" width="272" height="651"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1057">
+                                    <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1057">
                                         <rect key="frame" x="0.0" y="25" width="271" height="626"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="kgZ-jh-3MW">
                                             <rect key="frame" x="1" y="1" width="269" height="624"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" typeSelect="NO" autosaveName="AccountSidebarView" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="14" outlineTableColumn="1062" id="1061" customClass="MBSidebarView">
+                                                <outlineView focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="948" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" typeSelect="NO" autosaveName="AccountSidebarView" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="14" outlineTableColumn="1062" id="1061" customClass="MBSidebarView">
                                                     <rect key="frame" x="0.0" y="0.0" width="269" height="624"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
@@ -128,8 +156,8 @@
                                                                     <rect key="frame" x="1" y="0.0" width="266" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" id="1414">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="266" height="17"/>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1414">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="83" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" continuous="YES" sendsActionOnEndEditing="YES" title="Header View" id="1415">
                                                                                 <font key="font" metaFont="system"/>
@@ -139,24 +167,36 @@
                                                                             <accessibility help="Heading name"/>
                                                                         </textField>
                                                                     </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="bottom" secondItem="1414" secondAttribute="bottom" id="WhV-Tt-waJ"/>
+                                                                        <constraint firstItem="1414" firstAttribute="top" secondItem="1413" secondAttribute="top" id="dJf-ma-Uel"/>
+                                                                        <constraint firstItem="1414" firstAttribute="leading" secondItem="1413" secondAttribute="leading" constant="2" id="hTP-ug-NV6"/>
+                                                                    </constraints>
                                                                     <accessibility help="Heading"/>
                                                                     <connections>
                                                                         <outlet property="textField" destination="1414" id="1416"/>
                                                                     </connections>
                                                                 </tableCellView>
-                                                                <tableCellView identifier="MainCell" id="1463" userLabel="MainCell" customClass="MBSidebarTableCellView">
+                                                                <tableCellView identifier="MainCell" horizontalCompressionResistancePriority="745" id="1463" userLabel="MainCell" customClass="MBSidebarTableCellView">
                                                                     <rect key="frame" x="1" y="17" width="266" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
-                                                                        <imageView id="1464">
+                                                                        <imageView translatesAutoresizingMaskIntoConstraints="NO" id="1464">
                                                                             <rect key="frame" x="3" y="0.0" width="17" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" priority="490" constant="17" id="Xtu-T7-20F"/>
+                                                                                <constraint firstAttribute="width" priority="490" constant="17" id="e0Z-vR-If0"/>
+                                                                            </constraints>
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="1467"/>
                                                                             <accessibility help="Folder image"/>
                                                                         </imageView>
-                                                                        <textField verticalHuggingPriority="750" id="1465">
-                                                                            <rect key="frame" x="25" y="0.0" width="241" height="17"/>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1465">
+                                                                            <rect key="frame" x="25" y="0.0" width="68" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="Ndw-3b-Zew"/>
+                                                                            </constraints>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="node view" id="1466">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -164,8 +204,8 @@
                                                                             </textFieldCell>
                                                                             <accessibility help="Account or folder name"/>
                                                                         </textField>
-                                                                        <button verticalHuggingPriority="750" id="1470">
-                                                                            <rect key="frame" x="136" y="0.0" width="122" height="19"/>
+                                                                        <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1470">
+                                                                            <rect key="frame" x="202" y="0.0" width="56" height="19"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                             <buttonCell key="cell" type="roundRect" title="Unread" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1471">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -174,6 +214,16 @@
                                                                             <accessibility help="Unread message count"/>
                                                                         </button>
                                                                     </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="trailing" secondItem="1470" secondAttribute="trailing" priority="724" constant="8" id="2d3-TJ-XAw"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="1470" secondAttribute="bottom" constant="1" id="H6R-wv-3If"/>
+                                                                        <constraint firstItem="1465" firstAttribute="leading" secondItem="1463" secondAttribute="leading" constant="27" id="XKV-0V-mGM"/>
+                                                                        <constraint firstItem="1470" firstAttribute="top" secondItem="1463" secondAttribute="top" constant="-2" id="gf9-iS-OoX"/>
+                                                                        <constraint firstItem="1465" firstAttribute="top" secondItem="1463" secondAttribute="top" id="pUE-2B-rak"/>
+                                                                        <constraint firstItem="1464" firstAttribute="leading" secondItem="1463" secondAttribute="leading" constant="3" id="red-sa-pvb"/>
+                                                                        <constraint firstItem="1464" firstAttribute="top" secondItem="1463" secondAttribute="top" id="t7L-z8-6L6"/>
+                                                                        <constraint firstItem="1470" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1465" secondAttribute="trailing" constant="8" symbolic="YES" id="ulj-HT-64n"/>
+                                                                    </constraints>
                                                                     <accessibility description="An Account or folder" help="An Account or folder"/>
                                                                     <connections>
                                                                         <outlet property="button" destination="1470" id="1472"/>
@@ -191,10 +241,10 @@
                                                     </connections>
                                                 </outlineView>
                                             </subviews>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <nil key="backgroundColor"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1060">
-                                            <rect key="frame" x="1" y="609.00001275539398" width="268.99999904632568" height="16"/>
+                                            <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="1058">
@@ -203,9 +253,13 @@
                                         </scroller>
                                         <accessibility description="Acount and folder lists" help="Acount and folder lists"/>
                                     </scrollView>
-                                    <popUpButton toolTip="Pop up a menu to add an account or folder" id="1569" userLabel="Sidebar Add Menu">
+                                    <popUpButton toolTip="Pop up a menu to add an account or folder" translatesAutoresizingMaskIntoConstraints="NO" id="1569" userLabel="Sidebar Add Menu">
                                         <rect key="frame" x="6" y="3" width="61" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="61" id="Hdv-6h-vPC"/>
+                                            <constraint firstAttribute="height" constant="20" id="YNg-xf-bvO"/>
+                                        </constraints>
                                         <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" id="1570">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -242,27 +296,35 @@
                                         <accessibility description="Popup a menu to add an account or folder" help="Add a new folder or account"/>
                                     </popUpButton>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="1569" secondAttribute="bottom" constant="3" id="JAL-uj-2WZ"/>
+                                    <constraint firstItem="1057" firstAttribute="leading" secondItem="839" secondAttribute="leading" id="K7b-sb-nEM"/>
+                                    <constraint firstItem="1569" firstAttribute="leading" secondItem="839" secondAttribute="leading" constant="6" id="UHq-97-Ifr"/>
+                                    <constraint firstItem="1569" firstAttribute="top" secondItem="1057" secondAttribute="bottom" constant="2" id="UtO-2d-ZfZ"/>
+                                    <constraint firstItem="1057" firstAttribute="top" secondItem="839" secondAttribute="top" id="aEg-yl-qdF"/>
+                                    <constraint firstAttribute="trailing" secondItem="1057" secondAttribute="trailing" constant="1" id="yXO-KP-Jp2"/>
+                                </constraints>
                             </customView>
-                            <customView focusRingType="none" id="840" userLabel="Messages View">
+                            <customView wantsLayer="YES" focusRingType="none" id="840" userLabel="Messages View">
                                 <rect key="frame" x="273" y="0.0" width="751" height="651"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <splitView focusRingType="none" autosaveName="MainPaneSplitterAutosave" dividerStyle="thin" id="1080">
+                                    <splitView wantsLayer="YES" focusRingType="none" autosaveName="MainPaneSplitterAutosave" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="1080">
                                         <rect key="frame" x="0.0" y="0.0" width="751" height="651"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <customView focusRingType="none" id="1081" userLabel="Portals View">
+                                            <customView wantsLayer="YES" focusRingType="none" id="1081" userLabel="Portals View">
                                                 <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView toolTip="Drag and drop folders into this view to create a new portal. " focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1125">
+                                                    <scrollView toolTip="Drag and drop folders into this view to create a new portal. " wantsLayer="YES" focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1125">
                                                         <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                                        <clipView key="contentView" copiesOnScroll="NO" id="Wgf-b4-naE">
+                                                        <clipView key="contentView" wantsLayer="YES" copiesOnScroll="NO" id="Wgf-b4-naE">
                                                             <rect key="frame" x="1" y="1" width="749" height="316"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <collectionView toolTip="Drag a folder here to create a new portal." focusRingType="none" selectable="YES" maxNumberOfColumns="6" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
+                                                                <collectionView toolTip="Drag a folder here to create a new portal." wantsLayer="YES" focusRingType="none" selectable="YES" maxNumberOfColumns="6" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="749" height="316"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -276,7 +338,7 @@
                                                                     </connections>
                                                                 </collectionView>
                                                             </subviews>
-                                                            <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <accessibility help="Portals"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1127">
@@ -290,20 +352,27 @@
                                                         <accessibility description="A place to drag and drop folders to create new portals." help="Portal Collections"/>
                                                     </scrollView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="1125" firstAttribute="top" secondItem="1081" secondAttribute="top" id="7M6-ix-WZE"/>
+                                                    <constraint firstItem="1125" firstAttribute="leading" secondItem="1081" secondAttribute="leading" id="KPk-es-kHQ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="1125" secondAttribute="bottom" id="Ljl-DF-yfv"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="dhx-tN-Qxk"/>
+                                                    <constraint firstAttribute="trailing" secondItem="1125" secondAttribute="trailing" id="wZL-g3-3rX"/>
+                                                </constraints>
                                                 <accessibility help="Portals"/>
                                             </customView>
-                                            <customView focusRingType="none" id="1082" userLabel="Message View">
+                                            <customView wantsLayer="YES" focusRingType="none" id="1082" userLabel="Message View">
                                                 <rect key="frame" x="0.0" y="319" width="751" height="332"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView toolTip="Messages" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="4nl-lT-u52">
+                                                    <scrollView toolTip="Messages" wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nl-lT-u52">
                                                         <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <clipView key="contentView" id="15f-SP-Ip9">
+                                                        <clipView key="contentView" wantsLayer="YES" id="15f-SP-Ip9">
                                                             <rect key="frame" x="1" y="1" width="749" height="330"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <collectionView selectable="YES" allowsMultipleSelection="YES" maxNumberOfColumns="1" id="FVd-10-TQj" userLabel="Messages Collection View">
+                                                                <collectionView wantsLayer="YES" selectable="YES" allowsMultipleSelection="YES" maxNumberOfColumns="1" id="FVd-10-TQj" userLabel="Messages Collection View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="749" height="330"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <animations/>
@@ -329,29 +398,53 @@
                                                         <accessibility description="A view displaying the currently selected messages." help="Selected message view"/>
                                                     </scrollView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="4nl-lT-u52" firstAttribute="top" secondItem="1082" secondAttribute="top" id="Eqa-zp-PYf"/>
+                                                    <constraint firstItem="4nl-lT-u52" firstAttribute="leading" secondItem="1082" secondAttribute="leading" id="Kdg-y0-IYg"/>
+                                                    <constraint firstAttribute="trailing" secondItem="4nl-lT-u52" secondAttribute="trailing" id="NGg-Jd-X9X"/>
+                                                    <constraint firstAttribute="bottom" secondItem="4nl-lT-u52" secondAttribute="bottom" id="PRA-4u-r9G"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="nxX-zL-WQb"/>
+                                                </constraints>
                                                 <animations/>
                                                 <accessibility description="Selected messages" help="Selected messages"/>
                                             </customView>
                                         </subviews>
                                         <holdingPriorities>
-                                            <real value="250"/>
-                                            <real value="250"/>
+                                            <real value="253"/>
+                                            <real value="252"/>
                                         </holdingPriorities>
                                         <accessibility help="Portals and Messages"/>
                                     </splitView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="1080" secondAttribute="bottom" id="AKj-sg-OLJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="1080" secondAttribute="trailing" id="EXr-OW-55L"/>
+                                    <constraint firstItem="1080" firstAttribute="leading" secondItem="840" secondAttribute="leading" id="eCn-l2-XyC"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="vTj-Y5-zL2"/>
+                                    <constraint firstItem="1080" firstAttribute="top" secondItem="840" secondAttribute="top" id="zj7-hi-i06"/>
+                                </constraints>
                                 <accessibility help="Portals and Messages"/>
                             </customView>
                         </subviews>
                         <holdingPriorities>
-                            <real value="250"/>
-                            <real value="250"/>
+                            <real value="256"/>
+                            <real value="255"/>
                         </holdingPriorities>
                         <connections>
                             <outlet property="delegate" destination="854" id="857"/>
                         </connections>
                     </splitView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="838" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="2kE-88-sg1"/>
+                    <constraint firstItem="839" firstAttribute="trailing" secondItem="852" secondAttribute="trailing" priority="183" id="FON-4C-Ml3"/>
+                    <constraint firstItem="838" firstAttribute="top" secondItem="1505" secondAttribute="bottom" id="Hxz-9N-jPC"/>
+                    <constraint firstAttribute="trailing" secondItem="1505" secondAttribute="trailing" id="LDd-iF-kBM"/>
+                    <constraint firstItem="1505" firstAttribute="top" secondItem="372" secondAttribute="top" id="pio-KA-AkH"/>
+                    <constraint firstAttribute="bottom" secondItem="838" secondAttribute="bottom" id="qT9-kg-qdV"/>
+                    <constraint firstAttribute="trailing" secondItem="838" secondAttribute="trailing" id="tzK-Ao-Aq4"/>
+                    <constraint firstItem="1505" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="yWf-aZ-OsN"/>
+                </constraints>
                 <accessibility description="View of accounts, subject lines and selected message." help="View of accounts, subject lines and selected message."/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="E356A4FE-476A-4FD5-A341-8A52EF556796" displayMode="iconAndLabel" sizeMode="regular" id="841">
@@ -379,12 +472,12 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="823">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <rect key="contentRect" x="235" y="289" width="480" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="824">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" id="825">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="825">
                         <rect key="frame" x="141" y="236" width="112" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Message Quanta:" id="826">
@@ -393,7 +486,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="827">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="827">
                         <rect key="frame" x="258" y="233" width="202" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="828">
@@ -418,7 +511,7 @@
                             </binding>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="869">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="869">
                         <rect key="frame" x="153" y="211" width="100" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Acounts Width:" id="870">
@@ -427,7 +520,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="871">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="871">
                         <rect key="frame" x="258" y="206" width="202" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="872">
@@ -451,7 +544,7 @@
                             </binding>
                         </connections>
                     </textField>
-                    <button id="879">
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="879">
                         <rect key="frame" x="256" y="170" width="90" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Collapsed?" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="880">

@@ -29,18 +29,18 @@
 /*!
  Delegate is for passing on information regarding the current selection.
  */
-@property (unsafe_unretained) IBOutlet id<MBSidebarViewDelegate> delegate;
+@property (weak) IBOutlet id<MBSidebarViewDelegate> delegate;
 
 @property (unsafe_unretained) IBOutlet NSObjectController       *userController;
 @property (readonly, weak)             MBUser                   *currentUser;
 @property (readonly, weak)             NSManagedObjectContext   *managedObjectContext;
-@property (unsafe_unretained) IBOutlet NSOutlineView            *view;
+@property (weak) IBOutlet NSOutlineView            *view;
 @property (strong)                     NSArray                  *draggedNodes;
-@property (unsafe_unretained) IBOutlet NSMenu                   *menuSidebarAccountNode;
-@property (unsafe_unretained) IBOutlet NSMenu                   *menuSidebarAccountGroup;
-@property (unsafe_unretained) IBOutlet NSMenu                   *menuSidebarMailBoxNode;
-@property (unsafe_unretained) IBOutlet NSMenu                   *menuSidebarFavoriteGroup;
-@property (unsafe_unretained) IBOutlet MBAccountWindowController *editAccountSheet;
+@property (weak) IBOutlet NSMenu                   *menuSidebarAccountNode;
+@property (weak) IBOutlet NSMenu                   *menuSidebarAccountGroup;
+@property (weak) IBOutlet NSMenu                   *menuSidebarMailBoxNode;
+@property (weak) IBOutlet NSMenu                   *menuSidebarFavoriteGroup;
+@property (weak) IBOutlet MBAccountWindowController *editAccountSheet;
 
 -(NSMenu*) menuForNode: (MBTreeNode*) node;
 
