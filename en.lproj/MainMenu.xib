@@ -524,7 +524,7 @@
                 </binding>
             </connections>
         </arrayController>
-        <collectionViewItem nibName="MBVPortal" id="1271" userLabel="Collection View Item - MBVPortal" customClass="MBPortalViewController"/>
+        <collectionViewItem nibName="MBVPortalViewController" id="1271" userLabel="Collection View Item - MBVPortalViewController" customClass="MBPortalViewController"/>
         <customObject id="1388" userLabel="EditPortalSheet" customClass="MBPPEWindowController">
             <connections>
                 <outlet property="appSelectedUserObjectController" destination="1020" id="1397"/>

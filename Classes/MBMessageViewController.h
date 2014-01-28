@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 @class MBMessage;
 @class MBMessageHeaderView;
+@class MBBodyStructureInlineView;
 
 @interface MBMessageViewController : NSCollectionViewItem <NSComboBoxDataSource, NSComboBoxDelegate>
 
@@ -23,7 +24,7 @@
 @property (weak) IBOutlet MBMessageHeaderView *messageHeader;
 @property (weak) IBOutlet NSComboBox *recipientsBox;
 
-@property (weak) IBOutlet NSView* messageBodyViewContainer;
+@property (weak) IBOutlet MBBodyStructureInlineView* messageBodyViewContainer;
 
 #pragma Body
 

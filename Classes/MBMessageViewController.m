@@ -18,6 +18,7 @@
 #import "MBox+IMAP.h"
 #import "MBAccount+IMAP.h"
 #import "MBSimpleRFC822AddressToStringTransformer.h"
+#import "MBBodyStructureInlineView.h"
 
 #import "MailBoxesAppDelegate.h"
 #import "MBAccountsCoordinator.h"
@@ -54,6 +55,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(void) awakeFromNib {
     if ([self.representedObject isKindOfClass: [MBMessage class]]) {
+        
+//        [self.view setTranslatesAutoresizingMaskIntoConstraints: NO];
+        [self.view setContentCompressionResistancePriority: NSLayoutPriorityFittingSizeCompression-41 forOrientation: NSLayoutConstraintOrientationVertical];
+        
         MBMessage* myMessage = (MBMessage*)self.representedObject;
         if ([myMessage.isFullyCached boolValue] == NO ) {
             // need to load the body
@@ -64,11 +69,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             MailBoxesAppDelegate *app = (MailBoxesAppDelegate *)[[NSApplication sharedApplication] delegate];
             [app.accountsCoordinator loadFullMessageID: messageID forAccountID: accountID];
         }
+        NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTAddressToString];
+        NSString* cellcontent = [addressToString transformedValue: [self.cachedAddressesTo objectAtIndex: 0]];
+        [self.recipientsBox setObjectValue: cellcontent];
+        
+        self.messageBodyViewContainer.message = myMessage;
     }
-    MBMessage* myMessage = (MBMessage*)self.representedObject;
-    NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTAddressToString];
-    NSString* cellcontent = [addressToString transformedValue: [self.cachedAddressesTo objectAtIndex: 0]];
-    [self.recipientsBox setObjectValue: cellcontent];
 }
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
