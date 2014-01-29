@@ -114,6 +114,7 @@
 		C58743AA143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743A9143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m */; };
 		C58743AD143AA4A900FCBDA2 /* RFC2822Address.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743AC143AA4A900FCBDA2 /* RFC2822Address.m */; };
 		C58872FE1475B83200F2A9C6 /* Icons in Resources */ = {isa = PBXBuildFile; fileRef = C58872FD1475B83200F2A9C6 /* Icons */; };
+		C58D9FEF189860A000E0FB82 /* MBMessagesCollectionItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58D9FEE189860A000E0FB82 /* MBMessagesCollectionItemView.m */; };
 		C58DC38717AAF75B009CB9B9 /* ConnectTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C58DC38617AAF75B009CB9B9 /* ConnectTestAppDelegate.m */; };
 		C58DC38A17AAF770009CB9B9 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C58DC38917AAF770009CB9B9 /* GCDAsyncSocket.m */; };
 		C58F658F14902CD800720D69 /* MBMessage+IntersectSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C58F658E14902CD800720D69 /* MBMessage+IntersectSetFix.m */; };
@@ -355,6 +356,8 @@
 		C58743AB143AA4A900FCBDA2 /* RFC2822Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC2822Address.h; sourceTree = "<group>"; };
 		C58743AC143AA4A900FCBDA2 /* RFC2822Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFC2822Address.m; sourceTree = "<group>"; };
 		C58872FD1475B83200F2A9C6 /* Icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Icons; path = Resources/Icons; sourceTree = "<group>"; };
+		C58D9FED189860A000E0FB82 /* MBMessagesCollectionItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMessagesCollectionItemView.h; sourceTree = "<group>"; };
+		C58D9FEE189860A000E0FB82 /* MBMessagesCollectionItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMessagesCollectionItemView.m; sourceTree = "<group>"; };
 		C58DC38517AAF75B009CB9B9 /* ConnectTestAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectTestAppDelegate.h; path = ../../../CocoaAsyncSocket/GCD/Xcode/ConnectTest/Desktop/ConnectTest/ConnectTestAppDelegate.h; sourceTree = "<group>"; };
 		C58DC38617AAF75B009CB9B9 /* ConnectTestAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectTestAppDelegate.m; path = ../../../CocoaAsyncSocket/GCD/Xcode/ConnectTest/Desktop/ConnectTest/ConnectTestAppDelegate.m; sourceTree = "<group>"; };
 		C58DC38817AAF770009CB9B9 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = ../../../CocoaAsyncSocket/GCD/GCDAsyncSocket.h; sourceTree = "<group>"; };
@@ -1069,6 +1072,8 @@
 				C524A829180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m */,
 				C5552EF218980B2F008F2196 /* MBMessagesCollectionView.h */,
 				C5552EF318980B2F008F2196 /* MBMessagesCollectionView.m */,
+				C58D9FED189860A000E0FB82 /* MBMessagesCollectionItemView.h */,
+				C58D9FEE189860A000E0FB82 /* MBMessagesCollectionItemView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1358,6 +1363,7 @@
 				C50DD7F013730284002A6CD6 /* MBPortalView.m in Sources */,
 				C50DD7F3137440FD002A6CD6 /* MBPortal+IMAP.m in Sources */,
 				C5EC8C7D17E39EBD0059863B /* MBMessage.m in Sources */,
+				C58D9FEF189860A000E0FB82 /* MBMessagesCollectionItemView.m in Sources */,
 				C50DD8171374F0BC002A6CD6 /* MBPortalsCollectionView.m in Sources */,
 				C5E886EF137ACAF600ABD01D /* MBMessageFormatter.m in Sources */,
 				C5C086741396AB880028D2FF /* MBAddress+IMAP.m in Sources */,

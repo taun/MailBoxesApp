@@ -10,6 +10,10 @@
 
 @implementation MBMessagesCollectionView
 
++ (BOOL) requiresConstraintBasedLayout {
+    return YES;
+}
+
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
@@ -17,6 +21,21 @@
         // Initialization code here.
     }
     return self;
+}
+
+- (void) awakeFromNib {
+    
+}
+
+- (NSCollectionViewItem *)newItemForRepresentedObject:(id)object {
+    NSCollectionViewItem* newItem = [super newItemForRepresentedObject:object];
+    return newItem;
+}
+
+- (void) updateConstraints {
+    
+    // last
+    [super updateConstraints];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
