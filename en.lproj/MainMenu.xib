@@ -20,7 +20,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" focusRingType="none" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="687"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1505">
                         <rect key="frame" x="0.0" y="651" width="1024" height="36"/>
@@ -365,45 +365,49 @@
                                                 <rect key="frame" x="0.0" y="319" width="751" height="332"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView toolTip="Messages" wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nl-lT-u52">
+                                                    <scrollView wantsLayer="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-sY-zqu">
                                                         <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <clipView key="contentView" wantsLayer="YES" id="15f-SP-Ip9">
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <clipView key="contentView" wantsLayer="YES" id="5k9-DR-QWV">
                                                             <rect key="frame" x="1" y="1" width="749" height="330"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <collectionView wantsLayer="YES" selectable="YES" allowsMultipleSelection="YES" maxNumberOfColumns="1" id="FVd-10-TQj" userLabel="Messages Collection View" customClass="MBMessagesCollectionView">
+                                                                <view wantsLayer="YES" horizontalHuggingPriority="249" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-zj-tQH" customClass="MBMessagesDesktopView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="749" height="330"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <animations/>
-                                                                    <color key="primaryBackgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                    <accessibility help="Message contents"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="contentBindingKeyPath" value="arrangedObjects"/>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="selectionIndexesBindingKeyPath" value="selectionIndexes"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
-                                                                        <binding destination="CbG-mD-A5W" name="content" keyPath="arrangedObjects" id="lfz-86-hSn"/>
-                                                                        <binding destination="CbG-mD-A5W" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="lfz-86-hSn" id="Zjm-gW-ARz"/>
-                                                                        <outlet property="itemPrototype" destination="ram-oA-swT" id="HJu-R4-5yy"/>
+                                                                        <outlet property="boundController" destination="CbG-mD-A5W" id="sMH-O6-cdi"/>
+                                                                        <outlet property="itemPrototype" destination="ram-oA-swT" id="gVD-iu-xOs"/>
                                                                     </connections>
-                                                                </collectionView>
+                                                                </view>
                                                             </subviews>
-                                                            <accessibility help="Selected messages"/>
+                                                            <constraints>
+                                                                <constraint firstItem="Ovp-zj-tQH" firstAttribute="top" secondItem="5k9-DR-QWV" secondAttribute="top" id="eb3-fw-MHM"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Ovp-zj-tQH" secondAttribute="bottom" priority="200" id="jq7-Uh-xU2"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Ovp-zj-tQH" secondAttribute="trailing" priority="538" id="mfS-Fo-ANX"/>
+                                                                <constraint firstItem="Ovp-zj-tQH" firstAttribute="leading" secondItem="5k9-DR-QWV" secondAttribute="leading" id="z5Q-Zl-mll"/>
+                                                            </constraints>
                                                         </clipView>
-                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="pFN-S1-7Nu">
-                                                            <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" id="fzv-cM-tBI">
+                                                            <rect key="frame" x="1" y="315" width="749" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
-                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="JIr-dd-yCH">
-                                                            <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" id="IbM-9h-U1Q">
+                                                            <rect key="frame" x="734" y="1" width="16" height="330"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
-                                                        <accessibility description="A view displaying the currently selected messages." help="Selected message view"/>
                                                     </scrollView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="4nl-lT-u52" firstAttribute="top" secondItem="1082" secondAttribute="top" id="Eqa-zp-PYf"/>
-                                                    <constraint firstItem="4nl-lT-u52" firstAttribute="leading" secondItem="1082" secondAttribute="leading" id="Kdg-y0-IYg"/>
-                                                    <constraint firstAttribute="trailing" secondItem="4nl-lT-u52" secondAttribute="trailing" id="NGg-Jd-X9X"/>
-                                                    <constraint firstAttribute="bottom" secondItem="4nl-lT-u52" secondAttribute="bottom" id="PRA-4u-r9G"/>
+                                                    <constraint firstAttribute="bottom" secondItem="jbs-sY-zqu" secondAttribute="bottom" id="BBH-Eg-jhX"/>
+                                                    <constraint firstItem="jbs-sY-zqu" firstAttribute="top" secondItem="1082" secondAttribute="top" id="aOW-dk-RFG"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="nxX-zL-WQb"/>
+                                                    <constraint firstItem="jbs-sY-zqu" firstAttribute="leading" secondItem="1082" secondAttribute="leading" id="ugi-uv-BoK"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jbs-sY-zqu" secondAttribute="trailing" id="xNn-fF-wsW"/>
                                                 </constraints>
                                                 <animations/>
                                                 <accessibility description="Selected messages" help="Selected messages"/>
@@ -569,7 +573,6 @@
                 <outlet property="accountSyncProgress" destination="1212" id="1213"/>
                 <outlet property="appWindow" destination="371" id="1403"/>
                 <outlet property="collectionView" destination="1128" id="1402"/>
-                <outlet property="inPaneMessageView" destination="FVd-10-TQj" id="r5a-qf-lGC"/>
                 <outlet property="mainSplitViewDelegate" destination="854" id="858"/>
                 <outlet property="messagesSplitView" destination="1080" id="1406"/>
                 <outlet property="portalsArrayController" destination="1133" id="Ygp-fz-nuP"/>

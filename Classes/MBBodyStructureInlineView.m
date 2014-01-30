@@ -9,6 +9,8 @@
 #import "MBBodyStructureInlineView.h"
 #import "MBMime+IMAP.h"
 
+#import "MDLTextViewIntrinsic.h"
+
 @interface MBBodyStructureInlineView ()
 
 // quick and dirty, should use a view tag here or array
@@ -74,67 +76,70 @@
 //}
 
 -(void) updateConstraints {
-    NSView* topView = self.superview.superview.superview;
-    NSView* collectionView = topView.superview;
+//    NSView* topView = self.superview.superview.superview;
+//    NSView* collectionView = topView.superview;
     
-    NSArray* topConstraints = topView.constraints;
-    NSArray* collectionConstraints = collectionView.constraints;
+//    NSArray* topConstraints = topView.constraints;
+//    NSArray* collectionConstraints = collectionView.constraints;
     
-    if (collectionConstraints.count == 4) {
-        [collectionView removeConstraints: collectionConstraints];
-        [collectionView addConstraints: @[collectionConstraints[0],collectionConstraints[1],collectionConstraints[2]]];
-    }
-    
+//    if (collectionConstraints.count == 4) {
+//        [collectionView removeConstraints: collectionConstraints];
+//        [collectionView addConstraints: @[collectionConstraints[0],collectionConstraints[1],collectionConstraints[2]]];
+//    }
+//    
 //    [topView setTranslatesAutoresizingMaskIntoConstraints: NO];
     
     
     
-    NSSize textSize = self.subTextView.frame.size;
-    CGFloat height = textSize.height;
-   [self addConstraints:@[
-                           [NSLayoutConstraint constraintWithItem: self.subTextView
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1.0
-                                                         constant: 5],
-                           
-                           [NSLayoutConstraint constraintWithItem: self.subTextView
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1.0
-                                                         constant: 2],
-                           
-                           [NSLayoutConstraint constraintWithItem: self.subTextView
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1.0
-                                                         constant: 10],
-                           
-                           [NSLayoutConstraint constraintWithItem: self.subTextView
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeWidth
-                                                       multiplier:1
-                                                         constant: 0],
-                           
-                           [NSLayoutConstraint constraintWithItem: self
-                                                        attribute:NSLayoutAttributeHeight
-                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                           toItem:nil
-                                                        attribute:NSLayoutAttributeNotAnAttribute
-                                                       multiplier:1
-                                                         constant: height],
-                           
-                           ]];
-    
-    [self.subTextView setContentCompressionResistancePriority: NSLayoutPriorityFittingSizeCompression-40 forOrientation: NSLayoutConstraintOrientationVertical];
+//    NSSize textSize = self.subTextView.frame.size;
+//    CGFloat height = textSize.height;
+//   [self addConstraints:@[
+//                           [NSLayoutConstraint constraintWithItem: self.subTextView
+//                                                        attribute:NSLayoutAttributeTop
+//                                                        relatedBy:NSLayoutRelationEqual
+//                                                           toItem:self
+//                                                        attribute:NSLayoutAttributeTop
+//                                                       multiplier:1.0
+//                                                         constant: 0],
+//                           
+//                           [NSLayoutConstraint constraintWithItem: self.subTextView
+//                                                        attribute:NSLayoutAttributeLeft
+//                                                        relatedBy:NSLayoutRelationEqual
+//                                                           toItem:self
+//                                                        attribute:NSLayoutAttributeLeft
+//                                                       multiplier:1.0
+//                                                         constant: 0],
+//                           
+//                           [NSLayoutConstraint constraintWithItem: self.subTextView
+//                                                        attribute:NSLayoutAttributeBottom
+//                                                        relatedBy:NSLayoutRelationEqual
+//                                                           toItem:self
+//                                                        attribute:NSLayoutAttributeBottom
+//                                                       multiplier:1.0
+//                                                         constant: 0],
+//                           
+//                           [NSLayoutConstraint constraintWithItem: self.subTextView
+//                                                        attribute:NSLayoutAttributeRight
+//                                                        relatedBy:NSLayoutRelationEqual
+//                                                           toItem:self
+//                                                        attribute:NSLayoutAttributeRight
+//                                                       multiplier:1
+//                                                         constant: 0],
+//                           
+////                           [NSLayoutConstraint constraintWithItem: self
+////                                                        attribute:NSLayoutAttributeHeight
+////                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
+////                                                           toItem:nil
+////                                                        attribute:NSLayoutAttributeNotAnAttribute
+////                                                       multiplier:1
+////                                                         constant: height],
+//                           
+//                           ]];
+//    
+//    [self.subTextView setContentCompressionResistancePriority: NSLayoutPriorityDefaultHigh forOrientation: NSLayoutConstraintOrientationVertical];
+//    
+//    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+//    [nc addObserver: self.subTextView selector: @selector(viewFrameChanged:) name: NSViewFrameDidChangeNotification object: self.subTextView];
     
     // last
     [super updateConstraints];
@@ -144,12 +149,12 @@
 //    [super viewWillStartLiveResize];
 //}
 
--(void) viewDidEndLiveResize {
-    [super viewDidEndLiveResize];
-    [self removeConstraints: self.constraints];
-    [self.subTextView removeConstraints: self.subTextView.constraints];
-    [self setNeedsUpdateConstraints: YES];
-}
+//-(void) viewDidEndLiveResize {
+//    [super viewDidEndLiveResize];
+//    [self removeConstraints: self.constraints];
+//    [self.subTextView removeConstraints: self.subTextView.constraints];
+//    [self setNeedsUpdateConstraints: YES];
+//}
 
 -(void) setBodyContent {
     NSString* par1 = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
@@ -167,7 +172,7 @@
 -(void) generateViewLayout {
     NSSize subStructureSize = self.frame.size;
     
-    NSTextView* rawMime = [[NSTextView alloc] initWithFrame: NSMakeRect(0, 0, subStructureSize.width, subStructureSize.height)];
+    NSTextView* rawMime = [[MDLTextViewIntrinsic alloc] initWithFrame: NSMakeRect(0, 0, subStructureSize.width, subStructureSize.height)];
     // View in nib is min size. Therefore we can use nib dimensions as min when called from awakeFromNib
     [rawMime setMinSize: NSMakeSize(subStructureSize.width, subStructureSize.height)];
     [rawMime setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
@@ -205,11 +210,61 @@
     [myLayer setBorderColor: [[NSColor redColor] CGColor]];
 
     self.subTextView = rawMime;
+    
+    NSSize textSize = self.subTextView.frame.size;
+    CGFloat height = textSize.height;
+    [self addConstraints:@[
+                           [NSLayoutConstraint constraintWithItem: self.subTextView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1.0
+                                                         constant: 0],
+                           
+                           [NSLayoutConstraint constraintWithItem: self.subTextView
+                                                        attribute:NSLayoutAttributeLeft
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeLeft
+                                                       multiplier:1.0
+                                                         constant: 0],
+                           
+                           [NSLayoutConstraint constraintWithItem: self.subTextView
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1.0
+                                                         constant: 0],
+                           
+                           [NSLayoutConstraint constraintWithItem: self.subTextView
+                                                        attribute:NSLayoutAttributeRight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeRight
+                                                       multiplier:1
+                                                         constant: 0],
+                           
+                           //                           [NSLayoutConstraint constraintWithItem: self
+                           //                                                        attribute:NSLayoutAttributeHeight
+                           //                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
+                           //                                                           toItem:nil
+                           //                                                        attribute:NSLayoutAttributeNotAnAttribute
+                           //                                                       multiplier:1
+                           //                                                         constant: height],
+                           
+                           ]];
+    
+    [self.subTextView setContentCompressionResistancePriority: NSLayoutPriorityDefaultHigh forOrientation: NSLayoutConstraintOrientationVertical];
+    
+    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver: self.subTextView selector: @selector(viewFrameChanged:) name: NSViewFrameDidChangeNotification object: self.subTextView];
 }
 
--(void) updateTextViewSize:(NSSize)size {
-    [self.subTextView setConstrainedFrameSize: size];
-}
+//-(void) updateTextViewSize:(NSSize)size {
+//    [self.subTextView setConstrainedFrameSize: size];
+//}
 
 -(NSAttributedString*) attributedStringFromMessage:(MBMessage *)message {
     NSDictionary* options = @{MBRichMessageViewAttributeName:@YES};
