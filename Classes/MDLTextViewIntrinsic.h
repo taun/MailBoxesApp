@@ -12,4 +12,6 @@
 
 -(void) viewFrameChanged: (NSView*) view;
 
+-(void) viewBoundsChanged: (NSView*) view;
+
 @end

@@ -35,4 +35,8 @@
 -(void) viewFrameChanged:(NSView *)view {
     [self invalidateIntrinsicContentSize];
 }
+
+-(void) viewBoundsChanged:(NSView *)view {
+//    [self invalidateIntrinsicContentSize];
+}
 @end

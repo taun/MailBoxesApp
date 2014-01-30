@@ -17,7 +17,6 @@
 @property (nonatomic, strong) NSTextView* subTextView;
 
 -(void) generateViewLayout;
--(void) updateTextViewSize: (NSSize) size;
 
 -(NSAttributedString*) attributedStringFromMessage: (MBMessage*) message;
 
@@ -30,12 +29,6 @@
     [self addObserver: self forKeyPath: @"message" options: (NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context: NULL];
 }
 
-//-(void) setMessage:(MBMessage *)message {
-//    if (message != _message) {
-//        _message = message;
-//    }
-//}
-
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString: @"message"]) {
@@ -47,23 +40,11 @@
 
 -(void) dealloc {
     [self removeObserver: self forKeyPath: @"message"];
+    
+    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver: self.subTextView];
 }
 
-//- (id)initWithFrame:(NSRect)frame
-//{
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        // Initialization code here.
-//    }
-//    return self;
-//}
-//
-//- (void)drawRect:(NSRect)dirtyRect
-//{
-//	[super drawRect:dirtyRect];
-//	
-//    // Drawing code here.
-//}
 //-(void) layout {
 ////    [self.subTextView setConstrainedFrameSize: NSMakeSize(self.frame.size.width - 10, self.frame.size.height - 16)];
 //    [super layout];
@@ -76,70 +57,6 @@
 //}
 
 -(void) updateConstraints {
-//    NSView* topView = self.superview.superview.superview;
-//    NSView* collectionView = topView.superview;
-    
-//    NSArray* topConstraints = topView.constraints;
-//    NSArray* collectionConstraints = collectionView.constraints;
-    
-//    if (collectionConstraints.count == 4) {
-//        [collectionView removeConstraints: collectionConstraints];
-//        [collectionView addConstraints: @[collectionConstraints[0],collectionConstraints[1],collectionConstraints[2]]];
-//    }
-//    
-//    [topView setTranslatesAutoresizingMaskIntoConstraints: NO];
-    
-    
-    
-//    NSSize textSize = self.subTextView.frame.size;
-//    CGFloat height = textSize.height;
-//   [self addConstraints:@[
-//                           [NSLayoutConstraint constraintWithItem: self.subTextView
-//                                                        attribute:NSLayoutAttributeTop
-//                                                        relatedBy:NSLayoutRelationEqual
-//                                                           toItem:self
-//                                                        attribute:NSLayoutAttributeTop
-//                                                       multiplier:1.0
-//                                                         constant: 0],
-//                           
-//                           [NSLayoutConstraint constraintWithItem: self.subTextView
-//                                                        attribute:NSLayoutAttributeLeft
-//                                                        relatedBy:NSLayoutRelationEqual
-//                                                           toItem:self
-//                                                        attribute:NSLayoutAttributeLeft
-//                                                       multiplier:1.0
-//                                                         constant: 0],
-//                           
-//                           [NSLayoutConstraint constraintWithItem: self.subTextView
-//                                                        attribute:NSLayoutAttributeBottom
-//                                                        relatedBy:NSLayoutRelationEqual
-//                                                           toItem:self
-//                                                        attribute:NSLayoutAttributeBottom
-//                                                       multiplier:1.0
-//                                                         constant: 0],
-//                           
-//                           [NSLayoutConstraint constraintWithItem: self.subTextView
-//                                                        attribute:NSLayoutAttributeRight
-//                                                        relatedBy:NSLayoutRelationEqual
-//                                                           toItem:self
-//                                                        attribute:NSLayoutAttributeRight
-//                                                       multiplier:1
-//                                                         constant: 0],
-//                           
-////                           [NSLayoutConstraint constraintWithItem: self
-////                                                        attribute:NSLayoutAttributeHeight
-////                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
-////                                                           toItem:nil
-////                                                        attribute:NSLayoutAttributeNotAnAttribute
-////                                                       multiplier:1
-////                                                         constant: height],
-//                           
-//                           ]];
-//    
-//    [self.subTextView setContentCompressionResistancePriority: NSLayoutPriorityDefaultHigh forOrientation: NSLayoutConstraintOrientationVertical];
-//    
-//    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-//    [nc addObserver: self.subTextView selector: @selector(viewFrameChanged:) name: NSViewFrameDidChangeNotification object: self.subTextView];
     
     // last
     [super updateConstraints];
@@ -157,14 +74,19 @@
 //}
 
 -(void) setBodyContent {
-    NSString* par1 = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    NSString* par2 = @"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?";
-//    NSString* sample = [NSString stringWithFormat: @"%@", par1];
-//    NSAttributedString* content = [[NSAttributedString alloc] initWithString: sample];
-    NSAttributedString* content = [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"%@\r\n\r\n%@\r\n\r\n%@\r\n\r\n%@\r\n\r\n%@", par1, par2, par1, par2, par1]];
-    
-    //    [[rawMime textStorage] setAttributedString: [self attributedStringFromMessage: self.message]];
-    [[self.subTextView textStorage] setAttributedString: content];
+    if (0) {
+        NSString* par1 = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        NSString* par2 = @"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?";
+        //    NSString* sample = [NSString stringWithFormat: @"%@", par1];
+        //    NSAttributedString* content = [[NSAttributedString alloc] initWithString: sample];
+        NSAttributedString* content = [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"%@\r\n\r\n%@\r\n\r\n%@\r\n\r\n%@\r\n\r\n%@", par1, par2, par1, par2, par1]];
+        
+        //    [[rawMime textStorage] setAttributedString: [self attributedStringFromMessage: self.message]];
+        [[self.subTextView textStorage] setAttributedString: content];
+    } else {
+        [[self.subTextView textStorage] setAttributedString: [self attributedStringFromMessage: self.message]];
+    }
+    [self.subTextView setNeedsLayout: YES];
 }
 /*!
  Need to replace the below with a self contained subview based on message components.
@@ -211,8 +133,6 @@
 
     self.subTextView = rawMime;
     
-    NSSize textSize = self.subTextView.frame.size;
-    CGFloat height = textSize.height;
     [self addConstraints:@[
                            [NSLayoutConstraint constraintWithItem: self.subTextView
                                                         attribute:NSLayoutAttributeTop
@@ -246,14 +166,6 @@
                                                        multiplier:1
                                                          constant: 0],
                            
-                           //                           [NSLayoutConstraint constraintWithItem: self
-                           //                                                        attribute:NSLayoutAttributeHeight
-                           //                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
-                           //                                                           toItem:nil
-                           //                                                        attribute:NSLayoutAttributeNotAnAttribute
-                           //                                                       multiplier:1
-                           //                                                         constant: height],
-                           
                            ]];
     
     [self.subTextView setContentCompressionResistancePriority: NSLayoutPriorityDefaultHigh forOrientation: NSLayoutConstraintOrientationVertical];
@@ -262,9 +174,6 @@
     [nc addObserver: self.subTextView selector: @selector(viewFrameChanged:) name: NSViewFrameDidChangeNotification object: self.subTextView];
 }
 
-//-(void) updateTextViewSize:(NSSize)size {
-//    [self.subTextView setConstrainedFrameSize: size];
-//}
 
 -(NSAttributedString*) attributedStringFromMessage:(MBMessage *)message {
     NSDictionary* options = @{MBRichMessageViewAttributeName:@YES};
