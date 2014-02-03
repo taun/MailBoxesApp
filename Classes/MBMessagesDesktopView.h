@@ -8,7 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+/*
+ NScollectionView style class
+ 
+ Allows viewing a series of selected email messages in a vertical or horizontal layout
+ 
+ Still need to implement horizontal.
+ */
 @interface MBMessagesDesktopView : NSView
 
 @property (weak,nonatomic) IBOutlet NSController    *boundController;
@@ -18,6 +24,6 @@
 @property (strong,nonatomic)          NSArray       *content;
 @property (strong,nonatomic)          NSIndexSet    *selectionIndexes;
 
-
--(void) tile;
+-(void) reloadData;
+-(void) createSubviews;
 @end

@@ -244,7 +244,7 @@
                                             <nil key="backgroundColor"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1060">
-                                            <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                                            <rect key="frame" x="1" y="609.00001275539398" width="268.99999904632568" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="1058">
@@ -397,7 +397,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" id="IbM-9h-U1Q">
-                                                            <rect key="frame" x="734" y="1" width="16" height="330"/>
+                                                            <rect key="frame" x="735" y="1" width="15" height="330"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>

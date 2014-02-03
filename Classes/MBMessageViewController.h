@@ -11,9 +11,11 @@
 @class MBMessageHeaderView;
 @class MBBodyStructureInlineView;
 
-@interface MBMessageViewController : NSCollectionViewItem <NSComboBoxDataSource, NSComboBoxDelegate>
+@interface MBMessageViewController : NSCollectionViewItem <NSComboBoxDataSource, NSComboBoxDelegate, NSPopoverDelegate>
 
 @property (strong, nonatomic) IBOutlet NSObjectController *messageController;
+
+@property (strong) IBOutlet NSPopover *partsPopover;
 
 #pragma Envelope Fields
 @property (weak) IBOutlet NSTextField *subject;
@@ -29,6 +31,7 @@
 #pragma Body
 
 //@property (strong) NSView* messageBodyView;
+- (IBAction)showPartsPopover:(NSButton *)sender;
 
 - (IBAction)showMessageDebug:(id)sender;
 - (IBAction)showPartsInLog:(id)sender;

@@ -45,9 +45,6 @@
                   Identifier = "IMAPClientTest/testRespFetchBodyPart2">
                </Test>
                <Test
-                  Identifier = "IMAPClientTest">
-               </Test>
-               <Test
                   Identifier = "LogicTests">
                </Test>
             </SkippedTests>

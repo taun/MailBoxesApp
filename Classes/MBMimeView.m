@@ -8,22 +8,52 @@
 
 #import "MBMimeView.h"
 
+static NSString *   kDataKeyPath   = @"data";
+
 @implementation MBMimeView
 
-- (id)initWithFrame:(NSRect)frame
-{
-    self = [super initWithFrame:frame];
+-(void) setNode:(MBMime *)node {
+    if (_node != node) {
+        [_node removeObserver: self forKeyPath: kDataKeyPath];
+        _node = node;
+        [self reloadData];
+        [_node addObserver: self forKeyPath: kDataKeyPath options: (NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context: NULL];
+    }
+}
+
+-(instancetype) initWithFrame:(NSRect)frameRect node:(MBMime *)node {
+    self = [super initWithFrame: frameRect];
     if (self) {
         // Initialization code here.
+        [self setNode: node];
+        [self createSubviews];
     }
     return self;
 }
 
-- (void)drawRect:(NSRect)dirtyRect
-{
-	[super drawRect:dirtyRect];
-	
-    // Drawing code here.
+- (id)initWithFrame:(NSRect)frame {
+    return [self initWithFrame: frame node: nil];
 }
+
+-(void) dealloc {
+    [_node removeObserver: self forKeyPath: kDataKeyPath];
+}
+
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString: kDataKeyPath]) {
+        [self reloadData];
+    }
+    
+}
+
+-(void) createSubviews {
+    
+}
+
+-(void) reloadData {
+    
+}
+
 
 @end

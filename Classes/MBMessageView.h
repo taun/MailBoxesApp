@@ -8,6 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*
+ Top level message container view
+ Contains
+    MBMessageHeaderView
+    MBMimeView subclasses as body.
+ */
 @interface MBMessageView : NSBox
 
 @end

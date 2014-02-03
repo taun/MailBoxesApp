@@ -421,7 +421,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
     if (newPart) {
 //        newPart.bodyIndex = [NSString stringWithFormat: @"%u", partIndex];
-        newPart.bodyIndex = @"";
+        newPart.bodyIndex = @"1";
         [self generateBodyIndexes: newPart rIndex: 0];
         [self addChildNodesObject: newPart];
         [self addAllPartsObject: newPart];

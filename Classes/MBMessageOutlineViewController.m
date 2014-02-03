@@ -32,6 +32,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @property (strong, nonatomic) NSArray* cachedOrderedMessageParts;
 
+-(void) initDefaults;
 -(void) setEnvelopeFields;
 -(NSAttributedString*) attributedStringFromMessage: (MBMessage*) message;
 
@@ -39,61 +40,82 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MBMessageOutlineViewController
 
+//-(void) initDefaults {
+//    [[self view] setWantsLayer: YES];
+//    [self addObserver: self forKeyPath: @"representedObject" options: NSKeyValueObservingOptionNew context: NULL];
+//}
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // init code
-        [[self view] setWantsLayer: YES];
-        //        [NSAnimationContext beginGrouping];
-        //        [[NSAnimationContext currentContext] setDuration: 1.0];
-        //
-        //        CABasicAnimation* alphaAnim = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
-        //        [alphaAnim setFromValue: [NSNumber numberWithFloat: 0.0]];
-        //        [alphaAnim setToValue: [NSNumber numberWithFloat: 1.0]];
-        //        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: alphaAnim, @"alphaValue", nil];
-        //        [[self view] setAnimations: dict];
-    }
-    return self;
+//-(void) awakeFromNib {
+//    [self initDefaults];
+//}
+
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        // init code
+//        [self initDefaults];
+//        //        [NSAnimationContext beginGrouping];
+//        //        [[NSAnimationContext currentContext] setDuration: 1.0];
+//        //
+//        //        CABasicAnimation* alphaAnim = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+//        //        [alphaAnim setFromValue: [NSNumber numberWithFloat: 0.0]];
+//        //        [alphaAnim setToValue: [NSNumber numberWithFloat: 1.0]];
+//        //        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: alphaAnim, @"alphaValue", nil];
+//        //        [[self view] setAnimations: dict];
+//    }
+//    return self;
+//}
+
+-(void) loadView {
+    [super loadView];
+    [self.outlineView expandItem: nil expandChildren: YES];
 }
 
--(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString: @"defaultContent"]) {
-        [self refreshMessageDisplay: nil];
-    } else if ([keyPath isEqualToString: @"data"]) {
-        [self displayNode: object];
-    }
-    
-}
+//-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+//    
+//    if ([keyPath isEqualToString: @"defaultContent"]) {
+//        [self refreshMessageDisplay: nil];
+//    } else if ([keyPath isEqualToString: @"data"]) {
+//        [self displayNode: object];
+//    } else if ([keyPath isEqualToString: @"representedObject"]) {
+//        [self.outlineView expandItem: nil expandChildren: YES];
+//        [self reloadData];
+//    } else {
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//    }
+//}
 
--(void) setMessage:(MBMessage *)message {
-    if (message != _message) {
-        if (_message != nil) {
-            //            [_message removeObserver: self forKeyPath: @"defaultContent"];
-            if (self.outlineView.selectedRow > -1) {
-                MBMime* previousSelectedNode = [self.outlineView itemAtRow: [self.outlineView selectedRow]];
-                [previousSelectedNode removeObserver: self forKeyPath: @"data"];
-            }
-        }
-        _message = message;
-        //        [_message addObserver: self forKeyPath: @"defaultContent" options: NSKeyValueObservingOptionNew context: NULL];
-    }
-    [self refreshMessageDisplay: nil];
-}
+//-(void) dealloc {
+//    [self removeObserver: self forKeyPath: @"representedObject"];
+//}
+
+//-(void) reloadData {
+//    if (self.representedObject != nil && [self.representedObject isKindOfClass:[MBMessage class]]) {
+//        //            [_message removeObserver: self forKeyPath: @"defaultContent"];
+//        if (self.outlineView.selectedRow > -1) {
+//            MBMime* previousSelectedNode = [self.outlineView itemAtRow: [self.outlineView selectedRow]];
+//            [previousSelectedNode removeObserver: self forKeyPath: @"data"];
+//        }
+//    }
+    //        [_message addObserver: self forKeyPath: @"defaultContent" options: NSKeyValueObservingOptionNew context: NULL];
+//    [self refreshMessageDisplay: nil];
+//}
+
 - (IBAction)showMessageDebug:(id)sender {
-    DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.message);
+    DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.representedObject);
 }
 
 - (IBAction)showPartsInLog:(id)sender {
-    NSSet* parts = self.message.allParts;
-    for (id part in parts) {
-        DDLogCVerbose(@"Part: %@", part);
-        if ([part isKindOfClass:[MBMime class]]) {
-            MBMimeData*  data = [(MBMime*)part data];
-            if (data) {
-                DDLogCVerbose(@"Data: %@", data);
+    if ([self.representedObject isKindOfClass:[MBMessage class]]) {
+        NSSet* parts = ((MBMessage*)self.representedObject).allParts;
+        for (id part in parts) {
+            DDLogCVerbose(@"Part: %@", part);
+            if ([part isKindOfClass:[MBMime class]]) {
+                MBMimeData*  data = [(MBMime*)part data];
+                if (data) {
+                    DDLogCVerbose(@"Data: %@", data);
+                }
             }
         }
     }
@@ -126,7 +148,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     MBMime* node = nil;
     
     if (!item) {
-        node = (self.message.childNodes)[index];
+        node = (((MBMessage*)self.representedObject).childNodes)[index];
     } else {
         if ([item isKindOfClass:[MBMime class]]) {
             node = [(MBMime*)item childNodes][index];
@@ -151,7 +173,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSInteger count = 0;
     
     if (!item) {
-        count = [self.message.childNodes count];
+        count = [((MBMessage*)self.representedObject).childNodes count];
     } else {
         if ([item isKindOfClass:[MBMime class]]) {
             count = [[(MBMime*)item childNodes] count];
@@ -169,7 +191,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         if ([tableColumn.identifier isEqualToString: @"mimeName"]) {
             objectValue = [(MBMime*)item name];
             if (!objectValue) {
-                objectValue = @"NoName";
+                objectValue = @"";
             }
         } else if ([tableColumn.identifier isEqualToString: @"mimeType"]) {
             objectValue = [(MBMime*)item type];

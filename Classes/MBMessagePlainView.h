@@ -7,7 +7,8 @@
 //
 
 #import "MBMessageView.h"
+#import "MBMimeView.h"
 
-@interface MBMessagePlainView : MBMessageView
+@interface MBMessagePlainView : MBMimeView
 
 @end

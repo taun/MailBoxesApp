@@ -13,7 +13,6 @@
 @interface MBMessageOutlineViewController : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
 @property (strong, nonatomic) IBOutlet NSObjectController *messageController;
-@property (strong, nonatomic)          MBMessage*         message;
 
 #pragma Envelope Fields
 @property (weak) IBOutlet NSTextField *subject;
@@ -30,5 +29,6 @@
 - (IBAction)showPartsInLog:(id)sender;
 - (IBAction)refreshMessageDisplay:(id)sender;
 
+-(void) reloadData;
 @end
 

@@ -106,6 +106,17 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //
 //}
 
+- (IBAction)showPartsPopover:(NSButton *)sender {
+    if (self.partsPopover.isShown) {
+        [self.partsPopover close];
+    } else {
+        NSRectEdge* edge;
+        self.partsPopover.contentViewController.representedObject = self.representedObject;
+        [self.partsPopover.contentViewController.view setTranslatesAutoresizingMaskIntoConstraints: NO];
+        [self.partsPopover showRelativeToRect: sender.bounds ofView: sender preferredEdge: NSMaxXEdge];
+    }
+}
+
 - (IBAction)showMessageDebug:(id)sender {
     MBMessage* message = (MBMessage*) self.representedObject;
     DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), message);
@@ -217,6 +228,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         }
     }
     return [composition copy];
+}
+
+#pragma mark - Popover Delegate
+- (void)popoverWillShow:(NSNotification *)notification {
+    
 }
 
 #pragma mark - Combo Data Source

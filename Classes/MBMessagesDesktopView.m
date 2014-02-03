@@ -50,6 +50,7 @@ static NSString *placeholderItem = nil;
         }
         [self.boundController addObserver: self forKeyPath: self.contentBindingKeyPath options: (NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context: NULL];
     }
+    [self createSubviews];
 }
 
 -(void) dealloc {
@@ -60,7 +61,7 @@ static NSString *placeholderItem = nil;
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString: self.contentBindingKeyPath]) {
-        [self tile];
+        [self createSubviews];
         
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -181,7 +182,7 @@ static NSString *placeholderItem = nil;
     if (content != _content) {
         _content = content;
     }
-    [self tile];
+    [self createSubviews];
 }
 
 
@@ -211,7 +212,7 @@ static NSString *placeholderItem = nil;
     return item;
 }
 
--(void) tile {
+-(void) createSubviews {
     // maybe this should just be in updateConstraints?
     NSInteger i;
     
@@ -243,19 +244,15 @@ static NSString *placeholderItem = nil;
 - (void) _removeItemsViews
 {
     if (_items!=nil) {
-    
-        NSUInteger count = [_items count];
         
-        while (count--)
-        {
-            id item = [_items objectAtIndex: count];
-            
-            if ([item respondsToSelector: @selector(view)])
-            {
+        for (id item in _items) {
+            if ([item respondsToSelector: @selector(view)]) {
+                
                 [[item view] removeFromSuperview];
                 [item setSelected: NO];
             }
         }
+    
         [_items removeAllObjects];
         _items = nil;
     }

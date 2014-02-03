@@ -630,24 +630,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         if (connected && self.connectionState == IMAPAuthenticated) {
             // do some work process an event?
             MBMessage* message = [self.clientStore messageForObjectID: objectID];
-            MBox* mbox = message.mbox;
-            
-            UInt64 muid = [message.uid longLongValue];
-            
-            [self commandSelect: mbox.fullPath];
-            // fetch the selected message plus seek +- by one
-            for (MBMime* part in message.allParts) {
-                // doesn't handle partially loaded data
-                // is network disconnect while loading
-                // need to make sure data is always fully loaded before saving
-                if (part.isLeaf && part.data == nil) {
-                    NSString* bodyIndex = part.bodyIndex;
-                    if ([bodyIndex length] > 0) {
-                        [self commandFetchContentForUID: muid mimeParts: bodyIndex];
-                    }
-                }
-            }
-            [self.clientStore save: &error];
+            [self loadFullMessage: message];
         }
         else {
             // parse connection error
@@ -665,6 +648,32 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         [self closeStreams];
         self.isFinished = YES;
     }
+}
+
+/*
+ should only be called by the local thread.
+ loadFullMessageID: is the async cross thread version.
+ */
+-(void) loadFullMessage: (MBMessage*) message {
+    NSError* error = nil;
+    MBox* mbox = message.mbox;
+    
+    UInt64 muid = [message.uid longLongValue];
+    
+    [self commandSelect: mbox.fullPath];
+    // fetch the selected message plus seek +- by one
+    for (MBMime* part in message.allParts) {
+        // doesn't handle partially loaded data
+        // is network disconnect while loading
+        // need to make sure data is always fully loaded before saving
+        if (part.isLeaf && part.data == nil) {
+            NSString* bodyIndex = part.bodyIndex;
+            if ([bodyIndex length] > 0) {
+                [self commandFetchContentForUID: muid mimeParts: bodyIndex];
+            }
+        }
+    }
+    [self.clientStore save: &error];
 }
 
 -(void) testMessage:(NSString *)aMessage {

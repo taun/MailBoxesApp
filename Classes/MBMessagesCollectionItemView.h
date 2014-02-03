@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*
+ CollectionItem style wrapper for MBMessageView
+ */
 @interface MBMessagesCollectionItemView : NSView
 
 @end
