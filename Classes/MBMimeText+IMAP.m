@@ -8,12 +8,14 @@
 
 
 #import "MBMimeText+IMAP.h"
+#import "NSObject+MBShorthand.h"
+
 
 @implementation MBMimeText (IMAP)
 
 -(void) decoder {
     NSData* decoded;
-    if (self.data.encoded != nil) {
+    if ([self.data.encoded isNonNilString]) {
         NSString* stringToDecode = self.data.encoded;
         
         NSNumber* nsEncodingNumber = [[MBMIMECharsetTransformer new] transformedValue: self.charset];
@@ -31,6 +33,8 @@
         }
         
         decoded = [stringToDecode dataUsingEncoding: nsEncodingInt];
+        
+        NSAssert((decoded != nil) && (decoded.length>4), @"decoded is an empty string: %@, data=%@", decoded, self.data);
         
         if (decoded) {
             self.data.decoded = decoded;
