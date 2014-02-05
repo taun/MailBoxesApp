@@ -109,11 +109,11 @@
                                         </connections>
                                     </comboBox>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3oG-Cl-2yQ">
-                                        <rect key="frame" x="20" y="118" width="98" height="19"/>
+                                        <rect key="frame" x="10" y="130" width="79" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="recessed" title="Show Parts" bezelStyle="recessed" image="NSRightFacingTriangleTemplate" imagePosition="right" alignment="left" alternateImage="NSLeftFacingTriangleTemplate" borderStyle="border" inset="2" id="brs-zt-KJQ">
+                                        <buttonCell key="cell" type="inline" title="Show Parts" alternateTitle="Hide Parts" bezelStyle="inline" image="NSRightFacingTriangleTemplate" imagePosition="right" alignment="center" alternateImage="NSLeftFacingTriangleTemplate" inset="2" id="brs-zt-KJQ">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="systemBold" size="12"/>
+                                            <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="showPartsPopover:" target="-2" id="sC9-nY-qhL"/>
@@ -122,7 +122,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="QgS-JV-yC2" secondAttribute="bottom" constant="20" id="2cT-9I-VBS"/>
-                                    <constraint firstItem="3oG-Cl-2yQ" firstAttribute="top" secondItem="LFh-Jj-pYw" secondAttribute="top" constant="13" id="5Pu-Ct-WXF"/>
+                                    <constraint firstItem="3oG-Cl-2yQ" firstAttribute="top" secondItem="LFh-Jj-pYw" secondAttribute="top" constant="6" id="5Pu-Ct-WXF"/>
                                     <constraint firstItem="QgS-JV-yC2" firstAttribute="top" secondItem="dcE-LI-xZa" secondAttribute="bottom" constant="8" id="FsY-QU-cS6"/>
                                     <constraint firstItem="QgS-JV-yC2" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" constant="10" id="O2S-yI-Ox7"/>
                                     <constraint firstItem="N1j-tJ-Va9" firstAttribute="top" secondItem="LFh-Jj-pYw" secondAttribute="top" constant="20" id="Ucl-N7-W34"/>
@@ -133,7 +133,7 @@
                                     <constraint firstItem="Mqd-3z-t15" firstAttribute="top" secondItem="N1j-tJ-Va9" secondAttribute="bottom" constant="8" id="dGM-hA-Exu"/>
                                     <constraint firstItem="dcE-LI-xZa" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" id="gd6-aH-LI5"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="865" constant="300" id="jMo-EH-biA"/>
-                                    <constraint firstItem="3oG-Cl-2yQ" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" constant="20" id="t6B-uD-nVd"/>
+                                    <constraint firstItem="3oG-Cl-2yQ" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" constant="10" id="t6B-uD-nVd"/>
                                 </constraints>
                                 <accessibility description="Header" help="Header"/>
                                 <connections>

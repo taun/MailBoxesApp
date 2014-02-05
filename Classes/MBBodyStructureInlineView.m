@@ -9,6 +9,9 @@
 #import "MBBodyStructureInlineView.h"
 #import "MBMime+IMAP.h"
 
+#import <MoedaeMailPluginsBase/MMPMimeProxy.h>
+#import <MoedaeMailPluginsBase/MoedaeMailPluginsBase.h>
+
 #import "MBMessagePlainView.h"
 
 @interface MBBodyStructureInlineView ()
@@ -16,7 +19,9 @@
 // quick and dirty, should use a view tag here or array
 @property (nonatomic, strong) NSPointerArray* nodeViews;
 
--(void) setNodeView: (MBMimeView*) node atIndex: (NSUInteger) index;
+-(MBMime*) getPlainTextNode: (NSOrderedSet*) nodeTree;
+
+-(void) setNodeView: (MoedaeMailPluginsBase*) node atIndex: (NSUInteger) index;
 
 -(void) createSubviews;
 -(void) reloadData;
@@ -46,7 +51,32 @@
     [self removeObserver: self forKeyPath: @"message"];
 }
 
--(void) setNodeView:(MBMimeView *)node atIndex:(NSUInteger)index {
+/* return the first plain text node 
+ type = "TEXT"  && subtype = "PLAIN"
+ 
+ */
+-(MBMime*) getPlainTextNode: (NSOrderedSet*) nodeTree {
+    MBMime* plainTextNode;
+    
+    for (MBMime* node in nodeTree) {
+        if (node.childNodes.count == 0) {
+            // root node
+            if ([node.type isEqualToString: @"TEXT"] && [node.subtype isEqualToString: @"PLAIN"]) {
+                plainTextNode = node;
+                break;
+            }
+        } else {
+            // there are children
+            // recurse down tree
+            plainTextNode = [self getPlainTextNode: node.childNodes];
+            // found one down the tree
+            if (plainTextNode != nil) break;
+        }
+    }
+    return plainTextNode;
+}
+
+-(void) setNodeView:(MoedaeMailPluginsBase *)node atIndex:(NSUInteger)index {
     if (_nodeViews==nil) {
         _nodeViews = [NSPointerArray strongObjectsPointerArray];
     }
@@ -74,8 +104,8 @@
 //}
 
 -(void) reloadData {
-    MBMimeView* nodeView = [self.subviews objectAtIndex: 0];
-    nodeView.node = [self.message.childNodes firstObject];
+    MoedaeMailPluginsBase* nodeView = [self.subviews objectAtIndex: 0];
+    nodeView.node = [[self getPlainTextNode: self.message.childNodes] asMimeProxy];
     [self setNeedsUpdateConstraints: YES];
 }
 /*!
@@ -84,7 +114,7 @@
 -(void) createSubviews {
     NSSize subStructureSize = self.frame.size;
     NSRect nodeRect = NSMakeRect(0, 0, subStructureSize.width, subStructureSize.height);
-    MBMime* node = [[self.message childNodes] firstObject];
+    MMPMimeProxy* node = [[[self.message childNodes] firstObject] asMimeProxy];
     MBMessagePlainView* nodeView = [[MBMessagePlainView alloc] initWithFrame: nodeRect node: node];
     
     [self setNodeView: nodeView atIndex: 1];

@@ -40,14 +40,14 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MBMessageOutlineViewController
 
-//-(void) initDefaults {
+-(void) initDefaults {
 //    [[self view] setWantsLayer: YES];
-//    [self addObserver: self forKeyPath: @"representedObject" options: NSKeyValueObservingOptionNew context: NULL];
-//}
+    [self addObserver: self forKeyPath: @"representedObject" options: NSKeyValueObservingOptionNew context: NULL];
+}
 
-//-(void) awakeFromNib {
-//    [self initDefaults];
-//}
+-(void) awakeFromNib {
+    [self initDefaults];
+}
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
@@ -72,23 +72,25 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self.outlineView expandItem: nil expandChildren: YES];
 }
 
-//-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-//    
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
 //    if ([keyPath isEqualToString: @"defaultContent"]) {
 //        [self refreshMessageDisplay: nil];
 //    } else if ([keyPath isEqualToString: @"data"]) {
 //        [self displayNode: object];
-//    } else if ([keyPath isEqualToString: @"representedObject"]) {
-//        [self.outlineView expandItem: nil expandChildren: YES];
+//    } else
+    if ([keyPath isEqualToString: @"representedObject"]) {
+        [self.outlineView reloadData];
+        [self.outlineView expandItem: nil expandChildren: YES];
 //        [self reloadData];
-//    } else {
-//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-//    }
-//}
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 
-//-(void) dealloc {
-//    [self removeObserver: self forKeyPath: @"representedObject"];
-//}
+-(void) dealloc {
+    [self removeObserver: self forKeyPath: @"representedObject"];
+}
 
 //-(void) reloadData {
 //    if (self.representedObject != nil && [self.representedObject isKindOfClass:[MBMessage class]]) {

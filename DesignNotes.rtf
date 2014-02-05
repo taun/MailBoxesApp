@@ -687,7 +687,20 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 \f2\fs22 \cb1 \CocoaLigature0 [IMAPClient commandFetchContentForUID:(\cf9 UInt64\cf0 )theUID mimeParts:(\cf9 NSString\cf0  *)part]
 \f5\fs24 \cb5 \CocoaLigature1 \
 		Need to research the IMAP protocol for a simple message.\
-\
+	** Fixed - bodyIndex was initialized to "" rather than "1" and code was ignoring bodyIndex of "". Initialized to "1"\
+2014-02-04\
+	Working parts outline popover\
+	Working plain text view with window resizing.\
+	Autolayout for all elements now seems to work. Split views have different hugging priorities to allow one to widen while the other stays static.\
+	** 
+\b \cb1 PLUGINS
+\b0 \cb5 \
+		want to use plugins for mime viewers and transforms making it easier to add views and transforms for new types.\
+		If their is a viewer for a mime type, use it, otherwise show an icon?\
+		Transforms should be part of plugin framework so they can be used by viewers? Maybe later. ****\
+		Plugin will have a base mimeView container to hold custom view.\
+		Create a proxy object for the Mime object and data?\
+		Set mimeProxy prior to passing to viewer plugin. Viewer needs to observer data for updates.\
 \
 		\
 \

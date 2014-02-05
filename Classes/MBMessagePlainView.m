@@ -11,27 +11,36 @@
 
 @interface MBMessagePlainView ()
 
-@property (nonatomic,strong) NSTextView     *subTextView;
-
 @end
 
 @implementation MBMessagePlainView
 
 -(void) reloadData {
-    NSAttributedString* subComposition = [self.node asAttributedStringWithOptions: self.options attributes: self.attributes];
-    [[self.subTextView textStorage] setAttributedString: subComposition];
-    [self setNeedsLayout: YES];
+    
+    NSDictionary* documentConversionAttributes = [NSDictionary new];
+    NSAttributedString* subComposition;
+    
+    if (self.node.isDecoded && self.node.decoded) {
+        subComposition = [[NSAttributedString alloc] initWithData: self.node.decoded options: nil documentAttributes: &documentConversionAttributes error: nil];
+    }
+    
+    if (!subComposition) {
+        subComposition = [[NSAttributedString alloc] initWithString: @"Loading..." attributes: self.attributes];
+    }
+    
+    
+    [[(NSTextView*)(self.mimeView) textStorage] setAttributedString: subComposition];
     [self setNeedsUpdateConstraints: YES];
 }
 
 -(void) createSubviews {
     NSSize subStructureSize = self.frame.size;
     
-    NSTextView* rawMime = [[MDLTextViewIntrinsic alloc] initWithFrame: NSMakeRect(0, 0, subStructureSize.width, subStructureSize.height)];
+    NSTextView* nodeView = [[MDLTextViewIntrinsic alloc] initWithFrame: NSMakeRect(0, 0, subStructureSize.width, subStructureSize.height)];
     // View in nib is min size. Therefore we can use nib dimensions as min when called from awakeFromNib
-    [rawMime setMinSize: NSMakeSize(subStructureSize.width, subStructureSize.height)];
-    [rawMime setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
-    [rawMime setVerticallyResizable: YES];
+    [nodeView setMinSize: NSMakeSize(subStructureSize.width, subStructureSize.height)];
+    [nodeView setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
+    [nodeView setVerticallyResizable: YES];
     
     // No horizontal scroll version
     //    [rawMime setHorizontallyResizable: YES];
@@ -41,21 +50,21 @@
     //    [[rawMime textContainer] setWidthTracksTextView: YES];
     
     // Horizontal resizable version
-    [rawMime setHorizontallyResizable: YES];
+    [nodeView setHorizontallyResizable: YES];
     //    [rawMime setAutoresizingMask: (NSViewWidthSizable | NSViewHeightSizable)];
     
-    [[rawMime textContainer] setContainerSize: NSMakeSize(FLT_MAX, FLT_MAX)];
-    [[rawMime textContainer] setWidthTracksTextView: YES];
-    [self addSubview: rawMime];
+    [[nodeView textContainer] setContainerSize: NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[nodeView textContainer] setWidthTracksTextView: YES];
+    [self addSubview: nodeView];
     
-    [rawMime setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [nodeView setTranslatesAutoresizingMaskIntoConstraints: NO];
     
     //    NSDictionary *views = NSDictionaryOfVariableBindings(self, rawMime);
     
     //    [self setContentCompressionResistancePriority: NSLayoutPriorityFittingSizeCompression-1 forOrientation: NSLayoutConstraintOrientationVertical];
     //NSLayoutPriorityDefaultHigh
-    [rawMime setWantsLayer: YES];
-    CALayer* rawLayer = rawMime.layer;
+    [nodeView setWantsLayer: YES];
+    CALayer* rawLayer = nodeView.layer;
     [rawLayer setBorderWidth: 2.0];
     [rawLayer setBorderColor: [[NSColor blueColor] CGColor]];
     
@@ -64,58 +73,21 @@
     [myLayer setBorderWidth: 4.0];
     [myLayer setBorderColor: [[NSColor redColor] CGColor]];
     
-    self.subTextView = rawMime;
+    self.mimeView = nodeView;
     
-    [self addConstraints:@[
-                           [NSLayoutConstraint constraintWithItem: self.subTextView
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1.0
-                                                         constant: 4],
-                           
-                           [NSLayoutConstraint constraintWithItem: self.subTextView
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1.0
-                                                         constant: 4],
-                           
-                           [NSLayoutConstraint constraintWithItem: self.subTextView
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1.0
-                                                         constant: -4],
-                           
-                           [NSLayoutConstraint constraintWithItem: self.subTextView
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1.0
-                                                         constant: -4],
-                           
-                           ]];
-    
-    NSView* nodeView = self.subTextView;
-    [nodeView setContentHuggingPriority: 250 forOrientation: NSLayoutConstraintOrientationHorizontal];
-    [nodeView setContentHuggingPriority: 750 forOrientation: NSLayoutConstraintOrientationVertical];
-    
-    [nodeView setContentCompressionResistancePriority: 250 forOrientation: NSLayoutConstraintOrientationHorizontal];
-    [nodeView setContentCompressionResistancePriority: 1000 forOrientation: NSLayoutConstraintOrientationVertical];
     
    
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver: self.subTextView selector: @selector(viewFrameChanged:) name: NSViewFrameDidChangeNotification object: self.subTextView];
+    [nc addObserver: self.mimeView selector: @selector(viewFrameChanged:) name: NSViewFrameDidChangeNotification object: self.mimeView];
+    
+    [nodeView removeConstraints: nodeView.constraints];
+    [self removeConstraints: self.constraints];
+    [self setNeedsUpdateConstraints: YES];
 }
 
 -(void) dealloc {
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver: self.subTextView];
+    [nc removeObserver: self.mimeView];
 }
 
 @end

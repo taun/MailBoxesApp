@@ -85,8 +85,11 @@
 		C536D542142D97D5009EB3A1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C536D540142D97D5009EB3A1 /* CoreData.framework */; };
 		C54267C9149AA800005A49D8 /* MBMimeMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = C54267C8149AA800005A49D8 /* MBMimeMedia.m */; };
 		C54BE48112C1AF9700BCC20D /* MBAccountWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54BE47F12C1AF9700BCC20D /* MBAccountWindowController.m */; };
+		C55081B418A179BA00F4D77A /* MoedaeMailPluginsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55081B318A179BA00F4D77A /* MoedaeMailPluginsBase.framework */; };
 		C5552EF418980B2F008F2196 /* MBMessagesDesktopView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5552EF318980B2F008F2196 /* MBMessagesDesktopView.m */; };
 		C55648A9188C927600110263 /* MBMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55648A7188C927600110263 /* MBMessageViewController.xib */; };
+		C558907A18A01C730005CAAD /* MBAutolayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C558907818A01C730005CAAD /* MBAutolayoutViewController.m */; };
+		C558907B18A01C730005CAAD /* MBAutolayoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558907918A01C730005CAAD /* MBAutolayoutViewController.xib */; };
 		C55D32B418995903005F8802 /* MBMessagesDesktopViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C55D32B318995903005F8802 /* MBMessagesDesktopViewDelegate.m */; };
 		C55D3385189B02DC005F8802 /* MDLTextViewIntrinsic.m in Sources */ = {isa = PBXBuildFile; fileRef = C55D3383189B02DB005F8802 /* MDLTextViewIntrinsic.m */; };
 		C5667CE614A12E1E008E6F42 /* MBMimeData.m in Sources */ = {isa = PBXBuildFile; fileRef = C5667CE514A12E1E008E6F42 /* MBMimeData.m */; };
@@ -240,7 +243,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolderSpec = 13;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,10 +306,14 @@
 		C54267C8149AA800005A49D8 /* MBMimeMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBMimeMedia.m; path = Classes/MBMimeMedia.m; sourceTree = "<group>"; };
 		C54BE47F12C1AF9700BCC20D /* MBAccountWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAccountWindowController.m; sourceTree = "<group>"; };
 		C54BE48012C1AF9700BCC20D /* MBAccountWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAccountWindowController.h; sourceTree = "<group>"; };
+		C55081B318A179BA00F4D77A /* MoedaeMailPluginsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MoedaeMailPluginsBase.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailPluginsBase.framework"; sourceTree = "<group>"; };
 		C5552EF218980B2F008F2196 /* MBMessagesDesktopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMessagesDesktopView.h; sourceTree = "<group>"; };
 		C5552EF318980B2F008F2196 /* MBMessagesDesktopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMessagesDesktopView.m; sourceTree = "<group>"; };
 		C55648A8188C927600110263 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MBMessageViewController.xib; sourceTree = SOURCE_ROOT; };
 		C5579C131316DC5F009B3A9E /* MBox+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBox+IMAP.h"; path = "Classes/MBox+IMAP.h"; sourceTree = "<group>"; };
+		C558907718A01C730005CAAD /* MBAutolayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAutolayoutViewController.h; sourceTree = "<group>"; };
+		C558907818A01C730005CAAD /* MBAutolayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAutolayoutViewController.m; sourceTree = "<group>"; };
+		C558907918A01C730005CAAD /* MBAutolayoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBAutolayoutViewController.xib; sourceTree = "<group>"; };
 		C55D32B218995903005F8802 /* MBMessagesDesktopViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMessagesDesktopViewDelegate.h; sourceTree = "<group>"; };
 		C55D32B318995903005F8802 /* MBMessagesDesktopViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMessagesDesktopViewDelegate.m; sourceTree = "<group>"; };
 		C55D3383189B02DB005F8802 /* MDLTextViewIntrinsic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDLTextViewIntrinsic.m; sourceTree = "<group>"; };
@@ -574,6 +581,7 @@
 				C50386BD146381C200BF6EB3 /* Quartz.framework in Frameworks */,
 				C5A1017E145CAB2B005B941B /* Security.framework in Frameworks */,
 				C5C7A56E128B93EC006B1E86 /* Cocoa.framework in Frameworks */,
+				C55081B418A179BA00F4D77A /* MoedaeMailPluginsBase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,6 +830,7 @@
 		C5C7A565128B93EC006B1E86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C55081B318A179BA00F4D77A /* MoedaeMailPluginsBase.framework */,
 				C594059717A2F1550016F179 /* FScript.framework */,
 				C50386BC146381C100BF6EB3 /* Quartz.framework */,
 				C5A1017D145CAB2B005B941B /* Security.framework */,
@@ -1112,6 +1121,9 @@
 				C55648A7188C927600110263 /* MBMessageViewController.xib */,
 				C55D32B218995903005F8802 /* MBMessagesDesktopViewDelegate.h */,
 				C55D32B318995903005F8802 /* MBMessagesDesktopViewDelegate.m */,
+				C558907718A01C730005CAAD /* MBAutolayoutViewController.h */,
+				C558907818A01C730005CAAD /* MBAutolayoutViewController.m */,
+				C558907918A01C730005CAAD /* MBAutolayoutViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1242,6 +1254,7 @@
 				C577C8BA12D567A4004CF604 /* MBErrors.plist in Resources */,
 				C5A071F31313311A00D0E88A /* MBModifyAccount.xib in Resources */,
 				C56ACAA1134D01D600EA21B1 /* MBPortalPredicateEditor.xib in Resources */,
+				C558907B18A01C730005CAAD /* MBAutolayoutViewController.xib in Resources */,
 				C5A82838181FF42F009F56EA /* MBMessageOutlineViewController.xib in Resources */,
 				C59C7DA813FA055800D78D68 /* SpecialUseMailboxes.plist in Resources */,
 				C57B8D8E1432BFF10052B67E /* MailBoxesDataModelModel.strings in Resources */,
@@ -1376,6 +1389,7 @@
 				C58D9FEF189860A000E0FB82 /* MBMessagesCollectionItemView.m in Sources */,
 				C50DD8171374F0BC002A6CD6 /* MBPortalsCollectionView.m in Sources */,
 				C5E886EF137ACAF600ABD01D /* MBMessageFormatter.m in Sources */,
+				C558907A18A01C730005CAAD /* MBAutolayoutViewController.m in Sources */,
 				C5C086741396AB880028D2FF /* MBAddress+IMAP.m in Sources */,
 				C57F924C13ECE68A00C5136D /* QRunLoopOperation.m in Sources */,
 				C50C437513F0298400AF7A65 /* IMAPClient.m in Sources */,
@@ -1782,8 +1796,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"\\\"$(SRCROOT)/../../..\\\"",
+					"\\\\\\\"$(SRCROOT)/../../..\\\\\\\"",
 					"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1810,8 +1825,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"\\\"$(SRCROOT)/../../..\\\"",
+					"\\\\\\\"$(SRCROOT)/../../..\\\\\\\"",
 					"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;

@@ -8,6 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*
+ SubClass to help NSTextView play nice with Autolayout.
+ 
+ Sets the intrinsicContentSize height to the frame height.
+ 
+ Leaves the width as NSViewNoInstrinsicMetric
+ */
 @interface MDLTextViewIntrinsic : NSTextView
 
 -(void) viewFrameChanged: (NSView*) view;

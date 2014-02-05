@@ -112,7 +112,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     } else {
         NSRectEdge* edge;
         self.partsPopover.contentViewController.representedObject = self.representedObject;
-        [self.partsPopover.contentViewController.view setTranslatesAutoresizingMaskIntoConstraints: NO];
+//        [self.partsPopover.contentViewController.view setTranslatesAutoresizingMaskIntoConstraints: NO];
         [self.partsPopover showRelativeToRect: sender.bounds ofView: sender preferredEdge: NSMaxXEdge];
     }
 }

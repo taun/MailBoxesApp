@@ -9,6 +9,9 @@
 #import "MBMessageView.h"
 #import "MBMimeView.h"
 
-@interface MBMessagePlainView : MBMimeView
+#import <MoedaeMailPluginsBase/MoedaeMailPluginsBase.h>
+
+@interface MBMessagePlainView : MoedaeMailPluginsBase
+
 
 @end
