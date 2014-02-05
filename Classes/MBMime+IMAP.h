@@ -12,6 +12,7 @@
 #import "MBMIME2047ValueTransformer.h"
 #import "MBMIMEQuotedPrintableTranformer.h"
 
+#import <MoedaeMailPluginsBase/MMPMimeProxy.h>
 
 extern NSString* MBRichMessageViewAttributeName;
 
@@ -129,5 +130,7 @@ extern NSString* MBRichMessageViewAttributeName;
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes;
 
 -(BOOL) hasRichMessageViewOption: (NSDictionary*) options;
+
+-(MMPMimeProxy*) asMimeProxy;
 
 @end

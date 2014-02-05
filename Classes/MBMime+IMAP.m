@@ -13,6 +13,7 @@
 #import "DDTTYLogger.h"
 
 
+
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
 
@@ -22,6 +23,32 @@ NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
 
 #pragma mark - encoding decoding
 
+-(MMPMimeProxy*) asMimeProxy {
+    MMPMimeProxy* mimeProxy = [MMPMimeProxy new];
+    mimeProxy.bodyIndex = self.bodyIndex;
+    mimeProxy.subPartNumber = self.subPartNumber;
+    mimeProxy.charset = self.charset;
+    mimeProxy.desc = self.desc;
+    mimeProxy.encoding = self.encoding;
+    mimeProxy.extensions = self.extensions;
+    mimeProxy.id = self.id;
+    mimeProxy.isAttachment = self.isAttachment;
+    mimeProxy.isInline = self.isInline;
+    mimeProxy.language = self.language;
+    mimeProxy.lines = self.lines;
+    mimeProxy.location = self.location;
+    mimeProxy.md5 = self.md5;
+    mimeProxy.name = self.name;
+    mimeProxy.subtype = self.subtype;
+    mimeProxy.type = self.type;
+    mimeProxy.encoded = self.data.encoded;
+    mimeProxy.decoded = [self getDecodedData];
+    // order is important getDecodedData needs to be before isDecoded
+    // getDecodedData is a lazy decoding which sets the isDecoded flag if successfull
+    mimeProxy.isDecoded = self.data.isDecoded;
+    
+    return mimeProxy;
+}
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 
