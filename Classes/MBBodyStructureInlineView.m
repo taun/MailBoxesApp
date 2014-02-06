@@ -12,7 +12,7 @@
 #import <MoedaeMailPluginsBase/MMPMimeProxy.h>
 #import <MoedaeMailPluginsBase/MoedaeMailPluginsBase.h>
 
-#import "MBMessagePlainView.h"
+#import "MBPluginsManager.h"
 
 @interface MBBodyStructureInlineView ()
 
@@ -115,7 +115,10 @@
     NSSize subStructureSize = self.frame.size;
     NSRect nodeRect = NSMakeRect(0, 0, subStructureSize.width, subStructureSize.height);
     MMPMimeProxy* node = [[[self.message childNodes] firstObject] asMimeProxy];
-    MBMessagePlainView* nodeView = [[MBMessagePlainView alloc] initWithFrame: nodeRect node: node];
+    
+    Class nodeViewClass = [[MBPluginsManager manager] classForMimeType: node.type subtype: node.subtype];
+    
+    MoedaeMailPluginsBase* nodeView = [[nodeViewClass alloc] initWithFrame: nodeRect node: node];
     
     [self setNodeView: nodeView atIndex: 1];
     
