@@ -9,10 +9,7 @@
 #import "MBBodyStructureInlineView.h"
 #import "MBMime+IMAP.h"
 
-#import <MoedaeMailPluginsBase/MMPMimeProxy.h>
-#import <MoedaeMailPluginsBase/MoedaeMailPluginsBase.h>
-
-#import "MBPluginsManager.h"
+#import <MoedaeMailPlugins/MoedaeMailPlugins.h>
 
 @interface MBBodyStructureInlineView ()
 
@@ -21,12 +18,10 @@
 
 -(MBMime*) getPlainTextNode: (NSOrderedSet*) nodeTree;
 
--(void) setNodeView: (MoedaeMailPluginsBase*) node atIndex: (NSUInteger) index;
+-(void) setNodeView: (MMPBaseMimeView*) node atIndex: (NSUInteger) index;
 
 -(void) createSubviews;
 -(void) reloadData;
-
--(NSAttributedString*) attributedStringFromMessage: (MBMessage*) message;
 
 @end
 
@@ -34,14 +29,16 @@
 
 
 -(void) awakeFromNib {
-    [self createSubviews];
     [self addObserver: self forKeyPath: @"message" options: (NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context: NULL];
 }
 
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString: @"message"]) {
-        [self reloadData];
+        if (self.message) {
+            [self createSubviews];
+            [self reloadData];
+        }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -76,7 +73,7 @@
     return plainTextNode;
 }
 
--(void) setNodeView:(MoedaeMailPluginsBase *)node atIndex:(NSUInteger)index {
+-(void) setNodeView:(MMPBaseMimeView *)node atIndex:(NSUInteger)index {
     if (_nodeViews==nil) {
         _nodeViews = [NSPointerArray strongObjectsPointerArray];
     }
@@ -104,7 +101,7 @@
 //}
 
 -(void) reloadData {
-    MoedaeMailPluginsBase* nodeView = [self.subviews objectAtIndex: 0];
+    MMPBaseMimeView* nodeView = [self.subviews objectAtIndex: 0];
     nodeView.node = [[self getPlainTextNode: self.message.childNodes] asMimeProxy];
     [self setNeedsUpdateConstraints: YES];
 }
@@ -116,9 +113,9 @@
     NSRect nodeRect = NSMakeRect(0, 0, subStructureSize.width, subStructureSize.height);
     MMPMimeProxy* node = [[[self.message childNodes] firstObject] asMimeProxy];
     
-    Class nodeViewClass = [[MBPluginsManager manager] classForMimeType: node.type subtype: node.subtype];
+    Class nodeViewClass = [[MBMimeViewerPluginsManager manager] classForMimeType: node.type subtype: node.subtype];
     
-    MoedaeMailPluginsBase* nodeView = [[nodeViewClass alloc] initWithFrame: nodeRect node: node];
+    MMPBaseMimeView* nodeView = [[nodeViewClass alloc] initWithFrame: nodeRect node: node];
     
     [self setNodeView: nodeView atIndex: 1];
     

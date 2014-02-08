@@ -85,7 +85,6 @@
 		C536D542142D97D5009EB3A1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C536D540142D97D5009EB3A1 /* CoreData.framework */; };
 		C54267C9149AA800005A49D8 /* MBMimeMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = C54267C8149AA800005A49D8 /* MBMimeMedia.m */; };
 		C54BE48112C1AF9700BCC20D /* MBAccountWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54BE47F12C1AF9700BCC20D /* MBAccountWindowController.m */; };
-		C55081B418A179BA00F4D77A /* MoedaeMailPluginsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55081B318A179BA00F4D77A /* MoedaeMailPluginsBase.framework */; };
 		C5552EF418980B2F008F2196 /* MBMessagesDesktopView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5552EF318980B2F008F2196 /* MBMessagesDesktopView.m */; };
 		C55648A9188C927600110263 /* MBMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55648A7188C927600110263 /* MBMessageViewController.xib */; };
 		C558907A18A01C730005CAAD /* MBAutolayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C558907818A01C730005CAAD /* MBAutolayoutViewController.m */; };
@@ -114,6 +113,9 @@
 		C57A945B140FDD25002196DB /* MBox+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C57A945A140FDD25002196DB /* MBox+IMAP.m */; };
 		C57B8D8E1432BFF10052B67E /* MailBoxesDataModelModel.strings in Resources */ = {isa = PBXBuildFile; fileRef = C57B8D8C1432BFF10052B67E /* MailBoxesDataModelModel.strings */; };
 		C57F924C13ECE68A00C5136D /* QRunLoopOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C57F924B13ECE68A00C5136D /* QRunLoopOperation.m */; };
+		C583066318A6B201006C279D /* MoedaeMailPlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C583066218A6B201006C279D /* MoedaeMailPlugins.framework */; };
+		C583066518A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C583066418A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin */; };
+		C583068A18A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C583068918A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin */; };
 		C58743A4143A96FB00FCBDA2 /* RFC2822Message.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743A3143A96FB00FCBDA2 /* RFC2822Message.m */; };
 		C58743AA143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743A9143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m */; };
 		C58743AD143AA4A900FCBDA2 /* RFC2822Address.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743AC143AA4A900FCBDA2 /* RFC2822Address.m */; };
@@ -166,7 +168,6 @@
 		C5AE2E101410374D0087CD93 /* LogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE2E0F1410374D0087CD93 /* LogicTests.m */; };
 		C5AEC01914361BA20075B6F4 /* MBFlag+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEC01814361BA20075B6F4 /* MBFlag+IMAP.m */; };
 		C5B1CC0614219DCE008C5011 /* answers in Resources */ = {isa = PBXBuildFile; fileRef = C5B1CC0514219DCE008C5011 /* answers */; };
-		C5B1D4A318A31449004E7EB7 /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5B1D4A218A31449004E7EB7 /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin */; };
 		C5B2078D180DC36500E44E35 /* MBMIMEQuotedPrintableTranformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2078C180DC36500E44E35 /* MBMIMEQuotedPrintableTranformer.m */; };
 		C5B21033180346A20093531A /* MBMultiAlternative+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B21032180346A20093531A /* MBMultiAlternative+IMAP.m */; };
 		C5B21034180346A20093531A /* MBMultiAlternative+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B21032180346A20093531A /* MBMultiAlternative+IMAP.m */; };
@@ -179,7 +180,6 @@
 		C5B2104718048AEF0093531A /* attach_48.png in Resources */ = {isa = PBXBuildFile; fileRef = C5B2104518048AEF0093531A /* attach_48.png */; };
 		C5B3B2A812BFA4BF0051204B /* MainSplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B3B2A712BFA4BF0051204B /* MainSplitViewDelegate.m */; };
 		C5B82E5D131FFC0E002AE3DF /* MBPPEWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B82E5C131FFC0E002AE3DF /* MBPPEWindowController.m */; };
-		C5B8326618A2B6AD00A94197 /* MBPluginsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B8326518A2B6AD00A94197 /* MBPluginsManager.m */; };
 		C5B9D2371896F0DD005EC8A8 /* MBBodyStructureInlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B9D2361896F0DD005EC8A8 /* MBBodyStructureInlineView.m */; };
 		C5BCBF3F1475FC3C00EA0214 /* MBSidebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCBF3E1475FC3C00EA0214 /* MBSidebarView.m */; };
 		C5BCBF421475FD7600EA0214 /* MBSidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCBF411475FD7600EA0214 /* MBSidebarViewController.m */; };
@@ -245,7 +245,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C5B1D4A318A31449004E7EB7 /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin in CopyFiles */,
+				C583066518A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin in CopyFiles */,
+				C583068A18A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +362,9 @@
 		C57B8D8D1432BFF10052B67E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MailBoxesDataModelModel.strings; sourceTree = "<group>"; };
 		C57F924A13ECE68A00C5136D /* QRunLoopOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRunLoopOperation.h; sourceTree = "<group>"; };
 		C57F924B13ECE68A00C5136D /* QRunLoopOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRunLoopOperation.m; sourceTree = "<group>"; };
+		C583066218A6B201006C279D /* MoedaeMailPlugins.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MoedaeMailPlugins.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailPlugins.framework"; sourceTree = "<group>"; };
+		C583066418A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; name = MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin; path = "/Users/taun/Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin"; sourceTree = "<absolute>"; };
+		C583068918A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; name = MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin; path = "/Users/taun/Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin"; sourceTree = "<absolute>"; };
 		C58743A2143A96FB00FCBDA2 /* RFC2822Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC2822Message.h; sourceTree = "<group>"; };
 		C58743A3143A96FB00FCBDA2 /* RFC2822Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFC2822Message.m; sourceTree = "<group>"; };
 		C58743A8143A9EE700FCBDA2 /* RFC2822RawMessageHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC2822RawMessageHeader.h; sourceTree = "<group>"; };
@@ -460,7 +464,6 @@
 		C5AEC01714361BA20075B6F4 /* MBFlag+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBFlag+IMAP.h"; path = "Classes/MBFlag+IMAP.h"; sourceTree = "<group>"; };
 		C5AEC01814361BA20075B6F4 /* MBFlag+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBFlag+IMAP.m"; path = "Classes/MBFlag+IMAP.m"; sourceTree = "<group>"; };
 		C5B1CC0514219DCE008C5011 /* answers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = answers; sourceTree = "<group>"; };
-		C5B1D4A218A31449004E7EB7 /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin; sourceTree = "<group>"; };
 		C5B2078B180DC36500E44E35 /* MBMIMEQuotedPrintableTranformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMIMEQuotedPrintableTranformer.h; sourceTree = "<group>"; };
 		C5B2078C180DC36500E44E35 /* MBMIMEQuotedPrintableTranformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMIMEQuotedPrintableTranformer.m; sourceTree = "<group>"; };
 		C5B21031180346A20093531A /* MBMultiAlternative+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBMultiAlternative+IMAP.h"; path = "Classes/MBMultiAlternative+IMAP.h"; sourceTree = "<group>"; };
@@ -478,9 +481,6 @@
 		C5B3B2A712BFA4BF0051204B /* MainSplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewDelegate.m; sourceTree = "<group>"; };
 		C5B82E5B131FFC0E002AE3DF /* MBPPEWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPPEWindowController.h; sourceTree = "<group>"; };
 		C5B82E5C131FFC0E002AE3DF /* MBPPEWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPPEWindowController.m; sourceTree = "<group>"; };
-		C5B8326418A2B6AD00A94197 /* MBPluginsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPluginsManager.h; sourceTree = "<group>"; };
-		C5B8326518A2B6AD00A94197 /* MBPluginsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPluginsManager.m; sourceTree = "<group>"; };
-		C5B8326718A2C02600A94197 /* MoedaeMailMimeTextPlainViewer.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; name = MoedaeMailMimeTextPlainViewer.bundle; path = "/Users/taun/Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailMimeTextPlainViewer.bundle"; sourceTree = "<absolute>"; };
 		C5B9D2351896F0DD005EC8A8 /* MBBodyStructureInlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBodyStructureInlineView.h; sourceTree = "<group>"; };
 		C5B9D2361896F0DD005EC8A8 /* MBBodyStructureInlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBodyStructureInlineView.m; sourceTree = "<group>"; };
 		C5BCBF3D1475FC3C00EA0214 /* MBSidebarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSidebarView.h; sourceTree = "<group>"; };
@@ -578,11 +578,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C583066318A6B201006C279D /* MoedaeMailPlugins.framework in Frameworks */,
 				C594059817A2F1550016F179 /* FScript.framework in Frameworks */,
 				C50386BD146381C200BF6EB3 /* Quartz.framework in Frameworks */,
 				C5A1017E145CAB2B005B941B /* Security.framework in Frameworks */,
 				C5C7A56E128B93EC006B1E86 /* Cocoa.framework in Frameworks */,
-				C55081B418A179BA00F4D77A /* MoedaeMailPluginsBase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,7 +760,8 @@
 		C5B8326918A2C05200A94197 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				C5B8326718A2C02600A94197 /* MoedaeMailMimeTextPlainViewer.bundle */,
+				C583068918A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin */,
+				C583066418A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin */,
 			);
 			name = Plugins;
 			sourceTree = "<group>";
@@ -768,7 +769,6 @@
 		C5C7A55A128B93EC006B1E86 = {
 			isa = PBXGroup;
 			children = (
-				C5B1D4A218A31449004E7EB7 /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin */,
 				C5C7A561128B93EC006B1E86 /* Models */,
 				C5C7A562128B93EC006B1E86 /* Classes */,
 				C5C7A563128B93EC006B1E86 /* Other Sources */,
@@ -837,6 +837,7 @@
 		C5C7A565128B93EC006B1E86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C583066218A6B201006C279D /* MoedaeMailPlugins.framework */,
 				C55081B318A179BA00F4D77A /* MoedaeMailPluginsBase.framework */,
 				C594059717A2F1550016F179 /* FScript.framework */,
 				C50386BC146381C100BF6EB3 /* Quartz.framework */,
@@ -1131,8 +1132,6 @@
 				C558907718A01C730005CAAD /* MBAutolayoutViewController.h */,
 				C558907818A01C730005CAAD /* MBAutolayoutViewController.m */,
 				C558907918A01C730005CAAD /* MBAutolayoutViewController.xib */,
-				C5B8326418A2B6AD00A94197 /* MBPluginsManager.h */,
-				C5B8326518A2B6AD00A94197 /* MBPluginsManager.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1490,7 +1489,6 @@
 				C5338A3514925A47006A3565 /* MBMimeVideo.m in Sources */,
 				C58DC38717AAF75B009CB9B9 /* ConnectTestAppDelegate.m in Sources */,
 				C54267C9149AA800005A49D8 /* MBMimeMedia.m in Sources */,
-				C5B8326618A2B6AD00A94197 /* MBPluginsManager.m in Sources */,
 				C5A7B405181ED30F00DE00AE /* MBApplicationMSWordView.m in Sources */,
 				C5667CE614A12E1E008E6F42 /* MBMimeData.m in Sources */,
 				C5A7B3F9181ED1D900DE00AE /* MBAlternativePlainView.m in Sources */,

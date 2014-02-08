@@ -29,6 +29,12 @@
  Where to show attachments summary? top? bottom? both?
  
  Controls for hiding and showing mimes?
+ 
+ Recurse through mime parts.
+ Lookup each part in the plugin registry based on type.subtype.
+ Set options and attributes.
+ 
+ 
  */
 @interface MBBodyStructureInlineView : NSView
 

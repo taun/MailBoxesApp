@@ -12,7 +12,7 @@
 #import "MBMIME2047ValueTransformer.h"
 #import "MBMIMEQuotedPrintableTranformer.h"
 
-#import <MoedaeMailPluginsBase/MMPMimeProxy.h>
+#import <MoedaeMailPlugins/MoedaeMailPlugins.h>
 
 extern NSString* MBRichMessageViewAttributeName;
 
