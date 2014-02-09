@@ -73,7 +73,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         NSString* cellcontent = [addressToString transformedValue: [self.cachedAddressesTo objectAtIndex: 0]];
         [self.recipientsBox setObjectValue: cellcontent];
         
-        self.messageBodyViewContainer.message = myMessage;
+        //Get this from user preferences or toggle by a control
+        NSDictionary* options = @{MBRichMessageViewAttributeName:@YES};
+        //Attributes as NSAttributed text attributes. To be set globally by user preferences or toolbar.
+        NSDictionary* attributes = nil;
+
+        [self.messageBodyViewContainer setMessage: myMessage options: options attributes: attributes];
     }
 }
 

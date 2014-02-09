@@ -131,7 +131,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 -(NSAttributedString*) attributedStringFromMessage:(MBMessage *)message {
-    NSDictionary* options = @{MBRichMessageViewAttributeName:@YES};
+    NSDictionary* options = @{MBRichMessageViewAttributeName:@NO};
     NSDictionary* attributes = nil;
     
     NSMutableAttributedString* composition = [[NSMutableAttributedString alloc] initWithString: @"" attributes: attributes];
@@ -267,7 +267,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             [[dataView textStorage] setAttributedString: [node asAttributedStringWithOptions: nil attributes: nil]] ;
         }
     }
-#pragma message "need to add timer for isSeenFlag AND save flag status."
+#pragma message "ToDo: need to add timer for isSeenFlag AND save flag status."
     MBMessage* message = node.messageReference;
     message.isSeenFlag = @YES;
     

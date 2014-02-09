@@ -38,6 +38,6 @@
  */
 @interface MBBodyStructureInlineView : NSView
 
-@property (nonatomic,strong) MBMessage* message;
+-(void) setMessage:(MBMessage *)message options: (NSDictionary*) options attributes: (NSDictionary*) attributes;
 
 @end

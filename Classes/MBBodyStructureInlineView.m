@@ -13,6 +13,10 @@
 
 @interface MBBodyStructureInlineView ()
 
+@property (nonatomic,strong) MBMessage* message;
+@property (nonatomic,strong) NSDictionary* options;
+@property (nonatomic,strong) NSDictionary* attributes;
+
 // quick and dirty, should use a view tag here or array
 @property (nonatomic, strong) NSPointerArray* nodeViews;
 
@@ -46,6 +50,14 @@
 
 -(void) dealloc {
     [self removeObserver: self forKeyPath: @"message"];
+}
+
+-(void) setMessage:(MBMessage *)message options:(NSDictionary *)options attributes:(NSDictionary *)attributes {
+    // order is important. Should rewrite so it isn't be but is.
+    self.options = options;
+    self.attributes = attributes;
+    // setting message should go last due to message observer
+    self.message = message;
 }
 
 /* return the first plain text node 
@@ -109,6 +121,7 @@
  Need to replace the below with a self contained subview based on message components.
  */
 -(void) createSubviews {
+
     NSSize subStructureSize = self.frame.size;
     NSRect nodeRect = NSMakeRect(0, 0, subStructureSize.width, subStructureSize.height);
     MMPMimeProxy* node = [[[self.message childNodes] firstObject] asMimeProxy];
@@ -116,6 +129,8 @@
     Class nodeViewClass = [[MBMimeViewerPluginsManager manager] classForMimeType: node.type subtype: node.subtype];
     
     MMPBaseMimeView* nodeView = [[nodeViewClass alloc] initWithFrame: nodeRect node: node];
+    nodeView.options = self.options;
+    nodeView.attributes = self.attributes;
     
     [self setNodeView: nodeView atIndex: 1];
     

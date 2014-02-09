@@ -17,8 +17,6 @@
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
 
-NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
-
 @implementation MBMime (IMAP)
 
 #pragma mark - encoding decoding
@@ -46,6 +44,14 @@ NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
     // order is important getDecodedData needs to be before isDecoded
     // getDecodedData is a lazy decoding which sets the isDecoded flag if successfull
     mimeProxy.isDecoded = self.data.isDecoded;
+    
+    if ([self.childNodes count] > 0) {
+        NSMutableOrderedSet* childNodes = [NSMutableOrderedSet new];
+        for (MBMime* child in self.childNodes) {
+            [childNodes addObject: [child asMimeProxy]];
+        }
+        mimeProxy.childNodes = [childNodes copy];
+    }
     
     return mimeProxy;
 }
@@ -116,16 +122,5 @@ NSString* MBRichMessageViewAttributeName = @"MBRichMessageView";
     return returnString;
 }
 
--(BOOL) hasRichMessageViewOption:(NSDictionary *)options {
-    BOOL useRichMessageView = NO;
-    
-    id useRichMessageViewOption = options[MBRichMessageViewAttributeName];
-    
-    if (useRichMessageViewOption && [useRichMessageViewOption isKindOfClass: [NSNumber class]]) {
-        useRichMessageView = [(NSNumber*)useRichMessageViewOption boolValue];
-    }
-    
-    return useRichMessageView;
-}
 
 @end

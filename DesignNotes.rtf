@@ -701,7 +701,10 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 		Plugin will have a base mimeView container to hold custom view.\
 		Create a proxy object for the Mime object and data?\
 		Set mimeProxy prior to passing to viewer plugin. Viewer needs to observer data for updates.\
-\
+2014-02-08\
+	** Problem - multiPart Alternative mime has encoded data when it shouldn't. Should only have child nodes.\
+		Check parsing and decoding of multipart/alternative\
+	** Change pluginBaseView init method to include options and attributes.\
 		\
 \
 }
