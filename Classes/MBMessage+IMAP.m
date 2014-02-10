@@ -399,6 +399,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  **If messagePart.childParts is non-NIL and count>0 then it is multiPart. Should have no data.
  ** Frequently top level messagePart may only have a subtype and childParts.
  
+ Note multiPart has no bodyIndex.
  
  message has one part - message.parts which is either a part or multiPart
  if part, then content and data is in the part, done.
@@ -421,7 +422,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
     if (newPart) {
 //        newPart.bodyIndex = [NSString stringWithFormat: @"%u", partIndex];
-        newPart.bodyIndex = @"1";
+        newPart.bodyIndex = @"";
         [self generateBodyIndexes: newPart rIndex: 0];
         [self addChildNodesObject: newPart];
         [self addAllPartsObject: newPart];
