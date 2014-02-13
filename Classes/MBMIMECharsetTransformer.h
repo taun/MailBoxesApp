@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define VTMBMIMECharsetTransformer @"MBMIMECharsetTransformer"
+
 #pragma message "Need to write charset tests"
 
 /*!

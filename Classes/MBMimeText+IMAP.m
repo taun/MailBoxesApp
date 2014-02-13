@@ -9,6 +9,7 @@
 
 #import "MBMimeText+IMAP.h"
 #import "NSObject+MBShorthand.h"
+#import "MBEncodedString.h"
 
 
 @implementation MBMimeText (IMAP)
@@ -16,23 +17,32 @@
 -(void) decoder {
     NSData* decoded;
     if ([self.data.encoded isNonNilString]) {
-        NSString* stringToDecode = self.data.encoded;
+        MBEncodedString* stringToDecode = [MBEncodedString encodedString: self.data.encoded encoding: 0];
         
-        NSNumber* nsEncodingNumber = [[MBMIMECharsetTransformer new] transformedValue: self.charset];
+        NSValueTransformer* charsetTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMECharsetTransformer];
+        NSNumber* nsEncodingNumber = [charsetTransformer transformedValue: self.charset];
+        
         int nsEncodingInt = NSASCIIStringEncoding; // default
         
         if (nsEncodingNumber != nil) {
             // default
             nsEncodingInt = [nsEncodingNumber intValue];
         }
+        
+        stringToDecode.encoding = nsEncodingInt;
+        
         // does not work for HTML! Check charset and encoding
         // use charset mapping from ? encoded-word transform
         if ([[self.encoding uppercaseString] isEqualToString: @"QUOTED-PRINTABLE"]) {
             //
-            stringToDecode = [[MBMIMEQuotedPrintableTranformer new] transformedValue: self.data.encoded];
+            NSValueTransformer* quotedPrintableTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMEQuotedPrintableTranformer];
+            stringToDecode = [quotedPrintableTransformer transformedValue: stringToDecode];
+            stringToDecode.encoding = NSUTF8StringEncoding;
         }
         
-        decoded = [stringToDecode dataUsingEncoding: nsEncodingInt];
+        decoded = [stringToDecode asData];
+        
+        
         
         NSAssert((decoded != nil) && (decoded.length>4), @"decoded is an empty string: %@, data=%@", decoded, self.data);
         
