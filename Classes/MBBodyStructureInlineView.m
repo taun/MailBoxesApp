@@ -20,12 +20,11 @@
 // quick and dirty, should use a view tag here or array
 @property (nonatomic, strong) NSPointerArray* nodeViews;
 
--(MBMime*) getPlainTextNode: (NSOrderedSet*) nodeTree;
-
 -(void) setNodeView: (MMPBaseMimeView*) node atIndex: (NSUInteger) index;
 
+-(void) reloadViews;
+-(void) removeSubviews;
 -(void) createSubviews;
--(void) reloadData;
 
 @end
 
@@ -33,15 +32,21 @@
 
 
 -(void) awakeFromNib {
-    [self addObserver: self forKeyPath: @"message" options: (NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context: NULL];
+//    [self addObserver: self forKeyPath: @"message" options: (NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context: NULL];
 }
 
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString: @"message"]) {
-        if (self.message) {
-            [self createSubviews];
-            [self reloadData];
+//        if (self.message) {
+//            [self createSubviews];
+//            [self reloadData];
+//        }
+    } else if ([keyPath isEqualToString: @"isFullyCached"]) {
+        // Message parts are downloaded on demand on a background thread.
+        // Need to reload the view data if the parts are updated/downloaded
+        if ([self.message.isFullyCached boolValue] == YES) {
+            [self reloadViews];
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -49,7 +54,20 @@
 }
 
 -(void) dealloc {
-    [self removeObserver: self forKeyPath: @"message"];
+//    [self removeObserver: self forKeyPath: @"message"];
+    [self.message removeObserver: self forKeyPath: @"isFullyCached"];
+}
+
+-(void) setMessage:(MBMessage *)message {
+    if (_message != message) {
+        [self removeSubviews];
+        [_message removeObserver: self forKeyPath: @"isFullyCached"];
+        
+        _message = message;
+        
+        [self createSubviews];
+        [_message addObserver: self forKeyPath: @"isFullyCached" options: (NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew) context: NULL];
+    }
 }
 
 -(void) setMessage:(MBMessage *)message options:(NSDictionary *)options attributes:(NSDictionary *)attributes {
@@ -60,30 +78,6 @@
     self.message = message;
 }
 
-/* return the first plain text node 
- type = "TEXT"  && subtype = "PLAIN"
- 
- */
--(MBMime*) getPlainTextNode: (NSOrderedSet*) nodeTree {
-    MBMime* plainTextNode;
-    
-    for (MBMime* node in nodeTree) {
-        if (node.childNodes.count == 0) {
-            // root node
-            if ([node.type isEqualToString: @"TEXT"] && [node.subtype isEqualToString: @"PLAIN"]) {
-                plainTextNode = node;
-                break;
-            }
-        } else {
-            // there are children
-            // recurse down tree
-            plainTextNode = [self getPlainTextNode: node.childNodes];
-            // found one down the tree
-            if (plainTextNode != nil) break;
-        }
-    }
-    return plainTextNode;
-}
 
 -(void) setNodeView:(MMPBaseMimeView *)node atIndex:(NSUInteger)index {
     if (_nodeViews==nil) {
@@ -112,11 +106,20 @@
 //    [self setNeedsUpdateConstraints: YES];
 //}
 
--(void) reloadData {
-    MMPBaseMimeView* nodeView = [self.subviews objectAtIndex: 0];
-    nodeView.node = [[self getPlainTextNode: self.message.childNodes] asMimeProxy];
-    [self setNeedsUpdateConstraints: YES];
+-(void) reloadViews {
+    [self removeSubviews];
+    [self createSubviews];
 }
+
+-(void) removeSubviews {
+    for (NSView* view in self.nodeViews) {
+        if (view != NULL) {
+            [view removeFromSuperview];
+        }
+    }
+}
+
+#pragma message "ToDo: create a placeholder default plugin for when one isn't available for the mime type"
 /*!
  Need to replace the below with a self contained subview based on message components.
  */
@@ -128,57 +131,56 @@
     
     Class nodeViewClass = [[MBMimeViewerPluginsManager manager] classForMimeType: node.type subtype: node.subtype];
     
-    MMPBaseMimeView* nodeView = [[nodeViewClass alloc] initWithFrame: nodeRect node: node];
-    nodeView.options = self.options;
-    nodeView.attributes = self.attributes;
+    MMPBaseMimeView* nodeView = [[nodeViewClass alloc] initWithFrame: nodeRect node: node options: self.options attributes: self.attributes];
     
-    [self setNodeView: nodeView atIndex: 1];
-    
-    [self addSubview: nodeView];
-    
-    [nodeView setTranslatesAutoresizingMaskIntoConstraints: NO];
-    
-    [self addConstraints:@[
-                           [NSLayoutConstraint constraintWithItem: nodeView
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1.0
-                                                         constant: 4],
-                           
-                           [NSLayoutConstraint constraintWithItem: nodeView
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1.0
-                                                         constant: 4],
-                           
-                           [NSLayoutConstraint constraintWithItem: nodeView
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1.0
-                                                         constant: -4],
-                           
-                           [NSLayoutConstraint constraintWithItem: nodeView
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1.0
-                                                         constant: -4],
-                           
-                           ]];
-    
-    [nodeView setContentHuggingPriority: 240 forOrientation: NSLayoutConstraintOrientationHorizontal];
-    [nodeView setContentHuggingPriority: 750 forOrientation: NSLayoutConstraintOrientationVertical];
-
-    [nodeView setContentCompressionResistancePriority: 240 forOrientation: NSLayoutConstraintOrientationHorizontal];
-    [nodeView setContentCompressionResistancePriority: 1000 forOrientation: NSLayoutConstraintOrientationVertical];
-    
+    if (nodeView) {
+        [self setNodeView: nodeView atIndex: 1];
+        
+        [self addSubview: nodeView];
+        
+        [nodeView setTranslatesAutoresizingMaskIntoConstraints: NO];
+        
+        [self addConstraints:@[
+                               [NSLayoutConstraint constraintWithItem: nodeView
+                                                            attribute:NSLayoutAttributeTop
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self
+                                                            attribute:NSLayoutAttributeTop
+                                                           multiplier:1.0
+                                                             constant: 4],
+                               
+                               [NSLayoutConstraint constraintWithItem: nodeView
+                                                            attribute:NSLayoutAttributeLeft
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self
+                                                            attribute:NSLayoutAttributeLeft
+                                                           multiplier:1.0
+                                                             constant: 4],
+                               
+                               [NSLayoutConstraint constraintWithItem: nodeView
+                                                            attribute:NSLayoutAttributeBottom
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self
+                                                            attribute:NSLayoutAttributeBottom
+                                                           multiplier:1.0
+                                                             constant: -4],
+                               
+                               [NSLayoutConstraint constraintWithItem: nodeView
+                                                            attribute:NSLayoutAttributeRight
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self
+                                                            attribute:NSLayoutAttributeRight
+                                                           multiplier:1.0
+                                                             constant: -4],
+                               
+                               ]];
+        
+        [nodeView setContentHuggingPriority: 240 forOrientation: NSLayoutConstraintOrientationHorizontal];
+        [nodeView setContentHuggingPriority: 750 forOrientation: NSLayoutConstraintOrientationVertical];
+        
+        [nodeView setContentCompressionResistancePriority: 240 forOrientation: NSLayoutConstraintOrientationHorizontal];
+        [nodeView setContentCompressionResistancePriority: 1000 forOrientation: NSLayoutConstraintOrientationVertical];
+    }
 }
 
 
