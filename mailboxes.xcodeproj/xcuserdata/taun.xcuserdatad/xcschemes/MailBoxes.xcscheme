@@ -12,6 +12,48 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C5AE2DFE1410374C0087CD93"
+               BuildableName = "LogicTests.xctest"
+               BlueprintName = "LogicTests"
+               ReferencedContainer = "container:MailBoxes.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "IMAPResponseParserTests">
+               </Test>
+               <Test
+                  Identifier = "LogicTests">
+               </Test>
+               <Test
+                  Identifier = "MBTransformerTests">
+               </Test>
+               <Test
+                  Identifier = "MIMERFC2047EncodeDecodeTests">
+               </Test>
+               <Test
+                  Identifier = "RFC2822RawMessageHeaderTest">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureTextHtml">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartSigned">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartImageMessage">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartApplicationExcel">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchBodyPart2">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

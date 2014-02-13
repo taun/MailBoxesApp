@@ -129,8 +129,6 @@ extern NSString* MBRichMessageViewAttributeName;
 
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes;
 
--(BOOL) hasRichMessageViewOption: (NSDictionary*) options;
-
 -(MMPMimeProxy*) asMimeProxy;
 
 @end

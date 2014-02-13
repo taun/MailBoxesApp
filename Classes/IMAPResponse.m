@@ -780,6 +780,7 @@ static     NSDictionary *HeaderToModelMap;
     }
 }
 
+#pragma message "ToDo: parse complete RFC822 raw message"
 -(void) responseFetchedMessageRfc822 {
     
 }

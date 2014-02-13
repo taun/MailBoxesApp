@@ -678,7 +678,9 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 	Finally figured out how to make the NSTextView within a view within a scrollView work.\
 	Needed create an NSTextView subclass and set the intrinsicContentSize property whenever the view frame was changed.\
 	Added an observer on itself for when the frame changes then invalidate the intrinsicContentSize.\
-	** NEW PROBLEM - some messages do not have mime types or parts.\
+	
+\f1 \uc0\u10003 
+\f5  NEW PROBLEM - some messages do not have mime types or parts.\
 		[IMAPClient 
 \f2\fs22 \cb1 \CocoaLigature0 loadFullMessageID: (\cf9 NSManagedObjectID\cf0 *) objectID] checks for the part.bodyIndex\
 
@@ -687,12 +689,17 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 \f2\fs22 \cb1 \CocoaLigature0 [IMAPClient commandFetchContentForUID:(\cf9 UInt64\cf0 )theUID mimeParts:(\cf9 NSString\cf0  *)part]
 \f5\fs24 \cb5 \CocoaLigature1 \
 		Need to research the IMAP protocol for a simple message.\
-	** Fixed - bodyIndex was initialized to "" rather than "1" and code was ignoring bodyIndex of "". Initialized to "1"\
+	
+\f1 \uc0\u10003 
+\f5  Fixed - bodyIndex was initialized to "" rather than "1" and code was ignoring bodyIndex of "". Initialized to "1"\
+		was wrong fix. Fixed correctly 2014-02-11\
 2014-02-04\
 	Working parts outline popover\
 	Working plain text view with window resizing.\
 	Autolayout for all elements now seems to work. Split views have different hugging priorities to allow one to widen while the other stays static.\
-	** 
+	
+\f1 \uc0\u10003 
+\f5  
 \b \cb1 PLUGINS
 \b0 \cb5 \
 		want to use plugins for mime viewers and transforms making it easier to add views and transforms for new types.\
@@ -702,9 +709,19 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 		Create a proxy object for the Mime object and data?\
 		Set mimeProxy prior to passing to viewer plugin. Viewer needs to observer data for updates.\
 2014-02-08\
-	** Problem - multiPart Alternative mime has encoded data when it shouldn't. Should only have child nodes.\
+	
+\f1 \uc0\u10003 
+\f5  Problem - multiPart Alternative mime has encoded data when it shouldn't. Should only have child nodes.\
 		Check parsing and decoding of multipart/alternative\
-	** Change pluginBaseView init method to include options and attributes.\
-		\
+	
+\f1 \uc0\u10003 
+\f5  Change pluginBaseView init method to include options and attributes.\
+2014-02-11\
+	
+\f1 \uc0\u10003 
+\f5  Problem - simple plain text message structure saves with no body index.\
+		when getting part, index is 1 meaning it does not get placed properly.\
+		need a simple plain text message to have index of 1.\
+		inspect parsing of body structure.\
 \
 }

@@ -11,6 +11,23 @@
 @class MBMessageHeaderView;
 @class MBBodyStructureInlineView;
 
+
+/*
+ Message body content flow.
+ 
+ At the initial account synchronization, only the message headers and structure are downloaded. This is to speed up the sync.
+ 
+ When the user clicks on a message, the body needs to be fetched and updated in the store.
+ 
+ Clicking a message in a portal creates a MBMessageViewController with the message as representedObject.
+ 
+ If the message body is not cached, MBMessageViewController asks the singleton accountsCoordinator to loadFullMessageID:forAccountID:
+ The fetch is on a background thread so the data needs to be monitored for changes by the MBBodyStructureInlineView.
+ 
+ 
+ */
+
+
 @interface MBMessageViewController : NSCollectionViewItem <NSComboBoxDataSource, NSComboBoxDelegate, NSPopoverDelegate>
 
 @property (strong, nonatomic) IBOutlet NSObjectController *messageController;

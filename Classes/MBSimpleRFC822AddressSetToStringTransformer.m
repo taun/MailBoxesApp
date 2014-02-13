@@ -29,7 +29,7 @@
 - (id)transformedValue:(id)value {
     NSString* addressesString;
     
-    NSValueTransformer* addressTranformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
+    NSValueTransformer* addressTranformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
     
     
     if ([value isKindOfClass:[NSSet class]]) {
@@ -76,7 +76,7 @@
             [fixedAddressesArray addObject: [NSString stringWithFormat: @"%@>", address]];
         }
         
-        NSValueTransformer* addressTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
+        NSValueTransformer* addressTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
         
         for (NSString* addressString in fixedAddressesArray) {
             SimpleRFC822Address* rfcAddress = [addressTransformer reverseTransformedValue: addressString];

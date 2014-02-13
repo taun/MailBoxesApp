@@ -39,6 +39,7 @@
 #import "MBMIME2047ValueTransformer.h"
 #import "MBMIMECharsetTransformer.h"
 #import "MBMIMEQuotedPrintableTranformer.h"
+#import "MBEncodedStringHexOctetTransformer.h"
 
 #import <FScript/FScript.h>
 #import <QuartzCore/QuartzCore.h>
@@ -122,17 +123,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     PortalEditingEndedKey = @"PortalEditingEnded";
     
     [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressToStringTransformer new]
-                                    forName: VTAddressToString];
+                                    forName: VTMBSimpleRFC822AddressToStringTransformer];
     
     [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressSetToStringTransformer new]
-                                    forName: VTAddressesToString];
+                                    forName: VTMBSimpleRFC822AddressSetToStringTransformer];
     
     [NSValueTransformer setValueTransformer: [MBMIME2047ValueTransformer new]
-                                    forName: VTRFC2047EncodedToString];
+                                    forName: VTMBMIME2047ValueTransformer];
 
     [NSValueTransformer setValueTransformer: [MBMIMEQuotedPrintableTranformer new]
-                                    forName: VTQuotedPrintableToString];
+                                    forName: VTMBMIMEQuotedPrintableTranformer];
 
+    [NSValueTransformer setValueTransformer: [MBEncodedStringHexOctetTransformer new]
+                                    forName: VTMBEncodedStringHexOctetTransformer];
+
+    [NSValueTransformer setValueTransformer: [MBMIMECharsetTransformer new]
+                                    forName: VTMBMIMECharsetTransformer];
+    
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqual:@"isFinished"]) {

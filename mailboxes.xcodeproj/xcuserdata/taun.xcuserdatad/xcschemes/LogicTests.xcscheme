@@ -47,6 +47,24 @@
                <Test
                   Identifier = "LogicTests">
                </Test>
+               <Test
+                  Identifier = "RFC2822RawMessageHeaderTest">
+               </Test>
+               <Test
+                  Identifier = "MIMERFC2047EncodeDecodeTests">
+               </Test>
+               <Test
+                  Identifier = "MBTransformerTests">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartImageMessage">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartApplicationExcel">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>

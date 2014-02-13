@@ -15,6 +15,9 @@
 #import "MBMIME2047ValueTransformer.h"
 #import "MBSimpleRFC822AddressToStringTransformer.h"
 #import "MBSimpleRFC822AddressSetToStringTransformer.h"
+#import "MBEncodedStringHexOctetTransformer.h"
+
+#import "MBEncodedString.h"
 
 #pragma message "ToDo: need stub MBAddress class for testing transformer."
 
@@ -33,16 +36,19 @@
     _testBundle = [NSBundle bundleWithIdentifier: @"com.moedae.LogicTests"];
 
     [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressToStringTransformer new]
-                                    forName: VTAddressToString];
+                                    forName: VTMBSimpleRFC822AddressToStringTransformer];
     
     [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressSetToStringTransformer new]
-                                    forName: VTAddressesToString];
+                                    forName: VTMBSimpleRFC822AddressSetToStringTransformer];
     
     [NSValueTransformer setValueTransformer: [MBMIME2047ValueTransformer new]
-                                    forName: VTRFC2047EncodedToString];
+                                    forName: VTMBMIME2047ValueTransformer];
     
     [NSValueTransformer setValueTransformer: [MBMIMEQuotedPrintableTranformer new]
-                                    forName: VTQuotedPrintableToString];
+                                    forName: VTMBMIMEQuotedPrintableTranformer];
+
+    [NSValueTransformer setValueTransformer: [MBEncodedStringHexOctetTransformer new]
+                                    forName: VTMBEncodedStringHexOctetTransformer];
 }
 
 - (void)tearDown {
@@ -80,29 +86,56 @@
     XCTAssertTrue([decoded isEqualToString: shouldBe], @"Raw content: \r%@\rDecoded: %@", sampleContent, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
+
+- (void)testFromquotedPrintableISO88591 {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"quotedPrintableISO-8859-1" ofType: @"txt" inDirectory: @"answers"];
+    
+    NSString* sampleContent = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    MBEncodedString* encodedString = [MBEncodedString encodedString: sampleContent encoding: NSISOLatin1StringEncoding];
+    
+    MBEncodedString* dehexedString = [[MBMIMEQuotedPrintableTranformer new] transformedValue: encodedString];
+    
+    NSData* decoded = [dehexedString asData]; // 5 = iso-8859-1
+
+    NSString* unicodeDecoded = [[NSString alloc] initWithData: decoded encoding: 5];
+    
+//    if (NO) {
+//        [self saveAnswer: decoded As: NSStringFromSelector(_cmd)];
+//    }
+//    
+//    NSString *shouldBe = [self loadAnswersFor: NSStringFromSelector(_cmd)];
+//    
+//    XCTAssertTrue([decoded isEqualToString: shouldBe], @"Raw content: \r%@\rDecoded: %@", sampleContent, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+
+
 -(void)testCharsetUTF8ToNS {
     
 }
 
 -(NSString*) tranformAddress: (id) address {
-    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
+    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
     NSString* addressString = [addressToStringTransformer transformedValue: address];
     return addressString;
 }
 -(SimpleRFC822Address*) reverseTranformAddress: (NSString*) string {
-    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
+    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
     SimpleRFC822Address* address = [addressToStringTransformer reverseTransformedValue: string];
     return address;
 }
 
 -(NSSet*) reverseTranformAddresses: (NSString*) string {
-    NSValueTransformer* addressesToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
+    NSValueTransformer* addressesToStringTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
     NSSet* addresses = [addressesToStringTransformer reverseTransformedValue: string];
     return addresses;
 }
 
 -(NSString*) transformAddressesToString: (NSSet*) addresses {
-    NSValueTransformer* addressesToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
+    NSValueTransformer* addressesToStringTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
     NSString* string = [addressesToStringTransformer transformedValue: addresses];
     return string;
 }

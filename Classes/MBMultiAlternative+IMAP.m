@@ -9,6 +9,8 @@
 #import "MBMultiAlternative+IMAP.h"
 #import "MBMime+IMAP.h"
 
+#pragma message "Need to remove need for having plugin here. Possibly remove the attribute string idea."
+#import <MoedaeMailPlugins/MoedaeMailPlugins.h>
 
 @implementation MBMultiAlternative (IMAP)
 
@@ -30,11 +32,20 @@
         }
     }
     
-    MBMime* node = [self hasRichMessageViewOption: options] ? richNode : plainText;
+    BOOL useRichMessageView = NO;
+    
+    id useRichMessageViewOption = options[MBRichMessageViewAttributeName];
+    
+    if (useRichMessageViewOption && [useRichMessageViewOption isKindOfClass: [NSNumber class]]) {
+        useRichMessageView = [(NSNumber*)useRichMessageViewOption boolValue];
+    }
+
+    MBMime* node = useRichMessageView ? richNode : plainText;
 
     NSAttributedString* returnString = [node asAttributedStringWithOptions: options attributes: attributes];
     
     return returnString;
 }
+
 
 @end

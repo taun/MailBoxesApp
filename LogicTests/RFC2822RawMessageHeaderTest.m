@@ -42,16 +42,16 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     rfcRawHeader = nil;
     
     [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressToStringTransformer new]
-                                    forName: VTAddressToString];
+                                    forName: VTMBSimpleRFC822AddressToStringTransformer];
     
     [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressSetToStringTransformer new]
-                                    forName: VTAddressesToString];
+                                    forName: VTMBSimpleRFC822AddressSetToStringTransformer];
     
     [NSValueTransformer setValueTransformer: [MBMIME2047ValueTransformer new]
-                                    forName: VTRFC2047EncodedToString];
+                                    forName: VTMBMIME2047ValueTransformer];
     
     [NSValueTransformer setValueTransformer: [MBMIMEQuotedPrintableTranformer new]
-                                    forName: VTQuotedPrintableToString];
+                                    forName: VTMBMIMEQuotedPrintableTranformer];
 }
 
 - (void)tearDown
@@ -122,7 +122,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     NSString* decodedAddress = [decoder transformedValue: sampleAddress];
     
-    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
+    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
     SimpleRFC822Address* address = [addressToStringTransformer reverseTransformedValue: decodedAddress];
     
     XCTAssertEqualObjects(address.email, @"customerservice@entertainmentbenefits.com", @"bad address");
@@ -134,7 +134,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     NSString* decodedAddress = [decoder transformedValue: sampleAddress];
     
-    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
+    NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
     SimpleRFC822Address* address = [addressToStringTransformer reverseTransformedValue: decodedAddress];
     
     XCTAssertEqualObjects(address.email, @"reservationprearrivals@wyndhamvacationresorts.com", @"bad address");

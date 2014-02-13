@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define VTAddressesToString @"addressesToString"
+#define VTMBSimpleRFC822AddressSetToStringTransformer @"MBSimpleRFC822AddressSetToStringTransformer"
 
 @interface MBSimpleRFC822AddressSetToStringTransformer : NSValueTransformer
 
