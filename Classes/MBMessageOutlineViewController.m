@@ -32,8 +32,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @property (strong, nonatomic) NSArray* cachedOrderedMessageParts;
 
--(void) initDefaults;
--(void) setEnvelopeFields;
 -(NSAttributedString*) attributedStringFromMessage: (MBMessage*) message;
 
 @end
@@ -76,10 +74,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (IBAction)refreshMessageDisplay:(id)sender {
-    [self setEnvelopeFields];
     [self.outlineView reloadData];
     [self.outlineView expandItem: nil expandChildren: YES];
-    
 }
 
 -(NSAttributedString*) attributedStringFromMessage:(MBMessage *)message {
