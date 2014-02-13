@@ -622,7 +622,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSError* error = nil;
     BOOL connected;
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+//    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     
     @try {
         
@@ -673,6 +673,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             }
         }
     }
+#pragma message "ToDo: add connection and download error detection and only set cached if sucessful"
+    // Assumes no errors. Currently no error detection so NOT a good assumption.
+    message.isFullyCached = @YES;
     [self.clientStore save: &error];
 }
 
