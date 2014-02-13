@@ -181,7 +181,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         
         NSMutableSet* mbAddressSet = [NSMutableSet new];
         
-        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
+        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
         
         NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
         
@@ -201,7 +201,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
     if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
         NSMutableSet* mbAddressSet = [NSMutableSet new];
-        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
+        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
         NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
         if (simpleAddressSet) {
             for (SimpleRFC822Address* rfcAddress in simpleAddressSet) {
@@ -219,7 +219,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
     if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
         NSMutableSet* mbAddressSet = [NSMutableSet new];
-        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTAddressesToString];
+        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
         NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
         if (simpleAddressSet) {
             for (SimpleRFC822Address* rfcAddress in simpleAddressSet) {
@@ -421,9 +421,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     newPart = [self unpackCompositeMimeFrom: tokenScanner];
 
     if (newPart) {
+        if (newPart.childNodes.count == 0) {
+            // discrete mime, bodyIndex = 1
+            newPart.bodyIndex = @"1";
+        } else {
+            // multipart
+            newPart.bodyIndex = @"";
+            [self generateBodyIndexes: newPart rIndex: 0];
+        }
 //        newPart.bodyIndex = [NSString stringWithFormat: @"%u", partIndex];
-        newPart.bodyIndex = @"";
-        [self generateBodyIndexes: newPart rIndex: 0];
         [self addChildNodesObject: newPart];
         [self addAllPartsObject: newPart];
     } else {
@@ -432,6 +438,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 /*!
+ 
+From RFC3501
+ 
+"Every message has at least one part number. Non-[MIME-IMB] messages,
+ and non-multipart [MIME-IMB] messages with no encapsulated message, 
+ only have a part 1. 
+ 
+ Multipart messages are assigned consecutive part numbers, as they occur 
+ in the message. If a particular part is of type message or multipart, 
+ its parts MUST be indicated by a period followed by the part number 
+ within that nested multipart part."
+ 
+ This means the multiPart part should have no index since it has no individual content.
+ The initial multiPart has no index and the parts are 1, 2
+ An sub mulitpart has no index and the parts are 1.1, 1.2 or similar.
+ 
+ Only multiParts have childnodes?
  
 <pre>
  Body index
@@ -985,7 +1008,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         
         if ([tokenized isKindOfClass: [NSString class]]) {
             
-            NSValueTransformer* rfcAddressTransformer = [NSValueTransformer valueTransformerForName: VTAddressToString];
+            NSValueTransformer* rfcAddressTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
             rfcAddress = [rfcAddressTransformer reverseTransformedValue: [self checkAnd2047DecodeToken: tokenized]];
         } else {
             rfcAddress = tokenized;
@@ -1020,7 +1043,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 -(NSString*) decode2047:(NSString *)encodedString {
-    NSValueTransformer* encodedWordTransformer = [NSValueTransformer valueTransformerForName: VTRFC2047EncodedToString];
+    NSValueTransformer* encodedWordTransformer = [NSValueTransformer valueTransformerForName: VTMBMIME2047ValueTransformer];
     
     return [encodedWordTransformer transformedValue: encodedString];
 }
