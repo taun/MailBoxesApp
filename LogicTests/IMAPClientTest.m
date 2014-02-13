@@ -8,17 +8,24 @@
 
 #import "IMAPClientTest.h"
 //#import "../Classes/IMAPClient.h"
+#import "IMAPCoreDataStore.h"
+
+#import "MBTreeNode.h"
+#import "MBTreeNode+IntersectsSetFix.h"
+
 #import "MBAccount.h"
 #import "MBAccount+IMAP.h"
+
 #import "MBox.h"
 #import "MBox+IMAP.h"
+
 #import "MBMessage.h"
 #import "MBMessage+IMAP.h"
+
 #import "IMAPResponseBuffer.h"
 #import "IMAPResponse.h"
-#import "MBTokenTree.h"
 #import "IMAPCommand.h"
-#import "IMAPCoreDataStore.h"
+#import "MBTokenTree.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -42,11 +49,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     model = [NSManagedObjectModel mergedModelFromBundles:bundles];
     
     coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model];
+    
     store = [coord addPersistentStoreWithType: NSInMemoryStoreType
                                 configuration: nil
                                           URL: nil
                                       options: nil
                                         error: NULL];
+    
     ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
 
@@ -63,11 +72,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [newMBox setValue: @"inbox" forKey: @"fullPath"];
     [newMBox setValue: @"inbox" forKey: @"name"];
     [newMBox setValue: @"10" forKey: @"uid"];
-
+    // selected mail box searches all mailboxes for accountReference matching account and fullPath matching path.
+    [newMBox setValue: newAccount forKey: @"accountReference"];
+    
+    [newAccount setValue: [NSOrderedSet orderedSetWithObjects: newMBox, nil] forKey: @"childNodes"];
+    
     selectedBox = newMBox;
     
-    [newAccount addChildNodesObject: newMBox];
-    [newAccount addAllNodesObject: newMBox];
+    
+//    MBTreeNode* parentNode = (MBTreeNode*)newAccount;
+//    [parentNode insertObject: selectedBox inChildNodesAtIndex: 0];
+//    [selectedBox addParentNodesObject: parentNode];
+    
+//    [parentNode addChildNodesObject: selectedBox];
+//    [parentNode setIsLeaf: @YES];
 
 
 
@@ -199,6 +217,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     // set an ivar in delegate method with name and arguments passed to delegate method
     // compare to desired.
     
+}
+
+- (void)testRespFetchUidBodystructureSinglePartMessage {
+    
+    [self parseFile:@"testRespFetchUidBodystructureSinglePart" saveAnswer: YES];
 }
 
 - (void)testRespFetchUidBodystructureMultiPartImageMessage {

@@ -291,6 +291,37 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
 }
 
+- (void)testFetchRFC822Multipart {
+    
+    NSString *path = [testBundle pathForResource: @"sampleFetchRFC2822" ofType: @"txt" inDirectory: @"answers"];
+    
+    NSMutableData *newData = [[NSMutableData alloc] initWithContentsOfFile: path];
+    
+    [parser addDataBuffer: newData];
+    
+    IMAPResponse* response = nil;
+    IMAPParseResult result;
+    //MBTokenTree *tokens = nil;
+    NSString *responseMethodName = @"commandDone:";
+    int i = 1;
+    
+    do {
+        response = nil;
+        result = [self.parser parseBuffer: &response];
+        //tokens = parser.tokens;
+        if (result == IMAPParseComplete) {
+            [self configDefaultResponse:response];
+            [response evaluate];
+        }
+        i++;
+    } while ([self.actionCalled compare: responseMethodName] != NSOrderedSame && i < 201);
+    
+    
+    XCTAssertTrue(result == IMAPParseComplete, @"Parse result: %i", result);
+}
+
+
+
 - (void)testFetchGrandMastersSampleRFC822Header {
     
     NSString *path = [testBundle pathForResource: @"GrandMastersSampleHeader1" ofType: @"txt" inDirectory: @"answers"];
