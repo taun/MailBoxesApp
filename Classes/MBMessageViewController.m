@@ -69,12 +69,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             MailBoxesAppDelegate *app = (MailBoxesAppDelegate *)[[NSApplication sharedApplication] delegate];
             [app.accountsCoordinator loadFullMessageID: messageID forAccountID: accountID];
         }
-        NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTAddressToString];
+        NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
         NSString* cellcontent = [addressToString transformedValue: [self.cachedAddressesTo objectAtIndex: 0]];
         [self.recipientsBox setObjectValue: cellcontent];
         
         //Get this from user preferences or toggle by a control
-        NSDictionary* options = @{MBRichMessageViewAttributeName:@YES};
+        NSDictionary* options = @{MBRichMessageViewAttributeName:@NO};
         //Attributes as NSAttributed text attributes. To be set globally by user preferences or toolbar.
         NSDictionary* attributes = nil;
 
@@ -256,7 +256,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     if (index <= self.cachedAddressesTo.count) {
         MBAddress* address = self.cachedAddressesTo[index];
-        NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTAddressToString];
+        NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
         cellcontent = [addressToString transformedValue: address];
     }
     return cellcontent;
