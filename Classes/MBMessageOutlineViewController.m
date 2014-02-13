@@ -40,69 +40,21 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MBMessageOutlineViewController
 
--(void) initDefaults {
-//    [[self view] setWantsLayer: YES];
-    [self addObserver: self forKeyPath: @"representedObject" options: NSKeyValueObservingOptionNew context: NULL];
+/* 
+ Observe setting of represented object to undate display.
+ */
+-(void) setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+    if (representedObject != nil) {
+        [self.outlineView reloadData];
+        [self.outlineView expandItem: nil expandChildren: YES];
+    }
 }
-
--(void) awakeFromNib {
-    [self initDefaults];
-}
-
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // init code
-//        [self initDefaults];
-//        //        [NSAnimationContext beginGrouping];
-//        //        [[NSAnimationContext currentContext] setDuration: 1.0];
-//        //
-//        //        CABasicAnimation* alphaAnim = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
-//        //        [alphaAnim setFromValue: [NSNumber numberWithFloat: 0.0]];
-//        //        [alphaAnim setToValue: [NSNumber numberWithFloat: 1.0]];
-//        //        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: alphaAnim, @"alphaValue", nil];
-//        //        [[self view] setAnimations: dict];
-//    }
-//    return self;
-//}
 
 -(void) loadView {
     [super loadView];
     [self.outlineView expandItem: nil expandChildren: YES];
 }
-
--(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    
-//    if ([keyPath isEqualToString: @"defaultContent"]) {
-//        [self refreshMessageDisplay: nil];
-//    } else if ([keyPath isEqualToString: @"data"]) {
-//        [self displayNode: object];
-//    } else
-    if ([keyPath isEqualToString: @"representedObject"]) {
-        [self.outlineView reloadData];
-        [self.outlineView expandItem: nil expandChildren: YES];
-//        [self reloadData];
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
-
--(void) dealloc {
-    [self removeObserver: self forKeyPath: @"representedObject"];
-}
-
-//-(void) reloadData {
-//    if (self.representedObject != nil && [self.representedObject isKindOfClass:[MBMessage class]]) {
-//        //            [_message removeObserver: self forKeyPath: @"defaultContent"];
-//        if (self.outlineView.selectedRow > -1) {
-//            MBMime* previousSelectedNode = [self.outlineView itemAtRow: [self.outlineView selectedRow]];
-//            [previousSelectedNode removeObserver: self forKeyPath: @"data"];
-//        }
-//    }
-    //        [_message addObserver: self forKeyPath: @"defaultContent" options: NSKeyValueObservingOptionNew context: NULL];
-//    [self refreshMessageDisplay: nil];
-//}
 
 - (IBAction)showMessageDebug:(id)sender {
     DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.representedObject);
