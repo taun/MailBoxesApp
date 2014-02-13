@@ -29,6 +29,5 @@
 - (IBAction)showPartsInLog:(id)sender;
 - (IBAction)refreshMessageDisplay:(id)sender;
 
--(void) reloadData;
 @end
 
