@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		C500629818AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C500629718AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin */; };
 		C50062BD18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C50062BC18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin */; };
+		C50062CE18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C50062CD18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin */; };
 		C502DE8E14185DDE000AA9E4 /* IMAPResponseParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C502DE8D14185DDE000AA9E4 /* IMAPResponseParserTests.m */; };
 		C50386BD146381C200BF6EB3 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50386BC146381C100BF6EB3 /* Quartz.framework */; };
 		C5052DD91810502600696782 /* MBTransformerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5052DD81810502600696782 /* MBTransformerTests.m */; };
@@ -285,6 +286,7 @@
 				C583066518A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin in CopyFiles */,
 				C583068A18A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin in CopyFiles */,
 				C500629818AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin in CopyFiles */,
+				C50062CE18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +295,7 @@
 /* Begin PBXFileReference section */
 		C500629718AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; name = MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin; path = "/Users/taun/Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin"; sourceTree = "<absolute>"; };
 		C50062BC18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; name = MoedaeMailMimeImageViewer.mmmimeviewerplugin; path = "/Users/taun/Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailMimeImageViewer.mmmimeviewerplugin"; sourceTree = "<absolute>"; };
+		C50062CD18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; name = MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin; path = "/Users/taun/Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin"; sourceTree = "<absolute>"; };
 		C502DE8C14185DDE000AA9E4 /* IMAPResponseParserTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IMAPResponseParserTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C502DE8D14185DDE000AA9E4 /* IMAPResponseParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IMAPResponseParserTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C50386BC146381C100BF6EB3 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -834,6 +837,7 @@
 		C5B8326918A2C05200A94197 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				C50062CD18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin */,
 				C50062BC18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin */,
 				C500629718AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin */,
 				C583068918A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin */,
