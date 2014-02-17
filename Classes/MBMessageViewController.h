@@ -10,6 +10,7 @@
 @class MBMessage;
 @class MBMessageHeaderView;
 @class MBBodyStructureInlineView;
+@class MMPMessageViewOptions;
 
 
 /*
@@ -30,7 +31,9 @@
 
 @interface MBMessageViewController : NSCollectionViewItem <NSComboBoxDataSource, NSComboBoxDelegate, NSPopoverDelegate>
 
-@property (strong, nonatomic) IBOutlet NSObjectController *messageController;
+@property (strong, nonatomic) IBOutlet NSObjectController   *messageController;
+
+@property (nonatomic,strong) MMPMessageViewOptions          *options;
 
 @property (strong) IBOutlet NSPopover *partsPopover;
 
@@ -46,12 +49,14 @@
 @property (weak) IBOutlet MBBodyStructureInlineView* messageBodyViewContainer;
 
 #pragma Body
-
+-(void) reloadMessage;
 //@property (strong) NSView* messageBodyView;
 - (IBAction)showPartsPopover:(NSButton *)sender;
 
 - (IBAction)showMessageDebug:(id)sender;
 - (IBAction)showPartsInLog:(id)sender;
 //- (IBAction)refreshMessageDisplay:(id)sender;
+- (IBAction)showMessageAsPlainText:(id)sender;
+- (IBAction)showMessageAsRichText:(id)sender;
 
 @end

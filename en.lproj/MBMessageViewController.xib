@@ -13,6 +13,8 @@
                 <outlet property="partsPopover" destination="3903" id="hy0-ZC-8te"/>
                 <outlet property="recipientsBox" destination="dcE-LI-xZa" id="sXb-Fy-9WC"/>
                 <outlet property="sender" destination="N1j-tJ-Va9" id="gcT-vI-vba"/>
+                <outlet property="showMessageAsPlainText" destination="ZxU-jo-0so" id="Qgu-7W-mx8"/>
+                <outlet property="showMessageAsRichText" destination="PJ3-1x-HFI" id="u7Q-Z8-DMI"/>
                 <outlet property="subject" destination="QgS-JV-yC2" id="sPe-AK-7fA"/>
                 <outlet property="view" destination="1" id="7"/>
             </connections>
@@ -196,6 +198,19 @@
         </popover>
         <menu id="Vfz-7L-t85">
             <items>
+                <menuItem title="Plain Text" id="ZxU-jo-0so">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showMessageAsPlainText:" target="-2" id="piT-Rf-ONX"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Fancy Text" id="PJ3-1x-HFI">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showMessageAsRichText:" target="-2" id="n50-5j-hFl"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="mHZ-MO-KSh"/>
                 <menuItem title="Log Parts" id="cvS-io-iZW">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

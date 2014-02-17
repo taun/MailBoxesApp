@@ -34,13 +34,13 @@
     
     BOOL useRichMessageView = NO;
     
-    id useRichMessageViewOption = options[MBRichMessageViewAttributeName];
-    
-    if (useRichMessageViewOption && [useRichMessageViewOption isKindOfClass: [NSNumber class]]) {
-        useRichMessageView = [(NSNumber*)useRichMessageViewOption boolValue];
-    }
+//    id useRichMessageViewOption = options[MBRichMessageViewAttributeName];
+//    
+//    if (useRichMessageViewOption && [useRichMessageViewOption isKindOfClass: [NSNumber class]]) {
+//        useRichMessageView = [(NSNumber*)useRichMessageViewOption boolValue];
+//    }
 
-    MBMime* node = useRichMessageView ? richNode : plainText;
+    MBMime* node = YES ? richNode : plainText;
 
     NSAttributedString* returnString = [node asAttributedStringWithOptions: options attributes: attributes];
     

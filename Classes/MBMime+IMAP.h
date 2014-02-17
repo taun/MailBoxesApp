@@ -14,8 +14,6 @@
 
 #import <MoedaeMailPlugins/MoedaeMailPlugins.h>
 
-extern NSString* MBRichMessageViewAttributeName;
-
 /*!
  RFC 2045 - Internet Message Bodies
  

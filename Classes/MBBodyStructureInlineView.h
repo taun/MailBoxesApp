@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "MBMessage+IMAP.h"
 
+@class MMPMessageViewOptions;
+
 /*!
  Responsible for displaying the bodyStructure of a message.
  
@@ -38,6 +40,10 @@
  */
 @interface MBBodyStructureInlineView : NSView
 
--(void) setMessage:(MBMessage *)message options: (NSDictionary*) options attributes: (NSDictionary*) attributes;
+@property (nonatomic,strong) MMPMessageViewOptions* options;
+
+-(void) setMessage:(MBMessage *)message options: (MMPMessageViewOptions*) options;
+
+-(void) reloadViews;
 
 @end

@@ -23,6 +23,8 @@
 #import "MailBoxesAppDelegate.h"
 #import "MBAccountsCoordinator.h"
 
+#import <MoedaeMailPlugins/MoedaeMailPlugins.h>
+
 #import <QuartzCore/QuartzCore.h>
 #import <Quartz/Quartz.h>
 #import <WebKit/WebKit.h>
@@ -74,11 +76,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         [self.recipientsBox setObjectValue: cellcontent];
         
         //Get this from user preferences or toggle by a control
-        NSDictionary* options = @{MBRichMessageViewAttributeName:@NO};
-        //Attributes as NSAttributed text attributes. To be set globally by user preferences or toolbar.
-        NSDictionary* attributes = nil;
+        _options = [MMPMessageViewOptions new];
+        _options.asPlainText = NO;
 
-        [self.messageBodyViewContainer setMessage: myMessage options: options attributes: attributes];
+        [self.messageBodyViewContainer setMessage: myMessage options: self.options];
     }
 }
 
@@ -110,6 +111,22 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //    }
 //
 //}
+-(void) reloadMessage {
+    self.messageBodyViewContainer.options = self.options;
+    [self.messageBodyViewContainer reloadViews];
+}
+
+#pragma mark - Actions
+- (IBAction)showMessageAsPlainText:(id)sender {
+    self.options.asPlainText = YES;
+    [self reloadMessage];
+}
+
+- (IBAction)showMessageAsRichText:(id)sender {
+    self.options.asPlainText = NO;
+    [self reloadMessage];
+}
+
 
 - (IBAction)showPartsPopover:(NSButton *)sender {
     if (self.partsPopover.isShown) {
@@ -222,12 +239,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //}
 
 -(NSAttributedString*) attributedStringFromMessage:(MBMessage *)message {
-    NSDictionary* options = @{MBRichMessageViewAttributeName:@YES};
-    NSDictionary* attributes = nil;
-
-    NSMutableAttributedString* composition = [[NSMutableAttributedString alloc] initWithString: @"" attributes: attributes];
+    NSMutableAttributedString* composition = [[NSMutableAttributedString alloc] initWithString: @"" attributes: nil];
     for (MBMime* node in message.childNodes) {
-        NSAttributedString* subComposition = [node asAttributedStringWithOptions: options attributes: attributes];
+        NSAttributedString* subComposition = [node asAttributedStringWithOptions: nil attributes: nil];
         if (subComposition) {
             [composition appendAttributedString: subComposition];
         }

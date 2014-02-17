@@ -79,12 +79,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 -(NSAttributedString*) attributedStringFromMessage:(MBMessage *)message {
-    NSDictionary* options = @{MBRichMessageViewAttributeName:@NO};
-    NSDictionary* attributes = nil;
-    
-    NSMutableAttributedString* composition = [[NSMutableAttributedString alloc] initWithString: @"" attributes: attributes];
+    NSMutableAttributedString* composition = [[NSMutableAttributedString alloc] initWithString: @"" attributes: nil];
     for (MBMime* node in message.childNodes) {
-        NSAttributedString* subComposition = [node asAttributedStringWithOptions: options attributes: attributes];
+        NSAttributedString* subComposition = [node asAttributedStringWithOptions: nil attributes: nil];
         if (subComposition) {
             [composition appendAttributedString: subComposition];
         }

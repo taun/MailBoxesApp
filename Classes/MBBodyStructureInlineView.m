@@ -14,15 +14,12 @@
 @interface MBBodyStructureInlineView ()
 
 @property (nonatomic,strong) MBMessage* message;
-@property (nonatomic,strong) NSDictionary* options;
-@property (nonatomic,strong) NSDictionary* attributes;
 
 // quick and dirty, should use a view tag here or array
 @property (nonatomic, strong) NSPointerArray* nodeViews;
 
 -(void) setNodeView: (MMPBaseMimeView*) node atIndex: (NSUInteger) index;
 
--(void) reloadViews;
 -(void) removeSubviews;
 -(void) createSubviews;
 
@@ -70,10 +67,9 @@
     }
 }
 
--(void) setMessage:(MBMessage *)message options:(NSDictionary *)options attributes:(NSDictionary *)attributes {
+-(void) setMessage:(MBMessage *)message options:(MMPMessageViewOptions *)options {
     // order is important. Should rewrite so it isn't be but is.
     self.options = options;
-    self.attributes = attributes;
     // setting message should go last due to message observer
     self.message = message;
 }
@@ -131,7 +127,7 @@
     
     Class nodeViewClass = [[MBMimeViewerPluginsManager manager] classForMimeType: node.type subtype: node.subtype];
     
-    MMPBaseMimeView* nodeView = [[nodeViewClass alloc] initWithFrame: nodeRect node: node options: self.options attributes: self.attributes];
+    MMPBaseMimeView* nodeView = [[nodeViewClass alloc] initWithFrame: nodeRect node: node options: self.options];
     
     if (nodeView) {
         [self setNodeView: nodeView atIndex: 1];
