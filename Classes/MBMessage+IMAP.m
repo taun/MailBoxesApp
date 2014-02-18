@@ -242,7 +242,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.subject = [self checkAnd2047DecodeToken: tokenized];
 }
 -(void) setParsedSummary: (id) tokenized {
-    self.summary = [self checkAnd2047DecodeToken: tokenized];
+//    self.summary = [self checkAnd2047DecodeToken: tokenized];
+    self.summary = tokenized;
 }
 -(void) setParsedFlags: (id) tokenized {
     for (id token in tokenized) {
