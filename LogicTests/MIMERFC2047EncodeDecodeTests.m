@@ -169,5 +169,21 @@
     XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
+- (void)testRFC2047Subject8859Q {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"rfc2047subject8859Q" ofType: @"txt" inDirectory: @"answers"];
+    
+    self.sampleHeader = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
+    
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
+    
+    NSString* shouldBe = @"New E-Commerce Articles, Column at StartupJournal.com, The Wall Street Journal?s Center for Entrepreneurs";
+    
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
 
 @end

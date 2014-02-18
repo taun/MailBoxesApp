@@ -25,7 +25,7 @@ static NSRegularExpression *regexQSpaces;
 
 +(void)initialize {
     NSError *error=nil;
-    regexEncodingFields = [[NSRegularExpression alloc] initWithPattern: @"=\\?([A-Z0-9\\-]+)\\?(?:(?:[bB]\\?([+/0-9A-Za-z]*=*))|(?:[qQ]\\?([a-zA-Z0-9._!=\\-@]*)))\\?="
+    regexEncodingFields = [[NSRegularExpression alloc] initWithPattern: @"=\\?([A-Z0-9\\-]+)\\?(?:(?:[bB]\\?([+/0-9A-Za-z]*=*))|(?:[qQ]\\?([a-zA-Z0-9.,_!=/\\*\\+\\-@]*)))\\?="
                                                                options: NSRegularExpressionCaseInsensitive
                                                                  error: &error];
     if (error) {
