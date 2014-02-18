@@ -51,6 +51,8 @@ static NSRegularExpression *regexQSpaces;
 
 - (id)transformedValue:(id)anAsciiEncodedString {
     
+    NSString* returnString;
+    
     NSValueTransformer* hexTransformer = [NSValueTransformer valueTransformerForName: VTMBEncodedStringHexOctetTransformer];
     NSValueTransformer* charsetTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMECharsetTransformer];
     
@@ -66,13 +68,14 @@ static NSRegularExpression *regexQSpaces;
     NSInteger qCodeRangeIndex = 3;
     // rangge length 0 means not found
     
-    NSString* charsetString;
-    NSMutableString* decodedString = [NSMutableString new];
     
     if (matches.count==0) {
-        decodedString = anAsciiEncodedString;
+        returnString = anAsciiEncodedString;
     } else {
         
+        NSString* charsetString;
+        NSMutableString* decodedString = [NSMutableString new];
+
         NSRange lastCaptureRange = NSMakeRange(0, 0);
         NSRange currentCaptureRange;
         
@@ -133,9 +136,11 @@ static NSRegularExpression *regexQSpaces;
         NSUInteger suffixLength = [(NSString*)anAsciiEncodedString length] - suffixLocation;
         NSRange suffixRange = NSMakeRange(suffixLocation, suffixLength);
         [decodedString appendString: [[anAsciiEncodedString substringWithRange:suffixRange] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
+        
+        returnString = [decodedString copy];
     }
     
-    return decodedString;
+    return returnString;
 }
 
 #pragma message "TODO: reverseTransform"
