@@ -9,6 +9,10 @@
 #import "MBPortalsCollectionView.h"
 #import "MBPortalViewController.h"
 #import "MBoxProxy.h"
+#import "MBViewPortalMBox.h"
+
+NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal";
+
 
 @implementation MBPortalsCollectionView
 
@@ -38,7 +42,9 @@
                                     @"MBox", @"MBoxProxy", MBPasteboardTypeMbox,
                                     @"MBAccount",
                                     @"MBFavorites",
-                                    @"MBAddressList"]];
+                                    @"MBAddressList",
+                                    MBPasteboardTypeViewPortal, NSStringPboardType]];
+    
 }
 
 
@@ -65,14 +71,33 @@
 }
 
 
+#pragma mark - Drag and Drop
 - (NSDragOperation)draggingEntered:(id < NSDraggingInfo >)sender {
     
-    return NSDragOperationLink;
+    NSDragOperation dragOperation = NSDragOperationNone;
+    
+    if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
+        //
+        dragOperation = NSDragOperationMove;
+    } else if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
+        //
+        dragOperation = NSDragOperationLink;
+    }
+    return dragOperation;
 }
 
 - (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender {
+
+    NSDragOperation dragOperation = NSDragOperationNone;
     
-    return NSDragOperationLink;
+    if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
+        //
+        dragOperation = NSDragOperationMove;
+    } else if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
+        //
+        dragOperation = NSDragOperationLink;
+    }
+    return dragOperation;
 }
 
 /*
@@ -98,9 +123,21 @@
  enumerate through the dragging items to set their destination frames and destination images.
  */
 - (BOOL)performDragOperation:(id < NSDraggingInfo >)sender {
-    NSArray* classes = @[[MBoxProxy class]];
-    NSArray* objects = [[sender draggingPasteboard] readObjectsForClasses: classes options: nil];
-    id draggedItem = [objects firstObject];
+    
+    if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
+        //
+        NSString* draggedPortal = [[sender draggingPasteboard] stringForType: MBPasteboardTypeViewPortal];
+        
+    } else if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
+        //
+        NSArray* classes = @[[MBoxProxy class], [NSString class]];
+        NSArray* objects = [[sender draggingPasteboard] readObjectsForClasses: classes options: nil];
+        id draggedItem = [objects firstObject];
+        if ([draggedItem isKindOfClass:[MBoxProxy class]]) {
+            [(id<MBPortalsCollectionDelegate>)(self.delegate) addPortalForMBox: draggedItem];
+        }
+    }
+    
     // create new portal!
     return YES;
 }
@@ -120,5 +157,6 @@
 - (void)concludeDragOperation:(id < NSDraggingInfo >)sender {
     
 }
+
 
 @end

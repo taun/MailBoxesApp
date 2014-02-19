@@ -16,20 +16,26 @@
 #import "MBSidebar+Accessors.h"
 #import "MBSmartFolder.h"
 #import "MBFavorites.h"
+
 #import "MBUser+IMAP.h"
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
+#import "MBoxProxy.h"
 #import "MBMessage+IMAP.h"
-#import "MBPortal+Accessors.h"
+
 #import "MBCriteria.h"
+
+#import "MBPortal+Accessors.h"
 #import "MBPortalView.h"
+#import "MBViewPortalMBox.h"
+#import "MBPortalViewController.h"
 #import "MBPortalsCollectionView.h"
+
 #import "MBMessageViewController.h"
 #import "MBViewPortalSelection.h"
 #import "MBAddressList.h"
 #import "MBSidebarViewController.h"
 #import "MBAccountsCoordinator.h"
-#import "MBPortalViewController.h"
 #import "MBMessageHeaderView.h"
 #import "MBMessageView.h"
 #import "NSView+MBConstraintsDebug.h"
@@ -374,28 +380,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 #pragma message "TODO:Now"
 
-#pragma mark - NSCollectionViewDelegate Protocol
-/* Perhaps should be moved to the CollectionViewController class ? */
-/* Invoked when the mouse is released over a collection view that previously allowed a drop. */
-- (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id < NSDraggingInfo >)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation {
-    return NO;
-}
-/* Returns whether the collection view can attempt to initiate a drag for the given event and items. */
-- (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexes:(NSIndexSet *)indexes withEvent:(NSEvent *)event {
-    return NO;
-}
-/* Sent to the delegate to allow creation of a custom image to represent collection view items during a drag operation. */
-- (NSImage *)collectionView:(NSCollectionView *)collectionView draggingImageForItemsAtIndexes:(NSIndexSet *)indexes withEvent:(NSEvent *)event offset:(NSPointPointer)dragImageOffset {
-    return nil;
-}
-/* Invoked to determine a valid drop target. */
-- (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id < NSDraggingInfo >)draggingInfo proposedIndex:(NSInteger *)proposedDropIndex dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
-    return nil;
-}
-/* Invoked after it has been determined that a drag should begin, but before the drag has been started. */
-- (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard {
-    return NO;
-}
+
 #pragma mark - MBSidebarViewDelegate Protocol
 
 /*
@@ -408,9 +393,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if ([node isKindOfClass:[MBox class]]) {
         for (id portal in portals) {
             if ([portal isKindOfClass:[MBViewPortalSelection class]]) {
-                DDLogCVerbose(@"Change portal: %@ selection to node: %@", portal, node);
+                DDLogCVerbose(@"Change selection portal: %@ selection to node: %@", portal, node);
                 [(MBViewPortalSelection*)portal setName: [node name]];
                 [(MBViewPortalSelection*)portal setMessageArraySource: node];
+            } else if ([portal isKindOfClass:[MBViewPortalMBox class]]) {
+                //
+                DDLogCVerbose(@"Change mbox portal: %@ selection to node: %@", portal, node);
             }
         }
     } else if ([node isKindOfClass:[MBSmartFolder class]]) {

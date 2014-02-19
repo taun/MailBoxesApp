@@ -332,7 +332,7 @@
                                                                     <connections>
                                                                         <binding destination="1133" name="content" keyPath="arrangedObjects" id="1144"/>
                                                                         <binding destination="1133" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="1144" id="1224"/>
-                                                                        <outlet property="delegate" destination="494" id="bxJ-PX-seD"/>
+                                                                        <outlet property="delegate" destination="bIW-c3-jgM" id="eE7-kH-RDX"/>
                                                                         <outlet property="itemPrototype" destination="1271" id="1272"/>
                                                                         <outlet property="viewedMessagesArrayController" destination="CbG-mD-A5W" id="2Ub-Y7-fRL"/>
                                                                     </connections>
@@ -397,7 +397,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" id="IbM-9h-U1Q">
-                                                            <rect key="frame" x="734" y="1" width="16" height="330"/>
+                                                            <rect key="frame" x="735" y="1" width="15" height="330"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>
@@ -621,6 +621,12 @@
             </connections>
         </arrayController>
         <collectionViewItem nibName="MBVPortalViewController" id="1271" userLabel="Collection View Item - MBVPortalViewController" customClass="MBPortalViewController"/>
+        <customObject id="bIW-c3-jgM" customClass="MBPortalsCollectionViewController">
+            <connections>
+                <outlet property="userController" destination="1020" id="sYM-Hx-AdX"/>
+                <outlet property="view" destination="1128" id="SrZ-BY-uhw"/>
+            </connections>
+        </customObject>
         <customObject id="1388" userLabel="EditPortalSheet" customClass="MBPPEWindowController">
             <connections>
                 <outlet property="appSelectedUserObjectController" destination="1020" id="1397"/>

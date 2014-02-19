@@ -40,6 +40,14 @@
 			<key>UTTypeTagSpecification</key>
 			<dict/>
 		</dict>
+		<dict>
+			<key>UTTypeDescription</key>
+			<string>Mail Portal</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.moedae.mailboxes.viewportal</string>
+			<key>UTTypeTagSpecification</key>
+			<dict/>
+		</dict>
 	</array>
 </dict>
 </plist>

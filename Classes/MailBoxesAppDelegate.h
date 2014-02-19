@@ -11,12 +11,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBSidebarViewController.h"
+#import "MBPortalsCollectionView.h"
 
 @class MBAccountWindowController;
 @class MBPPEWindowController;
 @class MainSplitViewDelegate;
 @class MBUser;
-@class MBPortalsCollectionView;
 @class MBAccountsCoordinator;
 @class MBMessage;
 @class MBMessageViewController;
@@ -28,7 +28,7 @@ NSString *PortalEditingEndedKey;
  The standard AppDelegate class.
  
  */
-@interface MailBoxesAppDelegate : NSObject <NSApplicationDelegate, MBSidebarViewDelegate, NSCollectionViewDelegate>
+@interface MailBoxesAppDelegate : NSObject <NSApplicationDelegate, MBSidebarViewDelegate, MBPortalsCollectionDelegate>
 
 /// @name Main window views and controls
 /*! Standard AppDelegate window */

@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 
+@class MBoxProxy;
+
+extern NSString * const MBPasteboardTypeViewPortal;
 
 @protocol MBPortalsCollectionDelegate <NSObject>
 
--(void) portalMessageSelectionDidChange;
+-(void) addPortalForMBox: (MBoxProxy*)boxProxy;
 
 @end
 
@@ -36,7 +39,7 @@
     Subclass in order to add observer of currently selected message
     as each new portal is added.
  */
-@interface MBPortalsCollectionView : NSCollectionView
+@interface MBPortalsCollectionView : NSCollectionView 
 
 @property (weak)            IBOutlet NSArrayController          *viewedMessagesArrayController;
 
