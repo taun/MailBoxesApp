@@ -9,6 +9,7 @@
 #import "MBox+IMAP.h"
 #import "MBMessage+IMAP.h"
 #import "MBFlag+IMAP.h"
+#import "MBoxProxy.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -18,6 +19,44 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 @implementation MBox (IMAP)
 
+- (void)encodeWithCoder:(NSCoder *)coder {
+    //    for (NSString* key in [MBAccount keysToBeCopied]) {
+    //        <#statements#>
+    //    }
+    NSURL* objectURL = [[self objectID] URIRepresentation];
+    [coder encodeObject: [objectURL absoluteString] forKey: @"managedObjectURL"];
+    [coder encodeObject: self.name forKey:@"name"];
+    [coder encodeObject: self.desc forKey:@"desc"];
+    [coder encodeObject: self.fullPath forKey:@"fullPath"];
+    [coder encodeObject: self.uid forKey:@"uid"];
+    //    [coder encodeFloat:magnification forKey:@"MVMagnification"];
+}
+
+- (id) initWithCoder:(NSCoder *)coder {
+    NSManagedObjectContext* moc = [[NSApp delegate] managedObjectContext];
+    if (moc) {
+        self = [NSEntityDescription
+                insertNewObjectForEntityForName: NSStringFromClass([self class])
+                inManagedObjectContext: moc];
+        if (self) {
+            self.name = [coder decodeObjectForKey: @"name"];
+            self.desc = [coder decodeObjectForKey: @"desc"];
+            self.fullPath = [coder decodeObjectForKey: @"fullPath"];
+            self.uid = [coder decodeObjectForKey: @"uid"];
+        }
+    }
+    return self;
+}
+
+-(MBoxProxy*) asMBoxProxy {
+    MBoxProxy* proxy = [MBoxProxy new];
+    proxy.name = self.name;
+    proxy.desc = self.desc;
+    proxy.fullPath = self.fullPath;
+    proxy.uid = self.uid;
+    proxy.objectURL = [self.objectID URIRepresentation];
+    return proxy;
+}
 
 #pragma message "TODO: deal with errors "
 - (MBMessage *) findMessageForUID: (NSNumber *) uid {

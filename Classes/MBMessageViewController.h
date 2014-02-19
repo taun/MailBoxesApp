@@ -38,10 +38,10 @@
 @property (strong) IBOutlet NSPopover *partsPopover;
 
 #pragma Envelope Fields
-@property (weak) IBOutlet NSTextField *subject;
-@property (weak) IBOutlet NSTextField *dateSent;
-@property (weak) IBOutlet NSTextField *recipients;
-@property (weak) IBOutlet NSTextField *sender;
+//@property (weak) IBOutlet NSTextField *subject;
+//@property (weak) IBOutlet NSTextField *dateSent;
+//@property (weak) IBOutlet NSTextField *recipients;
+//@property (weak) IBOutlet NSTextField *sender;
 
 @property (weak) IBOutlet MBMessageHeaderView *messageHeader;
 @property (weak) IBOutlet NSComboBox *recipientsBox;

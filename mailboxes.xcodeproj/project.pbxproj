@@ -68,6 +68,8 @@
 		C50DD7F013730284002A6CD6 /* MBPortalView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD7EF13730284002A6CD6 /* MBPortalView.m */; };
 		C50DD7F3137440FD002A6CD6 /* MBPortal+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD7F2137440FD002A6CD6 /* MBPortal+IMAP.m */; };
 		C50DD8171374F0BC002A6CD6 /* MBPortalsCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD8161374F0BB002A6CD6 /* MBPortalsCollectionView.m */; };
+		C512EC8218B44DB40020B77C /* mbox.iconset in Resources */ = {isa = PBXBuildFile; fileRef = C512EC8118B44DB40020B77C /* mbox.iconset */; };
+		C512EC8518B452260020B77C /* MBoxProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C512EC8418B452260020B77C /* MBoxProxy.m */; };
 		C524A82A180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C524A829180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m */; };
 		C524A82B180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C524A829180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m */; };
 		C527915F188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C527915E188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.m */; };
@@ -314,6 +316,9 @@
 		C50DD7F2137440FD002A6CD6 /* MBPortal+IMAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBPortal+IMAP.m"; path = "Classes/MBPortal+IMAP.m"; sourceTree = "<group>"; };
 		C50DD8151374F0BB002A6CD6 /* MBPortalsCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPortalsCollectionView.h; sourceTree = "<group>"; };
 		C50DD8161374F0BB002A6CD6 /* MBPortalsCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPortalsCollectionView.m; sourceTree = "<group>"; };
+		C512EC8118B44DB40020B77C /* mbox.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = mbox.iconset; path = Resources/mbox.iconset; sourceTree = "<group>"; };
+		C512EC8318B452260020B77C /* MBoxProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBoxProxy.h; path = Classes/MBoxProxy.h; sourceTree = "<group>"; };
+		C512EC8418B452260020B77C /* MBoxProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBoxProxy.m; path = Classes/MBoxProxy.m; sourceTree = "<group>"; };
 		C524A828180F3CB100F1E0D1 /* MBMIMECharsetTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMIMECharsetTransformer.h; sourceTree = "<group>"; };
 		C524A829180F3CB100F1E0D1 /* MBMIMECharsetTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMIMECharsetTransformer.m; sourceTree = "<group>"; };
 		C527915D188D9D1A00298D01 /* MBSimpleRFC822AddressToStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSimpleRFC822AddressToStringTransformer.h; sourceTree = "<group>"; };
@@ -874,6 +879,8 @@
 				C5DB7E5E13FDBB7D00C73188 /* Core Data */,
 				C55ECABA18AA8CD000BD1E2A /* MBEncodedString.h */,
 				C55ECABB18AA8CD000BD1E2A /* MBEncodedString.m */,
+				C512EC8318B452260020B77C /* MBoxProxy.h */,
+				C512EC8418B452260020B77C /* MBoxProxy.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -902,6 +909,7 @@
 		C5C7A564128B93EC006B1E86 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C512EC8118B44DB40020B77C /* mbox.iconset */,
 				C5A582DD17FC994C007F08B9 /* Images */,
 				C58872FD1475B83200F2A9C6 /* Icons */,
 				C59C7DA613FA050300D78D68 /* IMAP */,
@@ -1338,6 +1346,7 @@
 				C558907B18A01C730005CAAD /* MBAutolayoutViewController.xib in Resources */,
 				C5A82838181FF42F009F56EA /* MBMessageOutlineViewController.xib in Resources */,
 				C59C7DA813FA055800D78D68 /* SpecialUseMailboxes.plist in Resources */,
+				C512EC8218B44DB40020B77C /* mbox.iconset in Resources */,
 				C57B8D8E1432BFF10052B67E /* MailBoxesDataModelModel.strings in Resources */,
 				C56B46A7143F83B900167121 /* MBVPortalViewController.xib in Resources */,
 				C5D3C6B21460CE4600E739C5 /* AppleTips.rtf in Resources */,
@@ -1550,6 +1559,7 @@
 				C5A7B3FC181ED20800DE00AE /* MBApplicationView.m in Sources */,
 				C5974077147199350033E4CF /* MBLabel.m in Sources */,
 				C597407A1471997D0033E4CF /* MBPortal.m in Sources */,
+				C512EC8518B452260020B77C /* MBoxProxy.m in Sources */,
 				C597407D1471997D0033E4CF /* MBFlag.m in Sources */,
 				C597408014719EE20033E4CF /* MBSidebar+Accessors.m in Sources */,
 				C59740831471AC120033E4CF /* MBUser.m in Sources */,

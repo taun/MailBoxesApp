@@ -10,6 +10,7 @@
 #import "MBox.h"
 
 @class MBFlag;
+@class MBoxProxy;
 
 #define MBoxImageName @"folder_16"
 
@@ -55,5 +56,11 @@
 - (MBFlag *) findFlagForServerName: (NSString *) serverName;
 
 -(NSNumber*) lowestUID;
+
+- (void)encodeWithCoder:(NSCoder *)coder;
+
+- (id)initWithCoder: (NSCoder *)coder;
+
+-(MBoxProxy*) asMBoxProxy;
 
 @end

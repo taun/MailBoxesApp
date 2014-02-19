@@ -39,7 +39,7 @@
                                     <textField horizontalHuggingPriority="900" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1j-tJ-Va9">
                                         <rect key="frame" x="391" y="113" width="47" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="sender" id="uZQ-ae-hO1">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="sender" id="uZQ-ae-hO1">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -55,8 +55,27 @@
                                             </binding>
                                         </connections>
                                     </textField>
+                                    <textField horizontalHuggingPriority="900" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BzI-kt-IXz">
+                                        <rect key="frame" x="387" y="88" width="51" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="replyTo" id="cql-ty-323">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <accessibility help="Sender"/>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.representedObject.addressReplyTo" id="SfK-SH-ImQ">
+                                                <dictionary key="options">
+                                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                    <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
                                     <textField horizontalHuggingPriority="814" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mqd-3z-t15">
-                                        <rect key="frame" x="369" y="88" width="59" height="17"/>
+                                        <rect key="frame" x="369" y="51" width="59" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="dateSent" id="9VQ-BA-VAt">
                                             <dateFormatter key="formatter" dateStyle="short" timeStyle="short" doesRelativeDateFormatting="YES" id="7ym-bj-ZAa"/>
@@ -125,6 +144,7 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="QgS-JV-yC2" secondAttribute="bottom" constant="20" id="2cT-9I-VBS"/>
                                     <constraint firstItem="3oG-Cl-2yQ" firstAttribute="top" secondItem="LFh-Jj-pYw" secondAttribute="top" constant="6" id="5Pu-Ct-WXF"/>
+                                    <constraint firstAttribute="trailing" secondItem="BzI-kt-IXz" secondAttribute="trailing" id="Ef8-Fy-Jl8"/>
                                     <constraint firstItem="QgS-JV-yC2" firstAttribute="top" secondItem="dcE-LI-xZa" secondAttribute="bottom" constant="8" id="FsY-QU-cS6"/>
                                     <constraint firstItem="QgS-JV-yC2" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" constant="10" id="O2S-yI-Ox7"/>
                                     <constraint firstItem="N1j-tJ-Va9" firstAttribute="top" secondItem="LFh-Jj-pYw" secondAttribute="top" constant="20" id="Ucl-N7-W34"/>
@@ -132,10 +152,11 @@
                                     <constraint firstAttribute="trailing" secondItem="N1j-tJ-Va9" secondAttribute="trailing" id="Vua-qE-Egn"/>
                                     <constraint firstAttribute="trailing" secondItem="Mqd-3z-t15" secondAttribute="trailing" constant="10" id="XsD-iu-YxQ"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="1200" id="bsa-2i-HuZ"/>
-                                    <constraint firstItem="Mqd-3z-t15" firstAttribute="top" secondItem="N1j-tJ-Va9" secondAttribute="bottom" constant="8" id="dGM-hA-Exu"/>
                                     <constraint firstItem="dcE-LI-xZa" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" id="gd6-aH-LI5"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="865" constant="300" id="jMo-EH-biA"/>
+                                    <constraint firstItem="dcE-LI-xZa" firstAttribute="baseline" secondItem="Mqd-3z-t15" secondAttribute="baseline" id="qbi-bS-VBa"/>
                                     <constraint firstItem="3oG-Cl-2yQ" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" constant="10" id="t6B-uD-nVd"/>
+                                    <constraint firstItem="BzI-kt-IXz" firstAttribute="top" secondItem="N1j-tJ-Va9" secondAttribute="bottom" constant="8" id="wvo-Qp-nIF"/>
                                 </constraints>
                                 <accessibility description="Header" help="Header"/>
                                 <connections>

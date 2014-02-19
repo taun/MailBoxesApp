@@ -723,5 +723,12 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 		when getting part, index is 1 meaning it does not get placed properly.\
 		need a simple plain text message to have index of 1.\
 		inspect parsing of body structure.\
+2014-02-18\
+	Drag and drop\
+		implement MBoxProxy for writing and reading from Pasteboard\
+		in SidebarView -> write MBoxProxy to pasteboard\
+		in PortalsCollection -> read MBoxProxy from pasteboard and create suitable Portal\
+	Using MBoxProxy so we can read and write/pass minimal necessary string information rather than full Mbox structure with nodes, .....\
+	Once working, repeat for other types\
 \
 }

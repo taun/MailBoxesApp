@@ -17,12 +17,13 @@
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
 #import "MBAccountWindowController.h"
+#import "MBoxProxy.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_INFO;
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MBSidebarViewController
 
@@ -30,10 +31,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self.view setFloatsGroupRows: NO];
     //[self expandItem:nil expandChildren:YES];
     
-    [self.view registerForDraggedTypes:@[@"MBSmartFolder", 
-                                        @"MBAccount", 
-                                        @"MBFavorites", 
-                                        @"MBAddressList"]];
+    [self.view registerForDraggedTypes:@[@"MBSmartFolder",
+                                         @"MBox", @"MBoxProxy", MBPasteboardTypeMbox,
+                                         @"MBAccount",
+                                         @"MBFavorites",
+                                         @"MBAddressList"]];
     
     [self.view setDraggingSourceOperationMask: NSDragOperationEvery forLocal:YES];
     
@@ -553,6 +555,14 @@ itemForPersistentObject:(id)object {
 //        NSData* data = [NSData data];
         [pasteboard setData: data forType:@"MBSmartFolder"];
         
+        result = YES;
+    } else if ([[items lastObject] isKindOfClass: [MBox class]]) {
+        MBox* box = (MBox*)[items lastObject];
+        MBoxProxy* proxy = [box asMBoxProxy];
+        NSArray* proxyItems = @[proxy];
+        [pasteboard writeObjects: proxyItems];
+//        NSData *data = [NSKeyedArchiver archivedDataWithRootObject: items];
+//        [pasteboard setData: data forType:@"MBox"];
         result = YES;
     } else if ([[items lastObject] isKindOfClass: [MBAccount class]]) {
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject: items];
