@@ -21,11 +21,12 @@ NSString * const MBPasteboardTypeMbox = @"com.moedae.mailboxes.mbox";
 {
     self = [super init];
     if (self) {
-        self.objectURL = [coder decodeObjectForKey: @"objectURL"];
+        self.objectURL = [NSURL URLWithString:[coder decodeObjectForKey: @"objectURL"]];
         self.name = [coder decodeObjectForKey: @"name"];
         self.desc = [coder decodeObjectForKey: @"desc"];
         self.fullPath = [coder decodeObjectForKey: @"fullPath"];
         self.uid = [coder decodeObjectForKey: @"uid"];
+        self.accountIdentifier = [coder decodeObjectForKey: @"accountIdentifier"];
     }
     return self;
 }
@@ -37,6 +38,7 @@ NSString * const MBPasteboardTypeMbox = @"com.moedae.mailboxes.mbox";
     [coder encodeObject: self.desc forKey:@"desc"];
     [coder encodeObject: self.fullPath forKey:@"fullPath"];
     [coder encodeObject: self.uid forKey:@"uid"];
+    [coder encodeObject: self.accountIdentifier forKey:@"accountIdentifier"];
 }
 
 #pragma mark - PasteboardReading

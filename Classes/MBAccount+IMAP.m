@@ -62,7 +62,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 //        <#statements#>
 //    }
     NSURL* objectURL = [[self objectID] URIRepresentation];
-    [coder encodeObject: [objectURL absoluteString] forKey: @"managedObjectURL"];
+    [coder encodeObject: [objectURL absoluteString] forKey: @"managedObjectURL"]; // is this use anywhere?
     [coder encodeObject: self.name forKey:@"name"];
     [coder encodeObject: self.desc forKey:@"desc"];
     [coder encodeObject: self.address forKey:@"address"];

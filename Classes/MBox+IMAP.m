@@ -10,6 +10,7 @@
 #import "MBMessage+IMAP.h"
 #import "MBFlag+IMAP.h"
 #import "MBoxProxy.h"
+#import "MBAccount+Accessors.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -49,12 +50,15 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 -(MBoxProxy*) asMBoxProxy {
+    MBAccount* account = self.accountReference;
+
     MBoxProxy* proxy = [MBoxProxy new];
     proxy.name = self.name;
     proxy.desc = self.desc;
     proxy.fullPath = self.fullPath;
     proxy.uid = self.uid;
     proxy.objectURL = [self.objectID URIRepresentation];
+    proxy.accountIdentifier = account.identifier;
     return proxy;
 }
 
