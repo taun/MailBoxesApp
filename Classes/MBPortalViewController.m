@@ -37,7 +37,9 @@ CGFloat ONEROW = 18.0;
 
 -(void) setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
-    [self addObserver: self forKeyPath: @"collectionView" options: NSKeyValueObservingOptionOld context: NULL];
+    if (representedObject) {
+        [self addObserver: self forKeyPath: @"collectionView" options: NSKeyValueObservingOptionOld context: NULL];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -49,6 +51,14 @@ CGFloat ONEROW = 18.0;
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
+
+
+- (void)dealloc {
+    [self removeObserver: self forKeyPath: @"collectionView"];
+    [self removeObserver: self.collectionView forKeyPath: @"selectedMessages"];
+    [_tableView setDelegate: nil];
+}
+
 
 - (NSArray*) collectionItemSortDescriptors {
     if(_collectionItemSortDescriptors == nil) {
@@ -194,10 +204,5 @@ CGFloat ONEROW = 18.0;
 //- (void)tableView:(NSTableView *)tableView didAddRowView:(NSTableRowView *)rowView forRow:(NSInteger)row {
 //    DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 //}
-
-- (void)dealloc {
-    [self removeObserver: self.collectionView forKeyPath: @"selectedMessages"];
-    [_tableView setDelegate: nil];
-}
 
 @end
