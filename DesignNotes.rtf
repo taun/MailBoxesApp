@@ -730,5 +730,12 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 		in PortalsCollection -> read MBoxProxy from pasteboard and create suitable Portal\
 	Using MBoxProxy so we can read and write/pass minimal necessary string information rather than full Mbox structure with nodes, .....\
 	Once working, repeat for other types\
+2014-02-20\
+	NSOrderedSet workarounds\
+		Bound to array controller content using model key path "self.portals.@array" where "portals" is the NSOrderedSet\
+		**CoreData [NSSet intersectsSet:]: set argument is not an NSSet error\
+		Fixed by inverting assignment. "child.parent = parent" rather than "[parent addChildsObject: child]"\
+\
+\
 \
 }
