@@ -13,7 +13,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <userDefaultsController id="583"/>
-        <window title="MailBoxes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
+        <window title="MailBoxes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" appearanceType="lightContent" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES"/>
             <rect key="contentRect" x="449" y="410" width="1024" height="687"/>
@@ -125,21 +125,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="272" height="651"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1057">
+                                    <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1057">
                                         <rect key="frame" x="0.0" y="25" width="271" height="626"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="kgZ-jh-3MW">
-                                            <rect key="frame" x="1" y="1" width="269" height="624"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="271" height="626"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="948" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" typeSelect="NO" autosaveName="AccountSidebarView" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="14" outlineTableColumn="1062" id="1061" customClass="MBSidebarView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="269" height="624"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="271" height="626"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn identifier="Name" editable="NO" width="266" minWidth="16" maxWidth="1000" id="1062" userLabel="Table Column - Mail Boxes">
+                                                        <tableColumn identifier="Name" editable="NO" width="268" minWidth="16" maxWidth="1000" id="1062" userLabel="Table Column - Mail Boxes">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Mail Boxes">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -153,11 +153,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="HeaderCell" id="1413" userLabel="HeaderCell">
-                                                                    <rect key="frame" x="1" y="0.0" width="266" height="17"/>
+                                                                    <rect key="frame" x="1" y="0.0" width="268" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1414">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="83" height="17"/>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1414">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="85" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" continuous="YES" sendsActionOnEndEditing="YES" title="Header View" id="1415">
                                                                                 <font key="font" metaFont="system"/>
@@ -178,7 +178,7 @@
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <tableCellView identifier="MainCell" horizontalCompressionResistancePriority="745" id="1463" userLabel="MainCell" customClass="MBSidebarTableCellView">
-                                                                    <rect key="frame" x="1" y="17" width="266" height="17"/>
+                                                                    <rect key="frame" x="1" y="17" width="268" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
                                                                         <imageView translatesAutoresizingMaskIntoConstraints="NO" id="1464">
@@ -191,8 +191,8 @@
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="1467"/>
                                                                             <accessibility help="Folder image"/>
                                                                         </imageView>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1465">
-                                                                            <rect key="frame" x="25" y="0.0" width="68" height="17"/>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1465">
+                                                                            <rect key="frame" x="25" y="0.0" width="70" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="Ndw-3b-Zew"/>
@@ -205,7 +205,7 @@
                                                                             <accessibility help="Account or folder name"/>
                                                                         </textField>
                                                                         <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1470">
-                                                                            <rect key="frame" x="202" y="0.0" width="56" height="19"/>
+                                                                            <rect key="frame" x="204" y="0.0" width="56" height="19"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                             <buttonCell key="cell" type="roundRect" title="Unread" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1471">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -309,25 +309,25 @@
                                 <rect key="frame" x="273" y="0.0" width="751" height="651"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <splitView wantsLayer="YES" focusRingType="none" autosaveName="MainPaneSplitterAutosave" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="1080">
+                                    <splitView wantsLayer="YES" autosaveName="MainPaneSplitterAutosave" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="1080">
                                         <rect key="frame" x="0.0" y="0.0" width="751" height="651"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <customView wantsLayer="YES" focusRingType="none" id="1081" userLabel="Portals View">
+                                            <customView id="1081" userLabel="Portals View">
                                                 <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView toolTip="Drag and drop folders into this view to create a new portal. " wantsLayer="YES" focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1125">
+                                                    <scrollView toolTip="Drag and drop folders into this view to create a new portal. " focusRingType="exterior" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1125">
                                                         <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                                        <clipView key="contentView" wantsLayer="YES" copiesOnScroll="NO" id="Wgf-b4-naE">
-                                                            <rect key="frame" x="1" y="1" width="749" height="316"/>
+                                                        <clipView key="contentView" copiesOnScroll="NO" id="Wgf-b4-naE" customClass="MBClipViewFocusing">
+                                                            <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <collectionView toolTip="Drag a folder here to create a new portal." wantsLayer="YES" focusRingType="none" selectable="YES" maxNumberOfColumns="6" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="749" height="316"/>
+                                                                <collectionView toolTip="Drag a folder here to create a new portal." focusRingType="exterior" horizontalCompressionResistancePriority="1000" selectable="YES" maxNumberOfRows="1" maxNumberOfColumns="6" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="primaryBackgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     <accessibility description="Drag a folder here to create a new portal." help="Portals"/>
                                                                     <connections>
                                                                         <binding destination="1133" name="content" keyPath="arrangedObjects" id="1144"/>
@@ -338,7 +338,7 @@
                                                                     </connections>
                                                                 </collectionView>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             <accessibility help="Portals"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1127">
@@ -365,15 +365,15 @@
                                                 <rect key="frame" x="0.0" y="319" width="751" height="332"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView wantsLayer="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-sY-zqu">
+                                                    <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-sY-zqu">
                                                         <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <clipView key="contentView" wantsLayer="YES" id="5k9-DR-QWV">
-                                                            <rect key="frame" x="1" y="1" width="749" height="330"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <view wantsLayer="YES" horizontalHuggingPriority="249" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-zj-tQH" customClass="MBMessagesDesktopView">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="749" height="330"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="751" height="332"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="contentBindingKeyPath" value="arrangedObjects"/>
@@ -391,13 +391,14 @@
                                                                 <constraint firstAttribute="trailing" secondItem="Ovp-zj-tQH" secondAttribute="trailing" priority="538" id="mfS-Fo-ANX"/>
                                                                 <constraint firstItem="Ovp-zj-tQH" firstAttribute="leading" secondItem="5k9-DR-QWV" secondAttribute="leading" id="z5Q-Zl-mll"/>
                                                             </constraints>
+                                                            <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" id="fzv-cM-tBI">
-                                                            <rect key="frame" x="1" y="315" width="749" height="16"/>
+                                                            <rect key="frame" x="0.0" y="316" width="751" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" id="IbM-9h-U1Q">
-                                                            <rect key="frame" x="735" y="1" width="15" height="330"/>
+                                                            <rect key="frame" x="735" y="0.0" width="16" height="332"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>
