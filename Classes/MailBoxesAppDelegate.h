@@ -28,7 +28,7 @@ NSString *PortalEditingEndedKey;
  The standard AppDelegate class.
  
  */
-@interface MailBoxesAppDelegate : NSObject <NSApplicationDelegate, MBSidebarViewDelegate, MBPortalsCollectionDelegate>
+@interface MailBoxesAppDelegate : NSObject <NSApplicationDelegate, MBSidebarViewDelegate>
 
 /// @name Main window views and controls
 /*! Standard AppDelegate window */
@@ -63,6 +63,7 @@ NSString *PortalEditingEndedKey;
  @see MBViewPortal
  @see MBCollectionView
  @see MBPortalViewController
+ @see MBPortalsCollectionViewController
  */
 @property(strong)           IBOutlet MBPortalsCollectionView         *collectionView;
 @property(strong)           IBOutlet NSSplitView              *messagesSplitView;

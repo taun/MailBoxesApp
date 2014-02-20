@@ -13,9 +13,17 @@
 
 NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal";
 
+@interface MBPortalsCollectionView ()
+
+@property (nonatomic,assign) BOOL       draggingInView;
+
+@end
 
 @implementation MBPortalsCollectionView
 
++ (BOOL) requiresConstraintBasedLayout {
+    return YES;
+}
 
 /*!
     @method newItemForRepresentedObject:
@@ -35,6 +43,9 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
 //    return newItem;
 //}
 
+-(NSString*) description {
+    return [super description];
+}
 
 - (void) awakeFromNib {
     
@@ -44,7 +55,7 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
                                     @"MBFavorites",
                                     @"MBAddressList",
                                     MBPasteboardTypeViewPortal, NSStringPboardType]];
-    
+    _draggingInView = NO;
 }
 
 
@@ -72,33 +83,32 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
 
 
 #pragma mark - Drag and Drop
-- (NSDragOperation)draggingEntered:(id < NSDraggingInfo >)sender {
-    
-    NSDragOperation dragOperation = NSDragOperationNone;
-    
-    if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
-        //
-        dragOperation = NSDragOperationMove;
-    } else if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
-        //
-        dragOperation = NSDragOperationLink;
-    }
-    return dragOperation;
+//- (NSDragOperation)draggingEntered:(id < NSDraggingInfo >)sender {
+//
+//    self.draggingInView = YES;
+//    
+//    return [(id<MBPortalsCollectionDelegate>)self.delegate draggingEntered: sender];
+//}
+//- (void)draggingExited:(id < NSDraggingInfo >)sender {
+//
+//    self.draggingInView = NO;
+//    
+//    [(id<MBPortalsCollectionDelegate>)self.delegate draggingExited: sender];
+//}
+//- (void)draggingEnded:(id < NSDraggingInfo >)sender {
+//
+//    self.draggingInView = NO;
+//    
+//    [(id<MBPortalsCollectionDelegate>)self.delegate draggingEnded: sender];
+//}
+- (void)updateDraggingItemsForDrag:(id < NSDraggingInfo >)sender {
+    [(id<MBPortalsCollectionDelegate>)self.delegate updateDraggingItemsForDrag: sender];
 }
 
-- (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender {
-
-    NSDragOperation dragOperation = NSDragOperationNone;
-    
-    if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
-        //
-        dragOperation = NSDragOperationMove;
-    } else if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
-        //
-        dragOperation = NSDragOperationLink;
-    }
-    return dragOperation;
-}
+//- (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender {
+//    return [super draggingUpdated: sender];
+////    return [(id<MBPortalsCollectionDelegate>)self.delegate draggingUpdated: sender];
+//}
 
 /*
  This method is invoked only if the most recent draggingEntered: or 
@@ -108,11 +118,10 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
  screen to their final location in your view, set the sender object’s 
  animatesToDestination property to YES in your implementation of this method.
  */
-- (BOOL)prepareForDragOperation:(id < NSDraggingInfo >)sender {
-    
-    [sender setAnimatesToDestination: YES];
-    return YES;
-}
+//- (BOOL)prepareForDragOperation:(id < NSDraggingInfo >)sender {
+//    return [super prepareForDragOperation: sender];
+////    return [(id<MBPortalsCollectionDelegate>)self.delegate prepareForDragOperation: sender];
+//}
 
 /*
  For this method to be invoked, the previous prepareForDragOperation: message must have returned YES. 
@@ -123,23 +132,8 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
  enumerate through the dragging items to set their destination frames and destination images.
  */
 - (BOOL)performDragOperation:(id < NSDraggingInfo >)sender {
-    
-    if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
-        //
-        NSString* draggedPortal = [[sender draggingPasteboard] stringForType: MBPasteboardTypeViewPortal];
-        
-    } else if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
-        //
-        NSArray* classes = @[[MBoxProxy class], [NSString class]];
-        NSArray* objects = [[sender draggingPasteboard] readObjectsForClasses: classes options: nil];
-        id draggedItem = [objects firstObject];
-        if ([draggedItem isKindOfClass:[MBoxProxy class]]) {
-            [(id<MBPortalsCollectionDelegate>)(self.delegate) addPortalForMBox: draggedItem];
-        }
-    }
-    
-    // create new portal!
-    return YES;
+//    return [super performDragOperation: sender];
+    return [(id<MBPortalsCollectionDelegate>)self.delegate performDragOperation: sender];
 }
 
 /*
@@ -154,9 +148,10 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
  in the view. When this method returns, the drag image is removed form the screen. If your final 
  visual representation matches the visual representation in the drag, this is a seamless transition.
  */
-- (void)concludeDragOperation:(id < NSDraggingInfo >)sender {
-    
-}
+//- (void)concludeDragOperation:(id < NSDraggingInfo >)sender {
+//    [super concludeDragOperation: sender];
+////    [(id<MBPortalsCollectionDelegate>)self.delegate concludeDragOperation: sender];
+//}
 
 
 @end

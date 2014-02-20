@@ -10,11 +10,13 @@
 #import "MBPortalsCollectionView.h"
 #import "MBUser+IMAP.h" // not sure we need more than just MBUser.h
 
-/*
+/*!
  Unused
  
  Thinking of moving some of MBPortalsCollectionView to here.
  Similar to MBSidebarViewController
+ 
+ Change to NSViewController subclass at some point?
  */
 @interface MBPortalsCollectionViewController : NSObject <NSCollectionViewDelegate, MBPortalsCollectionDelegate>
 

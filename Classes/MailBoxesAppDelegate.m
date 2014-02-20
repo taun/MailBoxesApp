@@ -266,7 +266,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     MBViewPortalSelection* selectionPortal = [NSEntityDescription insertNewObjectForEntityForName: @"MBViewPortalSelection"
                                                                            inManagedObjectContext:self.managedObjectContext];
     selectionPortal.name = @"Default";
-    [self.currentUser addPortalsObject: selectionPortal];
+    selectionPortal.user = self.currentUser;
+//    [self.currentUser addPortalsObject: selectionPortal];
 }
 - (BOOL)isThereAUser {
     BOOL status = NO;

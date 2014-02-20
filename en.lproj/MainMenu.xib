@@ -156,8 +156,8 @@
                                                                     <rect key="frame" x="1" y="0.0" width="268" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1414">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="85" height="17"/>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1414">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="83" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" continuous="YES" sendsActionOnEndEditing="YES" title="Header View" id="1415">
                                                                                 <font key="font" metaFont="system"/>
@@ -191,8 +191,8 @@
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="1467"/>
                                                                             <accessibility help="Folder image"/>
                                                                         </imageView>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1465">
-                                                                            <rect key="frame" x="25" y="0.0" width="70" height="17"/>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1465">
+                                                                            <rect key="frame" x="25" y="0.0" width="68" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="Ndw-3b-Zew"/>
@@ -320,7 +320,7 @@
                                                     <scrollView toolTip="Drag and drop folders into this view to create a new portal. " focusRingType="exterior" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1125">
                                                         <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                                        <clipView key="contentView" copiesOnScroll="NO" id="Wgf-b4-naE" customClass="MBClipViewFocusing">
+                                                        <clipView key="contentView" copiesOnScroll="NO" id="Wgf-b4-naE">
                                                             <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -614,11 +614,7 @@
             <connections>
                 <binding destination="494" name="managedObjectContext" keyPath="nibManagedObjectContext" id="1381"/>
                 <binding destination="494" name="sortDescriptors" keyPath="portalsACSortDescriptors" id="1194"/>
-                <binding destination="1020" name="contentSet" keyPath="selection.self.portals" id="1486">
-                    <dictionary key="options">
-                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                    </dictionary>
-                </binding>
+                <binding destination="1020" name="contentArray" keyPath="selection.self.portals.@array" id="kaT-sh-jpg"/>
             </connections>
         </arrayController>
         <collectionViewItem nibName="MBVPortalViewController" id="1271" userLabel="Collection View Item - MBVPortalViewController" customClass="MBPortalViewController"/>
