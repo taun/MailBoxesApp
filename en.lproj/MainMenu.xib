@@ -324,7 +324,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <collectionView toolTip="Drag a folder here to create a new portal." focusRingType="exterior" horizontalCompressionResistancePriority="1000" selectable="YES" maxNumberOfRows="1" maxNumberOfColumns="6" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
+                                                                <collectionView toolTip="Drag a folder here to create a new portal." focusRingType="exterior" horizontalCompressionResistancePriority="1000" selectable="YES" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <color key="primaryBackgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>

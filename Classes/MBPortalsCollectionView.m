@@ -83,6 +83,31 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
 
 
 #pragma mark - Drag and Drop
+
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context {
+    NSDragOperation dragOperation = [super draggingSession: session sourceOperationMaskForDraggingContext: context];
+
+    switch(context) {
+        case NSDraggingContextOutsideApplication:
+            return NSDragOperationDelete;
+            break;
+            
+        case NSDraggingContextWithinApplication:
+        default:
+            return dragOperation;
+            break;
+    }
+    
+    return dragOperation;
+}
+
+- (void)draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
+    if (operation == NSDragOperationDelete) {
+        //
+        [(id<MBPortalsCollectionDelegate>)self.delegate deletePortalForDragSession: session];
+    }
+    [super draggingSession: session endedAtPoint: screenPoint operation: operation];
+}
 //- (NSDragOperation)draggingEntered:(id < NSDraggingInfo >)sender {
 //
 //    self.draggingInView = YES;
@@ -131,10 +156,10 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
  then setup any animation to arrange space for the drag items to animate to. Also at this time, 
  enumerate through the dragging items to set their destination frames and destination images.
  */
-- (BOOL)performDragOperation:(id < NSDraggingInfo >)sender {
-//    return [super performDragOperation: sender];
-    return [(id<MBPortalsCollectionDelegate>)self.delegate performDragOperation: sender];
-}
+//- (BOOL)performDragOperation:(id < NSDraggingInfo >)sender {
+////    return [super performDragOperation: sender];
+//    return [(id<MBPortalsCollectionDelegate>)self.delegate performDragOperation: sender];
+//}
 
 /*
  For this method to be invoked, the previous performDragOperation: must have returned YES.

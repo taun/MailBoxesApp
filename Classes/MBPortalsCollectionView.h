@@ -15,7 +15,8 @@ extern NSString * const MBPasteboardTypeViewPortal;
 
 @protocol MBPortalsCollectionDelegate <NSObject>
 
--(void) addPortalForMBox: (MBoxProxy*)boxProxy;
+-(void) addPortalForMBox: (MBoxProxy*)boxProxy atIndex: (NSUInteger) index;
+-(void) deletePortalForDragSession: (NSDraggingSession*) session;
 
 - (NSDragOperation)draggingEntered:(id < NSDraggingInfo >)sender;
 - (void)draggingExited:(id < NSDraggingInfo >)sender;

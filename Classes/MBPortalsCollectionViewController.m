@@ -15,7 +15,7 @@
 
 @interface MBPortalsCollectionViewController ()
 
-@property (nonatomic,assign) NSInteger  dragInsertion;
+//@property (nonatomic,assign) NSInteger  dragInsertion;
 
 @end
 
@@ -72,27 +72,93 @@
 - (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id < NSDraggingInfo >)draggingInfo proposedIndex:(NSInteger *)proposedDropIndex dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
     NSDragOperation dragOperation = NSDragOperationNone;
     
-    BOOL samePortal = [[collectionView selectionIndexes] containsIndex: *proposedDropIndex];
-    BOOL rightPortal = [[collectionView selectionIndexes] containsIndex: *proposedDropIndex - 1];
-    
-    if ((*proposedDropIndex != -1) && !samePortal && !rightPortal) {
-        if ((proposedDropOperation != nil) && (*proposedDropOperation == NSCollectionViewDropOn)) {
-            *proposedDropOperation = NSCollectionViewDropBefore;
+    if ([[draggingInfo draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
+        // intra collectionView dragging
+        // Assume only one portal can be selected for drag and drop so selection always has one index
+        BOOL samePortal = [[collectionView selectionIndexes] containsIndex: *proposedDropIndex];
+        BOOL rightPortal = [[collectionView selectionIndexes] containsIndex: *proposedDropIndex - 1];
+        
+        if ((*proposedDropIndex != -1) && !samePortal && !rightPortal) {
+            if ((proposedDropOperation != nil) && (*proposedDropOperation == NSCollectionViewDropOn)) {
+                *proposedDropOperation = NSCollectionViewDropBefore;
+            }
+            dragOperation = NSDragOperationMove;
+            //        self.dragInsertion = *proposedDropIndex; // should set in acceptDrop: below?
         }
+        
+    } else if ([[draggingInfo draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
+        // Dragging from the sidebar
+        // no NSDragOperationOn only Move
         dragOperation = NSDragOperationMove;
-        self.dragInsertion = *proposedDropIndex; // should set in acceptDrop: below?
     }
+
     
     return dragOperation;
 }
 /* Invoked when the mouse is released over a collection view that previously allowed a drop. */
 - (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id < NSDraggingInfo >)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation {
+
+    if ([[draggingInfo draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
+        // Assume only one portal can be selected for drag and drop so selection always has one index
+        //        NSString* draggedPortal = [[sender draggingPasteboard] stringForType: MBPasteboardTypeViewPortal];
+        NSUInteger selectedPortal = [collectionView.selectionIndexes firstIndex];
+//        NSUInteger newPosition = self.dragInsertion;
+        
+        
+        MBViewPortal* draggedPortal = [collectionView.content objectAtIndex: selectedPortal];
+        
+        [self movePortal: draggedPortal toIndex: index];
+        
+    } else if ([[draggingInfo draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
+        //
+        NSArray* classes = @[[MBoxProxy class], [NSString class]];
+        NSArray* objects = [[draggingInfo draggingPasteboard] readObjectsForClasses: classes options: nil];
+        id draggedItem = [objects firstObject];
+        if ([draggedItem isKindOfClass:[MBoxProxy class]]) {
+            [self addPortalForMBox: draggedItem atIndex: index];
+        }
+    }
+    
+    // create new portal!
     return YES;
 }
 
 #pragma mark - MBPortalsCollectionDelegate protocol
 
--(void) addPortalForMBox: (MBoxProxy*)boxProxy {
+-(void) removePortal: (MBViewPortal*) portal {
+    NSMutableOrderedSet* portals = [self.currentUser.portals mutableCopy];
+    
+   [portals removeObject: portal];
+    
+    self.currentUser.portals = [portals copy];
+    
+    portal.user = nil;
+    
+    [self.currentUser.managedObjectContext deleteObject: portal];
+}
+
+-(void) movePortal: (MBViewPortal*) portal toIndex: (NSUInteger) newIndex {
+    NSMutableOrderedSet* portals = [self.currentUser.portals mutableCopy];
+    
+    NSUInteger selectedPortalIndex = [portals indexOfObject: portal];
+    
+    if (selectedPortalIndex != NSNotFound) {
+        // portal is already in array
+        [portals removeObject: portal];
+        
+        if (newIndex > selectedPortalIndex) {
+            // moving to the right
+            // need to account for removing from current position and adding to new after everything slid left
+            newIndex = newIndex - 1;
+        }
+    }
+    
+    [portals insertObject: portal atIndex: newIndex];
+    
+    self.currentUser.portals = [portals copy];
+}
+
+-(void) addPortalForMBox: (MBoxProxy*)boxProxy atIndex: (NSUInteger) index {
     //    self.con
     MBViewPortalMBox* newPortal = [NSEntityDescription insertNewObjectForEntityForName: @"MBViewPortalMBox"
                                                                 inManagedObjectContext:self.managedObjectContext];
@@ -108,8 +174,18 @@
     [newPortal setName: [mailBox name]];
     [newPortal setMessageArraySource: mailBox];
     
-    newPortal.user = self.currentUser;
+    [self movePortal: newPortal toIndex: index];
+//    newPortal.user = self.currentUser;
 //    [self.currentUser addPortalsObject: newPortal];
+}
+
+-(void) deletePortalForDragSession: (NSDraggingSession*) session {
+    if ([[session draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
+        NSString* draggedPortalIndex = [[session draggingPasteboard] stringForType: MBPasteboardTypeViewPortal];
+        NSUInteger index = [draggedPortalIndex integerValue]; // returns 0 for a bad string. How to detect bad?
+        MBViewPortal* portalToDelete = [self.currentUser.portals objectAtIndex: index];
+        [self removePortal: portalToDelete];
+    }
 }
 
 #pragma mark - Forwarded View Drag and Drop
@@ -198,45 +274,47 @@
  If the sender object’s animatesToDestination was set to YES in prepareForDragOperation:,
  then setup any animation to arrange space for the drag items to animate to. Also at this time,
  enumerate through the dragging items to set their destination frames and destination images.
+ 
+ The standard NSCollectionView does not seem able to handle to reordering after a drag and drop so we do it here.
  */
-- (BOOL)performDragOperation:(id < NSDraggingInfo >)sender {
-    
-    if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
-        // Assume only one portal can be selected for drag and drop so selection always has one index
-//        NSString* draggedPortal = [[sender draggingPasteboard] stringForType: MBPasteboardTypeViewPortal];
-        NSUInteger selectedPortal = [self.view.selectionIndexes firstIndex];
-        NSUInteger newPosition = self.dragInsertion;
-        
-        MBViewPortal* draggedPortal = [self.view.content objectAtIndex: selectedPortal];
-        
-        NSMutableOrderedSet* portals = [self.currentUser.portals mutableCopy];
-        
-        [portals removeObject: draggedPortal];
-        
-        if (newPosition>selectedPortal) {
-            // moving to the right
-            // need to account for removing from current position and adding to new after everything slid left
-            newPosition = newPosition -1;
-        }
-        
-        [portals insertObject: draggedPortal atIndex: newPosition];
-        
-        self.currentUser.portals = [portals copy];
-//        sender drag
-        
-    } else if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
-        //
-        NSArray* classes = @[[MBoxProxy class], [NSString class]];
-        NSArray* objects = [[sender draggingPasteboard] readObjectsForClasses: classes options: nil];
-        id draggedItem = [objects firstObject];
-        if ([draggedItem isKindOfClass:[MBoxProxy class]]) {
-            [self addPortalForMBox: draggedItem];
-        }
-    }
-    
-    // create new portal!
-    return YES;
-}
+//- (BOOL)performDragOperation:(id < NSDraggingInfo >)sender {
+//    
+//    if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeViewPortal]]) {
+//        // Assume only one portal can be selected for drag and drop so selection always has one index
+////        NSString* draggedPortal = [[sender draggingPasteboard] stringForType: MBPasteboardTypeViewPortal];
+//        NSUInteger selectedPortal = [self.view.selectionIndexes firstIndex];
+//        NSUInteger newPosition = self.dragInsertion;
+//        
+//        MBViewPortal* draggedPortal = [self.view.content objectAtIndex: selectedPortal];
+//        
+//        NSMutableOrderedSet* portals = [self.currentUser.portals mutableCopy];
+//        
+//        [portals removeObject: draggedPortal];
+//        
+//        if (newPosition>selectedPortal) {
+//            // moving to the right
+//            // need to account for removing from current position and adding to new after everything slid left
+//            newPosition = newPosition -1;
+//        }
+//        
+//        [portals insertObject: draggedPortal atIndex: newPosition];
+//        
+//        self.currentUser.portals = [portals copy];
+////        sender drag
+//        
+//    } else if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
+//        //
+//        NSArray* classes = @[[MBoxProxy class], [NSString class]];
+//        NSArray* objects = [[sender draggingPasteboard] readObjectsForClasses: classes options: nil];
+//        id draggedItem = [objects firstObject];
+//        if ([draggedItem isKindOfClass:[MBoxProxy class]]) {
+//            [self addPortalForMBox: draggedItem];
+//        }
+//    }
+//    
+//    // create new portal!
+//    return YES;
+//}
 
 /*
  For this method to be invoked, the previous performDragOperation: must have returned YES.
@@ -250,8 +328,8 @@
  in the view. When this method returns, the drag image is removed form the screen. If your final
  visual representation matches the visual representation in the drag, this is a seamless transition.
  */
-- (void)concludeDragOperation:(id < NSDraggingInfo >)sender {
-    NSString* draggedPortal = [[sender draggingPasteboard] stringForType: MBPasteboardTypeViewPortal];
-}
+//- (void)concludeDragOperation:(id < NSDraggingInfo >)sender {
+//    NSString* draggedPortal = [[sender draggingPasteboard] stringForType: MBPasteboardTypeViewPortal];
+//}
 
 @end
