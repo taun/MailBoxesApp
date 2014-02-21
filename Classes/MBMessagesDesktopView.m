@@ -326,9 +326,12 @@ static NSString *placeholderItem = nil;
     
     [self _removeItemsViews];
     
-    for (i = 0; i < [_content count]; i++)
-    {
+    NSUInteger count = _content.count;
+    for (i = 0; i < count; i++) {
         [self.items addObject: placeholderItem];
+    }
+    if (count > 0) {
+        [self setNeedsUpdateConstraints: YES];
     }
     
 //    if (self.itemPrototype) {
@@ -337,7 +340,6 @@ static NSString *placeholderItem = nil;
 //        [self tile];
 //    }
     // flag to make sure all of the constraints are applied to the new subViews
-    [self setNeedsUpdateConstraints: YES];
 }
 
 //- (void) resizeSubviewsWithOldSize: (NSSize)aSize
