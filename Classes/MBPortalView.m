@@ -9,23 +9,41 @@
 #import "MBPortalView.h"
 
 
+@interface MBPortalView ()
+
+-(void) setupStyle;
+
+@end
+
 @implementation MBPortalView
 
 
-- (id)initWithFrame:(NSRect)frame
+-(void) setupStyle {
+    self.fillColor = [NSColor whiteColor];
+    self.cornerRadius = HUD_CORNER_RADIUS;
+    self.borderType = NSLineBorder;
+    self.borderColor = [NSColor darkGrayColor];
+    self.borderWidth = 1.0;
+    [self setContentViewMargins: NSMakeSize(0, 0)];
+}
+
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code here.
+        // Initialization code
+        [self setupStyle];
     }
-    
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setupStyle];
+    }
+    return self;
+}
 
-//- (void)drawRect:(NSRect)dirtyRect
-//{
-//    // Drawing code here.
-//}
 
 @end

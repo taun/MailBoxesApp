@@ -77,46 +77,46 @@ static NSString *placeholderItem = nil;
 
 - (void) updateConstraints {
     
-    if (self.items.count>0) {
-        NSCollectionViewItem *collectionItem = [self itemAtIndex: 0];
-        NSView *view = [collectionItem view];
-
-        [self addConstraints:@[
-                                    [NSLayoutConstraint constraintWithItem: self
-                                                                 attribute:NSLayoutAttributeTop
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:view
-                                                                 attribute:NSLayoutAttributeTop
-                                                                multiplier:1.0
-                                                                  constant: 5],
-                                    
-                                    [NSLayoutConstraint constraintWithItem: self
-                                                                 attribute:NSLayoutAttributeLeft
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:view
-                                                                 attribute:NSLayoutAttributeLeft
-                                                                multiplier:1.0
-                                                                  constant: 5],
-                                    
-                                    [NSLayoutConstraint constraintWithItem: self
-                                                                 attribute:NSLayoutAttributeRight
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:view
-                                                                 attribute:NSLayoutAttributeRight
-                                                                multiplier:1.0
-                                                                  constant: 5],
-
-                                    [NSLayoutConstraint constraintWithItem: self
-                                                                 attribute:NSLayoutAttributeBottom
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:view
-                                                                 attribute:NSLayoutAttributeBottom
-                                                                multiplier:1.0
-                                                                  constant: 10],
-                                    
-                                    
-                                    ]];
-        
+//    if (self.items.count>0) {
+//        NSCollectionViewItem *collectionItem = [self itemAtIndex: 0];
+//        NSView *view = [collectionItem view];
+//
+//        [self addConstraints:@[
+//                                    [NSLayoutConstraint constraintWithItem: self
+//                                                                 attribute:NSLayoutAttributeTop
+//                                                                 relatedBy:NSLayoutRelationEqual
+//                                                                    toItem:view
+//                                                                 attribute:NSLayoutAttributeTop
+//                                                                multiplier:1.0
+//                                                                  constant: 5],
+//                                    
+//                                    [NSLayoutConstraint constraintWithItem: self
+//                                                                 attribute:NSLayoutAttributeLeft
+//                                                                 relatedBy:NSLayoutRelationEqual
+//                                                                    toItem:view
+//                                                                 attribute:NSLayoutAttributeLeft
+//                                                                multiplier:1.0
+//                                                                  constant: 5],
+//                                    
+//                                    [NSLayoutConstraint constraintWithItem: self
+//                                                                 attribute:NSLayoutAttributeRight
+//                                                                 relatedBy:NSLayoutRelationEqual
+//                                                                    toItem:view
+//                                                                 attribute:NSLayoutAttributeRight
+//                                                                multiplier:1.0
+//                                                                  constant: 5],
+//
+//                                    [NSLayoutConstraint constraintWithItem: self
+//                                                                 attribute:NSLayoutAttributeBottom
+//                                                                 relatedBy:NSLayoutRelationEqual
+//                                                                    toItem:view
+//                                                                 attribute:NSLayoutAttributeBottom
+//                                                                multiplier:1.0
+//                                                                  constant: 10],
+//                                    
+//                                    
+//                                    ]];
+    
 //        [view addConstraint: [NSLayoutConstraint constraintWithItem: view
 //                                                          attribute:NSLayoutAttributeHeight
 //                                                          relatedBy:NSLayoutRelationGreaterThanOrEqual
@@ -124,13 +124,121 @@ static NSString *placeholderItem = nil;
 //                                                          attribute:NSLayoutAttributeNotAnAttribute
 //                                                         multiplier:1
 //                                                           constant: self.frame.size.height]];
-        
-        
-    }
+//        
+//        
+//    }
 
     // last
-    [super updateConstraints];
+//    [super updateConstraints];
+    NSUInteger itemCount = self.items.count;
+    NSMutableArray* collectionViews = [NSMutableArray arrayWithCapacity: itemCount];
+    
+    for (int i =0 ; i < itemCount ; i++) {
+        NSCollectionViewItem *collectionItem = [self itemAtIndex: i];
 
+        if (collectionItem) {
+            [collectionViews addObject: [collectionItem view]];
+        }
+    }
+    
+    NSUInteger viewCount = collectionViews.count;
+
+    if (viewCount > 0) {
+        NSArray* views = [collectionViews copy];
+        NSView* topView = views[0];
+        NSView* bottomView = topView;
+        
+        NSMutableArray* constraints = [NSMutableArray new];
+        // count is always 2+
+        // need to set top most and bottom most boundaries to self.mimeView boundary
+        // need to set inner boundaries equal to each other with a margin of X
+
+        // set topView top constraints to container
+        [constraints addObject: [NSLayoutConstraint constraintWithItem: topView
+                                                             attribute: NSLayoutAttributeTop
+                                                             relatedBy: NSLayoutRelationEqual
+                                                                toItem: self
+                                                             attribute: NSLayoutAttributeTop
+                                                            multiplier: 1.0
+                                                              constant: 4]];
+        
+
+        int i = 0;
+        while (i+1 < viewCount) {
+            // If there is only one item, this never enters and bottomView still = topView
+            topView = views[i];
+            bottomView = views[i+1];
+            
+            // always set middle
+            // set topView bottom to bottomView top
+            [constraints addObjectsFromArray: @[
+                                                [NSLayoutConstraint constraintWithItem: topView
+                                                                             attribute: NSLayoutAttributeBottom
+                                                                             relatedBy: NSLayoutRelationEqual
+                                                                                toItem: bottomView
+                                                                             attribute: NSLayoutAttributeTop
+                                                                            multiplier: 1.0
+                                                                              constant: 4],
+                                                [NSLayoutConstraint constraintWithItem: topView
+                                                                             attribute: NSLayoutAttributeLeft
+                                                                             relatedBy: NSLayoutRelationEqual
+                                                                                toItem: self
+                                                                             attribute: NSLayoutAttributeLeft
+                                                                            multiplier: 1.0
+                                                                              constant: 0],
+                                                [NSLayoutConstraint constraintWithItem: topView
+                                                                             attribute: NSLayoutAttributeRight
+                                                                             relatedBy: NSLayoutRelationEqual
+                                                                                toItem: self
+                                                                             attribute: NSLayoutAttributeRight
+                                                                            multiplier: 1.0
+                                                                              constant: 0],
+                                                ]];
+            
+            [topView setContentHuggingPriority: 250 forOrientation: NSLayoutConstraintOrientationHorizontal];
+            [topView setContentHuggingPriority: 750 forOrientation: NSLayoutConstraintOrientationVertical];
+            
+            [topView setContentCompressionResistancePriority: 250 forOrientation: NSLayoutConstraintOrientationHorizontal];
+            [topView setContentCompressionResistancePriority: 1000 forOrientation: NSLayoutConstraintOrientationVertical];
+            
+            i++;
+        }
+        
+        // set bottomView bottom constraints to container
+        [constraints addObjectsFromArray: @[
+                                            [NSLayoutConstraint constraintWithItem: bottomView
+                                                                         attribute: NSLayoutAttributeBottom
+                                                                         relatedBy: NSLayoutRelationEqual
+                                                                            toItem: self
+                                                                         attribute: NSLayoutAttributeBottom
+                                                                        multiplier: 1.0
+                                                                          constant: -4],
+                                            [NSLayoutConstraint constraintWithItem: bottomView
+                                                                         attribute: NSLayoutAttributeLeft
+                                                                         relatedBy: NSLayoutRelationEqual
+                                                                            toItem: self
+                                                                         attribute: NSLayoutAttributeLeft
+                                                                        multiplier: 1.0
+                                                                          constant: 0],
+                                            [NSLayoutConstraint constraintWithItem: bottomView
+                                                                         attribute: NSLayoutAttributeRight
+                                                                         relatedBy: NSLayoutRelationEqual
+                                                                            toItem: self
+                                                                         attribute: NSLayoutAttributeRight
+                                                                        multiplier: 1.0
+                                                                          constant: 0],
+                                            ]];
+        
+        [bottomView setContentHuggingPriority: 250 forOrientation: NSLayoutConstraintOrientationHorizontal];
+        [bottomView setContentHuggingPriority: 750 forOrientation: NSLayoutConstraintOrientationVertical];
+        
+        [bottomView setContentCompressionResistancePriority: 250 forOrientation: NSLayoutConstraintOrientationHorizontal];
+        [bottomView setContentCompressionResistancePriority: 1000 forOrientation: NSLayoutConstraintOrientationVertical];
+        
+        
+        [self addConstraints: constraints];
+    }
+    [super updateConstraints];
 }
 
 /*

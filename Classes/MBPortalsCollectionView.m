@@ -9,7 +9,7 @@
 #import "MBPortalsCollectionView.h"
 #import "MBPortalViewController.h"
 #import "MBoxProxy.h"
-#import "MBViewPortalMBox.h"
+//#import "MBViewPortalMBox.h"
 
 NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal";
 

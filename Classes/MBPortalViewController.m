@@ -34,9 +34,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 CGFloat ONEROW = 18.0;
 
+-(void) awakeFromNib {
+    if (self.tableView) {
+        [self.tableView setRowSizeStyle: NSTableViewRowSizeStyleCustom];
+    }
+    
+    if (self.tableView && self.representedObject) {
+        MBViewPortal* item = (MBViewPortal*) self.representedObject;
+        
+        CGFloat rowHeight = [item.rowHeight floatValue];
+        [self.tableView setRowHeight: rowHeight];
+    }
+}
 
 -(void) setRepresentedObject:(id)representedObject {
+    
     [super setRepresentedObject:representedObject];
+
     if (representedObject) {
         [self addObserver: self forKeyPath: @"collectionView" options: NSKeyValueObservingOptionOld context: NULL];
     }
@@ -93,10 +107,12 @@ CGFloat ONEROW = 18.0;
  
  */
 -(NSPredicate *) compoundPredicate {
-    //NSPredicate* results = [NSCompoundPredicate andPredicateWithSubpredicates: @[self.searchPredicate]];
-    //return results;
+    if (self.searchPredicate) {
+        NSPredicate* results = [NSCompoundPredicate andPredicateWithSubpredicates: @[self.searchPredicate]];
+        return results;
+    }
     return nil;
-            //[NSPredicate predicateWithFormat: [self valueForKeyPath: @"representedObject.predicateString"]], self.searchPredicate, nil]];    
+            //[NSPredicate predicateWithFormat: [self valueForKeyPath: @"representedObject.predicateString"]], self.searchPredicate, nil]];
 }
 
 #pragma clang diagnostic push
@@ -123,64 +139,75 @@ CGFloat ONEROW = 18.0;
     
 }
 
-- (NSTableViewRowSizeStyle) changeSize: (NSInteger) change {
-    NSInteger rowSizeStyle = [self.tableView rowSizeStyle];
-    NSTableViewRowSizeStyle newSizeStyle = NSTableViewRowSizeStyleMedium;
-    
-    if (change > 0) {
-        // increment
-        if (rowSizeStyle== NSTableViewRowSizeStyleMedium) {
-            newSizeStyle = NSTableViewRowSizeStyleLarge;
-        } else if (rowSizeStyle == NSTableViewRowSizeStyleLarge) {
-            newSizeStyle = NSTableViewRowSizeStyleLarge;
-        }
-    } else {
-        //decrement
-        if (rowSizeStyle == NSTableViewRowSizeStyleMedium) {
-            newSizeStyle = NSTableViewRowSizeStyleSmall;
-        } else if (rowSizeStyle == NSTableViewRowSizeStyleSmall) {
-            newSizeStyle = NSTableViewRowSizeStyleSmall;
-        }
-    }
-    return newSizeStyle;
-}
+//- (NSTableViewRowSizeStyle) changeSize: (NSInteger) change {
+//    NSInteger rowSizeStyle = [self.tableView rowSizeStyle];
+//    NSTableViewRowSizeStyle newSizeStyle = NSTableViewRowSizeStyleMedium;
+//    
+//    if (change > 0) {
+//        // increment
+//        if (rowSizeStyle== NSTableViewRowSizeStyleMedium) {
+//            newSizeStyle = NSTableViewRowSizeStyleLarge;
+//        } else if (rowSizeStyle == NSTableViewRowSizeStyleLarge) {
+//            newSizeStyle = NSTableViewRowSizeStyleLarge;
+//        }
+//    } else {
+//        //decrement
+//        if (rowSizeStyle == NSTableViewRowSizeStyleMedium) {
+//            newSizeStyle = NSTableViewRowSizeStyleSmall;
+//        } else if (rowSizeStyle == NSTableViewRowSizeStyleSmall) {
+//            newSizeStyle = NSTableViewRowSizeStyleSmall;
+//        }
+//    }
+//    return newSizeStyle;
+//}
 
 - (IBAction)growTableRows:(id)sender {
-    //CGFloat currentHeight = [tableView rowHeight];
-    //[tableView setRowHeight: currentHeight + ONEROW];   
-    //[tableView setRowSizeStyle: [self changeSize: 1]];
+    CGFloat currentHeight = [self.tableView rowHeight];
+    CGFloat newHeight = currentHeight + ONEROW;
+    if (newHeight <= 6*ONEROW) {
+        [self.tableView setRowHeight: currentHeight + ONEROW];
+        MBViewPortal* item = (MBViewPortal*) self.representedObject;
+        
+        item.rowHeight = [NSNumber numberWithFloat: newHeight];
+    }
+//    [self.tableView setRowSizeStyle: [self changeSize: 1]];
 }
 
 - (IBAction)shrinkTableRows:(id)sender {
-    //CGFloat currentHeight = [tableView rowHeight];
-    //[tableView setRowSizeStyle: [self changeSize: -1]];
+    CGFloat currentHeight = [self.tableView rowHeight];
+//    [self.tableView setRowSizeStyle: [self changeSize: -1]];
+    CGFloat newHeight = currentHeight - ONEROW;
 
-    //if (currentHeight >= (2*ONEROW)) {
-    //    [tableView setRowHeight: currentHeight - ONEROW];
-    //}
+    if (newHeight < 38) {
+        newHeight = 38.0;
+    }
+    [self.tableView setRowHeight: newHeight];
+    MBViewPortal* item = (MBViewPortal*) self.representedObject;
+    
+    item.rowHeight = [NSNumber numberWithFloat: newHeight];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     // Bold the text in the selected items, and unbold non-selected items
-    [self.tableView enumerateAvailableRowViewsUsingBlock:^(NSTableRowView *rowView, NSInteger row) {
-        // Enumerate all the views, and find the NSTableCellViews. This demo could hard-code things, as it knows that the first cell is always an NSTableCellView, but it is better to have more abstract code that works in more locations.
-        for (NSInteger column = 0; column < rowView.numberOfColumns; column++) {
-            NSView *cellView = [rowView viewAtColumn:column];
-            // Is this an NSTableCellView?
-            if ([cellView isKindOfClass:[NSTableCellView class]]) {
-                NSTableCellView *tableCellView = (NSTableCellView *)cellView;
-                // It is -- grab the text field and bold the font if selected
-                NSTextField *textField = tableCellView.textField;
-                NSInteger fontSize = [textField.font pointSize];
-                if (rowView.selected) {
-                    textField.font = [NSFont boldSystemFontOfSize:fontSize];
-                    //
-                } else {
-                    textField.font = [NSFont systemFontOfSize:fontSize];
-                }
-            }
-        }
-    }];
+//    [self.tableView enumerateAvailableRowViewsUsingBlock:^(NSTableRowView *rowView, NSInteger row) {
+//        // Enumerate all the views, and find the NSTableCellViews. This demo could hard-code things, as it knows that the first cell is always an NSTableCellView, but it is better to have more abstract code that works in more locations.
+//        for (NSInteger column = 0; column < rowView.numberOfColumns; column++) {
+//            NSView *cellView = [rowView viewAtColumn:column];
+//            // Is this an NSTableCellView?
+//            if ([cellView isKindOfClass:[NSTableCellView class]]) {
+//                NSTableCellView *tableCellView = (NSTableCellView *)cellView;
+//                // It is -- grab the text field and bold the font if selected
+//                NSTextField *textField = tableCellView.textField;
+//                NSInteger fontSize = [textField.font pointSize];
+//                if (rowView.selected) {
+//                    textField.font = [NSFont boldSystemFontOfSize:fontSize];
+//                    //
+//                } else {
+//                    textField.font = [NSFont systemFontOfSize:fontSize];
+//                }
+//            }
+//        }
+//    }];
 
     NSIndexSet* selectedRows = [self.tableView selectedRowIndexes];
     

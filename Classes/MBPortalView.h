@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+#define MBPORTALMARGIN 2.0
+#define HUD_CORNER_RADIUS 12.0
+#define HUD_OPACITY 1
+
 /*!
  @header
  
@@ -18,7 +22,7 @@
 /*!
  
 */
-@interface MBPortalView : NSView {
+@interface MBPortalView : NSBox {
 @private
     
 }

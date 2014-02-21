@@ -432,6 +432,7 @@
     <entity name="MBViewPortal" representedClassName="MBViewPortal" isAbstract="YES" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rowHeight" optional="YES" attributeType="Float" minValueString="0" maxValueString="600" defaultValueString="72" syncable="YES"/>
         <relationship name="messageArraySource" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBTreeNode" inverseName="contentViews" inverseEntity="MBTreeNode" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBUser" inverseName="portals" inverseEntity="MBUser" syncable="YES"/>
     </entity>

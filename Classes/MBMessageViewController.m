@@ -72,7 +72,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             [app.accountsCoordinator loadFullMessageID: messageID forAccountID: accountID];
         }
         NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
-        NSString* cellcontent = [addressToString transformedValue: [self.cachedAddressesTo objectAtIndex: 0]];
+        NSString* cellcontent;
+        if (self.cachedAddressesTo.count > 0) {
+            cellcontent = [addressToString transformedValue: [self.cachedAddressesTo objectAtIndex: 0]];
+        } else {
+            cellcontent = @"";
+        }
         [self.recipientsBox setObjectValue: cellcontent];
         
         //Get this from user preferences or toggle by a control
