@@ -177,6 +177,14 @@
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="attach_12" id="290"/>
                                                                     <accessibility help="Attachment icon"/>
+                                                                    <connections>
+                                                                        <binding destination="209" name="hidden" keyPath="objectValue.hasAttachment" id="nNj-ah-5FL">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
                                                                 </imageView>
                                                                 <textField identifier="addressFrom" verticalHuggingPriority="750" id="227">
                                                                     <rect key="frame" x="12" y="53" width="176" height="17"/>
