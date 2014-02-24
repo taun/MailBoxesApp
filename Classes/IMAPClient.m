@@ -266,7 +266,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         _parser.clientStore = self.clientStore;
         
         
-        _syncQuantaLW = 100;
+        _syncQuantaLW = 1000;
         _syncQuantaF = 20;
         
         _mboxSequenceUIDMap = [[NSMutableDictionary alloc] initWithCapacity:10];
