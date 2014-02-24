@@ -186,7 +186,7 @@
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
-- (void)testRFC2047SubjectUTF8QSpamA {
+- (void)testRFC2047SubjectUTF8QMalformedSpamA {
     NSError *error = nil;
     
     NSString *path = [self.testBundle pathForResource: @"rfc2047QEncodedSpam1" ofType: @"txt" inDirectory: @"answers"];
@@ -203,7 +203,7 @@
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
-- (void)testRFC2047SubjectUTF8QSpamB {
+- (void)testRFC2047SubjectUTF8QMalformedSpamB {
     NSError *error = nil;
     
     NSString *path = [self.testBundle pathForResource: @"rfc2047QEncodedSpam2" ofType: @"txt" inDirectory: @"answers"];

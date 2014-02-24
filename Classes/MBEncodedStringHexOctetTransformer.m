@@ -80,7 +80,6 @@
     NSScanner* scanner = [NSScanner scannerWithString: encodedHexedString.string];
     
     NSString* currentCharacter;
-    NSUInteger currentTrailingCharacters = scanner.string.length - scanner.scanLocation;
     
     while (![scanner isAtEnd]) {
         currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
@@ -89,8 +88,8 @@
                 // found underscore
                 [decodedMutableString appendString: @" "];
                 [scanner setScanLocation: ++(scanner.scanLocation)];
-            } else if ([currentCharacter isEqualToString: @"=" ] && (currentTrailingCharacters > 2)) {
-                // found "=" and need to get hex value
+            } else if ([currentCharacter isEqualToString: @"=" ] && (scanner.string.length - scanner.scanLocation > 2)) {
+                // found "=" and need to get next 2 char hex value
                 [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                 
                 // Need to manually get next two characters to convert to hex.
@@ -101,7 +100,7 @@
                     char utf8Chars[5];
                     NSUInteger unicodeIndex = 0;
                     utf8Chars[unicodeIndex] = hexCode;
-                    if ((encodedHexedString.encoding == NSUTF8StringEncoding) && (hexCode > 0x7f)) {
+                    if ((encodedHexedString.encoding == NSUTF8StringEncoding) && (hexCode > 0x7f) && (scanner.string.length - scanner.scanLocation > 2)) {
                         // Need to handle 2 to 4 encoded bytes
                         // decode byte count
                         // RFC 3269 UTF-8 definition
@@ -118,8 +117,7 @@
                         // 4bytes 11110xxx = F0, 11111xxx = F8, 00000111 = 07, 00111111 = 3F, 00111111 = 3F
                         
                         if ((hexCode & 0xE0) == 0xC0) {
-                            // 2 bytes
-#pragma message "ToDo: check for end of string before using a range"
+                            // 2 bytes, additional 3 chars
                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                             if ([currentCharacter isEqualToString: @"="]) {
                                 // get second byte
@@ -130,9 +128,8 @@
                                     utf8Chars[++unicodeIndex] = hexCode;
                                 }
                             }
-                        } else if ((hexCode & 0xF0) == 0xE0) {
-                            // 3 bytes
-#pragma message "ToDo: check for end of string before using a range"
+                        } else if (((hexCode & 0xF0) == 0xE0) && (scanner.string.length - scanner.scanLocation > 5)) {
+                            // 3 bytes, additional 6 chars
                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                             if ([currentCharacter isEqualToString: @"="]) {
                                 // get second byte
@@ -153,9 +150,8 @@
                                     }
                                 }
                             }
-                        } else if ((hexCode & 0xF8) == 0xF0) {
-                            // 4 bytes
-#pragma message "ToDo: check for end of string before using a range"
+                        } else if (((hexCode & 0xF8) == 0xF0) && (scanner.string.length - scanner.scanLocation > 8)) {
+                            // 4 bytes, additional 9 chars
                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                             if ([currentCharacter isEqualToString: @"="]) {
                                 // get second byte
