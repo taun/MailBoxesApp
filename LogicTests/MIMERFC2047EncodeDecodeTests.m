@@ -186,4 +186,38 @@
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
+- (void)testRFC2047SubjectUTF8QSpamA {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"rfc2047QEncodedSpam1" ofType: @"txt" inDirectory: @"answers"];
+    
+    self.sampleHeader = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
+    
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
+    
+    NSString* shouldBe = @"";
+    
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+
+- (void)testRFC2047SubjectUTF8QSpamB {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"rfc2047QEncodedSpam2" ofType: @"txt" inDirectory: @"answers"];
+    
+    self.sampleHeader = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
+    
+    NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
+    
+    NSString* shouldBe = @"";
+    
+    XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+
 @end

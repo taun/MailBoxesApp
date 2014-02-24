@@ -112,10 +112,11 @@
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
-
 -(void)testCharsetUTF8ToNS {
     
 }
+
+#pragma mark - Address Transform tests
 
 -(NSString*) tranformAddress: (id) address {
     NSValueTransformer* addressToStringTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];

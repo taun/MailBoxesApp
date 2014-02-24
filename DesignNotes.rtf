@@ -4,7 +4,7 @@
 \f6\fnil\fcharset0 Monaco;}
 {\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red237\green241\blue245;\red0\green116\blue0;
 \red247\green247\blue247;\red196\green26\blue22;\red39\green78\blue192;\red255\green0\blue0;\red92\green38\blue153;
-}
+\red81\green112\blue255;}
 \margl1440\margr1440\vieww18760\viewh15240\viewkind0
 \deftab720
 \pard\pardeftab720
@@ -735,7 +735,69 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 		Bound to array controller content using model key path "self.portals.@array" where "portals" is the NSOrderedSet\
 		**CoreData [NSSet intersectsSet:]: set argument is not an NSSet error\
 		Fixed by inverting assignment. "child.parent = parent" rather than "[parent addChildsObject: child]"\
+2014-02-22\
+	Problem - not decoding base64 text/html of multipart/related\
 \
-\
+\pard\tx529\pardeftab529\pardirnatural
+
+\f2\fs22 \cf0 \cb1 \CocoaLigature0    subject = "Re: Picture for the Westonian";\
+    summary = "Return-Path: kris.batley@westtown.edu\
+	Received: from mz0.moedae.com (LHLO mail.charcoalia.net) (68.238.253.173) by mail.charcoalia.net with LMTP; Thu, 20 Feb 2014 11:32:23 -0500 (EST)\
+	Received: from";\
+    uid = 760003;\
+\pard\tx529\pardeftab529\pardirnatural
+
+\f5\fs24 \cf0 \cb5 \CocoaLigature1 \
+
+\f3\b\fs22 \cf10 \cb1 \CocoaLigature0 (lldb) \cf0 po [[[0x6000002c51d0 childNodes] objectAtIndex: 0] data]\
+\pard\tx529\pardeftab529\pardirnatural
+
+\f2\b0 \cf0 <MBMimeData: 0x6000002a2340> (entity: MBMimeData; id: 0x60800023b900 <x-coredata:///MBMimeData/tDD4F2A8F-B351-4F42-986A-644933A01D7F8> ; data: \{\
+    decoded = <50456855 5455772b 50456846 5155512b 44516f38 54555655 5153426a 62323530 5a573530 50534a30 5a586830 4c326830 6257>;\
+    encoded = nil;\
+    encoding = BASE64;\
+    isDecoded = 1;\
+    mimeStructure = "0x95f00018b <x-coredata://F8DF9850-2934-4EEF-83C8-34594459A8F5/MBMimeText/p9596>";\
+\})\
+\pard\tx529\pardeftab529\pardirnatural
+
+\f3\b \cf10 (lldb) \cf0 po [[0x6000002c51d0 childNodes] objectAtIndex: 0]\
+\pard\tx529\pardeftab529\pardirnatural
+
+\f2\b0 \cf0 <MBMimeText: 0x6000002c5160> (entity: MBMimeText; id: 0x95f00018b <x-coredata://F8DF9850-2934-4EEF-83C8-34594459A8F5/MBMimeText/p9596> ; data: \{\
+    bodyIndex = "2.1";\
+    charset = "utf-8";\
+    childNodes =     (\
+    );\
+    data = "0x60800023b900 <x-coredata:///MBMimeData/tDD4F2A8F-B351-4F42-986A-644933A01D7F8>";\
+    desc = nil;\
+    disposition = "0x308001cb <x-coredata://F8DF9850-2934-4EEF-83C8-34594459A8F5/MBMimeDisposition/p194>";\
+    encoding = BASE64;\
+    extensions = nil;\
+    filename = nil;\
+    id = nil;\
+    isAttachment = 0;\
+    isInline = 1;\
+    isLeaf = 1;\
+    language = nil;\
+    lines = 95;\
+    location = nil;\
+    md5 = nil;\
+    message = nil;\
+    messageReference = "0x32b0000ab <x-coredata://F8DF9850-2934-4EEF-83C8-34594459A8F5/MBMessage/p3244>";\
+    mime = nil;\
+    name = nil;\
+    octets = 7352;\
+    parameters = "<relationship fault: 0x60000023e5e0 'parameters'>";\
+    parentNode = "0x35fc0016b <x-coredata://F8DF9850-2934-4EEF-83C8-34594459A8F5/MBMultiRelated/p3455>";\
+    subPartNumber = 1;\
+    subtype = HTML;\
+    type = TEXT;\
+\})\
+\pard\tx529\pardeftab529\pardirnatural
+
+\f5\fs24 \cf0 \cb5 \CocoaLigature1 \
+\pard\pardeftab720\sl220
+\cf0 \
 \
 }

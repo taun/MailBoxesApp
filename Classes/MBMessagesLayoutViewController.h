@@ -19,7 +19,9 @@
 
 @interface MBMessagesLayoutViewController : NSViewController
 
-/*!
+/*
+ Currently unused.
+ 
  messages are stored in the order of presentation?
  Perhaps should be an NSOrderedSet with sorting?
  Need to be able to change layouts:

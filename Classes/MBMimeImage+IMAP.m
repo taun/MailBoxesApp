@@ -10,7 +10,7 @@
 #import "MBMime+IMAP.h"
 
 @implementation MBMimeImage (DataTransforms)
-
+#pragma message "ToDo: check for base64 encoding before decoding using base64"
 -(void) decoder {
     if (self.data.encoded != nil) {
         NSData* decoded = [[NSData alloc] initWithBase64Encoding: self.data.encoded];

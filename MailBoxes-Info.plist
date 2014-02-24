@@ -43,6 +43,8 @@
 		<dict>
 			<key>UTTypeDescription</key>
 			<string>Mail Portal</string>
+			<key>UTTypeIconFile</key>
+			<string>PortalDragOutline</string>
 			<key>UTTypeIdentifier</key>
 			<string>com.moedae.mailboxes.viewportal</string>
 			<key>UTTypeTagSpecification</key>

@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" focusRingType="none" borderWidth="0.0" title="Portal" boxType="custom" borderType="line" titlePosition="noTitle" id="2" userLabel="portalBox" customClass="MBPortalView">
-                    <rect key="frame" x="2" y="2.0000000289205255" width="260" height="316"/>
+                    <rect key="frame" x="2" y="2.0000000590802194" width="260" height="316"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="260" height="316"/>
@@ -113,14 +113,14 @@
                                     </binding>
                                 </connections>
                             </box>
-                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="72" horizontalPageScroll="10" verticalLineScroll="72" verticalPageScroll="10" hasHorizontalScroller="NO" id="200">
+                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" id="200">
                                 <rect key="frame" x="0.0" y="0.0" width="260" height="274"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Xel-8u-QIZ">
                                     <rect key="frame" x="0.0" y="0.0" width="260" height="274"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnResizing="NO" typeSelect="NO" autosaveName="autosaveMessageSelection" rowHeight="70" rowSizeStyle="automatic" viewBased="YES" id="204">
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnResizing="NO" typeSelect="NO" autosaveName="autosaveMessageSelection" rowSizeStyle="automatic" viewBased="YES" id="204">
                                             <rect key="frame" x="0.0" y="0.0" width="260" height="274"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -148,7 +148,7 @@
                                                                 <imageView identifier="statusIcon" id="283" userLabel="Status Image View">
                                                                     <rect key="frame" x="0.0" y="56" width="12" height="12"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MBUnreadEmail" id="286"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="MBUnreadEmail" id="286"/>
                                                                     <accessibility help="Read/Unread Status icon"/>
                                                                     <connections>
                                                                         <binding destination="209" name="hidden" keyPath="objectValue.isSeenFlag" id="P7y-e4-5c7">
@@ -161,7 +161,7 @@
                                                                 <imageView identifier="statusIcon2" id="OTt-VR-Pme" userLabel="Status2 Image View">
                                                                     <rect key="frame" x="0.0" y="36" width="12" height="12"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MBFlaggedEmail" id="rPh-ke-J8Q"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="MBFlaggedEmail" id="rPh-ke-J8Q"/>
                                                                     <accessibility help="Flagged status icon"/>
                                                                     <connections>
                                                                         <binding destination="209" name="hidden" keyPath="objectValue.isFlaggedFlag" id="wiq-jK-BsR">
@@ -175,7 +175,7 @@
                                                                 <imageView identifier="attachment" toolTip="        " id="289" userLabel="Attachment Image View">
                                                                     <rect key="frame" x="0.0" y="18" width="12" height="12"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="attach_12" id="290"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="MBAttachment12" id="290"/>
                                                                     <accessibility help="Attachment icon"/>
                                                                     <connections>
                                                                         <binding destination="209" name="hidden" keyPath="objectValue.hasAttachment" id="nNj-ah-5FL">
@@ -198,10 +198,10 @@
                                                                     <connections>
                                                                         <binding destination="209" name="value" keyPath="objectValue.addressFrom" id="bHK-Oc-WLx">
                                                                             <dictionary key="options">
-                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                                <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
                                                                                 <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                                                                                <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
+                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                                             </dictionary>
                                                                         </binding>
                                                                     </connections>
@@ -321,10 +321,10 @@
         </menu>
     </objects>
     <resources>
-        <image name="MBFlaggedEmail" width="11" height="11"/>
-        <image name="MBUnreadEmail" width="11" height="11"/>
+        <image name="MBAttachment12" width="12" height="12"/>
+        <image name="MBFlaggedEmail" width="10" height="10"/>
+        <image name="MBUnreadEmail" width="10" height="10"/>
         <image name="NSAddTemplate" width="8" height="8"/>
         <image name="NSRemoveTemplate" width="8" height="8"/>
-        <image name="attach_12" width="12" height="12"/>
     </resources>
 </document>

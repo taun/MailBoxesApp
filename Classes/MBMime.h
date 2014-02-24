@@ -14,8 +14,32 @@
 @interface MBMime : NSManagedObject
 
 @property (nonatomic, retain) NSString * bodyIndex;
+/*! 
+ IANA Charset
+ 
+ Examples:
+ 
+ - utf-8
+ - ISO-8859-1
+ - us-ascii
+ 
+ */
 @property (nonatomic, retain) NSString * charset;
 @property (nonatomic, retain) NSString * desc;
+/*! 
+ IANA Encoding
+ 
+ Examples: 
+ 
+ - 7bit, default, Content-Transfer-Encoding: 7BIT" is assumed if the Content-Transfer-Encoding header field is not present.
+ - 8bit
+ - binary
+ - quoted-printable
+ - base64
+ - ietf-token
+ - x-token
+ 
+ */
 @property (nonatomic, retain) NSString * encoding;
 @property (nonatomic, retain) NSString * extensions;
 @property (nonatomic, retain) NSString * filename;

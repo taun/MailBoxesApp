@@ -95,14 +95,14 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //        // init code
 //        [[self view] setWantsLayer: YES];
 //        [self.view.window visualizeConstraints: self.view.constraints];
-////        [NSAnimationContext beginGrouping];
-////        [[NSAnimationContext currentContext] setDuration: 1.0];
-////        
-////        CABasicAnimation* alphaAnim = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
-////        [alphaAnim setFromValue: [NSNumber numberWithFloat: 0.0]];
-////        [alphaAnim setToValue: [NSNumber numberWithFloat: 1.0]];
-////        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: alphaAnim, @"alphaValue", nil];
-////        [[self view] setAnimations: dict];
+// //        [NSAnimationContext beginGrouping];
+// //        [[NSAnimationContext currentContext] setDuration: 1.0];
+// //
+// //        CABasicAnimation* alphaAnim = [CABasicAnimation animationWithKeyPath: @"alphaValue"];
+// //        [alphaAnim setFromValue: [NSNumber numberWithFloat: 0.0]];
+// //        [alphaAnim setToValue: [NSNumber numberWithFloat: 1.0]];
+// //        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: alphaAnim, @"alphaValue", nil];
+// //        [[self view] setAnimations: dict];
 //    }
 //    return self;
 //}
@@ -183,7 +183,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //    [dataView setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
 //    [dataView setHorizontallyResizable: NO];
 //    [dataView setVerticallyResizable: YES];
-////    [dataView setAutoresizingMask: NSViewWidthSizable]; //??
+// //    [dataView setAutoresizingMask: NSViewWidthSizable]; //??
 //    [dataView setTranslatesAutoresizingMaskIntoConstraints: NO];
 //    
 //    [[dataView textContainer] setContainerSize: NSMakeSize(dataViewWidth, FLT_MAX)]; // -40 based on default margin. Need way to not hard code this.
@@ -194,15 +194,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //    if (self.representedObject) {
 //        [[dataView textStorage] setAttributedString: [self attributedStringFromMessage: self.representedObject]];
 //    }
-////    [[self.messageBodyViewContainer superview] replaceSubview: self.messageBodyViewContainer with: dataView];
+// //    [[self.messageBodyViewContainer superview] replaceSubview: self.messageBodyViewContainer with: dataView];
 //    NSTextContainer* tc = [dataView textContainer];
 //    NSLayoutManager* lm = [tc layoutManager];
 //    [lm glyphRangeForTextContainer: tc];
 //    
 //    CGFloat textHeight = [lm usedRectForTextContainer: tc].size.height;
-////    NSSize tcSize = [tc containerSize];
+// //    NSSize tcSize = [tc containerSize];
 //    
-////    [tc setContainerSize: NSMakeSize(tcSize.width, textHeight+30)];
+// //    [tc setContainerSize: NSMakeSize(tcSize.width, textHeight+30)];
 //    
 //    if (self.messageBodyView) {
 //        [self.messageBodyViewContainer replaceSubview: self.messageBodyView with: dataView];
@@ -229,16 +229,16 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //    [dataView setContentCompressionResistancePriority: NSLayoutPriorityRequired forOrientation: NSLayoutConstraintOrientationVertical];
 //    [self.messageBodyViewContainer setContentCompressionResistancePriority: NSLayoutPriorityRequired forOrientation: NSLayoutConstraintOrientationVertical];
 //    
-////    [self.messageBodyViewContainer addSubview: dataView];
-////    [self.messageBodyViewContainer setFrame: [dataView frame]];
+// //    [self.messageBodyViewContainer addSubview: dataView];
+// //    [self.messageBodyViewContainer setFrame: [dataView frame]];
 //    CGFloat finalMessageHeight = textHeight+headerHeight+40;
 //    CGFloat originX = 0.0;
 //    CGFloat originY = 0.0;
 //    
 //    NSRect vf = self.view.frame;
 //    [self.view setFrame: NSMakeRect(originX, originY, vf.size.width, finalMessageHeight)];
-////    NSSize isize = [self.view fittingSize];
-////    [dataView setFrame: [(NSView*)self.messageBodyViewContainer frame]];
+// //    NSSize isize = [self.view fittingSize];
+// //    [dataView setFrame: [(NSView*)self.messageBodyViewContainer frame]];
 //    
 //    [self.messageBodyViewContainer setNeedsDisplay: YES];
 //}

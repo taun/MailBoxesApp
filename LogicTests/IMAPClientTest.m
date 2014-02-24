@@ -206,7 +206,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         BOOL isDataCorrect = [self compareData: correctData with: archiveData];
         NSString* isCorrectString = isDataCorrect ? @"YES" : @"NO";
         NSLog(@"New data and correct answer are same? %@",isCorrectString);
-        XCTAssertTrue(isDataCorrect, @"Data is not corect. %@", isCorrectString);
+        XCTAssertTrue(isDataCorrect, @"Data is not correct. %@", isCorrectString);
     }
     
     NSLog(@"SelectedBox: %@", selectedBox);

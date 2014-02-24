@@ -22,20 +22,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="687"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1505">
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1505">
                         <rect key="frame" x="0.0" y="651" width="1024" height="36"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <view key="contentView">
                             <rect key="frame" x="0.0" y="0.0" width="1024" height="36"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Minimize the Accounts listing" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="852" userLabel="Collapse Square Button">
-                                    <rect key="frame" x="263" y="8" width="9" height="20"/>
+                                <button toolTip="Minimize the Accounts listing" translatesAutoresizingMaskIntoConstraints="NO" id="852" userLabel="Collapse Square Button">
+                                    <rect key="frame" x="20" y="8" width="47" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="WNR-eR-b6y"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoLeftTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSGoRightTemplate" imageScaling="proportionallyDown" inset="2" id="853">
+                                    <buttonCell key="cell" type="square" title="Hide" alternateTitle="Show" bezelStyle="shadowlessSquare" image="NSGoLeftTemplate" imagePosition="left" alignment="right" alternateImage="NSGoRightTemplate" imageScaling="proportionallyDown" inset="2" id="853">
                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -45,7 +45,7 @@
                                     </connections>
                                 </button>
                                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="1212">
-                                    <rect key="frame" x="285" y="10" width="16" height="16"/>
+                                    <rect key="frame" x="137" y="10" width="16" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="czh-ef-ghK"/>
@@ -53,8 +53,8 @@
                                     </constraints>
                                     <accessibility help="Syncing email"/>
                                 </progressIndicator>
-                                <button toolTip="Synchronize accounts" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1077" userLabel="Load Accounts Button">
-                                    <rect key="frame" x="108" y="8" width="20" height="20"/>
+                                <button toolTip="Synchronize accounts" translatesAutoresizingMaskIntoConstraints="NO" id="1077" userLabel="Load Accounts Button">
+                                    <rect key="frame" x="108" y="12" width="20" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1078">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -97,21 +97,68 @@
                                         <action selector="add:" target="1388" id="1392"/>
                                     </connections>
                                 </button>
+                                <popUpButton toolTip="Pop up a menu to add an account or folder" translatesAutoresizingMaskIntoConstraints="NO" id="1569" userLabel="Sidebar Add Menu">
+                                    <rect key="frame" x="211" y="8" width="61" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="61" id="Hdv-6h-vPC"/>
+                                        <constraint firstAttribute="height" constant="20" id="YNg-xf-bvO"/>
+                                    </constraints>
+                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" id="1570">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <menu key="menu" title="Add Item" id="1571">
+                                            <items>
+                                                <menuItem state="on" image="NSAddTemplate" hidden="YES" id="1572">
+                                                    <accessibility description="Placeholder"/>
+                                                </menuItem>
+                                                <menuItem title="Add Account" id="1573">
+                                                    <connections>
+                                                        <action selector="addAccount:" target="1529" id="1586"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Add Favorite" id="1600">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="addFavorite:" target="1529" id="1601"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Add List" id="1574">
+                                                    <connections>
+                                                        <action selector="addList:" target="1529" id="1602"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Add SmartFolder" id="1599">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="addSmartFolder:" target="1529" id="1603"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <accessibility description="Popup a menu to add an account or folder" help="Add a new folder or account"/>
+                                </popUpButton>
                             </subviews>
                         </view>
                         <constraints>
+                            <constraint firstItem="1569" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1212" secondAttribute="trailing" constant="8" symbolic="YES" id="3uj-kb-PtQ"/>
                             <constraint firstItem="1273" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="108" id="6dy-wg-ow2"/>
-                            <constraint firstItem="1212" firstAttribute="leading" secondItem="852" secondAttribute="trailing" constant="13" id="EiL-LZ-IL5"/>
+                            <constraint firstItem="1273" firstAttribute="centerY" secondItem="1077" secondAttribute="centerY" id="7dj-pb-VlU"/>
+                            <constraint firstItem="1212" firstAttribute="leading" secondItem="1077" secondAttribute="trailing" constant="9" id="9t2-hG-lpi"/>
                             <constraint firstAttribute="bottom" secondItem="1103" secondAttribute="bottom" constant="8" id="MBT-j2-0Mc"/>
                             <constraint firstItem="852" firstAttribute="top" secondItem="1505" secondAttribute="top" constant="8" id="NEn-dQ-jSM"/>
                             <constraint firstItem="1273" firstAttribute="top" secondItem="1505" secondAttribute="top" constant="8" id="Qx2-tm-w8t"/>
                             <constraint firstAttribute="height" constant="36" id="TUD-Qg-tlS"/>
                             <constraint firstAttribute="bottom" secondItem="852" secondAttribute="bottom" constant="8" id="TeY-CC-U4T"/>
-                            <constraint firstItem="852" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1505" secondAttribute="leading" constant="20" id="byI-gw-I0D"/>
+                            <constraint firstItem="852" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="20" id="byI-gw-I0D"/>
                             <constraint firstAttribute="trailing" secondItem="1103" secondAttribute="trailing" constant="40" id="etp-em-KId"/>
                             <constraint firstItem="1103" firstAttribute="top" secondItem="1505" secondAttribute="top" constant="8" id="hoO-TY-2C2"/>
+                            <constraint firstAttribute="centerY" secondItem="1569" secondAttribute="centerY" id="mQJ-hP-bBw"/>
                             <constraint firstAttribute="bottom" secondItem="1212" secondAttribute="bottom" constant="10" id="oQk-8m-n96"/>
                             <constraint firstItem="1212" firstAttribute="top" secondItem="1505" secondAttribute="top" constant="10" id="pJE-OX-z3y"/>
+                            <constraint firstItem="1077" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="108" id="vMZ-sp-s7j"/>
+                            <constraint firstItem="1273" firstAttribute="centerX" secondItem="1077" secondAttribute="centerX" id="zxx-jc-rwq"/>
                         </constraints>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" name="windowFrameColor" catalog="System" colorSpace="catalog"/>
@@ -126,14 +173,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1057">
-                                        <rect key="frame" x="0.0" y="25" width="271" height="626"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="271" height="651"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="kgZ-jh-3MW">
-                                            <rect key="frame" x="0.0" y="0.0" width="271" height="626"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="271" height="651"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="948" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" typeSelect="NO" autosaveName="AccountSidebarView" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="14" outlineTableColumn="1062" id="1061" customClass="MBSidebarView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="271" height="626"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="271" height="651"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -244,63 +291,19 @@
                                             <nil key="backgroundColor"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="1060">
-                                            <rect key="frame" x="1" y="609" width="268.99999904632568" height="16"/>
+                                            <rect key="frame" x="0.0" y="610" width="270.99999904632568" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="1058">
-                                            <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
+                                            <rect key="frame" x="255" y="0.0" width="16" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <accessibility description="Acount and folder lists" help="Acount and folder lists"/>
                                     </scrollView>
-                                    <popUpButton toolTip="Pop up a menu to add an account or folder" translatesAutoresizingMaskIntoConstraints="NO" id="1569" userLabel="Sidebar Add Menu">
-                                        <rect key="frame" x="6" y="3" width="61" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="61" id="Hdv-6h-vPC"/>
-                                            <constraint firstAttribute="height" constant="20" id="YNg-xf-bvO"/>
-                                        </constraints>
-                                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" id="1570">
-                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <menu key="menu" title="Add Item" id="1571">
-                                                <items>
-                                                    <menuItem state="on" image="NSAddTemplate" hidden="YES" id="1572">
-                                                        <accessibility description="Placeholder"/>
-                                                    </menuItem>
-                                                    <menuItem title="Add Account" id="1573">
-                                                        <connections>
-                                                            <action selector="addAccount:" target="1529" id="1586"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Add Favorite" id="1600">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="addFavorite:" target="1529" id="1601"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Add List" id="1574">
-                                                        <connections>
-                                                            <action selector="addList:" target="1529" id="1602"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Add SmartFolder" id="1599">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="addSmartFolder:" target="1529" id="1603"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </popUpButtonCell>
-                                        <accessibility description="Popup a menu to add an account or folder" help="Add a new folder or account"/>
-                                    </popUpButton>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="1569" secondAttribute="bottom" constant="3" id="JAL-uj-2WZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="1057" secondAttribute="bottom" id="5Gl-h4-bFa"/>
                                     <constraint firstItem="1057" firstAttribute="leading" secondItem="839" secondAttribute="leading" id="K7b-sb-nEM"/>
-                                    <constraint firstItem="1569" firstAttribute="leading" secondItem="839" secondAttribute="leading" constant="6" id="UHq-97-Ifr"/>
-                                    <constraint firstItem="1569" firstAttribute="top" secondItem="1057" secondAttribute="bottom" constant="2" id="UtO-2d-ZfZ"/>
                                     <constraint firstItem="1057" firstAttribute="top" secondItem="839" secondAttribute="top" id="aEg-yl-qdF"/>
                                     <constraint firstAttribute="trailing" secondItem="1057" secondAttribute="trailing" constant="1" id="yXO-KP-Jp2"/>
                                 </constraints>
@@ -391,14 +394,14 @@
                                                                 <constraint firstAttribute="trailing" secondItem="Ovp-zj-tQH" secondAttribute="trailing" priority="538" id="mfS-Fo-ANX"/>
                                                                 <constraint firstItem="Ovp-zj-tQH" firstAttribute="leading" secondItem="5k9-DR-QWV" secondAttribute="leading" id="z5Q-Zl-mll"/>
                                                             </constraints>
-                                                            <color key="backgroundColor" patternImage="5620781B-8D2B-4F3A-8610-9461B9DD5227" colorSpace="pattern"/>
+                                                            <color key="backgroundColor" patternImage="1F8E6235-AB85-4BE6-8855-CF3BA57427E8" colorSpace="pattern"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" id="fzv-cM-tBI">
                                                             <rect key="frame" x="0.0" y="316" width="751" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" id="IbM-9h-U1Q">
-                                                            <rect key="frame" x="736" y="0.0" width="15" height="332"/>
+                                                            <rect key="frame" x="735" y="0.0" width="16" height="332"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>
@@ -442,9 +445,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="838" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="2kE-88-sg1"/>
-                    <constraint firstItem="839" firstAttribute="trailing" secondItem="852" secondAttribute="trailing" priority="183" id="FON-4C-Ml3"/>
                     <constraint firstItem="838" firstAttribute="top" secondItem="1505" secondAttribute="bottom" id="Hxz-9N-jPC"/>
                     <constraint firstAttribute="trailing" secondItem="1505" secondAttribute="trailing" id="LDd-iF-kBM"/>
+                    <constraint firstItem="839" firstAttribute="trailing" secondItem="1569" secondAttribute="trailing" priority="459" id="cl9-K5-Pdd"/>
                     <constraint firstItem="1505" firstAttribute="top" secondItem="372" secondAttribute="top" id="pio-KA-AkH"/>
                     <constraint firstAttribute="bottom" secondItem="838" secondAttribute="bottom" id="qT9-kg-qdV"/>
                     <constraint firstAttribute="trailing" secondItem="838" secondAttribute="trailing" id="tzK-Ao-Aq4"/>
@@ -1490,7 +1493,7 @@
         </menu>
     </objects>
     <resources>
-        <image name="5620781B-8D2B-4F3A-8610-9461B9DD5227" width="450" height="420">
+        <image name="1F8E6235-AB85-4BE6-8855-CF3BA57427E8" width="450" height="420">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

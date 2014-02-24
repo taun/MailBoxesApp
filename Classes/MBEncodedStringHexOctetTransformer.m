@@ -80,6 +80,7 @@
     NSScanner* scanner = [NSScanner scannerWithString: encodedHexedString.string];
     
     NSString* currentCharacter;
+    NSUInteger currentTrailingCharacters = scanner.string.length - scanner.scanLocation;
     
     while (![scanner isAtEnd]) {
         currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
@@ -88,7 +89,7 @@
                 // found underscore
                 [decodedMutableString appendString: @" "];
                 [scanner setScanLocation: ++(scanner.scanLocation)];
-            } else if ([currentCharacter isEqualToString: @"=" ]) {
+            } else if ([currentCharacter isEqualToString: @"=" ] && (currentTrailingCharacters > 2)) {
                 // found "=" and need to get hex value
                 [scanner setScanLocation: ++(scanner.scanLocation)]; // skip "="
                 
@@ -118,6 +119,7 @@
                         
                         if ((hexCode & 0xE0) == 0xC0) {
                             // 2 bytes
+#pragma message "ToDo: check for end of string before using a range"
                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                             if ([currentCharacter isEqualToString: @"="]) {
                                 // get second byte
@@ -130,6 +132,7 @@
                             }
                         } else if ((hexCode & 0xF0) == 0xE0) {
                             // 3 bytes
+#pragma message "ToDo: check for end of string before using a range"
                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                             if ([currentCharacter isEqualToString: @"="]) {
                                 // get second byte
@@ -152,6 +155,7 @@
                             }
                         } else if ((hexCode & 0xF8) == 0xF0) {
                             // 4 bytes
+#pragma message "ToDo: check for end of string before using a range"
                             currentCharacter = [scanner.string substringWithRange: NSMakeRange(scanner.scanLocation, 1)];
                             if ([currentCharacter isEqualToString: @"="]) {
                                 // get second byte

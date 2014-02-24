@@ -32,7 +32,11 @@ NSString* attachmentIconName = @"attach_48.png";
     PDF
     MSWORD
     ??
- */
+
+ @param options NSDictionary of NSDocumentTypeOption same as NSAttributedString initWithData:options:documentAttributes:error:
+ 
+ @param attributes An in-out dictionary containing document-level attributes described in “Document Attributes”. May be NULL, in which case no document attributes are returned.
+*/
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;
     

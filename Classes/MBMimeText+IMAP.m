@@ -15,33 +15,50 @@
 @implementation MBMimeText (IMAP)
 
 -(void) decoder {
+    NSValueTransformer* charsetTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMECharsetTransformer];
+
+    MBEncodedString* stringToDecode;
     NSData* decoded;
+    
+
     if ([self.data.encoded isNonNilString]) {
-        MBEncodedString* stringToDecode = [MBEncodedString encodedString: self.data.encoded encoding: 0];
-        
-        NSValueTransformer* charsetTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMECharsetTransformer];
+
+        // Convert IANA charset to NSStringEncoding, example "utf-8" = 4
         NSNumber* nsEncodingNumber = [charsetTransformer transformedValue: self.charset];
         
-        int nsEncodingInt = NSASCIIStringEncoding; // default
+        int nsEncodingInt;
         
         if (nsEncodingNumber != nil) {
-            // default
             nsEncodingInt = [nsEncodingNumber intValue];
+        } else {
+            nsEncodingInt = NSASCIIStringEncoding; // default
         }
         
-        stringToDecode.encoding = nsEncodingInt;
-        
-        // does not work for HTML! Check charset and encoding
-        // use charset mapping from ? encoded-word transform
-        if ([[self.encoding uppercaseString] isEqualToString: @"QUOTED-PRINTABLE"]) {
-            //
-            NSValueTransformer* quotedPrintableTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMEQuotedPrintableTranformer];
-            stringToDecode = [quotedPrintableTransformer transformedValue: stringToDecode];
-            stringToDecode.encoding = NSUTF8StringEncoding;
+        // base64?
+        if ([[self.encoding uppercaseString] isEqualToString: @"base64"]) {
+            // decode from base64 first
+            decoded = [[NSData alloc] initWithBase64EncodedString: self.data.encoded options: 0];
+            if (nsEncodingInt != NSASCIIStringEncoding && nsEncodingInt != NSUTF8StringEncoding) {
+                // convert to utf-8
+                NSString* utf8String = [[NSString alloc] initWithData: decoded encoding: nsEncodingInt];
+                NSData* utf8Data = [utf8String dataUsingEncoding: NSUTF8StringEncoding];
+                decoded = utf8Data;
+            }
+            
+#pragma message "ToDo: TEST, if base64 and charset is not utf-8, need to convert from charset to utf-8 as part of decoding."
+            
+        } else {
+            stringToDecode = [MBEncodedString encodedString: self.data.encoded encoding: nsEncodingInt];
+            
+            if ([[self.encoding uppercaseString] isEqualToString: @"QUOTED-PRINTABLE"]) {
+                //
+                NSValueTransformer* quotedPrintableTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMEQuotedPrintableTranformer];
+                stringToDecode = [quotedPrintableTransformer transformedValue: stringToDecode];
+                stringToDecode.encoding = NSUTF8StringEncoding;
+            }
+            
+            decoded = [stringToDecode asData];
         }
-        
-        decoded = [stringToDecode asData];
-        
         
         
         NSAssert((decoded != nil) && (decoded.length>4), @"decoded is an empty string: %@, data=%@", decoded, self.data);
@@ -54,6 +71,8 @@
 }
 
 /*!
+ This method is being deprecated.
+ 
  Need to decode data based on the subtype and encoding.
  Subtypes can be
     PLAIN
@@ -61,7 +80,11 @@
     HTML
  
  Encoding may be
-    quoted-printable
+    quoted-printable, BASE64
+ 
+ @param options NSDictionary of NSDocumentTypeOption same as NSAttributedString initWithData:options:documentAttributes:error:
+ 
+ @param attributes An in-out dictionary containing document-level attributes described in “Document Attributes”. May be NULL, in which case no document attributes are returned.
  */
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;

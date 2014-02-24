@@ -61,7 +61,6 @@ NSString *PortalEditingEndedKey;
  Each MBVPortal.xib is controlled by a MBPortalViewController.
  
  @see MBViewPortal
- @see MBCollectionView
  @see MBPortalViewController
  @see MBPortalsCollectionViewController
  */
