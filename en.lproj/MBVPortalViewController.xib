@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" focusRingType="none" borderWidth="0.0" title="Portal" boxType="custom" borderType="line" titlePosition="noTitle" id="2" userLabel="portalBox" customClass="MBPortalView">
-                    <rect key="frame" x="2" y="2.0000000590802194" width="260" height="316"/>
+                    <rect key="frame" x="2" y="2.0000000692600985" width="260" height="316"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="260" height="316"/>
@@ -43,7 +43,7 @@
                                             </textFieldCell>
                                             <accessibility help="Portal Name"/>
                                             <connections>
-                                                <binding destination="-2" name="value" keyPath="representedObject.name" id="65"/>
+                                                <binding destination="-2" name="value" keyPath="representedObject.title" id="dNR-nS-e0d"/>
                                             </connections>
                                         </textField>
                                         <searchField verticalHuggingPriority="750" id="3" userLabel="portalSearch">
@@ -198,10 +198,10 @@
                                                                     <connections>
                                                                         <binding destination="209" name="value" keyPath="objectValue.addressFrom" id="bHK-Oc-WLx">
                                                                             <dictionary key="options">
-                                                                                <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
+                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                                                 <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                                <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
                                                                             </dictionary>
                                                                         </binding>
                                                                     </connections>

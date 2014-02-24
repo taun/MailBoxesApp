@@ -412,7 +412,7 @@
         <attribute name="isOwner" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="childNodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MBTreeNode" inverseName="parentNodes" inverseEntity="MBTreeNode" syncable="YES"/>
-        <relationship name="contentViews" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBViewPortal" inverseName="messageArraySource" inverseEntity="MBViewPortal" syncable="YES"/>
+        <relationship name="contentViews" optional="YES" toMany="YES" maxCount="10" deletionRule="Cascade" destinationEntity="MBViewPortal" inverseName="messageArraySource" inverseEntity="MBViewPortal" syncable="YES"/>
         <relationship name="parentNodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MBTreeNode" inverseName="childNodes" inverseEntity="MBTreeNode" syncable="YES"/>
     </entity>
     <entity name="MBUser" representedClassName="MBUser">

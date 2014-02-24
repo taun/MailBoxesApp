@@ -8,8 +8,10 @@
 
 #import "MBPortalsCollectionViewController.h"
 #import "MBPortalsCollectionView.h"
-#import "MBViewPortal.h"
-#import "MBViewPortalMBox.h"
+
+#import "MBViewPortal+Extra.h"
+#import "MBViewPortalMBox+Extra.h"
+
 #import "MBoxProxy.h"
 #import "MBox.h"
 

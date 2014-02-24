@@ -11,8 +11,10 @@
 #import "MBPortalViewController.h"
 #import "MBMessage+IMAP.h"
 #import "MBPortal.h"
-#import "MBViewPortal.h"
-#import "MBViewPortalSelection.h"
+
+#import "MBViewPortal+Extra.h"
+#import "MBViewPortalSelection+Extra.h"
+
 #import "MBTreeNode+IntersectsSetFix.h"
 #import "MBox+Accessors.h"
 

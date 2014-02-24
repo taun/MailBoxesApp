@@ -25,7 +25,7 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
     return YES;
 }
 
-/*!
+/*
     @method newItemForRepresentedObject:
  
     @discussion

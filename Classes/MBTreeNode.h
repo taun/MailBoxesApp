@@ -2,8 +2,8 @@
 //  MBTreeNode.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 11/14/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 02/24/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -13,15 +13,15 @@
 
 @interface MBTreeNode : NSManagedObject
 
-@property (nonatomic, retain) NSString * imageName;
-@property (nonatomic, retain) NSNumber * isLeaf;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * isOwner;
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSString * identifier;
+@property (nonatomic, retain) NSString * imageName;
+@property (nonatomic, retain) NSNumber * isLeaf;
+@property (nonatomic, retain) NSNumber * isOwner;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSOrderedSet *childNodes;
+@property (nonatomic, retain) NSSet *contentViews;
 @property (nonatomic, retain) NSOrderedSet *parentNodes;
-@property (nonatomic, retain) MBViewPortal *contentViews;
 @end
 
 @interface MBTreeNode (CoreDataGeneratedAccessors)
@@ -36,6 +36,11 @@
 - (void)removeChildNodesObject:(MBTreeNode *)value;
 - (void)addChildNodes:(NSOrderedSet *)values;
 - (void)removeChildNodes:(NSOrderedSet *)values;
+- (void)addContentViewsObject:(MBViewPortal *)value;
+- (void)removeContentViewsObject:(MBViewPortal *)value;
+- (void)addContentViews:(NSSet *)values;
+- (void)removeContentViews:(NSSet *)values;
+
 - (void)insertObject:(MBTreeNode *)value inParentNodesAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromParentNodesAtIndex:(NSUInteger)idx;
 - (void)insertParentNodes:(NSArray *)value atIndexes:(NSIndexSet *)indexes;

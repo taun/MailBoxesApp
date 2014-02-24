@@ -2,8 +2,8 @@
 //  MBTreeNode.m
 //  MailBoxes
 //
-//  Created by Taun Chapman on 11/14/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 02/24/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import "MBTreeNode.h"
@@ -13,14 +13,14 @@
 
 @implementation MBTreeNode
 
-@dynamic imageName;
-@dynamic isLeaf;
-@dynamic name;
-@dynamic isOwner;
 @dynamic desc;
 @dynamic identifier;
+@dynamic imageName;
+@dynamic isLeaf;
+@dynamic isOwner;
+@dynamic name;
 @dynamic childNodes;
-@dynamic parentNodes;
 @dynamic contentViews;
+@dynamic parentNodes;
 
 @end
