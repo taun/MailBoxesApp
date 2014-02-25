@@ -39,6 +39,29 @@
  - ietf-token
  - x-token
  
+ RFC 2045
+ 
+ 6.2.  Content-Transfer-Encodings Semantics
+ 
+ This single Content-Transfer-Encoding token actually provides two
+ pieces of information.  It specifies what sort of encoding
+ transformation the body was subjected to and hence what decoding
+ operation must be used to restore it to its original form, and it
+ specifies what the domain of the result is.
+ The transformation part of any Content-Transfer-Encodings specifies,
+ either explicitly or implicitly, a single, well-defined decoding
+ algorithm, which for any sequence of encoded octets either transforms
+ it to the original sequence of octets which was encoded, or shows
+ that it is illegal as an encoded sequence.  Content-Transfer-
+ Encodings transformations never depend on any additional external
+ profile information for proper operation. Note that while decoders
+ must produce a single, well-defined output for a valid encoding no
+ such restrictions exist for encoders: Encoding a given sequence of
+ octets to different, equivalent encoded sequences is perfectly legal.
+ Three transformations are currently defined: identity, the "quoted-
+ printable" encoding, and the "base64" encoding.  The domains are
+ "binary", "8bit" and "7bit".
+ 
  */
 @property (nonatomic, retain) NSString * encoding;
 @property (nonatomic, retain) NSString * extensions;

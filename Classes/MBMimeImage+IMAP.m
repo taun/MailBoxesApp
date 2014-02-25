@@ -13,7 +13,7 @@
 #pragma message "ToDo: check for base64 encoding before decoding using base64"
 -(void) decoder {
     if (self.data.encoded != nil) {
-        NSData* decoded = [[NSData alloc] initWithBase64Encoding: self.data.encoded];
+        NSData* decoded = [[NSData alloc] initWithBase64EncodedString: self.data.encoded options: NSDataBase64DecodingIgnoreUnknownCharacters];
         if (decoded) {
             self.data.decoded = decoded;
             self.data.isDecoded = @YES;

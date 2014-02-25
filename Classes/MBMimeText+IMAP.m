@@ -14,6 +14,11 @@
 
 @implementation MBMimeText (IMAP)
 
+#pragma message "ToDo: implement registry/methods for decodings and use to decode in first part of decoder for all MBMime types"
+// implement methods in MBMime using similar pattern to IMAPClient
+// MBMime methods call transformers or just call transformers here?
+// Need to map transformer to encoding. Can be done here or as MBMime method called. "decodeBASE64", "decode7BIT"
+// mechanism := "7bit" / "8bit" / "binary" / "quoted-printable" / "base64"
 -(void) decoder {
     NSValueTransformer* charsetTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMECharsetTransformer];
 
@@ -35,9 +40,9 @@
         }
         
         // base64?
-        if ([[self.encoding uppercaseString] isEqualToString: @"base64"]) {
+        if ([[self.encoding uppercaseString] isEqualToString: @"BASE64"]) {
             // decode from base64 first
-            decoded = [[NSData alloc] initWithBase64EncodedString: self.data.encoded options: 0];
+            decoded = [[NSData alloc] initWithBase64EncodedString: self.data.encoded options: NSDataBase64DecodingIgnoreUnknownCharacters];
             if (nsEncodingInt != NSASCIIStringEncoding && nsEncodingInt != NSUTF8StringEncoding) {
                 // convert to utf-8
                 NSString* utf8String = [[NSString alloc] initWithData: decoded encoding: nsEncodingInt];
