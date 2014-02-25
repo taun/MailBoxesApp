@@ -9,7 +9,11 @@
 #import "MailBoxesAppDelegate.h"
 #import "MBPortalsCollectionView.h"
 #import "MBPortalViewController.h"
+
 #import "MBMessage+IMAP.h"
+#import "MBMime.h"
+#import "MBMimeData.h"
+
 #import "MBPortal.h"
 
 #import "MBViewPortal+Extra.h"
@@ -187,6 +191,22 @@ CGFloat ONEROW = 18.0;
     MBViewPortal* item = (MBViewPortal*) self.representedObject;
     
     item.rowHeight = [NSNumber numberWithFloat: newHeight];
+}
+
+- (IBAction)reloadMessageBody:(id)sender {
+    NSInteger index = [self.tableView selectedRow];
+    if (index >= 0) {
+        //
+        MBMessage *selectedMessage = (MBMessage *)[self.messagesController arrangedObjects][index];
+        // MBMessageViewController only tries to update messages with isFullyCached == NO
+        selectedMessage.isFullyCached = @NO;
+        for (MBMime* mime in selectedMessage.allParts) {
+            if (mime.data) {
+                // IMAPClient only loads mime parts where data == nil
+                mime.data = nil;
+            }
+        }
+    }
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {

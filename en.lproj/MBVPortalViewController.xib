@@ -111,6 +111,7 @@
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
+                                    <outlet property="menu" destination="259" id="nEI-20-pPf"/>
                                 </connections>
                             </box>
                             <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" id="200">
@@ -274,6 +275,7 @@
                                             <connections>
                                                 <binding destination="20" name="content" keyPath="arrangedObjects" id="217"/>
                                                 <outlet property="delegate" destination="-2" id="253"/>
+                                                <outlet property="menu" destination="ybY-rc-URw" id="JEP-X6-x69"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -297,9 +299,6 @@
                 </box>
             </subviews>
             <accessibility help="A Portal"/>
-            <connections>
-                <outlet property="menu" destination="259" id="263"/>
-            </connections>
         </customView>
         <arrayController mode="entity" entityName="MBMessage" fetchPredicateFormat="" editable="NO" automaticallyPreparesContent="YES" selectsInsertedObjects="NO" clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="20" userLabel="messagesController">
             <connections>
@@ -309,12 +308,28 @@
                 <binding destination="-2" name="contentSet" keyPath="self.representedObject.messageArraySource.messages" id="QVM-HV-0Bn"/>
             </connections>
         </arrayController>
-        <menu title="Menu" id="259">
+        <menu title="Portal" id="259">
             <items>
                 <menuItem title="Edit Smart Folder" id="260">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="Delete Portal View" id="261">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+        </menu>
+        <menu title="Message" id="ybY-rc-URw">
+            <items>
+                <menuItem title="Reload Body" id="d2q-MO-aIk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="reloadMessageBody:" target="-2" id="EmJ-BG-g9f"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Item 2" id="wiN-DI-Jtd">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Item 3" id="VEJ-d5-eaE">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
             </items>
