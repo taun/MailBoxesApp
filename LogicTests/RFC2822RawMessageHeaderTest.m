@@ -84,6 +84,18 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     DDLogVerbose(@"Fields data: \r%@",  self.rfcRawHeader.fields);
 }
+-(void) testUnfoldTabAddress {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"fetchresponseTabAddresses" ofType: @"txt" inDirectory: @"answers"];
+    
+    self.sampleHeader = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    self.rfcRawHeader = [[RFC2822RawMessageHeader alloc] initWithString: self.sampleHeader];
+    
+    DDLogVerbose(@"Unfolded data: \r%@",  self.rfcRawHeader.unfolded);
+}
+
 
 -(void) testUnfoldSpace {
     NSError *error = nil;

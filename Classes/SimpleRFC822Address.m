@@ -69,12 +69,21 @@
     if (other == self)
         return YES;
     
-    
-    equality = [[self name] isEqualToString:[other name]];
-    equality &= [[self email] isEqualToString:[other email]];
-    equality &= [[self mailbox] isEqualToString:[other mailbox]];
-    equality &= [[self domain] isEqualToString:[other domain]];
-    
+    if ([self name]) {
+        // if self.name is non-nil then other.name should be non-nil and equal to be an equal object.
+        equality = [[self name] isEqualToString:[other name]];
+    } else if (![other name]){
+        // both == nil
+        equality = YES; // chance at equality
+    }
+
+    if (equality && [[self email] isEqualToString:[other email]]
+        && [[self mailbox] isEqualToString:[other mailbox]]
+        && [[self domain] isEqualToString:[other domain]]) {
+        equality = YES;
+    } else {
+        equality = NO;
+    }
     
     return equality;
 }

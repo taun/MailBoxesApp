@@ -10,6 +10,10 @@
 
 #define VTMBSimpleRFC822AddressSetToStringTransformer @"MBSimpleRFC822AddressSetToStringTransformer"
 
+/*!
+ Converts a NSSet of MBAddress or SimpleRFC822Address and converts to a long string representation of the addresses.
+ The reverseTransformedVale: takes a long NSString of addresses and converts to an NSSet of SimpleRFC822Address.
+ */
 @interface MBSimpleRFC822AddressSetToStringTransformer : NSValueTransformer
 
 @end

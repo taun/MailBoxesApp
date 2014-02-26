@@ -160,7 +160,20 @@
     NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
     NSString* reference = [self transformAddressesToString: simpleAddressSet];
     NSSet* simpleAddressSet2 = [self reverseTranformAddresses: reference];
-    
-    XCTAssertEqualObjects(addresses, reference, @"%@ & %@ Should be equal.", addresses, reference);
+    BOOL success = [simpleAddressSet2 isEqualToSet: simpleAddressSet];
+    XCTAssertTrue(success, @"%@ & %@ Should be equal.", addresses, reference);
 }
+
+/*
+ "'Trisha Tuttle'" <tbtut@aol.com>,	<dbasarab13@gmail.com>, <chamberlain51@comcast.net>,	<hjm041370@gmail.com>,	<adembrak@yahoo.com>, <wendy.dembrak@gmail.com>,	<jamesmckay@verizon.net>, <patrick.a.olivares@gmail.com>,	<jsarr@phoenixmanagement.com>, <marta@gigamyte.com>,	<todd@intelligentprofit.com>,	<mike_stagnaro@yahoo.com>, <theowells@gmail.com>,	<lescraig@hotmail.com>,	<barbycraig@hotmail.com>, <btuttle@teksystems.com>,	<the5mcqs@gmail.com>,	<ajbaci4@yahoo.com>, <arjetbaci@yahoo.com>,	<taun@charcoalia.net>,	<mmckay00@juno.com>, <myrna@charcoalia.net>
+ */
+-(void)testLongAddressesStringNamesWithCommasAndTabsToSet {
+    NSString* addresses = [NSString stringWithFormat: @"\"'Trisha Tuttle'\" <tbtut@aol.com>,	<dbasarab13@gmail.com>, <chamberlain51@comcast.net>,	<hjm041370@gmail.com>,	<adembrak@yahoo.com>, <wendy.dembrak@gmail.com>,	<jamesmckay@verizon.net>, <patrick.a.olivares@gmail.com>,	<jsarr@phoenixmanagement.com>, <marta@gigamyte.com>,	<todd@intelligentprofit.com>,	<mike_stagnaro@yahoo.com>, <theowells@gmail.com>,	<lescraig@hotmail.com>,	<barbycraig@hotmail.com>, <btuttle@teksystems.com>,	<the5mcqs@gmail.com>,	<ajbaci4@yahoo.com>, <arjetbaci@yahoo.com>,	<taun@charcoalia.net>,	<mmckay00@juno.com>, <myrna@charcoalia.net>"];
+    NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
+    NSString* reference = [self transformAddressesToString: simpleAddressSet];
+    NSSet* simpleAddressSet2 = [self reverseTranformAddresses: reference];
+    BOOL success = [simpleAddressSet2 isEqualToSet: simpleAddressSet];
+    XCTAssertTrue(success, @"%@ & %@ Should be equal.", addresses, reference);
+}
+
 @end

@@ -62,13 +62,24 @@
  
  returns NSSet of SimpleRFC822Addresses
  
+ Despite the following from the RFC
+ "Writers of  mail-sending  (i.e.,  header-generating)  programs
+ should realize that there is no network-wide definition of the
+ effect of ASCII HT (horizontal-tab) characters on the  appear-
+ ance  of  text  at another network host; therefore, the use of
+ tabs in message headers, though permitted, is discouraged."
+ 
+ We need to be able to handle tabs.
  */
 - (id)reverseTransformedValue:(id)value {
     
     NSMutableSet* addresses = [NSMutableSet new];
     
     if ([value isKindOfClass: [NSString class]]) {
-        NSArray* addressesArray = [(NSString*)value componentsSeparatedByString: @">, "];
+        NSString* noTabs = [(NSString*)value stringByReplacingOccurrencesOfString: @"\t" withString: @"  "];
+        NSString* noSingleQuote = [noTabs stringByReplacingOccurrencesOfString: @"'" withString: @"  "];
+
+        NSArray* addressesArray = [noSingleQuote componentsSeparatedByString: @">, "];
         
         NSMutableArray* fixedAddressesArray = [NSMutableArray new];
         for (NSString* address in addressesArray) {
