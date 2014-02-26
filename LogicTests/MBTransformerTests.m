@@ -141,10 +141,22 @@
     return string;
 }
 
+-(void)testEmptyStringToAddress1 { // should return nil
+    SimpleRFC822Address* address = [self reverseTranformAddress: @" "];
+    XCTAssertNil(address, @"%@ should be nil.", address);
+}
+
 -(void)testStringToAddress1 {
     SimpleRFC822Address* address = [self reverseTranformAddress: @"Taun Chapman <taun@taun.org>"];
     SimpleRFC822Address* reference = [SimpleRFC822Address newAddressName: @"Taun Chapman" email: @"taun@taun.org"];
     XCTAssertEqualObjects(address, reference, @"%@ & %@ should be the same.", address, reference);
+}
+
+-(void)testEmptyAddressesStringToSet { // should return empty set
+    NSString* addresses = [NSString stringWithFormat: @" "];
+    NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
+    
+    XCTAssertTrue((simpleAddressSet.count == 0), @"%@ Should be empty.", addresses);
 }
 
 -(void)testMultipleAddressesStringToSet {

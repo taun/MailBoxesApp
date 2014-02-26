@@ -731,10 +731,10 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 	Using MBoxProxy so we can read and write/pass minimal necessary string information rather than full Mbox structure with nodes, .....\
 	Once working, repeat for other types\
 2014-02-20\
-	NSOrderedSet workarounds\
+	Tip: NSOrderedSet workarounds\
 		Bound to array controller content using model key path "self.portals.@array" where "portals" is the NSOrderedSet\
 		**CoreData [NSSet intersectsSet:]: set argument is not an NSSet error\
-		Fixed by inverting assignment. "child.parent = parent" rather than "[parent addChildsObject: child]"\
+		Tip: Fixed by inverting assignment. "child.parent = parent" rather than "[parent addChildsObject: child]"\
 2014-02-22\
 	
 \f1 \uc0\u10003  
@@ -799,11 +799,12 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 \pard\tx529\pardeftab529\pardirnatural
 
 \f5\fs24 \cf0 \cb5 \CocoaLigature1 2014-02-25\
-	NSTableView bindings\
+	Tip: NSTableView bindings\
 		Do not bind tableView.\
 		Do bind NSTableColumn to arrayController arrangedObjects with key for column\
 		Do bind the text field in the column to the objectValue.key\
 \pard\pardeftab720\sl220
-\cf0 \
+\cf0 2014-02-26\
+	Tip: Used IB object key value field to add "showsBorderOnlyWhileMouseInside" BOOL=YES so the button only shows the border on hover.\
 \
 }

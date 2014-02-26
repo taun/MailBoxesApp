@@ -11,6 +11,8 @@
 #import "MBAddress+IMAP.h"
 #import "SimpleRFC822Address.h"
 
+#import "NSObject+MBShorthand.h"
+
 @implementation MBSimpleRFC822AddressToStringTransformer
 
 + (Class)transformedValueClass {
@@ -34,7 +36,7 @@
             addressString = [NSString stringWithFormat: @"<%@>", [value email]];
         }
     } else {
-        addressString = @"";
+        addressString = nil;
     }
     
     return addressString;
@@ -45,37 +47,41 @@
  */
 - (id)reverseTransformedValue:(id)value {
 
-    SimpleRFC822Address* rfcaddress = [SimpleRFC822Address new];
+    SimpleRFC822Address* rfcaddress;
     
     if ([value isKindOfClass: [NSString class]]) {
         NSString* addressString = [(NSString*)value stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        NSMutableCharacterSet* addressDelimiters = [NSMutableCharacterSet characterSetWithCharactersInString: @"<>"];
-        [addressDelimiters formUnionWithCharacterSet: [NSCharacterSet whitespaceCharacterSet]];
+        if ([addressString isNonNilString]) {
+            NSMutableCharacterSet* addressDelimiters = [NSMutableCharacterSet characterSetWithCharactersInString: @"<>"];
+            [addressDelimiters formUnionWithCharacterSet: [NSCharacterSet whitespaceCharacterSet]];
+            
+            NSMutableCharacterSet* nameDelimiters = [NSMutableCharacterSet characterSetWithCharactersInString: @"\""];
+            [nameDelimiters formUnionWithCharacterSet: [NSCharacterSet whitespaceCharacterSet]];
+            
+            // Find space between name and address "first last <mailbox@domain>"
+            NSRange lastSpace = [addressString rangeOfString: @" " options: NSBackwardsSearch];
+            
+            rfcaddress = [SimpleRFC822Address new];
 
-        NSMutableCharacterSet* nameDelimiters = [NSMutableCharacterSet characterSetWithCharactersInString: @"\""];
-        [nameDelimiters formUnionWithCharacterSet: [NSCharacterSet whitespaceCharacterSet]];
-
-        // Find space between name and address "first last <mailbox@domain>"
-        NSRange lastSpace = [addressString rangeOfString: @" " options: NSBackwardsSearch];
-        
-        if (lastSpace.location != NSNotFound) {
-            rfcaddress.name =  [[addressString substringWithRange: NSMakeRange(0, lastSpace.location)]
-                                stringByTrimmingCharactersInSet: nameDelimiters];
-
-            rfcaddress.email = [[addressString substringWithRange: NSMakeRange(lastSpace.location+1, addressString.length-lastSpace.location-1)]
-                                stringByTrimmingCharactersInSet: addressDelimiters];
-        } else {
-            // only have <mailbox@domain>
-            rfcaddress.email = [addressString stringByTrimmingCharactersInSet: addressDelimiters];
-        }
-        
-        if (rfcaddress.email) {
-            NSMutableArray* subcomponents = [[rfcaddress.email componentsSeparatedByString: @"@"] mutableCopy];
-            if (subcomponents.count > 1) {
-                rfcaddress.domain = [subcomponents lastObject];
-                [subcomponents removeLastObject];
-                rfcaddress.mailbox = [subcomponents componentsJoinedByString: @"@"];
+            if (lastSpace.location != NSNotFound) {
+                rfcaddress.name =  [[addressString substringWithRange: NSMakeRange(0, lastSpace.location)]
+                                    stringByTrimmingCharactersInSet: nameDelimiters];
+                
+                rfcaddress.email = [[addressString substringWithRange: NSMakeRange(lastSpace.location+1, addressString.length-lastSpace.location-1)]
+                                    stringByTrimmingCharactersInSet: addressDelimiters];
+            } else {
+                // only have <mailbox@domain>
+                rfcaddress.email = [addressString stringByTrimmingCharactersInSet: addressDelimiters];
+            }
+            
+            if (rfcaddress.email) {
+                NSMutableArray* subcomponents = [[rfcaddress.email componentsSeparatedByString: @"@"] mutableCopy];
+                if (subcomponents.count > 1) {
+                    rfcaddress.domain = [subcomponents lastObject];
+                    [subcomponents removeLastObject];
+                    rfcaddress.mailbox = [subcomponents componentsJoinedByString: @"@"];
+                }
             }
         }
     }

@@ -12,6 +12,8 @@
 #import "SimpleRFC822Address.h"
 #import "MBAddress+IMAP.h"
 
+#import "NSObject+MBShorthand.h"
+
 @implementation MBSimpleRFC822AddressSetToStringTransformer
 
 + (Class)transformedValueClass {
@@ -49,7 +51,7 @@
         addressesString = [addressStringArray componentsJoinedByString: @", "];
         
      } else {
-        addressesString = @"";
+        addressesString = nil;
     }
     
     return addressesString;
@@ -78,21 +80,27 @@
     if ([value isKindOfClass: [NSString class]]) {
         NSString* noTabs = [(NSString*)value stringByReplacingOccurrencesOfString: @"\t" withString: @"  "];
         NSString* noSingleQuote = [noTabs stringByReplacingOccurrencesOfString: @"'" withString: @"  "];
+        NSString* trimmedAddressString = [noTabs stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-        NSArray* addressesArray = [noSingleQuote componentsSeparatedByString: @">, "];
-        
-        NSMutableArray* fixedAddressesArray = [NSMutableArray new];
-        for (NSString* address in addressesArray) {
-            // put back the ">" removed by using the componentsSeparatedByString method with ">, "
-            [fixedAddressesArray addObject: [NSString stringWithFormat: @"%@>", address]];
-        }
-        
-        NSValueTransformer* addressTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
-        
-        for (NSString* addressString in fixedAddressesArray) {
-            SimpleRFC822Address* rfcAddress = [addressTransformer reverseTransformedValue: addressString];
-            if (rfcAddress) {
-                [addresses addObject: rfcAddress];
+        if ([trimmedAddressString isNonNilString]) {
+            NSArray* addressesArray = [trimmedAddressString componentsSeparatedByString: @">, "];
+            
+            NSMutableArray* fixedAddressesArray = [NSMutableArray new];
+            for (NSString* address in addressesArray) {
+                // put back the ">" removed by using the componentsSeparatedByString method with ">, "
+                trimmedAddressString = [address stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                if ([trimmedAddressString isNonNilString]) {
+                    [fixedAddressesArray addObject: [NSString stringWithFormat: @"%@>", address]];
+                }
+            }
+            
+            NSValueTransformer* addressTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
+            
+            for (NSString* addressString in fixedAddressesArray) {
+                SimpleRFC822Address* rfcAddress = [addressTransformer reverseTransformedValue: addressString];
+                if (rfcAddress) {
+                    [addresses addObject: rfcAddress];
+                }
             }
         }
     }
