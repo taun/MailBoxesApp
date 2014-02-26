@@ -29,7 +29,7 @@
  */
 
 
-@interface MBMessageViewController : NSCollectionViewItem <NSComboBoxDataSource, NSComboBoxDelegate, NSPopoverDelegate>
+@interface MBMessageViewController : NSCollectionViewItem <NSPopoverDelegate>
 
 
 @property (nonatomic,strong) MMPMessageViewOptions          *options;
@@ -38,9 +38,12 @@
 @property (strong) IBOutlet NSPopover *addressPopover;
 
 @property (weak) IBOutlet MBMessageHeaderView *messageHeader;
-@property (weak) IBOutlet NSComboBox *recipientsBox;
 
 @property (weak) IBOutlet MBBodyStructureInlineView* messageBodyViewContainer;
+
+@property (strong,nonatomic) NSArray* cachedAddressesTo;
+@property (strong,nonatomic) NSArray* cachedAddressesBcc;
+@property (strong,nonatomic) NSArray* cachedAddressesCc;
 
 #pragma Body
 -(void) reloadMessage;

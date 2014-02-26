@@ -60,7 +60,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="replyTo" id="cql-ty-323">
                                             <font key="font" size="13" name="HelveticaNeue"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <accessibility help="Sender"/>
@@ -80,7 +80,7 @@
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="dateSent" id="9VQ-BA-VAt">
                                             <dateFormatter key="formatter" dateStyle="short" timeStyle="short" doesRelativeDateFormatting="YES" id="7ym-bj-ZAa"/>
                                             <font key="font" size="13" name="HelveticaNeue"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <accessibility help="Date sent"/>
@@ -113,7 +113,7 @@
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="888" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QgS-JV-yC2">
-                                        <rect key="frame" x="8" y="20" width="54" height="21"/>
+                                        <rect key="frame" x="-2" y="10" width="54" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="subject" id="Ccp-NO-izn">
                                             <font key="font" size="14" name="HelveticaNeue-Bold"/>
@@ -132,22 +132,250 @@
                                         </connections>
                                     </textField>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3oG-Cl-2yQ">
-                                        <rect key="frame" x="0.0" y="129" width="86" height="15"/>
+                                        <rect key="frame" x="350" y="9" width="86" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="inline" title="Message Parts" bezelStyle="inline" alignment="center" inset="2" id="brs-zt-KJQ">
+                                        <buttonCell key="cell" type="inline" title="Message Parts" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="brs-zt-KJQ">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" size="11" name="HelveticaNeue"/>
                                         </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showsBorderOnlyWhileMouseInside" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="showPartsPopover:" target="-2" id="sC9-nY-qhL"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T1f-Ol-lVZ">
-                                        <rect key="frame" x="106" y="95" width="20" height="15"/>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nok-tw-LxK">
+                                        <rect key="frame" x="-2" y="44" width="36" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="inline" title="1" bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="Kdh-bB-v5A">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="To:" id="mVB-dW-Wpo">
+                                            <font key="font" size="13" name="HelveticaNeue"/>
+                                            <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="ade-EM-yHh" name="hidden" keyPath="arrangedObjects.@count" id="Ld0-hc-2yB">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e9X-ne-KtJ">
+                                        <rect key="frame" x="40" y="38" width="186" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="lJL-va-n6X"/>
+                                        </constraints>
+                                        <popUpButtonCell key="cell" type="recessed" title="a very long sample address" bezelStyle="recessed" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" preferredEdge="maxX" selectedItem="rLi-bk-W4M" id="p3M-mc-BKG">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" size="13" name="HelveticaNeue"/>
+                                            <menu key="menu" title="OtherViews" id="fbS-uy-pDO">
+                                                <items>
+                                                    <menuItem title="a very long sample address" state="on" hidden="YES" id="rLi-bk-W4M">
+                                                        <connections>
+                                                            <binding destination="ade-EM-yHh" name="title" keyPath="selection.self" id="R9f-1J-zSa">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Item 2" id="j2C-Os-Oqp"/>
+                                                    <menuItem title="Item 3" id="Ewg-W6-AmY"/>
+                                                </items>
+                                            </menu>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="controlSize">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </popUpButtonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showsBorderOnlyWhileMouseInside" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <binding destination="ade-EM-yHh" name="hidden" keyPath="arrangedObjects.@count" id="lj9-dV-04i">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </popUpButton>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ogT-47-6Fx">
+                                        <rect key="frame" x="234" y="41" width="27" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="inline" title="12" bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="WdG-05-SbH">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" size="11" name="MyriadPro-Regular"/>
+                                            <font key="font" size="13" name="HelveticaNeue-Bold"/>
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" minimumFractionDigits="0" maximumFractionDigits="0" id="iTV-kA-gfa">
+                                                <real key="roundingIncrement" value="0.0"/>
+                                                <metadata>
+                                                    <bool key="localizesFormat" value="YES"/>
+                                                </metadata>
+                                            </numberFormatter>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showRecipientAddressPopover:" target="-2" id="t4f-nF-p14"/>
+                                            <binding destination="ade-EM-yHh" name="hidden" keyPath="arrangedObjects.@count" id="vwI-z1-wr8">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="ade-EM-yHh" name="title" keyPath="arrangedObjects.@count" id="T5I-ST-Rak">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">MBNumberToString</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jk3-RP-UAC">
+                                        <rect key="frame" x="-2" y="72" width="36" height="19"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="CC:" id="3X1-ko-8eO">
+                                            <font key="font" size="13" name="HelveticaNeue"/>
+                                            <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="qVg-u6-TdV" name="hidden" keyPath="arrangedObjects.@count" id="8Sc-Lc-ldL">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fxq-Lp-5gh">
+                                        <rect key="frame" x="40" y="66" width="186" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="30w-bt-b2s"/>
+                                        </constraints>
+                                        <popUpButtonCell key="cell" type="recessed" title="a very long sample address" bezelStyle="recessed" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" preferredEdge="maxX" selectedItem="pj3-Xb-AhQ" id="bLt-UT-oox">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" size="13" name="HelveticaNeue"/>
+                                            <menu key="menu" title="OtherViews" id="Q4Z-Tv-4WG">
+                                                <items>
+                                                    <menuItem title="a very long sample address" state="on" hidden="YES" id="pj3-Xb-AhQ">
+                                                        <connections>
+                                                            <binding destination="qVg-u6-TdV" name="title" keyPath="selection.self" id="5TJ-br-8UE">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Item 2" id="fsG-Yt-jZN"/>
+                                                    <menuItem title="Item 3" id="hbF-Re-Gsj"/>
+                                                </items>
+                                            </menu>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="controlSize">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </popUpButtonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showsBorderOnlyWhileMouseInside" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <binding destination="qVg-u6-TdV" name="hidden" keyPath="arrangedObjects.@count" id="EDR-Qz-NWQ">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </popUpButton>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SWn-JW-6l0">
+                                        <rect key="frame" x="234" y="69" width="27" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="inline" title="12" bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="LTI-rQ-Ynx">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" size="13" name="HelveticaNeue-Bold"/>
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" minimumFractionDigits="0" maximumFractionDigits="0" id="xvD-GV-qCs">
+                                                <real key="roundingIncrement" value="0.0"/>
+                                                <metadata>
+                                                    <bool key="localizesFormat" value="YES"/>
+                                                </metadata>
+                                            </numberFormatter>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showRecipientAddressPopover:" target="-2" id="nFX-7B-x70"/>
+                                            <binding destination="qVg-u6-TdV" name="hidden" keyPath="arrangedObjects.@count" id="lc8-KW-N9I">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="qVg-u6-TdV" name="title" keyPath="arrangedObjects.@count" id="x9t-cf-oct">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">MBNumberToString</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hCy-iT-j83">
+                                        <rect key="frame" x="-2" y="100" width="36" height="19"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="BCC:" id="d6m-Bs-4S1">
+                                            <font key="font" size="13" name="HelveticaNeue"/>
+                                            <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="lcU-fD-x14" name="hidden" keyPath="arrangedObjects.@count" id="Ym7-FM-BzJ">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5qc-kY-0ds">
+                                        <rect key="frame" x="40" y="94" width="186" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="MEy-o5-GIg"/>
+                                        </constraints>
+                                        <popUpButtonCell key="cell" type="recessed" title="a very long sample address" bezelStyle="recessed" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" preferredEdge="maxX" selectedItem="G7n-SM-INS" id="hHO-gQ-5RI">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" size="13" name="HelveticaNeue"/>
+                                            <menu key="menu" title="OtherViews" id="j1A-R1-Tve">
+                                                <items>
+                                                    <menuItem title="a very long sample address" state="on" hidden="YES" id="G7n-SM-INS">
+                                                        <connections>
+                                                            <binding destination="lcU-fD-x14" name="title" keyPath="selection.self" id="FQK-ee-8H1">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Item 2" id="vft-sJ-TMu"/>
+                                                    <menuItem title="Item 3" id="Igt-y1-wd2"/>
+                                                </items>
+                                            </menu>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="controlSize">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </popUpButtonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showsBorderOnlyWhileMouseInside" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <binding destination="lcU-fD-x14" name="hidden" keyPath="arrangedObjects.@count" id="CsY-P3-MH8">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </popUpButton>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T1f-Ol-lVZ">
+                                        <rect key="frame" x="234" y="97" width="27" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="inline" title="12" bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="Kdh-bB-v5A">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" size="13" name="HelveticaNeue-Bold"/>
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" minimumFractionDigits="0" maximumFractionDigits="0" id="5vY-Ab-lHg">
                                                 <real key="roundingIncrement" value="0.0"/>
                                                 <metadata>
@@ -157,55 +385,54 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="showRecipientAddressPopover:" target="-2" id="jVR-lU-Uke"/>
-                                            <binding destination="ade-EM-yHh" name="title" keyPath="arrangedObjects.@count" id="azH-DF-BCr">
+                                            <binding destination="lcU-fD-x14" name="hidden" keyPath="arrangedObjects.@count" id="BnH-7J-NqF">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="lcU-fD-x14" name="title" keyPath="arrangedObjects.@count" id="zYb-oc-ZE1">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">MBNumberToString</string>
                                                 </dictionary>
                                             </binding>
                                         </connections>
                                     </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="TaL-Eh-kcL">
-                                        <rect key="frame" x="0.0" y="94" width="98" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="inline" title="sample address" bezelStyle="inline" alignment="center" lineBreakMode="truncatingTail" inset="2" id="aKh-rW-XSg">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" size="12" name="HelveticaNeue"/>
-                                            <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" minimumFractionDigits="0" maximumFractionDigits="0" id="8Ta-RP-gic">
-                                                <real key="roundingIncrement" value="0.0"/>
-                                                <metadata>
-                                                    <bool key="localizesFormat" value="YES"/>
-                                                </metadata>
-                                            </numberFormatter>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="showRecipientAddressPopover:" target="-2" id="aeh-mF-ETS"/>
-                                            <binding destination="ade-EM-yHh" name="title" keyPath="selection.self" id="c7D-jZ-3sy">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="QgS-JV-yC2" secondAttribute="bottom" constant="20" id="2cT-9I-VBS"/>
-                                    <constraint firstItem="3oG-Cl-2yQ" firstAttribute="top" secondItem="LFh-Jj-pYw" secondAttribute="top" constant="6" id="5Pu-Ct-WXF"/>
+                                    <constraint firstAttribute="bottom" secondItem="QgS-JV-yC2" secondAttribute="bottom" constant="10" id="2cT-9I-VBS"/>
+                                    <constraint firstItem="hCy-iT-j83" firstAttribute="width" secondItem="Jk3-RP-UAC" secondAttribute="width" id="3VQ-kD-orb"/>
+                                    <constraint firstItem="e9X-ne-KtJ" firstAttribute="leading" secondItem="Nok-tw-LxK" secondAttribute="trailing" constant="8" symbolic="YES" id="3yY-dn-01t"/>
+                                    <constraint firstItem="QgS-JV-yC2" firstAttribute="leading" secondItem="Nok-tw-LxK" secondAttribute="leading" id="6T6-1B-Be5"/>
+                                    <constraint firstItem="ogT-47-6Fx" firstAttribute="centerY" secondItem="e9X-ne-KtJ" secondAttribute="centerY" id="Cr6-kO-Bl2"/>
                                     <constraint firstAttribute="trailing" secondItem="BzI-kt-IXz" secondAttribute="trailing" id="Ef8-Fy-Jl8"/>
                                     <constraint firstAttribute="trailing" secondItem="9B0-04-G0A" secondAttribute="trailing" id="Fxz-mF-Syq"/>
-                                    <constraint firstItem="QgS-JV-yC2" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" constant="10" id="O2S-yI-Ox7"/>
+                                    <constraint firstItem="hCy-iT-j83" firstAttribute="width" secondItem="Nok-tw-LxK" secondAttribute="width" id="HYK-aG-xjc"/>
+                                    <constraint firstItem="QgS-JV-yC2" firstAttribute="top" secondItem="e9X-ne-KtJ" secondAttribute="bottom" constant="8" symbolic="YES" id="Igh-b6-Ub3"/>
+                                    <constraint firstItem="T1f-Ol-lVZ" firstAttribute="centerY" secondItem="5qc-kY-0ds" secondAttribute="centerY" id="KBv-ws-6Mg"/>
+                                    <constraint firstItem="Fxq-Lp-5gh" firstAttribute="top" secondItem="5qc-kY-0ds" secondAttribute="bottom" id="Ki1-Fa-7Cf"/>
+                                    <constraint firstItem="hCy-iT-j83" firstAttribute="centerY" secondItem="5qc-kY-0ds" secondAttribute="centerY" id="NIV-4J-Wd5"/>
+                                    <constraint firstItem="QgS-JV-yC2" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" id="O2S-yI-Ox7"/>
                                     <constraint firstItem="9B0-04-G0A" firstAttribute="top" secondItem="BzI-kt-IXz" secondAttribute="bottom" constant="8" id="QHh-ZV-YyN"/>
+                                    <constraint firstAttribute="trailing" secondItem="3oG-Cl-2yQ" secondAttribute="trailing" id="QPr-X9-SMc"/>
+                                    <constraint firstItem="Fxq-Lp-5gh" firstAttribute="leading" secondItem="Jk3-RP-UAC" secondAttribute="trailing" constant="8" symbolic="YES" id="TNa-bM-9AW"/>
                                     <constraint firstItem="N1j-tJ-Va9" firstAttribute="top" secondItem="LFh-Jj-pYw" secondAttribute="top" constant="16" id="Ucl-N7-W34"/>
+                                    <constraint firstItem="QgS-JV-yC2" firstAttribute="leading" secondItem="Jk3-RP-UAC" secondAttribute="leading" id="Vd7-iJ-O6T"/>
                                     <constraint firstAttribute="height" constant="150" id="Vqd-p1-Ab8"/>
                                     <constraint firstAttribute="trailing" secondItem="N1j-tJ-Va9" secondAttribute="trailing" id="Vua-qE-Egn"/>
-                                    <constraint firstItem="T1f-Ol-lVZ" firstAttribute="centerY" secondItem="TaL-Eh-kcL" secondAttribute="centerY" id="WxC-0P-tOa"/>
-                                    <constraint firstItem="TaL-Eh-kcL" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" id="XRY-2d-0NC"/>
+                                    <constraint firstItem="T1f-Ol-lVZ" firstAttribute="leading" secondItem="5qc-kY-0ds" secondAttribute="trailing" constant="8" id="X7x-hq-ZSP"/>
                                     <constraint firstAttribute="trailing" secondItem="Mqd-3z-t15" secondAttribute="trailing" id="XsD-iu-YxQ"/>
-                                    <constraint firstItem="T1f-Ol-lVZ" firstAttribute="leading" secondItem="TaL-Eh-kcL" secondAttribute="trailing" constant="8" id="ais-hw-BHH"/>
+                                    <constraint firstItem="e9X-ne-KtJ" firstAttribute="top" secondItem="Fxq-Lp-5gh" secondAttribute="bottom" id="YqM-ys-wqG"/>
+                                    <constraint firstItem="e9X-ne-KtJ" firstAttribute="centerY" secondItem="Nok-tw-LxK" secondAttribute="centerY" id="Zhi-T7-rSo"/>
+                                    <constraint firstItem="Jk3-RP-UAC" firstAttribute="centerY" secondItem="Fxq-Lp-5gh" secondAttribute="centerY" id="aa1-7e-wS2"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="1200" id="bsa-2i-HuZ"/>
+                                    <constraint firstItem="SWn-JW-6l0" firstAttribute="centerY" secondItem="Fxq-Lp-5gh" secondAttribute="centerY" id="cMW-UJ-hdU"/>
+                                    <constraint firstAttribute="bottom" secondItem="3oG-Cl-2yQ" secondAttribute="bottom" constant="10" id="deT-av-Q7f"/>
+                                    <constraint firstItem="QgS-JV-yC2" firstAttribute="leading" secondItem="hCy-iT-j83" secondAttribute="leading" id="eIh-Ot-4aY"/>
+                                    <constraint firstItem="5qc-kY-0ds" firstAttribute="leading" secondItem="hCy-iT-j83" secondAttribute="trailing" constant="8" symbolic="YES" id="jIu-Ja-F8f"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="865" constant="300" id="jMo-EH-biA"/>
-                                    <constraint firstItem="T1f-Ol-lVZ" firstAttribute="top" secondItem="3oG-Cl-2yQ" secondAttribute="bottom" constant="19" id="ogT-zi-jVA"/>
+                                    <constraint firstItem="ogT-47-6Fx" firstAttribute="leading" secondItem="e9X-ne-KtJ" secondAttribute="trailing" constant="8" id="ohu-0R-OLu"/>
                                     <constraint firstItem="Mqd-3z-t15" firstAttribute="top" secondItem="9B0-04-G0A" secondAttribute="bottom" id="roO-Ig-Bbo"/>
-                                    <constraint firstItem="3oG-Cl-2yQ" firstAttribute="leading" secondItem="LFh-Jj-pYw" secondAttribute="leading" id="t6B-uD-nVd"/>
+                                    <constraint firstItem="SWn-JW-6l0" firstAttribute="leading" secondItem="Fxq-Lp-5gh" secondAttribute="trailing" constant="8" id="rwi-aB-059"/>
                                     <constraint firstItem="BzI-kt-IXz" firstAttribute="top" secondItem="N1j-tJ-Va9" secondAttribute="bottom" constant="2" id="wvo-Qp-nIF"/>
                                 </constraints>
                                 <accessibility description="Header" help="Header"/>
@@ -266,6 +493,16 @@
                 <binding destination="-2" name="contentArray" keyPath="self.cachedAddressesTo" id="sbR-7G-Kk9"/>
             </connections>
         </arrayController>
+        <arrayController objectClassName="MBAddress" editable="NO" automaticallyRearrangesObjects="YES" id="qVg-u6-TdV" userLabel="AddressesCc Array Controller">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.cachedAddressesCc" id="pPl-8y-6lG"/>
+            </connections>
+        </arrayController>
+        <arrayController objectClassName="MBAddress" editable="NO" automaticallyRearrangesObjects="YES" id="lcU-fD-x14" userLabel="AddressesBcc Array Controller">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.cachedAddressesBcc" id="u2D-0D-E7i"/>
+            </connections>
+        </arrayController>
         <viewController title="Message Parts" nibName="MBMessageOutlineViewController" id="3902" userLabel="Parts Popover View Controller" customClass="MBMessageOutlineViewController"/>
         <popover behavior="t" id="3903" userLabel="Parts Popover">
             <connections>
@@ -295,14 +532,14 @@
                         <rect key="frame" x="1" y="17" width="488" height="155"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="DNB-25-olH" viewBased="YES" id="QVv-CB-WzC">
-                                <rect key="frame" x="0.0" y="0.0" width="488" height="155"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="DNB-25-olH" viewBased="YES" id="QVv-CB-WzC">
+                                <rect key="frame" x="0.0" y="0.0" width="490" height="155"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn editable="NO" width="205" minWidth="40" maxWidth="1000" id="F5L-hc-qU8">
+                                    <tableColumn editable="NO" width="487" minWidth="40" maxWidth="1000" id="F5L-hc-qU8">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -317,11 +554,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="sC4-xP-yvL">
-                                                <rect key="frame" x="1" y="1" width="205" height="17"/>
+                                                <rect key="frame" x="1" y="1" width="487" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yhB-HO-lRy">
-                                                        <rect key="frame" x="0.0" y="0.0" width="205" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="487" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" placeholderString="Name" id="6fO-WW-UQO">
                                                             <font key="font" metaFont="system"/>
@@ -329,10 +566,11 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <binding destination="sC4-xP-yvL" name="value" keyPath="objectValue.name" id="OHV-Tq-8bL">
+                                                            <binding destination="sC4-xP-yvL" name="value" keyPath="objectValue" id="kGX-XS-d73">
                                                                 <dictionary key="options">
                                                                     <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                                     <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                    <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
                                                                 </dictionary>
                                                             </binding>
                                                         </connections>
@@ -351,70 +589,21 @@
                                             </binding>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn editable="NO" width="277" minWidth="10" maxWidth="3.4028234663852886e+38" id="YyH-aj-6z2">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="E-Mail">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                        </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="MVr-5M-fom">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <sortDescriptor key="sortDescriptorPrototype" selector="localizedStandardCompare:" sortKey="email"/>
-                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
-                                        <prototypeCellViews>
-                                            <tableCellView id="7di-1P-PDX">
-                                                <rect key="frame" x="209" y="1" width="277" height="17"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hIe-hG-HuS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="277" height="17"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" placeholderString="E-Mail" id="7mI-uX-iut">
-                                                            <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                        <connections>
-                                                            <binding destination="7di-1P-PDX" name="value" keyPath="objectValue.email" id="bvY-n0-dU6">
-                                                                <dictionary key="options">
-                                                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                </dictionary>
-                                                            </binding>
-                                                        </connections>
-                                                    </textField>
-                                                </subviews>
-                                                <connections>
-                                                    <outlet property="textField" destination="hIe-hG-HuS" id="QBS-tv-kbo"/>
-                                                </connections>
-                                            </tableCellView>
-                                        </prototypeCellViews>
-                                        <connections>
-                                            <binding destination="ade-EM-yHh" name="value" keyPath="arrangedObjects.email" id="due-GX-nbl">
-                                                <dictionary key="options">
-                                                    <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </tableColumn>
                                 </tableColumns>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="IAE-4p-1Mr">
-                        <rect key="frame" x="1" y="156" width="396" height="16"/>
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" id="IAE-4p-1Mr">
+                        <rect key="frame" x="1" y="156" width="488" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="37" id="g1f-nF-NRK">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="g1f-nF-NRK">
                         <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="DNB-25-olH">
-                        <rect key="frame" x="0.0" y="0.0" width="488" height="17"/>
+                        <rect key="frame" x="0.0" y="0.0" width="490" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>

@@ -38,7 +38,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @interface MBMessageViewController ()
 
 @property (strong, nonatomic) NSArray* cachedOrderedMessageParts;
-@property (strong,nonatomic) NSArray* cachedAddressesTo;
 
 -(NSAttributedString*) attributedStringFromMessage: (MBMessage*) message;
 
@@ -53,6 +52,22 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         _cachedAddressesTo = [message.addressesTo sortedArrayUsingDescriptors: @[sorting]];
     }
     return _cachedAddressesTo;
+}
+-(NSArray*) cachedAddressesBcc {
+    if (_cachedAddressesBcc == nil) {
+        MBMessage* message = (MBMessage*) self.representedObject;
+        NSSortDescriptor* sorting = [NSSortDescriptor sortDescriptorWithKey: @"email" ascending: YES];
+        _cachedAddressesBcc = [message.addressesBcc sortedArrayUsingDescriptors: @[sorting]];
+    }
+    return _cachedAddressesBcc;
+}
+-(NSArray*) cachedAddressesCc {
+    if (_cachedAddressesCc == nil) {
+        MBMessage* message = (MBMessage*) self.representedObject;
+        NSSortDescriptor* sorting = [NSSortDescriptor sortDescriptorWithKey: @"email" ascending: YES];
+        _cachedAddressesCc = [message.addressesCc sortedArrayUsingDescriptors: @[sorting]];
+    }
+    return _cachedAddressesCc;
 }
 
 -(void) awakeFromNib {
@@ -71,14 +86,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             MailBoxesAppDelegate *app = (MailBoxesAppDelegate *)[[NSApplication sharedApplication] delegate];
             [app.accountsCoordinator loadFullMessageID: messageID forAccountID: accountID];
         }
-        NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
-        NSString* cellcontent;
-        if (self.cachedAddressesTo.count > 0) {
-            cellcontent = [addressToString transformedValue: [self.cachedAddressesTo objectAtIndex: 0]];
-        } else {
-            cellcontent = @"";
-        }
-        [self.recipientsBox setObjectValue: cellcontent];
         
         //Get this from user preferences or toggle by a control
         _options = [MMPMessageViewOptions new];
@@ -167,6 +174,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         }
     }
 }
+
+#pragma mark - Popover Delegate
+- (void)popoverWillShow:(NSNotification *)notification {
+    
+}
+
+
 
 //- (IBAction)refreshMessageDisplay:(id)sender {
 //    MBMessageView* messageView = (MBMessageView*)self.view;
@@ -258,40 +272,5 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return [composition copy];
 }
 
-#pragma mark - Popover Delegate
-- (void)popoverWillShow:(NSNotification *)notification {
-    
-}
-
-#pragma mark - Combo Data Source
-
-- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
-    MBMessage* message = (MBMessage*) self.representedObject;
-    NSInteger count = 0;
-    if (message) {
-        count = [message.addressesTo count];
-    }
-    return count;
-}
-
-- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index {
-    id cellcontent;
-    
-    if (index <= self.cachedAddressesTo.count) {
-        MBAddress* address = self.cachedAddressesTo[index];
-        NSValueTransformer* addressToString = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
-        cellcontent = [addressToString transformedValue: address];
-    }
-    return cellcontent;
-}
-
-- (NSUInteger)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)aString {
-    NSUInteger index = 0;
-
-    index = [self.cachedAddressesTo indexOfObject: aString];
-    return index;
-}
-
-#pragma mark - Combo Delegate
 
 @end
