@@ -144,6 +144,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
 }
 
+- (IBAction)showRecipientAddressPopover:(id)sender {
+    [self.addressPopover showRelativeToRect: [sender bounds] ofView: sender preferredEdge: NSMaxXEdge];
+}
+
 - (IBAction)showMessageDebug:(id)sender {
     MBMessage* message = (MBMessage*) self.representedObject;
     DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), message);

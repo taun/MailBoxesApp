@@ -23,6 +23,10 @@ static NSRegularExpression *regexQSpaces;
 
 @implementation MBMIME2047ValueTransformer
 
++ (Class)transformedValueClass {
+    return [NSString class];
+}
+
 +(void)initialize {
     NSError *error=nil;
     regexEncodingFields = [[NSRegularExpression alloc] initWithPattern: @"=\\?([A-Z0-9\\-]+)\\?(?:(?:[bB]\\?([+/0-9A-Za-z]*=*))|(?:[qQ]\\?([a-zA-Z0-9.,_!=/\\*\\+\\-@]*)))\\?="

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13B3116" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4511" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1070" defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4511"/>
@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" focusRingType="none" borderWidth="0.0" title="Portal" boxType="custom" borderType="line" titlePosition="noTitle" id="2" userLabel="portalBox" customClass="MBPortalView">
-                    <rect key="frame" x="2" y="2.0000000692600985" width="260" height="316"/>
+                    <rect key="frame" x="2" y="2.0000000795040451" width="260" height="316"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="260" height="316"/>
@@ -199,10 +199,10 @@
                                                                     <connections>
                                                                         <binding destination="209" name="value" keyPath="objectValue.addressFrom" id="bHK-Oc-WLx">
                                                                             <dictionary key="options">
-                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                 <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
+                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                                             </dictionary>
                                                                         </binding>
                                                                     </connections>

@@ -31,17 +31,11 @@
 
 @interface MBMessageViewController : NSCollectionViewItem <NSComboBoxDataSource, NSComboBoxDelegate, NSPopoverDelegate>
 
-@property (strong, nonatomic) IBOutlet NSObjectController   *messageController;
 
 @property (nonatomic,strong) MMPMessageViewOptions          *options;
 
 @property (strong) IBOutlet NSPopover *partsPopover;
-
-#pragma Envelope Fields
-//@property (weak) IBOutlet NSTextField *subject;
-//@property (weak) IBOutlet NSTextField *dateSent;
-//@property (weak) IBOutlet NSTextField *recipients;
-//@property (weak) IBOutlet NSTextField *sender;
+@property (strong) IBOutlet NSPopover *addressPopover;
 
 @property (weak) IBOutlet MBMessageHeaderView *messageHeader;
 @property (weak) IBOutlet NSComboBox *recipientsBox;
@@ -52,6 +46,7 @@
 -(void) reloadMessage;
 //@property (strong) NSView* messageBodyView;
 - (IBAction)showPartsPopover:(NSButton *)sender;
+- (IBAction)showRecipientAddressPopover:(id)sender;
 
 - (IBAction)showMessageDebug:(id)sender;
 - (IBAction)showPartsInLog:(id)sender;

@@ -12,6 +12,10 @@ static NSDictionary *_charsetMap;
 
 @implementation MBMIMECharsetTransformer
 
++ (Class)transformedValueClass {
+    return [NSNumber class];
+}
+
 +(void)initialize {
     _charsetMap = @{@"US-ASCII": @(NSASCIIStringEncoding),
                     @"UTF-8": @(NSUTF8StringEncoding),

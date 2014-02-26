@@ -11,6 +11,10 @@
 
 @implementation MBEncodedStringHexOctetTransformer
 
++ (Class)transformedValueClass {
+    return [MBEncodedString class];
+}
+
 - (id)transformedValue:(id)anMBencodedString {
     MBEncodedString* dehexedString;
     if ([anMBencodedString isKindOfClass:[MBEncodedString class]]) {
