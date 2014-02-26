@@ -217,14 +217,14 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="showRecipientAddressPopover:" target="-2" id="t4f-nF-p14"/>
-                                            <binding destination="ade-EM-yHh" name="hidden" keyPath="arrangedObjects.@count" id="vwI-z1-wr8">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
                                             <binding destination="ade-EM-yHh" name="title" keyPath="arrangedObjects.@count" id="T5I-ST-Rak">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">MBNumberToString</string>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="ade-EM-yHh" name="hidden" keyPath="arrangedObjects.@count" id="vwI-z1-wr8">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
                                         </connections>
@@ -533,13 +533,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="DNB-25-olH" viewBased="YES" id="QVv-CB-WzC">
-                                <rect key="frame" x="0.0" y="0.0" width="490" height="155"/>
+                                <rect key="frame" x="0.0" y="0.0" width="488" height="155"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn editable="NO" width="487" minWidth="40" maxWidth="1000" id="F5L-hc-qU8">
+                                    <tableColumn editable="NO" width="485" minWidth="40" maxWidth="1000" id="F5L-hc-qU8">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -554,11 +554,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="sC4-xP-yvL">
-                                                <rect key="frame" x="1" y="1" width="487" height="17"/>
+                                                <rect key="frame" x="1" y="1" width="485" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yhB-HO-lRy">
-                                                        <rect key="frame" x="0.0" y="0.0" width="487" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="485" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" placeholderString="Name" id="6fO-WW-UQO">
                                                             <font key="font" metaFont="system"/>
@@ -594,7 +594,7 @@
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" id="IAE-4p-1Mr">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="IAE-4p-1Mr">
                         <rect key="frame" x="1" y="156" width="488" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -603,7 +603,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="DNB-25-olH">
-                        <rect key="frame" x="0.0" y="0.0" width="490" height="17"/>
+                        <rect key="frame" x="0.0" y="0.0" width="488" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>

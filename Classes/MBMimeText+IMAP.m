@@ -66,7 +66,7 @@
         }
         
         
-        NSAssert((decoded != nil) && (decoded.length>4), @"decoded is an empty string: %@, data=%@", decoded, self.data);
+        NSAssert((decoded != nil) && (decoded.length>0), @"decoded is an empty string: %@, data=%@", decoded, self.data);
         
         if (decoded) {
             self.data.decoded = decoded;
