@@ -2,7 +2,7 @@
 //  MBViewPortal.m
 //  MailBoxes
 //
-//  Created by Taun Chapman on 02/20/14.
+//  Created by Taun Chapman on 03/03/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -16,6 +16,7 @@
 @dynamic desc;
 @dynamic name;
 @dynamic rowHeight;
+@dynamic color;
 @dynamic messageArraySource;
 @dynamic user;
 

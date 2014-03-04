@@ -9,6 +9,7 @@
 #import "MailBoxesAppDelegate.h"
 #import "MBPortalsCollectionView.h"
 #import "MBPortalViewController.h"
+#import "MBPortalView.h"
 
 #import "MBMessage+IMAP.h"
 #import "MBMime.h"
@@ -59,6 +60,14 @@ CGFloat ONEROW = 18.0;
 
     if (representedObject) {
         [self addObserver: self forKeyPath: @"collectionView" options: NSKeyValueObservingOptionOld context: NULL];
+        MBViewPortal* item = (MBViewPortal*) self.representedObject;
+        NSColor* boxColor = item.color;
+        if (boxColor && [boxColor isKindOfClass: [NSColor class]]) {
+            MBPortalView* pview = [[self.view subviews] firstObject];
+            if (pview) {
+                [pview setBorderColor: boxColor];
+            }
+        }
     }
 }
 
@@ -143,6 +152,16 @@ CGFloat ONEROW = 18.0;
 
 -(void) contentUpdated {
     
+}
+
+- (IBAction)changePortalColor:(id)sender {
+    MBViewPortal* item = (MBViewPortal*) self.representedObject;
+    MBPortalView* pview = [[self.view subviews] firstObject];
+    if (pview) {
+        NSColor* newColor = [NSColor redColor];
+        [pview setBorderColor: newColor];
+        [item setColor: newColor];
+    }
 }
 
 //- (NSTableViewRowSizeStyle) changeSize: (NSInteger) change {

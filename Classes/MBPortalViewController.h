@@ -27,7 +27,7 @@
  @discussion more later
  
  */
-@interface MBPortalViewController : NSCollectionViewItem <NSTableViewDelegate> 
+@interface MBPortalViewController : NSCollectionViewItem <NSTableViewDelegate>
 
 @property (strong,nonatomic,readonly)     NSArray         *messagesArray;
 @property (strong,nonatomic,readonly)     NSArray         *collectionItemSortDescriptors;
@@ -39,6 +39,8 @@
 @property (strong) IBOutlet     NSTableView             *tableView;
 
 -(void) contentUpdated;
+
+- (IBAction)changePortalColor:(id)sender;
 
 - (IBAction)growTableRows:(id)sender;
 - (IBAction)shrinkTableRows:(id)sender;

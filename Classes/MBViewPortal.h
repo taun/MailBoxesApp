@@ -2,7 +2,7 @@
 //  MBViewPortal.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 02/20/14.
+//  Created by Taun Chapman on 03/03/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * rowHeight;
+@property (nonatomic, retain) id color;
 @property (nonatomic, retain) MBTreeNode *messageArraySource;
 @property (nonatomic, retain) MBUser *user;
 

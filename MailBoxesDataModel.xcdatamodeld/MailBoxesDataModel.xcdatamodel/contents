@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13B3116" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
     <entity name="Entity" syncable="YES"/>
     <entity name="MBAccount" representedClassName="MBAccount" parentEntity="MBTreeNode">
         <attribute name="address" attributeType="String" maxValueString="64" defaultValueString="name@server.com">
@@ -430,6 +430,7 @@
         <userInfo/>
     </entity>
     <entity name="MBViewPortal" representedClassName="MBViewPortal" isAbstract="YES" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="rowHeight" optional="YES" attributeType="Float" minValueString="0" maxValueString="600" defaultValueString="72" syncable="YES"/>
