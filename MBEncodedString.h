@@ -25,5 +25,6 @@
 -(instancetype) initWithString: (NSString*) string encoding: (NSStringEncoding) encoding;
 
 -(NSData*) asData;
+-(NSData*) asUTF8Data;
 
 @end

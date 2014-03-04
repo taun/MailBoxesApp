@@ -31,4 +31,16 @@
     return [self.string dataUsingEncoding: self.encoding];
 }
 
+-(NSData*) asUTF8Data {
+    NSData* utf8Data;
+    
+    if (self.encoding != NSUTF8StringEncoding) {
+        NSData* transCodedString = [self.string dataUsingEncoding: self.encoding];
+        NSString* utfString = [[NSString alloc] initWithData: transCodedString encoding: self.encoding];
+        utf8Data = [utfString dataUsingEncoding: NSUTF8StringEncoding];
+    } else {
+        utf8Data = [self asData];
+    }
+    return utf8Data;
+}
 @end

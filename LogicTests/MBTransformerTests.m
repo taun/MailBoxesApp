@@ -188,4 +188,15 @@
     XCTAssertTrue(success, @"%@ & %@ Should be equal.", addresses, reference);
 }
 
+
+-(void)testLongAddressesStringNamesWithQEncodeToSet {
+    NSString* addresses = [NSString stringWithFormat: @"\"'Mike Kropveld'\" <grandmasters@operamail.com>,                        \"'Laurie Dotto'\" <laurie.dotto@abbott.com>,                       \"'Lorne Beckman'\" <lorne@orl.mcgill.ca>,                         \"'Shiellah Quintos'\" <shiellah@sympatico.ca>,                       =?iso-8859-1?Q?'Lariv=E9e=2C_Jean-Fran=E7ois'?= <Larivee-J-F@positron911.com>"];
+    NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
+    NSString* reference = [self transformAddressesToString: simpleAddressSet];
+    NSSet* simpleAddressSet2 = [self reverseTranformAddresses: reference];
+    BOOL success = [simpleAddressSet2 isEqualToSet: simpleAddressSet];
+    XCTAssertTrue(success, @"%@ & %@ Should be equal.", addresses, reference);
+}
+
+
 @end
