@@ -172,66 +172,58 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) setParsedAddressReplyTo: (id) tokenized {
     self.addressReplyTo = [self checkAddress: tokenized];
 }
+
+-(NSSet*) parseAddressTokens: (id) tokenized {
+    DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
+    
+    NSMutableSet* mbAddressSet;
+    
+    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
+        
+        mbAddressSet = [NSMutableSet new];
+        
+        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
+        
+        NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
+        
+        if (simpleAddressSet) {
+            for (SimpleRFC822Address* rfcAddress in simpleAddressSet) {
+                MBAddress* mbAddress = [self checkAddress: rfcAddress];
+                if (mbAddress) {
+                    [mbAddressSet addObject: mbAddress];
+                }
+            }
+        }
+    }
+    return [mbAddressSet copy];
+}
+
 /*
  "Nancy Reigel" <ndreigel@bellatlantic.net>, "'Carl Davies'" <carl_davies99@yahoo.com>, "'Taun'" <taun@charcoalia.net>, "'Michael B. Parmet'" <mbparmet@parmetech.com>, <geminikc9@yahoo.com>, <richard.hankin@hankingroup.com>, <DBoscher@CNTUS.JNJ.COM>, <mark@mccay.com>, <canniff@canniff.net>, <ndreigel@verizon.net>, <monckma@yahoo.com>, "'Alicia Shultz'" <AliciaShultz@princetowncable.com>, "'Laurie'" <reelmom5@verizon.net>, "'Wagner, Tim [NCSUS]'" <twagner@ncsus.jnj.com>, <jppsd@msn.com>, <karen_vanbemmel@yahoo.com>
 */
 -(void) setParsedAddressesTo: (id) tokenized {
-    DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
-    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
-        
-        NSMutableSet* mbAddressSet = [NSMutableSet new];
-        
-        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
-        
-        NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
-        
-        if (simpleAddressSet) {
-            for (SimpleRFC822Address* rfcAddress in simpleAddressSet) {
-                MBAddress* mbAddress = [self checkAddress: rfcAddress];
-                if (mbAddress) {
-                    [mbAddressSet addObject: mbAddress];
-                }
-            }
-            [self addAddressesTo: [mbAddressSet copy]];
-        }
+    
+    NSSet* mbAddresses = [self parseAddressTokens: tokenized];
+    
+    if (mbAddresses.count > 0) {
+        [self addAddressesTo: mbAddresses];
     }
-
 }
 -(void) setParsedAddressesBcc: (id) tokenized {
-    DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
-    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
-        NSMutableSet* mbAddressSet = [NSMutableSet new];
-        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
-        NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
-        if (simpleAddressSet) {
-            for (SimpleRFC822Address* rfcAddress in simpleAddressSet) {
-                MBAddress* mbAddress = [self checkAddress: rfcAddress];
-                if (mbAddress) {
-                    [mbAddressSet addObject: mbAddress];
-                }
-            }
-            [self addAddressesBcc: [mbAddressSet copy]];
-        }
-    }
     
+    NSSet* mbAddresses = [self parseAddressTokens: tokenized];
+    
+    if (mbAddresses.count > 0) {
+        [self addAddressesBcc: mbAddresses];
+    }
 }
 -(void) setParsedAddressesCc: (id) tokenized {
-    DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
-    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
-        NSMutableSet* mbAddressSet = [NSMutableSet new];
-        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
-        NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
-        if (simpleAddressSet) {
-            for (SimpleRFC822Address* rfcAddress in simpleAddressSet) {
-                MBAddress* mbAddress = [self checkAddress: rfcAddress];
-                if (mbAddress) {
-                    [mbAddressSet addObject: mbAddress];
-                }
-            }
-            [self addAddressesCc: [mbAddressSet copy]];
-        }
-    }
     
+    NSSet* mbAddresses = [self parseAddressTokens: tokenized];
+    
+    if (mbAddresses.count > 0) {
+        [self addAddressesCc: mbAddresses];
+    }
 }
 -(void) setParsedMessageId: (id) tokenized {
     if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
@@ -1010,7 +1002,7 @@ From RFC3501
         if ([tokenized isKindOfClass: [NSString class]]) {
             
             NSValueTransformer* rfcAddressTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
-            rfcAddress = [rfcAddressTransformer reverseTransformedValue: [self checkAnd2047DecodeToken: tokenized]];
+            rfcAddress = [rfcAddressTransformer reverseTransformedValue: tokenized];
         } else {
             rfcAddress = tokenized;
         }
