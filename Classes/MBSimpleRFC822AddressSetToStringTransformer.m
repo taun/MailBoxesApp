@@ -79,8 +79,8 @@
     
     if ([value isKindOfClass: [NSString class]]) {
         NSString* noTabs = [(NSString*)value stringByReplacingOccurrencesOfString: @"\t" withString: @"  "];
-        NSString* noSingleQuote = [noTabs stringByReplacingOccurrencesOfString: @"'" withString: @"  "];
-        NSString* trimmedAddressString = [noTabs stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString* noSingleQuote = [noTabs stringByReplacingOccurrencesOfString: @"'" withString: @""];
+        NSString* trimmedAddressString = [noSingleQuote stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
         if ([trimmedAddressString isNonNilString]) {
             NSArray* addressesArray = [trimmedAddressString componentsSeparatedByString: @">, "];

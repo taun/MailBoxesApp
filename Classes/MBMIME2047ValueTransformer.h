@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MBMIMECharsetTransformer.h"
 
 #define VTMBMIME2047ValueTransformer @"MBMIME2047ValueTransformer"
 

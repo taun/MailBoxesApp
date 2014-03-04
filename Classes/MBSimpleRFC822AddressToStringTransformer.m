@@ -65,8 +65,14 @@
             rfcaddress = [SimpleRFC822Address new];
 
             if (lastSpace.location != NSNotFound) {
-                rfcaddress.name =  [[addressString substringWithRange: NSMakeRange(0, lastSpace.location)]
-                                    stringByTrimmingCharactersInSet: nameDelimiters];
+                NSValueTransformer* encodedWordTransformer = [NSValueTransformer valueTransformerForName: VTMBMIME2047ValueTransformer];
+
+                NSString* potentiallyEncodedWord = [[addressString substringWithRange: NSMakeRange(0, lastSpace.location)]
+                                                    stringByTrimmingCharactersInSet: nameDelimiters];
+                
+                NSString* potentiallyDecodedWord = [encodedWordTransformer transformedValue: potentiallyEncodedWord];
+                
+                rfcaddress.name =  potentiallyDecodedWord;
                 
                 rfcaddress.email = [[addressString substringWithRange: NSMakeRange(lastSpace.location+1, addressString.length-lastSpace.location-1)]
                                     stringByTrimmingCharactersInSet: addressDelimiters];

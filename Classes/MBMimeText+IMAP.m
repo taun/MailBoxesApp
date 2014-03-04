@@ -10,6 +10,8 @@
 #import "MBMimeText+IMAP.h"
 #import "NSObject+MBShorthand.h"
 #import "MBEncodedString.h"
+#import "MBMIMECharsetTransformer.h"
+#import "MBMIME2047ValueTransformer.h"
 
 
 @implementation MBMimeText (IMAP)
@@ -43,6 +45,7 @@
         if ([[self.encoding uppercaseString] isEqualToString: @"BASE64"]) {
             // decode from base64 first
             decoded = [[NSData alloc] initWithBase64EncodedString: self.data.encoded options: NSDataBase64DecodingIgnoreUnknownCharacters];
+            
             if (nsEncodingInt != NSASCIIStringEncoding && nsEncodingInt != NSUTF8StringEncoding) {
                 // convert to utf-8
                 NSString* utf8String = [[NSString alloc] initWithData: decoded encoding: nsEncodingInt];
@@ -59,16 +62,17 @@
                 //
                 NSValueTransformer* quotedPrintableTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMEQuotedPrintableTranformer];
                 stringToDecode = [quotedPrintableTransformer transformedValue: stringToDecode];
-                stringToDecode.encoding = NSUTF8StringEncoding;
+                stringToDecode.encoding = nsEncodingInt;
             }
             
-            decoded = [stringToDecode asData];
+            decoded = [stringToDecode asUTF8Data];
         }
         
         
         NSAssert((decoded != nil) && (decoded.length>0), @"decoded is an empty string: %@, data=%@", decoded, self.data);
         
         if (decoded) {
+            self.charset = @"utf-8";
             self.data.decoded = decoded;
             self.data.isDecoded = @YES;
         }

@@ -9,12 +9,7 @@
 #import "MBMIME2047ValueTransformer.h"
 #import "MBEncodedStringHexOctetTransformer.h"
 #import "MBEncodedString.h"
-
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
-
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#import "MBMIMECharsetTransformer.h"
 
 
 static NSRegularExpression *regexEncodingFields;

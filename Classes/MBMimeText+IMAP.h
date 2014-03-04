@@ -8,8 +8,6 @@
 
 #import "MBMime+IMAP.h"
 #import "MBMimeText.h"
-#import "MBMIME2047ValueTransformer.h" 
-#import "MBMIMECharsetTransformer.h"
 
 @interface MBMimeText (IMAP)
 
