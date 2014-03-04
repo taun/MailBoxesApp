@@ -9,6 +9,7 @@
 
 #import "MailBoxesAppDelegate.h"
 #import "MainSplitViewDelegate.h"
+#import "MBMessagesSplitViewDelegate.h"
 #import "MBAccountWindowController.h"
 #import "MBPPEWindowController.h"
 #import "MBTreeNode.h"
@@ -43,12 +44,13 @@
 #import "MBSimpleRFC822AddressToStringTransformer.h"
 #import "MBSimpleRFC822AddressSetToStringTransformer.h"
 #import "MBMIME2047ValueTransformer.h"
-#import "MBMIMECharsetTransformer.h"
 #import "MBMIMEQuotedPrintableTranformer.h"
 #import "MBEncodedStringHexOctetTransformer.h"
+#import "MBMIMECharsetTransformer.h"
 
 #import <FScript/FScript.h>
 #import <QuartzCore/QuartzCore.h>
+#import <MoedaeMailPlugins/MoedaeMailPlugins.h>
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -118,8 +120,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 + (void)initialize {
     NSDictionary *defaults = 
     @{@"messageQuanta": @20,
-        @"accountSplitWidth": @275.0f,
-        @"isAccountCollapsed": @"NO",
+        MBUPMainSplitWidth: @275.0f,
+        MBUPMessagesSplitIsVertical: @"NO",
+        MBUPMainSplitIsCollapsed: @"NO",
         @"selectedUser": @"",
         @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints": @"YES"};
     
@@ -366,18 +369,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(IBAction)testIMAPClient:(id)sender {
     [self.accountsCoordinator testIMAPClientComm];
 }
-
-#pragma mark - View Management
-
--(IBAction) toggleMessagesVerticalView:(id)sender {
-    
-    [self.messagesSplitView setVertical: ![self.messagesSplitView isVertical]];
-    
-    [self.messagesSplitView adjustSubviews];
-    
-    //[self.messagesSplitView setNeedsDisplay: YES];
- }
-
 
 #pragma message "TODO:Now"
 
@@ -661,7 +652,8 @@ are presented to the user.
 - (void)applicationWillTerminate:(NSNotification *)notification {
     NSUserDefaults *sud;
     sud = [NSUserDefaults standardUserDefaults];
-    [self.mainSplitViewDelegate saveViewSettingsOn: sud];
+    [(id<MBGUIStateAutoSave>)self.mainSplitView.delegate saveState];
+    [(id<MBGUIStateAutoSave>)self.messagesSplitView.delegate saveState];
     [self saveCurrentUserPreference];
     [sud synchronize];
 }

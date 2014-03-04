@@ -9,9 +9,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MBGUIStateAutoSave.h"
+
+extern NSString *const MBUPMainSplitWidth;
+extern NSString *const MBUPMainSplitIsCollapsed;
 
 
-@interface MainSplitViewDelegate : NSObject <NSSplitViewDelegate>
+@interface MainSplitViewDelegate : NSObject <NSSplitViewDelegate, MBGUIStateAutoSave>
 
 @property(strong)     IBOutlet  NSView       *accountView;
 @property(strong)     IBOutlet  NSView       *rightView;
@@ -21,7 +25,5 @@
 @property (strong) IBOutlet NSLayoutConstraint *leftSplitMinWidthConstraint;
 
 - (IBAction) toggleAccountView: sender;
-
-- (void) saveViewSettingsOn: (NSUserDefaults *) theUserDefaults;
 
 @end

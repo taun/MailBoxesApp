@@ -8,6 +8,9 @@
 
 #import "MainSplitViewDelegate.h"
 
+NSString *const MBUPMainSplitWidth = @"accountSplitWidth";
+NSString *const MBUPMainSplitIsCollapsed = @"isAccountCollapsed";
+
 @interface MainSplitViewDelegate () 
 - (BOOL) isAccountCollapsed;
 @end
@@ -24,7 +27,7 @@
     
 //    NSSplitView *mainSplitView = (NSSplitView *) [self.accountView superview];
 
-    self.lastDividerPosition = [sud floatForKey:@"accountSplitWidth"];
+    self.lastDividerPosition = [sud floatForKey: MBUPMainSplitWidth];
 
 //    if([sud boolForKey:@"isAccountCollapsed"]){
     if ([self isAccountCollapsed]) {
@@ -40,16 +43,17 @@
     return;
 }
 
-- (BOOL) isAccountCollapsed {
-    return ([self.accountView frame].size.width < 15.0);
-}
-//
-- (void) saveViewSettingsOn:  (NSUserDefaults *) theUserDefaults {    
+-(void) saveState {
+    NSUserDefaults  *sud = [NSUserDefaults standardUserDefaults];
     if(![self isAccountCollapsed]){
         self.lastDividerPosition = CGRectGetWidth(NSRectToCGRect([self.accountView bounds]));
     }
     
-    [theUserDefaults setFloat: self.lastDividerPosition forKey:@"accountSplitWidth"];
+    [sud setFloat: self.lastDividerPosition forKey: MBUPMainSplitWidth];
+}
+
+- (BOOL) isAccountCollapsed {
+    return ([self.accountView frame].size.width < 15.0);
 }
 
 - (IBAction)toggleAccountView: sender {

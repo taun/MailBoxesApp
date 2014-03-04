@@ -32,8 +32,8 @@ NSString *PortalEditingEndedKey;
 
 /// @name Main window views and controls
 /*! Standard AppDelegate window */
-@property(strong)   IBOutlet NSWindow                       *appWindow;
-@property(strong)   IBOutlet MainSplitViewDelegate          *mainSplitViewDelegate;
+@property(weak)     IBOutlet NSWindow                       *appWindow;
+@property(weak)     IBOutlet NSSplitView                    *mainSplitView;
 @property(strong)   IBOutlet NSCollectionView               *inPaneMessageView;
 @property(strong)   IBOutlet NSObjectController             *selectedUserController;
 @property(strong)            MBMessageViewController        *messageViewController;
@@ -64,8 +64,8 @@ NSString *PortalEditingEndedKey;
  @see MBPortalViewController
  @see MBPortalsCollectionViewController
  */
-@property(strong)           IBOutlet MBPortalsCollectionView         *collectionView;
-@property(strong)           IBOutlet NSSplitView              *messagesSplitView;
+@property(strong)           IBOutlet MBPortalsCollectionView   *collectionView;
+@property(weak)             IBOutlet NSSplitView               *messagesSplitView;
 
 /// @name Model root
 /*!
