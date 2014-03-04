@@ -36,6 +36,10 @@
 
 @property (strong) IBOutlet NSPopover *partsPopover;
 @property (strong) IBOutlet NSPopover *addressPopover;
+@property (strong) IBOutlet NSArrayController *popoverAddressesArrayController;
+@property (strong) IBOutlet NSArrayController *addressesBccArrayController;
+@property (strong) IBOutlet NSArrayController *addressesCcArrayController;
+@property (strong) IBOutlet NSArrayController *addressesToArrayController;
 
 @property (weak) IBOutlet MBMessageHeaderView *messageHeader;
 
@@ -50,6 +54,8 @@
 //@property (strong) NSView* messageBodyView;
 - (IBAction)showPartsPopover:(NSButton *)sender;
 - (IBAction)showRecipientAddressPopover:(id)sender;
+- (IBAction)showBccAddressPopover:(id)sender;
+- (IBAction)showCcAddressPopover:(id)sender;
 
 - (IBAction)showMessageDebug:(id)sender;
 - (IBAction)showPartsInLog:(id)sender;

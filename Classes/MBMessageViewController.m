@@ -152,6 +152,17 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (IBAction)showRecipientAddressPopover:(id)sender {
+    [self.popoverAddressesArrayController setContent: self.cachedAddressesTo] ;
+    [self.addressPopover showRelativeToRect: [sender bounds] ofView: sender preferredEdge: NSMaxXEdge];
+}
+
+- (IBAction)showBccAddressPopover:(id)sender {
+    [self.popoverAddressesArrayController setContent: self.cachedAddressesBcc] ;
+    [self.addressPopover showRelativeToRect: [sender bounds] ofView: sender preferredEdge: NSMaxXEdge];
+}
+
+- (IBAction)showCcAddressPopover:(id)sender {
+    [self.popoverAddressesArrayController setContent: self.cachedAddressesCc] ;
     [self.addressPopover showRelativeToRect: [sender bounds] ofView: sender preferredEdge: NSMaxXEdge];
 }
 
