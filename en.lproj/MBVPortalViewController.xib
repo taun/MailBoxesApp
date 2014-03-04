@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" focusRingType="none" borderWidth="0.0" title="Portal" boxType="custom" borderType="line" titlePosition="noTitle" id="2" userLabel="portalBox" customClass="MBPortalView">
-                    <rect key="frame" x="2" y="2.0000000795040451" width="260" height="316"/>
+                    <rect key="frame" x="2" y="2.0000001001856287" width="260" height="316"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="260" height="316"/>
@@ -200,9 +200,9 @@
                                                                         <binding destination="209" name="value" keyPath="objectValue.addressFrom" id="bHK-Oc-WLx">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
-                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                 <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                                             </dictionary>
                                                                         </binding>
                                                                     </connections>
@@ -310,6 +310,13 @@
         </arrayController>
         <menu title="Portal" id="259">
             <items>
+                <menuItem title="Change Color" id="42k-ra-fXk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="changePortalColor:" target="-2" id="lso-es-hbS"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="ksN-T8-n57"/>
                 <menuItem title="Edit Smart Folder" id="260">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
