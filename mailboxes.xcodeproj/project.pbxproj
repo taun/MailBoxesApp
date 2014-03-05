@@ -105,6 +105,12 @@
 		C566983218C54D7900F05440 /* MBEncodedStringHexOctetTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C566982C18C54D7900F05440 /* MBEncodedStringHexOctetTransformer.m */; };
 		C566983518C54DE600F05440 /* MBEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C566983418C54DE600F05440 /* MBEncodedString.m */; };
 		C566983618C54DE600F05440 /* MBEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C566983418C54DE600F05440 /* MBEncodedString.m */; };
+		C566983718C556E000F05440 /* MBMIMECharsetTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C566982218C54D7900F05440 /* MBMIMECharsetTransformer.m */; };
+		C566983818C556E300F05440 /* MBMIME2047ValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C566982418C54D7900F05440 /* MBMIME2047ValueTransformer.m */; };
+		C566983918C556E500F05440 /* MBSimpleRFC822AddressToStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C566982618C54D7900F05440 /* MBSimpleRFC822AddressToStringTransformer.m */; };
+		C566983A18C556E700F05440 /* MBSimpleRFC822AddressSetToStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C566982818C54D7900F05440 /* MBSimpleRFC822AddressSetToStringTransformer.m */; };
+		C566983B18C556E900F05440 /* MBMIMEQuotedPrintableTranformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C566982A18C54D7900F05440 /* MBMIMEQuotedPrintableTranformer.m */; };
+		C566983C18C556EB00F05440 /* MBEncodedStringHexOctetTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C566982C18C54D7900F05440 /* MBEncodedStringHexOctetTransformer.m */; };
 		C56ACAA1134D01D600EA21B1 /* MBPortalPredicateEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56ACA9F134D01D600EA21B1 /* MBPortalPredicateEditor.xib */; };
 		C56B46A7143F83B900167121 /* MBVPortalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56B46A5143F83B900167121 /* MBVPortalViewController.xib */; };
 		C56E15141405596D005CD1CD /* MBCriteria.m in Sources */ = {isa = PBXBuildFile; fileRef = C56E15131405596D005CD1CD /* MBCriteria.m */; };
@@ -1475,12 +1481,18 @@
 				C5052DD91810502600696782 /* MBTransformerTests.m in Sources */,
 				C5C7E77717F5CBBB0053B08B /* IMAPCoreDataStore.m in Sources */,
 				C5A97A0A18ABD4BE00C19631 /* MBTreeNode+IntersectsSetFix.m in Sources */,
+				C566983718C556E000F05440 /* MBMIMECharsetTransformer.m in Sources */,
 				C5888C0C18ABDD9200EB9F00 /* NSManagedObject+Shortcuts.m in Sources */,
 				C5C7E77817F5CBD40053B08B /* IMAPResponseBuffer.m in Sources */,
 				C5888C1718ABDD9200EB9F00 /* MBSidebar.m in Sources */,
 				C5888C1D18ABDD9200EB9F00 /* MBViewPortalSmartFolder.m in Sources */,
 				C5C7E77917F5CBE00053B08B /* RFC2822RawMessageHeader.m in Sources */,
+				C566983B18C556E900F05440 /* MBMIMEQuotedPrintableTranformer.m in Sources */,
+				C566983918C556E500F05440 /* MBSimpleRFC822AddressToStringTransformer.m in Sources */,
+				C566983818C556E300F05440 /* MBMIME2047ValueTransformer.m in Sources */,
+				C566983C18C556EB00F05440 /* MBEncodedStringHexOctetTransformer.m in Sources */,
 				C5888C1818ABDD9200EB9F00 /* MBSmartFolder.m in Sources */,
+				C566983A18C556E700F05440 /* MBSimpleRFC822AddressSetToStringTransformer.m in Sources */,
 				C5A97A0718ABCDEF00C19631 /* MBAccount.m in Sources */,
 				C5B21044180483C80093531A /* MBMimeApplication+IMAP.m in Sources */,
 				C549317A18BE75AF004B7A18 /* MBTreeNode.m in Sources */,
