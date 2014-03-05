@@ -12,6 +12,8 @@
 #import "MBPortalView.h"
 
 #import "MBMessage+IMAP.h"
+#import "MBAddress+IMAP.h"
+
 #import "MBMime.h"
 #import "MBMimeData.h"
 
@@ -224,6 +226,18 @@ CGFloat ONEROW = 18.0;
                 // IMAPClient only loads mime parts where data == nil
                 mime.data = nil;
             }
+        }
+    }
+}
+
+- (IBAction)logAddresses:(id)sender {
+    NSInteger index = [self.tableView selectedRow];
+    if (index >= 0) {
+        //
+        MBMessage *selectedMessage = (MBMessage *)[self.messagesController arrangedObjects][index];
+        // MBMessageViewController only tries to update messages with isFullyCached == NO
+        for (MBAddress* address in selectedMessage.addressesTo) {
+            DDLogVerbose(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), address);
         }
     }
 }

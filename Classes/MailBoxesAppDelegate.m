@@ -649,6 +649,7 @@ are presented to the user.
     return NSTerminateNow;
 }
 
+#pragma message "ToDo: replace <MBGUIStateAutoSave> with notification"
 - (void)applicationWillTerminate:(NSNotification *)notification {
     NSUserDefaults *sud;
     sud = [NSUserDefaults standardUserDefaults];

@@ -45,5 +45,6 @@
 - (IBAction)growTableRows:(id)sender;
 - (IBAction)shrinkTableRows:(id)sender;
 - (IBAction)reloadMessageBody:(id)sender;
+- (IBAction)logAddresses:(id)sender;
 
 @end

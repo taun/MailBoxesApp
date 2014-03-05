@@ -160,7 +160,7 @@
 }
 
 -(void)testMultipleAddressesStringToSet {
-    NSString* addresses = [NSString stringWithFormat: @"\"Taun Chapman\" <taun@taun.org>, \"Taun Chapman\" <news@taun.org>, <myrna@charcoalia.net>"];
+    NSString* addresses = [NSString stringWithFormat: @"\"'Taun'\" <taun@taun.org>, \"Taun Chapman\" <taun@taun.org>, \"Taun Chapman\" <news@taun.org>, <myrna@charcoalia.net>"];
     NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
     NSString* reference = [self transformAddressesToString: simpleAddressSet];
     
