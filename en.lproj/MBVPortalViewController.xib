@@ -19,21 +19,21 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" focusRingType="none" borderWidth="0.0" title="Portal" boxType="custom" borderType="line" titlePosition="noTitle" id="2" userLabel="portalBox" customClass="MBPortalView">
-                    <rect key="frame" x="2" y="2.0000001106240664" width="260" height="316"/>
+                    <rect key="frame" x="2" y="2" width="260" height="316"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="260" height="316"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <box autoresizesSubviews="NO" focusRingType="none" transparent="YES" title="Header" boxType="custom" borderType="line" titlePosition="noTitle" id="243" userLabel="Box - Header">
+                            <box autoresizesSubviews="NO" focusRingType="none" transparent="YES" title="Header" boxType="custom" borderType="none" titlePosition="noTitle" id="243" userLabel="Box - Header">
                                 <rect key="frame" x="0.0" y="274" width="260" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
-                                    <rect key="frame" x="1" y="1" width="258" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="260" height="42"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" id="16" userLabel="portalLabel">
-                                            <rect key="frame" x="29" y="23" width="200" height="16"/>
+                                            <rect key="frame" x="29" y="25" width="200" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Label" drawsBackground="YES" id="17">
                                                 <font key="font" size="14" name="MyriadPro-Regular"/>
@@ -47,7 +47,7 @@
                                             </connections>
                                         </textField>
                                         <searchField verticalHuggingPriority="750" id="3" userLabel="portalSearch">
-                                            <rect key="frame" x="29" y="5" width="200" height="19"/>
+                                            <rect key="frame" x="29" y="7" width="202" height="19"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <searchFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Subject" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" maximumRecents="10" id="4">
                                                 <font key="font" size="10" name="HelveticaNeue"/>
@@ -77,7 +77,7 @@
                                             </connections>
                                         </searchField>
                                         <button toolTip="Increase view detail" id="148">
-                                            <rect key="frame" x="0.0" y="16" width="14" height="16"/>
+                                            <rect key="frame" x="0.0" y="18" width="14" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="square" title="Add Detail" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" id="149">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -89,7 +89,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Decrease view detail" id="150">
-                                            <rect key="frame" x="0.0" y="0.0" width="14" height="18"/>
+                                            <rect key="frame" x="0.0" y="2" width="14" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="square" title="Remove detail" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" id="151">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -199,10 +199,10 @@
                                                                     <connections>
                                                                         <binding destination="209" name="value" keyPath="objectValue.addressFrom" id="bHK-Oc-WLx">
                                                                             <dictionary key="options">
-                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                                 <string key="NSValueTransformerName">MBSimpleRFC822AddressToStringTransformer</string>
+                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                                             </dictionary>
                                                                         </binding>
                                                                     </connections>
