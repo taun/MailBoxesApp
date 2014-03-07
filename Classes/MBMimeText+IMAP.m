@@ -10,8 +10,9 @@
 #import "MBMimeText+IMAP.h"
 #import "NSObject+MBShorthand.h"
 #import "MBEncodedString.h"
-#import "MBMIMECharsetTransformer.h"
-#import "MBMIME2047ValueTransformer.h"
+
+#import "NSString+IMAPConversions.h"
+
 
 
 @implementation MBMimeText (IMAP)
@@ -22,8 +23,6 @@
 // Need to map transformer to encoding. Can be done here or as MBMime method called. "decodeBASE64", "decode7BIT"
 // mechanism := "7bit" / "8bit" / "binary" / "quoted-printable" / "base64"
 -(void) decoder {
-    NSValueTransformer* charsetTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMECharsetTransformer];
-
     MBEncodedString* stringToDecode;
     NSData* decoded;
     
@@ -31,7 +30,7 @@
     if ([self.data.encoded isNonNilString]) {
 
         // Convert IANA charset to NSStringEncoding, example "utf-8" = 4
-        NSNumber* nsEncodingNumber = [charsetTransformer transformedValue: self.charset];
+        NSNumber* nsEncodingNumber = [self.charset mdcNumberFromIANACharset];
         
         int nsEncodingInt;
         
@@ -60,8 +59,7 @@
             
             if ([[self.encoding uppercaseString] isEqualToString: @"QUOTED-PRINTABLE"]) {
                 //
-                NSValueTransformer* quotedPrintableTransformer = [NSValueTransformer valueTransformerForName: VTMBMIMEQuotedPrintableTranformer];
-                stringToDecode = [quotedPrintableTransformer transformedValue: stringToDecode];
+                stringToDecode.string = [self.data.encoded mdcStringDeQuotedPrintableFromCharset: nsEncodingInt];
                 stringToDecode.encoding = nsEncodingInt;
             }
             

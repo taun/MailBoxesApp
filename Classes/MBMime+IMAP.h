@@ -9,8 +9,7 @@
 #import "MBMime.h"
 #import "MBMime+IntersectsSetFix.h"
 #import "MBMimeData+IMAP.h"
-#import "MBMIME2047ValueTransformer.h"
-#import "MBMIMEQuotedPrintableTranformer.h"
+
 
 #import <MoedaeMailPlugins/MoedaeMailPlugins.h>
 

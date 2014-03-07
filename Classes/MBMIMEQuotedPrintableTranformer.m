@@ -7,8 +7,8 @@
 //
 
 #import "MBMIMEQuotedPrintableTranformer.h"
-#import "MBEncodedStringHexOctetTransformer.h"
 #import "MBEncodedString.h"
+#import "NSString+IMAPConversions.h"
 
 
 @implementation MBMIMEQuotedPrintableTranformer
@@ -19,26 +19,11 @@
     
     if ([anMBEncodedString isKindOfClass:[MBEncodedString class]]) {
         //
-        NSValueTransformer* hexTransformer = [NSValueTransformer valueTransformerForName: VTMBEncodedStringHexOctetTransformer];
+        NSString* qpString = ((MBEncodedString*)anMBEncodedString).string;
+        NSStringEncoding encoding = ((MBEncodedString*)anMBEncodedString).encoding;
         
-        dequotedPrintable = [hexTransformer transformedValue: (MBEncodedString*) anMBEncodedString];
-        
-        NSString* softReturn = @"=\r\n";
-        if ([dequotedPrintable.string rangeOfString: softReturn].location == NSNotFound) {
-            // =\r\n not found
-            softReturn = @"=\n";
-            if ([dequotedPrintable.string rangeOfString: softReturn].location == NSNotFound) {
-                // no soft returns found
-                softReturn = nil;
-            }
-        }
-        
-        if (softReturn) {
-            NSString* unfoldedString = [dequotedPrintable.string stringByReplacingOccurrencesOfString: softReturn withString: @""];
-            dequotedPrintable.string = unfoldedString;
-        }
-        // Replace all lines ending with "=\r\n" meaning soft return with nothing.
-        
+        dequotedPrintable.string = [qpString mdcStringDeQuotedPrintableFromCharset: encoding];
+        dequotedPrintable.encoding = encoding;
     }
     return dequotedPrintable;
 }

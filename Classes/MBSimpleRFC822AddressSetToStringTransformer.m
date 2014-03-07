@@ -12,6 +12,7 @@
 #import "SimpleRFC822Address.h"
 #import "MBAddress+IMAP.h"
 
+#import "NSString+IMAPConversions.h"
 #import "NSObject+MBShorthand.h"
 
 @implementation MBSimpleRFC822AddressSetToStringTransformer
@@ -31,9 +32,6 @@
 - (id)transformedValue:(id)value {
     NSString* addressesString;
     
-    NSValueTransformer* addressTranformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
-    
-    
     if ([value isKindOfClass:[NSSet class]]) {
         
         NSMutableArray* addressStringArray = [NSMutableArray new];
@@ -43,7 +41,7 @@
             
             if ([address isKindOfClass: [MBAddress class]] || [address isKindOfClass:[SimpleRFC822Address class]]) {
                 
-                addressString = [addressTranformer transformedValue: address];
+                addressString = [address stringRFC822AddressFormat];
 
                 [addressStringArray addObject: addressString];
             }
@@ -93,11 +91,9 @@
                     [fixedAddressesArray addObject: [NSString stringWithFormat: @"%@>", address]];
                 }
             }
-            
-            NSValueTransformer* addressTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
-            
+                        
             for (NSString* addressString in fixedAddressesArray) {
-                SimpleRFC822Address* rfcAddress = [addressTransformer reverseTransformedValue: addressString];
+                SimpleRFC822Address* rfcAddress = [addressString mdcSimpleRFC822Address];
                 if (rfcAddress) {
                     [addresses addObject: rfcAddress];
                 }

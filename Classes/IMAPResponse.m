@@ -835,7 +835,7 @@ static     NSDictionary *HeaderToModelMap;
         NSString* bodyPart = [bodyPartTree scanString];
         NSString* data = [self.tokens scanToken];
         NSArray* bodyArray = @[bodyPart, data];
-        (self.messageProperties)[[@"body" stringAsSelectorSafeCamelCase]] = bodyArray;
+        (self.messageProperties)[[@"body" mdcStringAsSelectorSafeCamelCase]] = bodyArray;
     }
 //    [self.messageProperties setObject: [bodyPart tokenArray] forKey: [@"bodystructure" stringAsSelectorSafeCamelCase]];
 //    // should be no objects left in bodystructure
@@ -854,7 +854,7 @@ static     NSDictionary *HeaderToModelMap;
     // to a nested array of tokens
     MBTokenTree* bodystructure = [self.tokens scanSubTree];
     if (bodystructure) {
-        (self.messageProperties)[[@"bodystructure" stringAsSelectorSafeCamelCase]] = [bodystructure tokenArray];
+        (self.messageProperties)[[@"bodystructure" mdcStringAsSelectorSafeCamelCase]] = [bodystructure tokenArray];
         // should be no objects left in bodystructure
         DDLogVerbose(@"%@ bodystructure count after cache: %@", NSStringFromSelector(_cmd),bodystructure);
     }
@@ -877,7 +877,7 @@ static     NSDictionary *HeaderToModelMap;
 }
 
 -(void) performResponseMethodFromToken: (NSString *) commandToken {
-    NSString *responseCommand = [NSString stringWithFormat: @"response%@", [commandToken stringAsSelectorSafeCamelCase]];
+    NSString *responseCommand = [NSString stringWithFormat: @"response%@", [commandToken mdcStringAsSelectorSafeCamelCase]];
     [self performResponseMethodSelector: NSSelectorFromString(responseCommand)];
 }
 
@@ -892,7 +892,7 @@ static     NSDictionary *HeaderToModelMap;
 }
 
 -(void) performDelegateResponseMethodFromToken: (NSString *) commandToken {
-    NSString *responseCommand = [NSString stringWithFormat: @"response%@", [commandToken stringAsSelectorSafeCamelCase]];
+    NSString *responseCommand = [NSString stringWithFormat: @"response%@", [commandToken mdcStringAsSelectorSafeCamelCase]];
     [self performDelegateResponseMethodSelector: NSSelectorFromString(responseCommand)];
 }
 
@@ -907,7 +907,7 @@ static     NSDictionary *HeaderToModelMap;
 
 -(void) performResponseMessageMethodFromToken: (NSString *) commandToken 
                                               withTokenPrefix: (NSString *) prefix {
-    NSString *responseCommand = [NSString stringWithFormat: @"response%@%@", prefix, [commandToken stringAsSelectorSafeCamelCase]];
+    NSString *responseCommand = [NSString stringWithFormat: @"response%@%@", prefix, [commandToken mdcStringAsSelectorSafeCamelCase]];
     [self performResponseMessageSelector: NSSelectorFromString(responseCommand)];
 }
 

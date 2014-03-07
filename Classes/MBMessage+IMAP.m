@@ -35,7 +35,7 @@
 #import "SimpleRFC822Address.h"
 
 #import "NSString+IMAPConversions.h"
-#import "MBMIME2047ValueTransformer.h"
+
 #import "MBSimpleRFC822AddressToStringTransformer.h"
 #import "MBSimpleRFC822AddressSetToStringTransformer.h"
 
@@ -89,7 +89,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(MBAddress*) checkAddress: (id) token;
 
--(NSString*) decode2047: (NSString*) encodedString;
 -(NSString*) checkAnd2047DecodeToken: (id) token;
 -(NSDate*) checkAndDecodeTokenAsDate: (id) token;
 
@@ -979,7 +978,7 @@ From RFC3501
                                          insertNewObjectForEntityForName:@"MBMimeParameter"
                                          inManagedObjectContext:self.managedObjectContext];
         
-        newParameter.name = [nextToken stringAsSelectorSafeCamelCase];
+        newParameter.name = [nextToken mdcStringAsSelectorSafeCamelCase];
         newParameter.value = [parameterTokens scanString];
         [parameters addObject: newParameter];
         nextToken = [parameterTokens scanString];
@@ -1001,8 +1000,7 @@ From RFC3501
         
         if ([tokenized isKindOfClass: [NSString class]]) {
             
-            NSValueTransformer* rfcAddressTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressToStringTransformer];
-            rfcAddress = [rfcAddressTransformer reverseTransformedValue: tokenized];
+            rfcAddress = [tokenized mdcSimpleRFC822Address];
         } else {
             rfcAddress = tokenized;
         }
@@ -1034,16 +1032,10 @@ From RFC3501
     
     return result;
 }
-
--(NSString*) decode2047:(NSString *)encodedString {
-    NSValueTransformer* encodedWordTransformer = [NSValueTransformer valueTransformerForName: VTMBMIME2047ValueTransformer];
-    
-    return [encodedWordTransformer transformedValue: encodedString];
-}
 -(NSString*) checkAnd2047DecodeToken:(id)token {
     NSString* decodedString;
     if (token != nil && [token isKindOfClass: [NSString class]]) {
-        decodedString = [self decode2047: token];
+        decodedString = [token mdcStringByDecodingRFC2047];
     }
     return decodedString;
 }
@@ -1053,9 +1045,9 @@ From RFC3501
     if (token != nil && [token isKindOfClass: [NSString class]]) {
         NSString* dateString = token;
         
-        decodedDate = [dateString dateFromRFC3501Format];
+        decodedDate = [dateString mdcDateFromRFC3501Format];
         if (!decodedDate) {
-            decodedDate = [dateString dateFromRFC822Format];
+            decodedDate = [dateString mdcDateFromRFC822Format];
         }
         
     } else if ([token isKindOfClass: [NSDate class]]) {

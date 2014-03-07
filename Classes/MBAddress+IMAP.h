@@ -19,7 +19,7 @@
 + (MBAddress*) findAddressForEMail: (NSString *) emailAddress 
                            context: (NSManagedObjectContext*) context;
 
-
+-(NSString *) stringRFC822AddressFormat;
 //+ (NSSet *) addressesFromCoreAddressSet: (NSSet *) coreAddressSet context: aContext;
 
 @end

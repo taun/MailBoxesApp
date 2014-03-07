@@ -65,6 +65,15 @@
     return address;
 }
 
+-(NSString *) stringRFC822AddressFormat {
+    NSString *rfc822Email = nil;
+    if (self.name.length != 0) {
+        rfc822Email = [NSString stringWithFormat: @"%@ <%@>", self.name, self.email];
+    } else {
+        rfc822Email = [NSString stringWithFormat: @"<%@>", self.email];
+    }
+    return rfc822Email;
+}
 
 
 //+ (NSSet *) addressesFromCoreAddressSet: (NSSet *) coreAddressSet context: aContext {
