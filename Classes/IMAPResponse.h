@@ -44,35 +44,32 @@ typedef UInt8 IMAPResponseStatus;
  
  
  */
-@interface IMAPResponse : NSObject {
-    id          _delegate;
-}
+@interface IMAPResponse : NSObject
+
 /// @name Properties
 /*!
  The IMAPCommand which initiated the response.
  
  Enables determining the end of the response based on the IMAP command tag.
  */
-@property (strong)  IMAPCommand                     *command;
+@property (strong)              IMAPCommand                     *command;
 /*!
  The parsed response as a MBTokenTree of strings
  */
-@property (strong)  MBTokenTree                     *tokens;
-@property (assign)  IMAPResponseType                type;
+@property (strong)              MBTokenTree                     *tokens;
+@property (assign)              IMAPResponseType                type;
 /*!
  The response status as returned by the server after the IMAPCommand.
  */
-@property (assign)  IMAPResponseStatus              status;
-@property (nonatomic, weak, readwrite) id <IMAPClientStore> clientStore;
-@property (strong)  NSMutableDictionary*            messageProperties;
+@property (assign)              IMAPResponseStatus              status;
+@property (nonatomic,weak,readwrite) id <IMAPClientStore>       clientStore;
+@property (nonatomic,strong)              NSMutableDictionary*  messageProperties;
+@property (nonatomic,weak) id <IMAPResponseDelegate>            delegate;
 
 /// @name Property convenience methods
 + (NSString*) typeAsString: (IMAPResponseType) aType;
 + (NSString*) statusAsString: (IMAPResponseStatus) aStatus;
 
-/// @name Initial flow
--(id <IMAPResponseDelegate>)delegate;
--(void)setDelegate:(id)newDelegate;
 
 /*!
  Traverses the tokens tree.

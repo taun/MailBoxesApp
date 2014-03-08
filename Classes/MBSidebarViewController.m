@@ -27,6 +27,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MBSidebarViewController
 
+-(void) dealloc {
+    self.delegate = nil;
+}
+
 - (void) awakeFromNib {
     [self.view setFloatsGroupRows: NO];
     //[self expandItem:nil expandChildren:YES];

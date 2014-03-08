@@ -50,12 +50,6 @@ static     NSDictionary *HeaderToModelMap;
 
 @implementation IMAPResponse
 
-@synthesize command;
-@synthesize tokens;
-@synthesize type;
-@synthesize status;
-@synthesize clientStore;
-@synthesize messageProperties;
 
 + (NSString*) typeAsString: (IMAPResponseType) aType {
     NSString* typeString = nil;
@@ -151,39 +145,20 @@ static     NSDictionary *HeaderToModelMap;
 - (id)init {
     self = [super init];
     if (self) {
-        tokens = [[MBTokenTree alloc] init];
-        command = nil;
-        clientStore = nil;
+        _tokens = [[MBTokenTree alloc] init];
+        _command = nil;
+        _clientStore = nil;
         _delegate = nil;
-        messageProperties = nil;
+        _messageProperties = [[NSMutableDictionary alloc] initWithCapacity: 10];
         
-        type = 0;
-        status = 0;
+        _type = 0;
+        _status = 0;
     }
     return self;
 }
 
-- (id <IMAPResponseDelegate>)delegate {
-    return _delegate;
-}
-
-- (void)setDelegate:(id <IMAPResponseDelegate>)newDelegate {
-    assert([newDelegate conformsToProtocol:@protocol(IMAPResponseDelegate)]);
-    _delegate = newDelegate;
-}
-
-- (NSMutableDictionary *)messageProperties {
-    if (messageProperties == nil) {
-        messageProperties = [[NSMutableDictionary alloc] initWithCapacity: 10];
-    }
-    return messageProperties;
-}
-            
-- (void)setMessageProperties:(NSMutableDictionary *)value {
-    if (value == messageProperties) {
-        return;
-    }
-    messageProperties = value;
+-(void) dealloc {
+    self.delegate = nil;
 }
 
 #pragma mark - debug help
@@ -709,7 +684,7 @@ static     NSDictionary *HeaderToModelMap;
         if (messageUid != 0) {
             
             // reset messageProperties
-            messageProperties = nil;
+            self.messageProperties = nil;
             
             (self.messageProperties)[@"Sequence"] = @([sequence integerValue]);
             
@@ -720,12 +695,12 @@ static     NSDictionary *HeaderToModelMap;
                     // using hyphen in @"%@-%@" will keep the CamelCase for token and Fetched-Message
                     // hyphen is removed before calling method name
                     NSString* prePreFixedToken = [NSString stringWithFormat: @"%@-%@",@"Fetched-Message", token];
-                    [self performResponseMethodFromToken: token ];
+                    [self performResponseMethodFromToken: prePreFixedToken ];
                 }            
             }
             
             [self.clientStore setMessage: messageUid propertiesFromDictionary: self.messageProperties];
-            messageProperties = nil;
+            self.messageProperties = nil;
         } else {
             #pragma message "ToDo: error finding UID?"
         }
