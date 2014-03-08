@@ -21,7 +21,7 @@
 #import "MBUser+IMAP.h"
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
-#import "MBoxProxy.h"
+#import <MoedaeMailPlugins/MBoxProxy.h>
 #import "MBMessage+IMAP.h"
 
 #import "MBCriteria.h"

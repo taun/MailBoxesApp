@@ -8,10 +8,10 @@
 
 
 #import "MBMimeText+IMAP.h"
-#import "NSObject+MBShorthand.h"
+#import <MoedaeMailPlugins/NSObject+MBShorthand.h>
 #import "MBEncodedString.h"
 
-#import "NSString+IMAPConversions.h"
+#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 
 
 

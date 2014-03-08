@@ -9,7 +9,7 @@
 #import "RFC2822RawMessageHeaderTest.h"
 #import "RFC2822RawMessageHeader.h"
 
-#import "SimpleRFC822Address.h"
+#import <MoedaeMailPlugins/SimpleRFC822Address.h>
 
 #import "MBMIMECharsetTransformer.h"
 #import "MBMIMEQuotedPrintableTranformer.h"

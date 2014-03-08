@@ -9,11 +9,11 @@
 #import "MBSimpleRFC822AddressSetToStringTransformer.h"
 #import "MBSimpleRFC822AddressToStringTransformer.h"
 
-#import "SimpleRFC822Address.h"
 #import "MBAddress+IMAP.h"
 
-#import "NSString+IMAPConversions.h"
-#import "NSObject+MBShorthand.h"
+#import <MoedaeMailPlugins/SimpleRFC822Address.h>
+#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
+#import <MoedaeMailPlugins/NSObject+MBShorthand.h>
 
 @implementation MBSimpleRFC822AddressSetToStringTransformer
 

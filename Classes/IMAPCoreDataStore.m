@@ -16,7 +16,7 @@
 #import "MBMime.h"
 #import "MBMimeData.h"
 
-#import "NSString+IMAPConversions.h"
+#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 
 #import "DDLog.h"
 #import "DDASLLogger.h"

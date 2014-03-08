@@ -8,14 +8,22 @@
 
 #import "MBPortalsCollectionView.h"
 #import "MBPortalViewController.h"
-#import "MBoxProxy.h"
+#import <MoedaeMailPlugins/MBoxProxy.h>
 //#import "MBViewPortalMBox.h"
+
+#import "DDLog.h"
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 
 NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal";
 
 @interface MBPortalsCollectionView ()
 
-@property (nonatomic,assign) BOOL       draggingInView;
+@property (nonatomic,assign) BOOL           draggingInView;
+@property (weak,nonatomic)   id             currentCollectionSelection;
 
 @end
 
@@ -62,22 +70,52 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString: @"selectedMessages"]) {
-        // new selection set
-        NSSortDescriptor* sortDesc = [NSSortDescriptor sortDescriptorWithKey: @"dateSent" ascending: NO];
-        NSArray* descriptors = @[sortDesc];
-        NSArray* objects = [((MBPortalViewController*)object).selectedMessages sortedArrayUsingDescriptors: descriptors];
-        
-        [self.viewedMessagesArrayController setContent: objects];
-        BOOL selectionChanged = [self.viewedMessagesArrayController setSelectedObjects: objects];
-        
-        // Set the selected portal to the current.
-        // Need to add code to handle selection sets across portals?
-        if (selectionChanged) {
-            [self setSelectionIndexes: [NSIndexSet indexSetWithIndex: [[self subviews] indexOfObject: [object view]]]];
-        }
-
+        // catches when there is a new message selected in a portal table
+        [self updateViewMessagesArrayWithSelectionFrom: object];
+//    } else if ([keyPath isEqualToString: @"selected"]) {
+//        // catches when a portal rather than message is selected
+//        DDLogVerbose(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), object);
+//    } else if ([keyPath isEqualToString: @"becomeFirstResponder"]) {
+//        DDLogVerbose(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), object);
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+/*
+ When one clicks on a table row in a portal, the row is selected.
+ When one clicks on a table in a different portal, the new table row is selected and the old row in the other table is still selected.
+ Then when one clicks back on the original row, there is no new selection happening so no notification meaning the messageView doesn't change.
+ The currentCollectionSelection hack below is to detect when the row is in a different portal and unselect the old portal rows.
+ This means we can't view messages from different portals at the same time.
+ */
+-(void) updateViewMessagesArrayWithSelectionFrom: (id) object {
+    // new portal table selection set
+    if (self.currentCollectionSelection != object) {
+        if (self.currentCollectionSelection) {
+            // exists and not equal
+            [self.currentCollectionSelection setSelected: NO];
+            // clear selections on previous portal to allow selecting again when coming back to portal
+            if ([[((MBPortalViewController*)self.currentCollectionSelection).tableView selectedRowIndexes] count] != 0) {
+                //
+                [((MBPortalViewController*)self.currentCollectionSelection).tableView deselectAll: Nil];
+            }
+        }
+        self.currentCollectionSelection = object;
+    }
+    
+    NSSortDescriptor* sortDesc = [NSSortDescriptor sortDescriptorWithKey: @"dateSent" ascending: NO];
+    NSArray* descriptors = @[sortDesc];
+    NSArray* objects = [((MBPortalViewController*)object).selectedMessages sortedArrayUsingDescriptors: descriptors];
+    
+    // The messagesDesktopView uses the viewedMessagesArrayController as a source
+    [self.viewedMessagesArrayController setContent: objects];
+    BOOL selectionChanged = [self.viewedMessagesArrayController setSelectedObjects: objects];
+    
+    // Set the selected portal to the current.
+    // Need to add code to handle selection sets across portals?
+    if (selectionChanged) {
+        [self setSelectionIndexes: [NSIndexSet indexSetWithIndex: [[self subviews] indexOfObject: [object view]]]];
     }
 }
 

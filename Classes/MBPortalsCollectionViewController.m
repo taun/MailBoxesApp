@@ -12,7 +12,7 @@
 #import "MBViewPortal+Extra.h"
 #import "MBViewPortalMBox+Extra.h"
 
-#import "MBoxProxy.h"
+#import <MoedaeMailPlugins/MBoxProxy.h>
 #import "MBox.h"
 
 @interface MBPortalsCollectionViewController ()

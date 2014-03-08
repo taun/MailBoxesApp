@@ -17,7 +17,7 @@
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
 #import "MBAccountWindowController.h"
-#import "MBoxProxy.h"
+#import <MoedaeMailPlugins/MBoxProxy.h>
 
 #import "DDLog.h"
 #import "DDASLLogger.h"

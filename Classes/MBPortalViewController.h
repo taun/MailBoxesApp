@@ -37,6 +37,8 @@
 
 @property (strong) IBOutlet     NSArrayController       *messagesController;
 @property (strong) IBOutlet     NSTableView             *tableView;
+@property (weak) IBOutlet       NSBox                   *labelUnderline;
+
 
 -(void) contentUpdated;
 

@@ -9,7 +9,7 @@
 #import "MBMessageHeaderView.h"
 #import "MBAddress+IMAP.h"
 #import "MBAddressList.h"
-#import "NSString+IMAPConversions.h"
+#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 #import "MBSimpleRFC822AddressToStringTransformer.h"
 
 @implementation MBMessageHeaderView

@@ -9,7 +9,7 @@
 #import "MBox+IMAP.h"
 #import "MBMessage+IMAP.h"
 #import "MBFlag+IMAP.h"
-#import "MBoxProxy.h"
+#import <MoedaeMailPlugins/MBoxProxy.h>
 #import "MBAccount+Accessors.h"
 
 #import "DDLog.h"

@@ -8,7 +8,7 @@
 
 #import "MBEncodedStringHexOctetTransformer.h"
 #import "MBEncodedString.h"
-#import "NSString+IMAPConversions.h"
+#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 
 @implementation MBEncodedStringHexOctetTransformer
 

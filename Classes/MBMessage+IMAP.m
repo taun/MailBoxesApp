@@ -32,9 +32,9 @@
 #import "MBMimeData.h"
 #import "MBTokenTree.h"
 
-#import "SimpleRFC822Address.h"
+#import <MoedaeMailPlugins/SimpleRFC822Address.h>
 
-#import "NSString+IMAPConversions.h"
+#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 
 #import "MBSimpleRFC822AddressToStringTransformer.h"
 #import "MBSimpleRFC822AddressSetToStringTransformer.h"

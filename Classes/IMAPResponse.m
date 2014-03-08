@@ -11,7 +11,8 @@
 #import "IMAPCoreDataStore.h"
 #import "RFC2822RawMessageHeader.h"
 
-#import "NSString+IMAPConversions.h"
+#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
+#import <MoedaeMailPlugins/NSObject+TokenDispatch.h>
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -38,18 +39,11 @@ static     NSDictionary *HeaderToModelMap;
 
 -(void) performResponseMethodFromToken: (NSString *) commandToken;
 
--(void) performDelegateResponseMethodSelector: (SEL) commandSelector;
--(void) performDelegateResponseMethodFromToken: (NSString *) commandToken;
-
 -(void) localLog;
 
 -(NSDate *) getAndConvertInternalDateFrom: (NSString *) stringWithRFC3501Date;
 -(NSDate *) getAndConvert822DateFrom: (NSString *) stringWithRFC2822Date;
 
--(void) performResponseMessageSelector: (SEL) commandSelector;
-
--(void) performResponseMessageMethodFromToken: (NSString *) commandToken 
-                                              withTokenPrefix: (NSString *) prefix;
 
 @end
 
@@ -331,11 +325,11 @@ static     NSDictionary *HeaderToModelMap;
                 [self performResponseMethodFromToken: secondToken];
             } else {
                 // wasn't number and we have a problem
-                [self performDelegateResponseMethodSelector: NSSelectorFromString(@"responseUnknown:")];
+                [self.delegate responseUnknown: self];
             }
         } else {
             // we have an unknown response
-            [self performDelegateResponseMethodSelector: NSSelectorFromString(@"responseUnknown:")];
+            [self.delegate responseUnknown: self];
         }
     }
     
@@ -344,7 +338,7 @@ static     NSDictionary *HeaderToModelMap;
 #pragma message "TODO: parse continue"
 -(void) actOnResponseContinue {
     // do nothing yet
-    [self performDelegateResponseMethodSelector: NSSelectorFromString(@"commandContinue:")];
+    [self.delegate commandContinue: self];
 }
 
 -(void) actOnResponseDone {
@@ -368,7 +362,7 @@ static     NSDictionary *HeaderToModelMap;
         DDLogWarn(@"%@ Command tag %@ did not match response tag %@", NSStringFromSelector(_cmd), self.command.tag, ctag);
     }
 
-    [self performDelegateResponseMethodSelector: NSSelectorFromString(@"commandDone:")];
+    [self.delegate commandDone: self];
 }
 
 #pragma message "TODO: add test for self.status == IMAPNO"
@@ -723,7 +717,10 @@ static     NSDictionary *HeaderToModelMap;
             while (![self.tokens isEmpty]) {
                 token = [[self.tokens scanString] uppercaseString];
                 if ([RespDataFetchCommandTokens containsObject: token]) {
-                    [self performResponseMessageMethodFromToken: token withTokenPrefix: @"FetchedMessage"];
+                    // using hyphen in @"%@-%@" will keep the CamelCase for token and Fetched-Message
+                    // hyphen is removed before calling method name
+                    NSString* prePreFixedToken = [NSString stringWithFormat: @"%@-%@",@"Fetched-Message", token];
+                    [self performResponseMethodFromToken: token ];
                 }            
             }
             
@@ -864,55 +861,9 @@ static     NSDictionary *HeaderToModelMap;
 
 #pragma mark - utility
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-
--(void) performResponseMethodSelector: (SEL) commandSelector {
-    
-    if ([self respondsToSelector: commandSelector]) {
-        [self performSelector: commandSelector ];
-    } else {
-        [self performSelector: NSSelectorFromString(@"responseUnknown")];
-    }
-}
-
 -(void) performResponseMethodFromToken: (NSString *) commandToken {
-    NSString *responseCommand = [NSString stringWithFormat: @"response%@", [commandToken mdcStringAsSelectorSafeCamelCase]];
-    [self performResponseMethodSelector: NSSelectorFromString(responseCommand)];
+    [self performCleanedSelectorString: commandToken prefixedBy: @"response" fallbackSelector: @"responseUnknown"];
 }
-
-
--(void) performDelegateResponseMethodSelector: (SEL) commandSelector {
-    
-    if ([[self delegate] respondsToSelector: commandSelector]) {
-        [[self delegate] performSelector: commandSelector withObject: self];
-    } else {
-        [[self delegate] performSelector: NSSelectorFromString(@"responseUnknown") withObject: self];
-    }
-}
-
--(void) performDelegateResponseMethodFromToken: (NSString *) commandToken {
-    NSString *responseCommand = [NSString stringWithFormat: @"response%@", [commandToken mdcStringAsSelectorSafeCamelCase]];
-    [self performDelegateResponseMethodSelector: NSSelectorFromString(responseCommand)];
-}
-
--(void) performResponseMessageSelector: (SEL) commandSelector {
-    
-    if ([self respondsToSelector: commandSelector]) {
-        [self performSelector: commandSelector ];
-    } else {
-        [self performSelector: NSSelectorFromString(@"responseUnknown")];
-    }
-}
-
--(void) performResponseMessageMethodFromToken: (NSString *) commandToken 
-                                              withTokenPrefix: (NSString *) prefix {
-    NSString *responseCommand = [NSString stringWithFormat: @"response%@%@", prefix, [commandToken mdcStringAsSelectorSafeCamelCase]];
-    [self performResponseMessageSelector: NSSelectorFromString(responseCommand)];
-}
-
-
-#pragma clang diagnostic pop
 
 -(void) localLog {
     if (YES) {

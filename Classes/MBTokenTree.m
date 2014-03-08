@@ -7,7 +7,7 @@
 //
 
 #import "MBTokenTree.h"
-#import "SimpleRFC822Address.h"
+#import <MoedaeMailPlugins/SimpleRFC822Address.h>
 
 #include <time.h>
 #include <xlocale.h>

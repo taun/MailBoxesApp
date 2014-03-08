@@ -54,6 +54,19 @@ CGFloat ONEROW = 18.0;
         CGFloat rowHeight = [item.rowHeight floatValue];
         [self.tableView setRowHeight: rowHeight];
     }
+    
+    if (self.labelUnderline) {
+        NSColor* defaultColor = [[NSColor lightGrayColor] colorWithAlphaComponent: 0]; // hide for now may use later
+        [self.labelUnderline setBoxType: NSBoxCustom];
+        [self.labelUnderline setBorderType: NSLineBorder];
+        [self.labelUnderline setBorderColor: defaultColor];
+        [self.labelUnderline setFillColor: defaultColor];
+        
+        NSRect boxFrame = self.labelUnderline.frame;
+        CGFloat newHeight = 2.0;
+        CGFloat newOriginY = boxFrame.origin.y + boxFrame.size.height/2 - newHeight/2.0;
+        [self.labelUnderline setFrame: NSMakeRect(boxFrame.origin.x, newOriginY, boxFrame.size.width, newHeight)];
+    }
 }
 
 -(void) setRepresentedObject:(id)representedObject {
@@ -76,8 +89,10 @@ CGFloat ONEROW = 18.0;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString: @"collectionView"]) {
-        //
+        //becomeFirstResponder
         [self addObserver: self.collectionView forKeyPath: @"selectedMessages" options: NSKeyValueObservingOptionOld context: NULL];
+//        [self addObserver: self.collectionView forKeyPath: @"selected" options: NSKeyValueObservingOptionOld context: NULL];
+//        [self addObserver: self.collectionView forKeyPath: @"becomeFirstResponder" options: NSKeyValueObservingOptionOld context: NULL];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -87,6 +102,8 @@ CGFloat ONEROW = 18.0;
 - (void)dealloc {
     [self removeObserver: self forKeyPath: @"collectionView"];
     [self removeObserver: self.collectionView forKeyPath: @"selectedMessages"];
+//    [self removeObserver: self.collectionView forKeyPath: @"selected"];
+//    [self removeObserver: self.collectionView forKeyPath: @"becomeFirstResponder"];
     [_tableView setDelegate: nil];
 }
 
@@ -132,22 +149,6 @@ CGFloat ONEROW = 18.0;
             //[NSPredicate predicateWithFormat: [self valueForKeyPath: @"representedObject.predicateString"]], self.searchPredicate, nil]];
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-
--(NSArray*) messagesArray {
-    _messagesArray = Nil;
-    MBViewPortal* item = (MBViewPortal*) self.representedObject;
-    MBTreeNode* messagesNode = item.messageArraySource;
-    if ([messagesNode respondsToSelector: NSSelectorFromString(@"messages")]) {
-        _messagesArray = [messagesNode performSelector: NSSelectorFromString(@"messages")];
-    }
-    return _messagesArray;
-}
-
-#pragma clang diagnostic pop
-
-
 
 #pragma mark -
 #pragma mark Actions
@@ -161,8 +162,10 @@ CGFloat ONEROW = 18.0;
     MBPortalView* pview = [[self.view subviews] firstObject];
     if (pview) {
         NSColor* newColor = [NSColor redColor];
-        [pview setBorderColor: newColor];
-        [item setColor: newColor];
+        NSColor* alphaColor = [newColor colorWithAlphaComponent: 0.5];
+        [pview setBorderColor: alphaColor];
+        [item setColor: alphaColor];
+//        [self.labelUnderline setBorderColor: alphaColor];
     }
 }
 
@@ -242,6 +245,15 @@ CGFloat ONEROW = 18.0;
     }
 }
 
+#pragma mark - TableViewDelegate
+
+/*
+ Could change this from watching the table selection to
+ binding the MBPortalsCollectionView to the ArrayController.selectedObjects
+ have an array of properties for each portal ArrayController and watch selectedObjects
+ 
+ or add observer for ArrayController.selectedObjects rather than viewController.selectedMessages
+ */
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     // Bold the text in the selected items, and unbold non-selected items
 //    [self.tableView enumerateAvailableRowViewsUsingBlock:^(NSTableRowView *rowView, NSInteger row) {
@@ -278,6 +290,11 @@ CGFloat ONEROW = 18.0;
     
     self.selectedMessages = [messages copy];
 }
+
+- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
+    DDLogVerbose(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), row);
+}
+
 
 /*
  Gets called any time a new row scrolls into view. Not relevant for adding a new element to the array.

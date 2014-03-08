@@ -7,7 +7,7 @@
 //
 
 #import "MBMIME2047ValueTransformer.h"
-#import "NSString+IMAPConversions.h"
+#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 
 
 static NSRegularExpression *regexEncodingFields;
