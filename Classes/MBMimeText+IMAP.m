@@ -55,7 +55,7 @@
 #pragma message "ToDo: TEST, if base64 and charset is not utf-8, need to convert from charset to utf-8 as part of decoding."
             
         } else {
-            stringToDecode = [MBEncodedString encodedString: self.data.encoded encoding: nsEncodingInt];
+            stringToDecode = [MBEncodedString newEncodedString: self.data.encoded encoding: nsEncodingInt];
             
             if ([[self.encoding uppercaseString] isEqualToString: @"QUOTED-PRINTABLE"]) {
                 //

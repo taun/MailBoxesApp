@@ -21,7 +21,7 @@
 @property (nonatomic,strong) NSString*          string;
 @property (nonatomic,assign) NSStringEncoding   encoding;
 
-+(instancetype) encodedString: (NSString*) string encoding: (NSStringEncoding) encoding;
++(instancetype) newEncodedString: (NSString*) string encoding: (NSStringEncoding) encoding;
 -(instancetype) initWithString: (NSString*) string encoding: (NSStringEncoding) encoding;
 
 -(NSData*) asData;

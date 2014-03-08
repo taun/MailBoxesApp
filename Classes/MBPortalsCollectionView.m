@@ -91,18 +91,22 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
  */
 -(void) updateViewMessagesArrayWithSelectionFrom: (id) object {
     // new portal table selection set
-    if (self.currentCollectionSelection != object) {
-        if (self.currentCollectionSelection) {
+    
+    id strongLocalRefCollectionSelection = self.currentCollectionSelection;
+    
+    if (strongLocalRefCollectionSelection != object) {
+        if (strongLocalRefCollectionSelection) {
             // exists and not equal
-            [self.currentCollectionSelection setSelected: NO];
+            [strongLocalRefCollectionSelection setSelected: NO];
             // clear selections on previous portal to allow selecting again when coming back to portal
-            if ([[((MBPortalViewController*)self.currentCollectionSelection).tableView selectedRowIndexes] count] != 0) {
+            if ([[((MBPortalViewController*)strongLocalRefCollectionSelection).tableView selectedRowIndexes] count] != 0) {
                 //
-                [((MBPortalViewController*)self.currentCollectionSelection).tableView deselectAll: Nil];
+                [((MBPortalViewController*)strongLocalRefCollectionSelection).tableView deselectAll: Nil];
             }
         }
         self.currentCollectionSelection = object;
     }
+    strongLocalRefCollectionSelection = nil;
     
     NSSortDescriptor* sortDesc = [NSSortDescriptor sortDescriptorWithKey: @"dateSent" ascending: NO];
     NSArray* descriptors = @[sortDesc];

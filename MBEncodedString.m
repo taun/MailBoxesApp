@@ -10,7 +10,7 @@
 
 @implementation MBEncodedString
 
-+(instancetype) encodedString:(NSString *)string encoding:(NSStringEncoding)encoding {
++(instancetype) newEncodedString:(NSString *)string encoding:(NSStringEncoding)encoding {
     return [[[self class] alloc] initWithString: string encoding: encoding];
 }
 
@@ -24,7 +24,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone{
-    return [MBEncodedString encodedString: _string encoding: _encoding];
+    return [MBEncodedString newEncodedString: _string encoding: _encoding];
 }
 
 -(NSData*) asData {

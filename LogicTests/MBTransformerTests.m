@@ -94,7 +94,7 @@
     
     NSString* sampleContent = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
     
-    MBEncodedString* encodedString = [MBEncodedString encodedString: sampleContent encoding: NSISOLatin1StringEncoding];
+    MBEncodedString* encodedString = [MBEncodedString newEncodedString: sampleContent encoding: NSISOLatin1StringEncoding];
     
     MBEncodedString* dehexedString = [[MBMIMEQuotedPrintableTranformer new] transformedValue: encodedString];
     
