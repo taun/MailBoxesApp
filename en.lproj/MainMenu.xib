@@ -305,7 +305,7 @@
                                     <constraint firstAttribute="trailing" secondItem="1057" secondAttribute="trailing" constant="1" id="yXO-KP-Jp2"/>
                                 </constraints>
                             </customView>
-                            <customView wantsLayer="YES" focusRingType="none" id="840" userLabel="Messages View">
+                            <customView wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="249" id="840" userLabel="Messages View">
                                 <rect key="frame" x="273" y="0.0" width="751" height="663"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -313,7 +313,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="751" height="663"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <customView id="1081" userLabel="Portals View">
+                                            <customView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="1081" userLabel="Portals View">
                                                 <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
@@ -364,7 +364,7 @@
                                                 </constraints>
                                                 <accessibility help="Portals"/>
                                             </customView>
-                                            <customView wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="249" id="1082" userLabel="Message View">
+                                            <customView wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="248" verticalHuggingPriority="248" id="1082" userLabel="Message View">
                                                 <rect key="frame" x="0.0" y="319" width="751" height="344"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
@@ -394,14 +394,14 @@
                                                                 <constraint firstAttribute="trailing" secondItem="Ovp-zj-tQH" secondAttribute="trailing" priority="538" id="mfS-Fo-ANX"/>
                                                                 <constraint firstItem="Ovp-zj-tQH" firstAttribute="leading" secondItem="5k9-DR-QWV" secondAttribute="leading" id="z5Q-Zl-mll"/>
                                                             </constraints>
-                                                            <color key="backgroundColor" patternImage="2729F054-78EA-4165-8654-DD0DF6E8A653" colorSpace="pattern"/>
+                                                            <color key="backgroundColor" patternImage="06F9C8B7-75B7-4F56-AA1B-520F3B93AA8D" colorSpace="pattern"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" id="fzv-cM-tBI">
                                                             <rect key="frame" x="0.0" y="328" width="751" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" id="IbM-9h-U1Q">
-                                                            <rect key="frame" x="736" y="0.0" width="15" height="344"/>
+                                                            <rect key="frame" x="735" y="0.0" width="16" height="344"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>
@@ -1503,7 +1503,7 @@
         </menu>
     </objects>
     <resources>
-        <image name="2729F054-78EA-4165-8654-DD0DF6E8A653" width="450" height="420">
+        <image name="06F9C8B7-75B7-4F56-AA1B-520F3B93AA8D" width="450" height="420">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
