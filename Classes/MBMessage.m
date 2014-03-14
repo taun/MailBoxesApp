@@ -2,8 +2,8 @@
 //  MBMessage.m
 //  MailBoxes
 //
-//  Created by Taun Chapman on 09/13/13.
-//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/11/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import "MBMessage.h"
@@ -12,6 +12,7 @@
 #import "MBFlag.h"
 #import "MBLabel.h"
 #import "MBMime.h"
+#import "MBNote.h"
 #import "MBRFC2822.h"
 #import "MBox.h"
 
@@ -50,5 +51,6 @@
 @dynamic lastChanged;
 @dynamic mbox;
 @dynamic rfc2822;
+@dynamic notes;
 
 @end

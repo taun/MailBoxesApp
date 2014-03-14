@@ -8,6 +8,7 @@
 
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
+#import "NSManagedObject+Shortcuts.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -21,6 +22,10 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 
 @implementation MBAccount (IMAP)
+
++ (NSString *)entityName {
+    return @"MBAccount";
+}
 
 + (NSArray *)keysToBeCopied {
     static NSArray *keysToBeCopied = nil;
@@ -186,9 +191,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         }
         
         // create a new node.
-        node = [NSEntityDescription
-                insertNewObjectForEntityForName:@"MBox"
-                inManagedObjectContext: [self managedObjectContext]];
+        node = [MBox insertNewObjectIntoContext: [self managedObjectContext]];
         
         node.fullPath = aPath;
         node.pathSeparator = pathSeparator;
@@ -203,7 +206,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         if (parent == nil) parent = self;
         // parent might be MBox or MBAccount
         MBTreeNode* parentNode = (MBTreeNode*)parent;
-        [parentNode addChildNodesObject: node];
+        NSMutableOrderedSet* childNodes = [parent mutableOrderedSetValueForKey: @"childNodes"];
+        [childNodes addObject: node];
         [parentNode setIsLeaf: @NO];
         
     }

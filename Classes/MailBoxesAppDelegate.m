@@ -18,22 +18,20 @@
 #import "MBSmartFolder.h"
 #import "MBFavorites.h"
 
-#import "MBUser+IMAP.h"
+#import "MBUser+Shorthand.h"
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
 #import <MoedaeMailPlugins/MBoxProxy.h>
 #import "MBMessage+IMAP.h"
 
-#import "MBCriteria.h"
-
-#import "MBPortal+Accessors.h"
+#import "MBPortal+IMAP.h"
 #import "MBPortalView.h"
 #import "MBViewPortalMBox.h"
 #import "MBPortalViewController.h"
 #import "MBPortalsCollectionView.h"
 
 #import "MBMessageViewController.h"
-#import "MBViewPortalSelection.h"
+#import "MBViewPortalSelection+Extra.h"
 #import "MBAddressList.h"
 #import "MBSidebarViewController.h"
 #import "MBAccountsCoordinator.h"
@@ -48,6 +46,8 @@
 #import "MBEncodedStringHexOctetTransformer.h"
 #import "MBMIMECharsetTransformer.h"
 
+#import "NSManagedObject+Shortcuts.h"
+
 #import <FScript/FScript.h>
 #import <QuartzCore/QuartzCore.h>
 #import <MoedaeMailPlugins/MoedaeMailPlugins.h>
@@ -56,7 +56,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_INFO;
 
 
 #define MBCoreDataErrorDomain @"com.moedae.MailBoxes.CoreData"
@@ -222,7 +222,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     __block NSError *errorSavingUser = nil;
     
     [self.managedObjectContext performBlockAndWait:^{
-        newUser = [NSEntityDescription insertNewObjectForEntityForName:@"MBUser" inManagedObjectContext: _managedObjectContext];
+        newUser = [MBUser insertNewObjectIntoContext: _managedObjectContext];
         [newUser setValue: @"default" forKey: @"firstName"];
         
         self.currentUser = newUser;
@@ -246,8 +246,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
 }
 - (void)createDefaultSidebarContent {
-    MBSidebar* sidebar = [NSEntityDescription insertNewObjectForEntityForName:MBSideBarEntityName
-                                                       inManagedObjectContext:self.managedObjectContext];
+    MBSidebar* sidebar = [MBSidebar insertNewObjectIntoContext: self.managedObjectContext];
     sidebar.name = @"Root";
     sidebar.identifier = @"root";
     self.currentUser.sidebar = sidebar;
@@ -266,8 +265,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     lists.isExpandable = @YES;
 }
 - (void)createDefaultPortal {
-    MBViewPortalSelection* selectionPortal = [NSEntityDescription insertNewObjectForEntityForName: @"MBViewPortalSelection"
-                                                                           inManagedObjectContext:self.managedObjectContext];
+    MBViewPortalSelection* selectionPortal = [MBViewPortalSelection insertNewObjectIntoContext: self.managedObjectContext];
     selectionPortal.name = @"Default";
     selectionPortal.user = self.currentUser;
 //    [self.currentUser addPortalsObject: selectionPortal];
@@ -582,7 +580,7 @@ are presented to the user.
 - (IBAction) saveAction:(id)sender {
     __block NSError *error = nil;
     
-    __block BOOL result;
+    __block BOOL result = NO;
     
     [self.managedObjectContext performBlockAndWait:^{
         result = [self.managedObjectContext commitEditing];
@@ -592,6 +590,7 @@ are presented to the user.
         DDLogVerbose(@"%@:%@ unable to commit editing before saving", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     }
 
+    result = NO;
     [self.managedObjectContext performBlockAndWait:^{
         result = [self.managedObjectContext save:&error];
     }];
@@ -605,7 +604,7 @@ are presented to the user.
 {
     if (!self.managedObjectContext) return NSTerminateNow;
     
-    __block BOOL result;
+    __block BOOL result = NO;
     
     [self.managedObjectContext performBlockAndWait:^{
         result = [self.managedObjectContext commitEditing];
@@ -619,6 +618,7 @@ are presented to the user.
     if (![self.managedObjectContext hasChanges]) return NSTerminateNow;
     
     __block NSError *error = nil;
+    result = NO;
     [self.managedObjectContext performBlockAndWait:^{
         result = [self.managedObjectContext save:&error];
     }];

@@ -10,28 +10,28 @@
 
 @implementation MBTreeNode (IntersectsSetFix)
 
++ (NSString *)entityName {
+    return @"MBTreeNode";
+}
+
 - (void)addChildNodesObject:(MBTreeNode *)value {
-    NSMutableOrderedSet* newSet = [self.childNodes mutableCopy];
-    [newSet addObject: value];
-    self.childNodes = [newSet copy];
+    NSMutableOrderedSet* referenceSet = [self mutableOrderedSetValueForKey: @"childNodes"];
+    [referenceSet addObject: value];
 }
 
 - (void)addChildNodes:(NSOrderedSet *)values {
-    NSMutableOrderedSet* newSet = [self.childNodes mutableCopy];
+    NSMutableOrderedSet* newSet = [self mutableOrderedSetValueForKey: @"childNodes"];
     [newSet unionOrderedSet: values];
-    self.childNodes = newSet;
 }
 
 - (void)addParentNodesObject:(MBTreeNode *)value {
-    NSMutableOrderedSet* newSet = [self.parentNodes mutableCopy];
-    [newSet addObject: value];
-    self.parentNodes = [newSet copy];
+    NSMutableOrderedSet* referenceSet = [self mutableOrderedSetValueForKey: @"parentNodes"];
+    [referenceSet addObject: value];
 }
 
 - (void)addParentNodes:(NSOrderedSet *)values {
-    NSMutableOrderedSet* newSet = [self.parentNodes mutableCopy];
+    NSMutableOrderedSet* newSet = [self mutableOrderedSetValueForKey: @"parentNodes"];
     [newSet unionOrderedSet: values];
-    self.parentNodes = newSet;
 }
 
 @end

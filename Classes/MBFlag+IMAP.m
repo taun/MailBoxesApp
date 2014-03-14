@@ -10,5 +10,9 @@
 
 @implementation MBFlag (MBFlag_IMAP)
 
++ (NSString *)entityName {
+    return @"MBFlag";
+}
+
 
 @end

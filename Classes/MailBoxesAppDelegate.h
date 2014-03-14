@@ -101,7 +101,6 @@ NSString *PortalEditingEndedKey;
 - (IBAction)loadAllAccountFolders: (id) sender;
 - (IBAction)saveAction: (id) sender;
 - (IBAction)cancelLoadAllAccountFolders:(id)sender;
-- (IBAction)toggleMessagesVerticalView:(id)sender;
 - (IBAction)testIMAPClient:(id)sender;
 
 - (IBAction)exportSelectedPortalSettings:(id)sender;
@@ -115,6 +114,6 @@ NSString *PortalEditingEndedKey;
 - (IBAction)visualizeConstraints:(id)sender;
 
 
--(void) displayContextSaveError: (NSError*) theError;
+//-(void) displayContextSaveError: (NSError*) theError;
 
 @end

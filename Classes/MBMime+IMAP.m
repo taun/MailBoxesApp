@@ -7,6 +7,7 @@
 //
 
 #import "MBMime+IMAP.h"
+#import "NSManagedObject+Shortcuts.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -18,6 +19,12 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 
 @implementation MBMime (IMAP)
+
++ (NSString *)entityName {
+    return @"MBMime";
+}
+
+
 
 #pragma mark - encoding decoding
 
@@ -82,9 +89,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (void) addEncodedData:(NSString *)encodedData {
-    MBMimeData* mimeData = [NSEntityDescription
-                            insertNewObjectForEntityForName: @"MBMimeData"
-                            inManagedObjectContext: self.managedObjectContext];
+    MBMimeData* mimeData = [MBMimeData insertNewObjectIntoContext: self.managedObjectContext];
     mimeData.encoded = encodedData;
     mimeData.encoding = self.encoding;
     [mimeData setMimeStructure: self];

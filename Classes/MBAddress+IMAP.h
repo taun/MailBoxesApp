@@ -12,11 +12,11 @@
 
 @interface MBAddress (IMAP)
 
-+ (MBAddress*) addressWithEmail: (NSString*) emailAddress 
++ (instancetype) newAddressWithEmail: (NSString*) emailAddress
                 createIfMissing: (BOOL) create 
                         context: (NSManagedObjectContext*) context;
 
-+ (MBAddress*) findAddressForEMail: (NSString *) emailAddress 
++ (instancetype) findAddressForEMail: (NSString *) emailAddress
                            context: (NSManagedObjectContext*) context;
 
 -(NSString *) stringRFC822AddressFormat;

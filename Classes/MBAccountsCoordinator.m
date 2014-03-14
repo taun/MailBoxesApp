@@ -6,7 +6,7 @@
 //  Copyright 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBUser+Accessors.h"
+#import "MBUser.h"
 #import "MBAccount+IMAP.h"
 #import "IMAPClient.h"
 

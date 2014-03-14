@@ -2,8 +2,8 @@
 //  MBMime.m
 //  MailBoxes
 //
-//  Created by Taun Chapman on 12/21/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/11/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import "MBMime.h"
@@ -33,9 +33,9 @@
 @dynamic mime;
 @dynamic name;
 @dynamic octets;
+@dynamic subPartNumber;
 @dynamic subtype;
 @dynamic type;
-@dynamic subPartNumber;
 @dynamic childNodes;
 @dynamic data;
 @dynamic disposition;

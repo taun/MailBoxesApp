@@ -20,7 +20,7 @@
 #import "MailBoxesAppDelegate.h"
 #import "MBPPEWindowController.h"
 #import "MBPortal+IMAP.h"
-#import "MBUser+IMAP.h"
+#import "MBUser+Shorthand.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -126,6 +126,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [NSApp endSheet: self.window returnCode:NSCancelButton];
 }
 
+#pragma message "ToDo: change from portal predicate editor to MBSmartFolder predicate editor. MBPortal is unused."
+
 - (void)newPortalObjectSheetDidEnd:(NSWindow *)sheet
                         returnCode:(int)returnCode
                        contextInfo:(void  *)contextInfo {
@@ -134,39 +136,39 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     //NSManagedObject *sheetObject = [self.newPortalObjectController content];
     
-    if (returnCode == NSOKButton) {
-        MBPortal *newPortal = [self.theNewPortalObjectController content];
-        // get user id from app context
-        NSManagedObjectID *userID = [[[self appSelectedUserObjectController] content] objectID];
-        // get local context version
-        
-        __block MBUser *localUser;
-        
-        [self.localManagedContext performBlockAndWait:^{
-            localUser = (MBUser *)[localManagedContext objectWithID: userID];
-        }];
-        
-        newPortal.parentNode = localUser;
-        
-        if (![self.theNewPortalObjectController commitEditing]) {
-            DDLogVerbose(@"%@:%@ unable to commit editing before saving", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        }
-        
-        __block BOOL result;
-        
-        [self.localManagedContext performBlockAndWait:^{
-            result = [self.localManagedContext save: &error];
-        }];
-
-        if (!result) {
-            [[NSApplication sharedApplication] presentError:error];
-        } else {
-            [NSApp endSheet: self.window returnCode:NSOKButton];
-        } 
-    }
-    
-    // Clean up before ending
-    [self.theNewPortalObjectController setContent:nil];
+//    if (returnCode == NSOKButton) {
+//        MBPortal *newPortal = [self.theNewPortalObjectController content];
+//        // get user id from app context
+//        NSManagedObjectID *userID = [[[self appSelectedUserObjectController] content] objectID];
+//        // get local context version
+//        
+//        __block MBUser *localUser;
+//        
+//        [self.localManagedContext performBlockAndWait:^{
+//            localUser = (MBUser *)[localManagedContext objectWithID: userID];
+//        }];
+//        
+//        newPortal.parentNode = localUser;
+//        
+//        if (![self.theNewPortalObjectController commitEditing]) {
+//            DDLogVerbose(@"%@:%@ unable to commit editing before saving", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+//        }
+//        
+//        __block BOOL result;
+//        
+//        [self.localManagedContext performBlockAndWait:^{
+//            result = [self.localManagedContext save: &error];
+//        }];
+//
+//        if (!result) {
+//            [[NSApplication sharedApplication] presentError:error];
+//        } else {
+//            [NSApp endSheet: self.window returnCode:NSOKButton];
+//        } 
+//    }
+//    
+//    // Clean up before ending
+//    [self.theNewPortalObjectController setContent:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver: self];
 
     [self.localManagedContext performBlockAndWait:^{

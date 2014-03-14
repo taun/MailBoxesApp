@@ -9,7 +9,7 @@
 #import "MBAccountWindowController.h"
 #import "MailBoxesAppDelegate.h"
 #import "MBAccount+IMAP.h"
-#import "MBUser+IMAP.h"
+#import "MBUser+Shorthand.h"
 #import "MBSidebar+Accessors.h"
 #import "MBTreeNode+IntersectsSetFix.h"
 
@@ -17,7 +17,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @interface MBAccountWindowController ()
 
@@ -151,7 +151,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         newAccount.user = localUser;
         newAccount.imageName = MBAccountImageName;
         MBTreeNode* userAccountGroup = (MBTreeNode*)[localUser.sidebar accountGroup];
-        [userAccountGroup addChildNodesObject: newAccount];
+        NSMutableOrderedSet* childNodes = [userAccountGroup mutableOrderedSetValueForKey: @"childNodes"];
+        [childNodes addObject: newAccount];
         result = [self.localManagedContext save: &error];
     }];
     

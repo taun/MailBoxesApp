@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0510"
    version = "1.8">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -23,6 +23,21 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "IMAPClientTest/testRespFetchBodyPart2">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartApplicationExcel">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartImageMessage">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartSigned">
+               </Test>
+               <Test
+                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureTextHtml">
+               </Test>
+               <Test
                   Identifier = "IMAPResponseParserTests">
                </Test>
                <Test
@@ -36,21 +51,6 @@
                </Test>
                <Test
                   Identifier = "RFC2822RawMessageHeaderTest">
-               </Test>
-               <Test
-                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureTextHtml">
-               </Test>
-               <Test
-                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartSigned">
-               </Test>
-               <Test
-                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartImageMessage">
-               </Test>
-               <Test
-                  Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartApplicationExcel">
-               </Test>
-               <Test
-                  Identifier = "IMAPClientTest/testRespFetchBodyPart2">
                </Test>
             </SkippedTests>
          </TestableReference>

@@ -18,7 +18,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_INFO;
 
 static     NSSet *RespDataStateTokens; 
 static     NSSet *RespDataCommandTokens; 
@@ -156,6 +156,7 @@ static     NSDictionary *HeaderToModelMap;
     }
     return self;
 }
+
 
 -(void) dealloc {
     self.delegate = nil;
@@ -684,7 +685,7 @@ static     NSDictionary *HeaderToModelMap;
         if (messageUid != 0) {
             
             // reset messageProperties
-            self.messageProperties = nil;
+            [self.messageProperties removeAllObjects];
             
             (self.messageProperties)[@"Sequence"] = @([sequence integerValue]);
             
@@ -700,7 +701,7 @@ static     NSDictionary *HeaderToModelMap;
             }
             
             [self.clientStore setMessage: messageUid propertiesFromDictionary: self.messageProperties];
-            self.messageProperties = nil;
+            [self.messageProperties removeAllObjects];
         } else {
             #pragma message "ToDo: error finding UID?"
         }
@@ -800,7 +801,6 @@ static     NSDictionary *HeaderToModelMap;
       dictionary key: "body" object (part, data)
  */
 -(void) responseFetchedMessageBody {
-    NSLog(@"Body response tokens (%@)", [self.tokens tokenArray]);
     DDLogVerbose(@"Body response tokens (%@)", [self.tokens tokenArray]);
     MBTokenTree* bodyPartTree = [self.tokens scanSubTree];
     if (bodyPartTree) {

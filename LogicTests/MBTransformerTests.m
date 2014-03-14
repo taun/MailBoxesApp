@@ -198,5 +198,14 @@
     XCTAssertTrue(success, @"%@ & %@ Should be equal.", addresses, reference);
 }
 
+-(void)testAddressesStringNamesWithCommasAndNoBracketToSet {
+    NSString* addresses = [NSString stringWithFormat: @"MANDT@CHARCOALIA.NET, \n\tMYRNA.A.MONCK@GSK.COM"];
+    NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
+    NSString* reference = [self transformAddressesToString: simpleAddressSet];
+    NSSet* simpleAddressSet2 = [self reverseTranformAddresses: reference];
+    BOOL success = [simpleAddressSet2 isEqualToSet: simpleAddressSet];
+    XCTAssertTrue(success, @"%@ & %@ Should be equal.", addresses, reference);
+}
+
 
 @end

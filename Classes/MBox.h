@@ -2,15 +2,15 @@
 //  MBox.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 11/19/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/11/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "MBTreeNode.h"
 
-@class MBAccount, MBFlag, MBMessage, MBSmartFolder;
+@class MBAccount, MBFlag, MBMessage;
 
 @interface MBox : MBTreeNode
 
@@ -31,7 +31,6 @@
 @property (nonatomic, retain) NSString * uid;
 @property (nonatomic, retain) MBAccount *accountReference;
 @property (nonatomic, retain) NSSet *availableFlags;
-@property (nonatomic, retain) NSSet *criteria;
 @property (nonatomic, retain) MBMessage *lastChangedMessage;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) NSSet *permanentFlags;
@@ -43,11 +42,6 @@
 - (void)removeAvailableFlagsObject:(MBFlag *)value;
 - (void)addAvailableFlags:(NSSet *)values;
 - (void)removeAvailableFlags:(NSSet *)values;
-
-- (void)addCriteriaObject:(MBSmartFolder *)value;
-- (void)removeCriteriaObject:(MBSmartFolder *)value;
-- (void)addCriteria:(NSSet *)values;
-- (void)removeCriteria:(NSSet *)values;
 
 - (void)addMessagesObject:(MBMessage *)value;
 - (void)removeMessagesObject:(MBMessage *)value;

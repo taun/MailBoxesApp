@@ -8,8 +8,6 @@
 
 #import "MBSidebar.h"
 
-#define MBSideBarEntityName @"MBSidebar"
-
 #define MBGroupAccountsIdentifier @"accounts"
 #define MBGroupSmartFoldersIdentifier @"smartfolders"
 #define MBGroupFavoritesIdentifier @"favorites"

@@ -1,14 +1,19 @@
 //
-//  IMAPUser.m
+//  MBUser+Shorthand.m
 //  MailBoxes
 //
 //  Created by Taun Chapman on 04/08/11.
 //  Copyright 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBUser+IMAP.h"
+#import "MBUser+Shorthand.h"
 #import "MBAccount+IMAP.h"
 
-@implementation MBUser (IMAP)
+@implementation MBUser (Shorthand)
+
++ (NSString *)entityName {
+    return @"MBUser";
+}
+
 
 @end

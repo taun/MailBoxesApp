@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
-    <entity name="Entity" syncable="YES"/>
     <entity name="MBAccount" representedClassName="MBAccount" parentEntity="MBTreeNode">
         <attribute name="address" attributeType="String" maxValueString="64" defaultValueString="name@server.com">
             <userInfo/>
@@ -111,6 +110,11 @@
         </relationship>
         <userInfo/>
     </entity>
+    <entity name="MBDispositionParameter" representedClassName="MBDispositionParameter" syncable="YES">
+        <attribute name="name" attributeType="String" minValueString="1" maxValueString="100" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="disposition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MBMimeDisposition" inverseName="parameters" inverseEntity="MBMimeDisposition" syncable="YES"/>
+    </entity>
     <entity name="MBFavorites" representedClassName="MBFavorites" parentEntity="MBTreeNode" syncable="YES"/>
     <entity name="MBFlag" representedClassName="MBFlag">
         <attribute name="desc" optional="YES" attributeType="String">
@@ -125,9 +129,11 @@
         <attribute name="userAssignedName" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
+        <relationship name="availableForMBoxes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBox" inverseName="availableFlags" inverseEntity="MBox" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="flags" inverseEntity="MBMessage">
             <userInfo/>
         </relationship>
+        <relationship name="permanentForMboxes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBox" inverseName="permanentFlags" inverseEntity="MBox" syncable="YES"/>
         <userInfo/>
     </entity>
     <entity name="MBGroup" representedClassName="MBGroup" parentEntity="MBTreeNode" syncable="YES">
@@ -227,6 +233,7 @@
         <relationship name="mbox" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBox" inverseName="messages" inverseEntity="MBox" indexed="YES">
             <userInfo/>
         </relationship>
+        <relationship name="notes" optional="YES" toMany="YES" maxCount="20" deletionRule="Cascade" destinationEntity="MBNote" inverseName="message" inverseEntity="MBNote" syncable="YES"/>
         <relationship name="rfc2822" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MBRFC2822" inverseName="message" inverseEntity="MBRFC2822" storedInTruthFile="YES">
             <userInfo/>
         </relationship>
@@ -258,7 +265,7 @@
         <relationship name="disposition" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="MBMimeDisposition" inverseName="mime" inverseEntity="MBMimeDisposition" syncable="YES"/>
         <relationship name="message" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="childNodes" inverseEntity="MBMessage" syncable="YES"/>
         <relationship name="messageReference" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="allParts" inverseEntity="MBMessage" syncable="YES"/>
-        <relationship name="parameters" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBMimeParameter" syncable="YES"/>
+        <relationship name="parameters" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBMimeParameter" inverseName="mime" inverseEntity="MBMimeParameter" syncable="YES"/>
         <relationship name="parentNode" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMime" inverseName="childNodes" inverseEntity="MBMime" syncable="YES"/>
     </entity>
     <entity name="MBMimeApplication" representedClassName="MBMimeApplication" parentEntity="MBMimeMedia" syncable="YES"/>
@@ -273,7 +280,7 @@
     <entity name="MBMimeDisposition" representedClassName="MBMimeDisposition" syncable="YES">
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="mime" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMime" inverseName="disposition" inverseEntity="MBMime" syncable="YES"/>
-        <relationship name="parameters" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBMimeParameter" syncable="YES"/>
+        <relationship name="parameters" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBDispositionParameter" inverseName="disposition" inverseEntity="MBDispositionParameter" syncable="YES"/>
         <userInfo>
             <entry key="rfc" value="1806"/>
         </userInfo>
@@ -284,8 +291,9 @@
         <attribute name="boundary" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MBMimeParameter" representedClassName="MBMimeParameter" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" minValueString="1" maxValueString="100" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" maxValueString="100" syncable="YES"/>
+        <relationship name="mime" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MBMime" inverseName="parameters" inverseEntity="MBMime" syncable="YES"/>
     </entity>
     <entity name="MBMimeText" representedClassName="MBMimeText" parentEntity="MBMime" syncable="YES"/>
     <entity name="MBMimeVideo" representedClassName="MBMimeVideo" parentEntity="MBMimeMedia" syncable="YES"/>
@@ -299,6 +307,12 @@
     <entity name="MBMultiSigned" representedClassName="MBMultiSigned" parentEntity="MBMimeMulti" syncable="YES">
         <attribute name="micalg" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="protocol" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MBNote" representedClassName="MBNote" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="modified" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="message" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="notes" inverseEntity="MBMessage" syncable="YES"/>
     </entity>
     <entity name="MBox" representedClassName="MBox" parentEntity="MBTreeNode">
         <attribute name="fullPath" attributeType="String" indexed="YES">
@@ -347,17 +361,14 @@
         <relationship name="accountReference" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAccount" inverseName="allNodes" inverseEntity="MBAccount" indexed="YES">
             <userInfo/>
         </relationship>
-        <relationship name="availableFlags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag">
-            <userInfo/>
-        </relationship>
-        <relationship name="criteria" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBSmartFolder" indexed="YES">
+        <relationship name="availableFlags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag" inverseName="availableForMBoxes" inverseEntity="MBFlag">
             <userInfo/>
         </relationship>
         <relationship name="lastChangedMessage" optional="YES" transient="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBMessage" inverseName="lastChanged" inverseEntity="MBMessage" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBMessage" inverseName="mbox" inverseEntity="MBMessage" indexed="YES">
             <userInfo/>
         </relationship>
-        <relationship name="permanentFlags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag">
+        <relationship name="permanentFlags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBFlag" inverseName="permanentForMboxes" inverseEntity="MBFlag">
             <userInfo/>
         </relationship>
         <userInfo/>
@@ -378,12 +389,6 @@
         <attribute name="predicateString" optional="YES" attributeType="String" defaultValueString="name CONTAINS[cd] &quot;inbox&quot;">
             <userInfo/>
         </attribute>
-        <relationship name="criteria" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBSmartFolder" indexed="YES">
-            <userInfo/>
-        </relationship>
-        <relationship name="parentNode" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBUser" indexed="YES">
-            <userInfo/>
-        </relationship>
         <userInfo/>
     </entity>
     <entity name="MBRFC2822" representedClassName="MBRFC2822">
@@ -400,6 +405,12 @@
     </entity>
     <entity name="MBSmartFolder" representedClassName="MBSmartFolder" parentEntity="MBTreeNode">
         <attribute name="criteria" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="predicate" optional="YES" attributeType="Transformable">
+            <userInfo/>
+        </attribute>
+        <attribute name="predicateString" optional="YES" attributeType="String" defaultValueString="name CONTAINS[cd] &quot;inbox&quot;">
             <userInfo/>
         </attribute>
         <userInfo/>
@@ -437,22 +448,18 @@
         <relationship name="messageArraySource" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBTreeNode" inverseName="contentViews" inverseEntity="MBTreeNode" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBUser" inverseName="portals" inverseEntity="MBUser" syncable="YES"/>
     </entity>
-    <entity name="MBViewPortalMBox" representedClassName="MBViewPortalMBox" parentEntity="MBViewPortal" syncable="YES">
-        <relationship name="messages" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBox" syncable="YES"/>
-    </entity>
-    <entity name="MBViewPortalSelection" representedClassName="MBViewPortalSelection" parentEntity="MBViewPortal" syncable="YES">
-        <relationship name="messages" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBTreeNode" syncable="YES"/>
-    </entity>
-    <entity name="MBViewPortalSmartFolder" representedClassName="MBViewPortalSmartFolder" parentEntity="MBViewPortal" syncable="YES">
-        <relationship name="messages" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBSmartFolder" syncable="YES"/>
-    </entity>
+    <entity name="MBViewPortalMBox" representedClassName="MBViewPortalMBox" parentEntity="MBViewPortal" syncable="YES"/>
+    <entity name="MBViewPortalSelection" representedClassName="MBViewPortalSelection" parentEntity="MBViewPortal" syncable="YES"/>
+    <entity name="MBViewPortalSmartFolder" representedClassName="MBViewPortalSmartFolder" parentEntity="MBViewPortal" syncable="YES"/>
     <fetchRequest name="MBAddressForEmail" entity="MBAddress" predicateString="email == $EMAIL"/>
+    <fetchRequest name="MBDParamNameValueFetch" entity="MBDispositionParameter" predicateString="name == $NAME AND value == $VALUE"/>
     <fetchRequest name="MBFlagForSName" entity="MBFlag" predicateString="serverAssignedName == $SNAME"/>
     <fetchRequest name="MBMessageEmptyPartsForUID" entity="MBMime" predicateString="messageReference.uid == $UID AND isLeaf == 1 AND data == nil"/>
     <fetchRequest name="MBMessageForUID" entity="MBMessage" predicateString="uid == $aUID AND mbox.accountReference == $ACCOUNTOBJECT"/>
+    <fetchRequest name="MBMParamNameValueFetch" entity="MBMimeParameter" predicateString="name == $NAME AND value == $VALUE"/>
     <fetchRequest name="MBoxForPath" entity="MBox" predicateString="fullPath == $PATH AND accountReference == $ACCOUNTOBJECT"/>
     <elements>
-        <element name="Entity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBNote" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MBAccount" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MBAccountType" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MBAddress" positionX="0" positionY="0" width="0" height="0"/>
@@ -493,5 +500,6 @@
         <element name="MBViewPortalMBox" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MBViewPortalSelection" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MBViewPortalSmartFolder" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBDispositionParameter" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

@@ -71,7 +71,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     }
     return result;
 }
-
+#pragma message "ToDo: the peekToken ArrayBounds errors are not really errors. They occurr when purposefully looking to detect the end of the tokens."
 -(id) peekToken {
     id result = nil;
     _error = nil;
@@ -79,7 +79,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     if ([self.tokenArray count]>0) {
         result = (self.tokenArray)[0];
     } else {
-        DDLogError(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        DDLogVerbose(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
         _error = [NSError errorWithDomain: TokenTreeErrorDomain code: ArrayBounds userInfo: nil];
     }
@@ -99,7 +99,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     if ([self.tokenArray count]>=2) {
         result = (self.tokenArray)[1];
     } else {
-        DDLogError(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        DDLogVerbose(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
         _error = [NSError errorWithDomain: TokenTreeErrorDomain code: ArrayBounds userInfo: nil];
     }
@@ -110,7 +110,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     if ([self.tokenArray count]>0) {
         [self.tokenArray removeObjectAtIndex: 0];
     } else {
-        DDLogError(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        DDLogVerbose(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
         _error = [NSError errorWithDomain: TokenTreeErrorDomain code: ArrayBounds userInfo: nil];
     }
@@ -120,7 +120,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     if ([self.tokenArray count]>=2) {
         [self.tokenArray removeObjectAtIndex: 1];
     } else {
-        DDLogError(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        DDLogVerbose(@"%@-%@ array bounds error. Attempt to access an empty array", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
         _error = [NSError errorWithDomain: TokenTreeErrorDomain code: ArrayBounds userInfo: nil];
     }

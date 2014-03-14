@@ -15,7 +15,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_INFO;
 
 
 NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal";

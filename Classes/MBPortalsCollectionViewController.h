@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MBPortalsCollectionView.h"
-#import "MBUser+IMAP.h" // not sure we need more than just MBUser.h
+#import "MBUser+Shorthand.h" // not sure we need more than just MBUser.h
 
 /*!
  Unused

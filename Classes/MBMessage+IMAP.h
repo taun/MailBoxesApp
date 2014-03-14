@@ -12,6 +12,15 @@
 
 @interface MBMessage (IMAP) //<NSCopying>
 
+/*!
+ Fetch the count for ALL messages in the passed context.
+ 
+ @param moc NSManagedObjectContext in which to count the messages.
+ 
+ @return the total unfiltered number of messages.
+ */
++(NSUInteger) countInContext: (NSManagedObjectContext*) moc;
+
 -(void) setPropertiesFromDictionary:(NSDictionary *)aDictionary;
 
 -(void) setParsedSequence: (id) tokenized;
@@ -35,7 +44,7 @@
 
 -(NSArray*) attachments;
 
--(NSArray*) childNodesArray;
--(NSSet*) childNodesSet;
+//-(NSArray*) childNodesArray;
+//-(NSSet*) childNodesSet;
 
 @end

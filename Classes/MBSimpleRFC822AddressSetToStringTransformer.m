@@ -54,13 +54,13 @@
     
     return addressesString;
 }
-/*
- takes comma separated string of email address like below
- "Nancy Reigel" <ndreigel@bellatlantic.net>, "'Carl, Davies'" <carl_davies99@yahoo.com>, "'Taun'" <taun@charcoalia.net>, "'Michael B. Parmet'" <mbparmet@parmetech.com>, <geminikc9@yahoo.com>, <richard.hankin@hankingroup.com>, <DBoscher@CNTUS.JNJ.COM>, <mark@mccay.com>, <canniff@canniff.net>, <ndreigel@verizon.net>, <monckma@yahoo.com>, "'Alicia Shultz'" <AliciaShultz@princetowncable.com>, "'Laurie'" <reelmom5@verizon.net>, "'Wagner, Tim [NCSUS]'" <twagner@ncsus.jnj.com>, <jppsd@msn.com>, <karen_vanbemmel@yahoo.com>
-
- Look for ">,"
+/*!
+ Takes an RFC5322 string of email address like below.
+ Assumes original header string is unfolded and comments removed.
  
- returns NSSet of SimpleRFC822Addresses
+ "Nancy Reigel" <ndreigel@bellatlantic.net>, "'Carl, Davies'" <carl_davies99@yahoo.com>, "'Taun'" <taun@charcoalia.net>, "'Michael B. Parmet'" <mbparmet@parmetech.com>, <geminikc9@yahoo.com>, <richard.hankin@hankingroup.com>, <DBoscher@CNTUS.JNJ.COM>, <mark@mccay.com>, <canniff@canniff.net>, <ndreigel@verizon.net>, <monckma@yahoo.com>, "'Alicia Shultz'" <AliciaShultz@princetowncable.com>, "'Laurie'" <reelmom5@verizon.net>, "'Wagner, Tim [NCSUS]'" <twagner@ncsus.jnj.com>, <jppsd@msn.com>, <karen_vanbemmel@yahoo.com>
+ 
+ @returns NSSet of SimpleRFC822Addresses
  
  Despite the following from the RFC
  "Writers of  mail-sending  (i.e.,  header-generating)  programs
@@ -70,7 +70,17 @@
  tabs in message headers, though permitted, is discouraged."
  
  We need to be able to handle tabs.
+ 
+ 
+ RFC 5322 Supercedes 2822
+ ------------------------
+ 
+ see [NSScanner mdcScanRfc822Address] for address spec.
+ 
+ 
  */
+
+
 - (id)reverseTransformedValue:(id)value {
     
     NSMutableSet* addresses = [NSMutableSet new];

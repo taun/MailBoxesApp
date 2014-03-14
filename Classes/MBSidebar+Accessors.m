@@ -7,17 +7,23 @@
 //
 
 #import "MBSidebar+Accessors.h"
-#import "MBGroup.h"
+#import "MBGroup+Shorthand.h"
 
-#define MBGroupEntityName @"MBGroup"
+#import "NSManagedObject+Shortcuts.h"
 
-@interface MBSidebar ()
-
--(MBGroup*) groupIdentifiedBy: (NSString*) identifier;
-
-@end
+//@interface MBSidebar ()
+//
+//-(MBGroup*) groupIdentifiedBy: (NSString*) identifier;
+//
+//@end
 
 @implementation MBSidebar (Accessors)
+
++ (NSString *)entityName {
+    return @"MBSidebar";
+}
+
+
 
 /*!
  Private convenience method
@@ -36,11 +42,11 @@
 }
 
 -(MBGroup*) addGroup: (NSString *)identifier name:(NSString *)aName {
-    MBGroup* newGroup = [NSEntityDescription insertNewObjectForEntityForName: MBGroupEntityName
-                                                      inManagedObjectContext: self.managedObjectContext];
+    MBGroup* newGroup = [MBGroup insertNewObjectIntoContext: self.managedObjectContext];
     newGroup.name = aName;
     newGroup.identifier = identifier;
-    [self addChildNodesObject: newGroup];
+    NSMutableOrderedSet* childNodes = [self mutableOrderedSetValueForKey: @"childNodes"];
+    [childNodes addObject: newGroup];
     return newGroup;
 }
 

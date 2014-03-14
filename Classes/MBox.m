@@ -2,15 +2,14 @@
 //  MBox.m
 //  MailBoxes
 //
-//  Created by Taun Chapman on 11/19/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/11/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import "MBox.h"
 #import "MBAccount.h"
 #import "MBFlag.h"
 #import "MBMessage.h"
-#import "MBSmartFolder.h"
 
 
 @implementation MBox
@@ -32,7 +31,6 @@
 @dynamic uid;
 @dynamic accountReference;
 @dynamic availableFlags;
-@dynamic criteria;
 @dynamic lastChangedMessage;
 @dynamic messages;
 @dynamic permanentFlags;

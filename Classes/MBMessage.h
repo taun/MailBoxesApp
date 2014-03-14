@@ -2,14 +2,14 @@
 //  MBMessage.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 09/13/13.
-//  Copyright (c) 2013 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/11/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MBAddress, MBAttachment, MBFlag, MBLabel, MBMime, MBRFC2822, MBox;
+@class MBAddress, MBAttachment, MBFlag, MBLabel, MBMime, MBNote, MBRFC2822, MBox;
 
 @interface MBMessage : NSManagedObject
 
@@ -45,6 +45,7 @@
 @property (nonatomic, retain) MBox *lastChanged;
 @property (nonatomic, retain) MBox *mbox;
 @property (nonatomic, retain) MBRFC2822 *rfc2822;
+@property (nonatomic, retain) NSSet *notes;
 @end
 
 @interface MBMessage (CoreDataGeneratedAccessors)
@@ -88,5 +89,10 @@
 - (void)removeFlagsObject:(MBFlag *)value;
 - (void)addFlags:(NSSet *)values;
 - (void)removeFlags:(NSSet *)values;
+
+- (void)addNotesObject:(MBNote *)value;
+- (void)removeNotesObject:(MBNote *)value;
+- (void)addNotes:(NSSet *)values;
+- (void)removeNotes:(NSSet *)values;
 
 @end

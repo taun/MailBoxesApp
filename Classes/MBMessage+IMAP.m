@@ -9,12 +9,14 @@
 #import "MBMessage+IMAP.h"
 #import "MBAddress+IMAP.h"
 #import "MBMime+IMAP.h"
-#import "MBMimeDisposition.h"
-#import "MBMimeParameter.h"
+#import "MBMimeDisposition+Shorthand.h"
+#import "MBDispositionParameter+Shorthand.h"
+#import "MBMimeParameter+Shorthand.h"
+#import "NSManagedObject+Shortcuts.h"
 
 #import "MBMimeMulti.h"
-#import "MBMultiMixed.h"
-#import "MBMultiAlternative.h"
+#import "MBMultiMixed+IMAP.h"
+#import "MBMultiAlternative+IMAP.h"
 #import "MBMultiParallel.h"
 #import "MBMultiRelated.h"
 #import "MBMultiSigned.h"
@@ -23,13 +25,14 @@
 #import "MBMultiDigest.h"
 
 #import "MBMimeMedia.h"
-#import "MBMimeApplication.h"
+#import "MBMimeApplication+IMAP.h"
 #import "MBMimeAudio.h"
-#import "MBMimeImage.h"
-#import "MBMimeText.h"
+#import "MBMimeImage+IMAP.h"
+#import "MBMimeText+IMAP.h"
 #import "MBMimeVideo.h"
 
-#import "MBMimeData.h"
+#import "MBMimeData+IMAP.h"
+
 #import "MBTokenTree.h"
 
 #import <MoedaeMailPlugins/SimpleRFC822Address.h>
@@ -47,7 +50,7 @@
 #import "DDTTYLogger.h"
 
 //static const int ddLogLevel = LOG_LEVEL_WARN;
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_INFO;
 
 
 @interface MBMessage (ConvenienceTransformers)
@@ -81,7 +84,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  
  @param tokens MBTokenTree
  */
--(NSSet*) unpackParametersFromNextToken: (MBTokenTree*) tokens;
+-(NSSet*) unpackParametersOfClass: (Class) aClass fromNextToken: (MBTokenTree*) tokens;
 
 -(MBMimeDisposition*) unpackDispositionFromNextToken: (MBTokenTree*) tokens;
 
@@ -112,6 +115,19 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     return @"MBMessage";
 }
 
++(NSUInteger) countInContext: (NSManagedObjectContext*) moc {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName: [MBMessage entityName] inManagedObjectContext: moc]];
+    
+    [request setIncludesSubentities:NO]; //Omit subentities. Default is YES (i.e. include subentities)
+    
+    NSError *err;
+    NSUInteger count = [moc countForFetchRequest:request error:&err];
+    if(count == NSNotFound) {
+        //Handle error
+    }
+    return count;
+}
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -173,7 +189,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 -(NSSet*) parseAddressTokens: (id) tokenized {
-    DDLogInfo(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
+    DDLogVerbose(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
     
     NSMutableSet* mbAddressSet;
     
@@ -317,12 +333,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //    return result;
 //}
 
--(NSArray*) childNodesArray {
-    return [self.childNodes array];
-}
--(NSSet*) childNodesSet {
-    return [self.childNodes set];
-}
+//-(NSArray*) childNodesArray {
+//    return [self.childNodes array];
+//}
+//-(NSSet*) childNodesSet {
+//    return [self.childNodes set];
+//}
 
 /*!
 <pre>
@@ -412,6 +428,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     newPart = [self unpackCompositeMimeFrom: tokenScanner];
 
+    NSMutableOrderedSet* childNodes = [self mutableOrderedSetValueForKey: @"childNodes"];
+    NSMutableSet* allParts = [self mutableSetValueForKey: @"allParts"];
+    
     if (newPart) {
         if (newPart.childNodes.count == 0) {
             // discrete mime, bodyIndex = 1
@@ -422,8 +441,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             [self generateBodyIndexes: newPart rIndex: 0];
         }
 //        newPart.bodyIndex = [NSString stringWithFormat: @"%u", partIndex];
-        [self addChildNodesObject: newPart];
-        [self addAllPartsObject: newPart];
+        [childNodes addObject: newPart];
+        [allParts addObject: newPart];
     } else {
         DDLogVerbose(@"%@ problem creating a new mime part.", NSStringFromSelector(_cmd));                
     }
@@ -482,7 +501,6 @@ From RFC3501
             //
             node.bodyIndex = [NSString stringWithFormat: @"%@%lu",prefix,(unsigned long)index];
             DDLogVerbose(@"%@\n", node);
-            NSLog(@"%@\n", node);
             if ([node.childNodes count]>0) {
                 [self generateBodyIndexes: node rIndex: ++rIndex];
             }
@@ -632,7 +650,7 @@ From RFC3501
         // parameters
         MBTokenTree* parameterTokens = [parts scanSubTree];
         if (parameterTokens!=nil) {
-            NSSet* parameters = [self unpackParametersFromNextToken: parameterTokens];
+            NSSet* parameters = [self unpackParametersOfClass: [MBMimeParameter class] fromNextToken: parameterTokens];
             if (parameters) {
                 result.parameters = parameters;
                 for (MBMimeParameter* parameter in parameters) {
@@ -710,7 +728,7 @@ From RFC3501
     // parameters
     MBTokenTree* parameterTokens = [tokens scanSubTree];
     if (parameterTokens!=nil) {
-        NSSet* parameters = [self unpackParametersFromNextToken: parameterTokens];
+        NSSet* parameters = [self unpackParametersOfClass: [MBMimeParameter class] fromNextToken: parameterTokens];
         if (parameters!=nil) {
             newPart.parameters = parameters;
             for (MBMimeParameter* parameter in parameters) {
@@ -750,7 +768,8 @@ From RFC3501
         // recurse to unpack
         MBMime* newChild = [self unpackCompositeMimeFrom: subBodystructure];
         if (newChild != nil) {
-            [newPart addChildNodesObject: newChild];
+            NSMutableOrderedSet* childNodes = [newPart mutableOrderedSetValueForKey: @"childNodes"];
+            [childNodes addObject: newChild];
         }
     } else {
         [tokens removeToken];
@@ -851,7 +870,7 @@ From RFC3501
     // parameters
     MBTokenTree* parameterTokens = [tokens scanSubTree];
     if (parameterTokens!=nil) {
-        NSSet* parameters = [self unpackParametersFromNextToken: parameterTokens];
+        NSSet* parameters = [self unpackParametersOfClass: [MBMimeParameter class] fromNextToken: parameterTokens];
         if (parameters!=nil) {
             newPart.parameters = parameters;
             for (MBMimeParameter* parameter in parameters) {
@@ -958,7 +977,7 @@ From RFC3501
     // dispositionTokens = ( parameters(...) )
     MBTokenTree* parameterTokens = [dispositionTokens scanSubTree];
     if (parameterTokens!=nil) {
-        NSSet* dParameters = [self unpackParametersFromNextToken: parameterTokens];
+        NSSet* dParameters = [self unpackParametersOfClass: [MBDispositionParameter class] fromNextToken: parameterTokens];
         if (dParameters!=nil) newDisposition.parameters = dParameters;
     } 
     
@@ -967,19 +986,18 @@ From RFC3501
     return newDisposition;
 }
 
--(NSSet*) unpackParametersFromNextToken:(MBTokenTree *)parameterTokens {
+-(NSSet*) unpackParametersOfClass:(Class)aClass fromNextToken:(MBTokenTree *)parameterTokens {
     NSMutableSet* parameters = [[NSMutableSet alloc] initWithCapacity: 2];
     
     // add key and value to dictionary
     NSString* nextToken = nil;
     nextToken=[parameterTokens scanString];
     while (nextToken!=nil) {
-        MBMimeParameter *newParameter = [NSEntityDescription
-                                         insertNewObjectForEntityForName:@"MBMimeParameter"
-                                         inManagedObjectContext:self.managedObjectContext];
+        id newParameter = [aClass insertNewObjectIntoContext: self.managedObjectContext];
         
-        newParameter.name = [nextToken mdcStringAsSelectorSafeCamelCase];
-        newParameter.value = [parameterTokens scanString];
+        [newParameter setValue: [nextToken mdcStringAsSelectorSafeCamelCase] forKey: @"name"];
+        [newParameter setValue: [parameterTokens scanString] forKey: @"value"];
+
         [parameters addObject: newParameter];
         nextToken = [parameterTokens scanString];
     }
@@ -1005,7 +1023,7 @@ From RFC3501
             rfcAddress = tokenized;
         }
         
-        address = [MBAddress addressWithEmail: rfcAddress.email createIfMissing: YES context: self.managedObjectContext];
+        address = [MBAddress newAddressWithEmail: rfcAddress.email createIfMissing: YES context: self.managedObjectContext];
         if (address) {
             address.name = rfcAddress.name;
             address.email = rfcAddress.email;

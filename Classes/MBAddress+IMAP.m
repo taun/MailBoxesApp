@@ -11,10 +11,10 @@
 @implementation MBAddress (IMAP)
 
 + (NSString *)entityName {
-    return @"MBAddess";
+    return @"MBAddress";
 }
 
-+ (MBAddress *)addressWithEmail:(NSString *)email 
++ (instancetype)newAddressWithEmail:(NSString *)email
                 createIfMissing:(BOOL)create  
                         context: (NSManagedObjectContext*) context{
     
@@ -25,9 +25,7 @@
         
         if (theAddress == nil && create) {
             // address was not found and needs to be created
-            theAddress = [NSEntityDescription
-                          insertNewObjectForEntityForName:@"MBAddress"
-                          inManagedObjectContext: context];
+            theAddress = [MBAddress insertNewObjectIntoContext: context];
             
             theAddress.email = email;
         }
@@ -36,7 +34,7 @@
     return theAddress;
 }
 
-+ (MBAddress *) findAddressForEMail: (NSString *) email context: (NSManagedObjectContext*) context {
++ (instancetype) findAddressForEMail: (NSString *) email context: (NSManagedObjectContext*) context {
     MBAddress * address = nil;
     if (email) {
         

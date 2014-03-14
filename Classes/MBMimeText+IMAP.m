@@ -8,14 +8,20 @@
 
 
 #import "MBMimeText+IMAP.h"
-#import <MoedaeMailPlugins/NSObject+MBShorthand.h>
 #import "MBEncodedString.h"
 
+#import <MoedaeMailPlugins/NSObject+MBShorthand.h>
 #import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 
 
 
+
 @implementation MBMimeText (IMAP)
+
++ (NSString *)entityName {
+    return @"MBMimeText";
+}
+
 
 #pragma message "ToDo: implement registry/methods for decodings and use to decode in first part of decoder for all MBMime types"
 // implement methods in MBMime using similar pattern to IMAPClient

@@ -10,5 +10,9 @@
 
 @implementation MBMimeData (IMAP)
 
++ (NSString *)entityName {
+    return @"MBMimeData";
+}
+
 
 @end

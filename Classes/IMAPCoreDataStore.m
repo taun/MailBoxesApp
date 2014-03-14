@@ -8,13 +8,17 @@
 
 #import "IMAPCoreDataStore.h"
 #import "MailBoxesAppDelegate.h"
+
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
 #import "MBMessage+IMAP.h"
 #import "MBAddress+IMAP.h"
+#import "MBMime+IMAP.h"
+#import "MBMimeData+IMAP.h"
+
+#import "NSManagedObject+Shortcuts.h"
+
 #import "MBRFC2822.h"
-#import "MBMime.h"
-#import "MBMimeData.h"
 
 #import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 

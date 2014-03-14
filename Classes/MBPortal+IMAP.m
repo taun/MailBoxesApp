@@ -11,6 +11,11 @@
 
 @implementation MBPortal (IMAP)
 
++ (NSString *)entityName {
+    return @"MBPortal";
+}
+
+
 + (NSArray *)keysToBeCopied {
     static NSArray *keysToBeCopied = nil;
     if (keysToBeCopied == nil) {

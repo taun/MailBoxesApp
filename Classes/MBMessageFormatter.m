@@ -7,7 +7,7 @@
 //
 
 #import "MBMessageFormatter.h"
-#import "MBMessage+Accessors.h"
+#import "MBMessage+IMAP.h"
 
 @implementation NSDate (whenString)
 

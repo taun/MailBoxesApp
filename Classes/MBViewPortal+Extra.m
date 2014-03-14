@@ -10,6 +10,11 @@
 
 @implementation MBViewPortal (Extra)
 
++ (NSString *)entityName {
+    return @"MBViewPortal";
+}
+
+
 +(NSString*) classTitle {
     return NSStringFromClass([self class]);
 }

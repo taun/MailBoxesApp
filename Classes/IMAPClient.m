@@ -11,10 +11,12 @@
 #import "IMAPClient.h"
 #import "IMAPCommand.h"
 #import "IMAPCoreDataStore.h"
+
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
 #import "MBMessage+IMAP.h"
 #import "MBMime+IMAP.h"
+
 #import "MailBoxesAppDelegate.h"
 #import "IMAPResponseBuffer.h"
 #import "IMAPResponse.h"
@@ -24,7 +26,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_INFO;
 
 
 /*!
@@ -1258,7 +1260,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  */
 #pragma message "TODO: Check OK completion status before assigning selected mailbox."
 -(void) commandSelect: (NSString *) mboxPath{
-    MBox* previousSelectedMbox = self.clientStore.selectedMBox;
+//    MBox* previousSelectedMbox = self.clientStore.selectedMBox;
     
     // Start selection process for new selection
     // Selected box needs to be set before command is sent so the response

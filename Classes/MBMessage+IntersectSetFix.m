@@ -11,15 +11,13 @@
 @implementation MBMessage (IntersectSetFix)
 
 - (void)addChildNodesObject:(MBMime *)value {
-    NSMutableOrderedSet* newSet = [self.childNodes mutableCopy];
-    [newSet addObject: value];
-    self.childNodes = [newSet copy];
+    NSMutableOrderedSet* referenceSet = [self mutableOrderedSetValueForKey: @"childNodes"];
+    [referenceSet addObject: value];
 }
 
 - (void)addChildNodes:(NSOrderedSet *)values {
-    NSMutableOrderedSet* newSet = [self.childNodes mutableCopy];
+    NSMutableOrderedSet* newSet = [self mutableOrderedSetValueForKey: @"childNodes"];
     [newSet unionOrderedSet: values];
-    self.childNodes = newSet;
 }
 
 @end

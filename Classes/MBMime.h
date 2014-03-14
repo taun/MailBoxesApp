@@ -2,8 +2,8 @@
 //  MBMime.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 12/21/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/11/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,55 +14,8 @@
 @interface MBMime : NSManagedObject
 
 @property (nonatomic, retain) NSString * bodyIndex;
-/*! 
- IANA Charset
- 
- Examples:
- 
- - utf-8
- - ISO-8859-1
- - us-ascii
- 
- */
 @property (nonatomic, retain) NSString * charset;
 @property (nonatomic, retain) NSString * desc;
-/*! 
- IANA Encoding
- 
- Examples: 
- 
- - 7bit, default, Content-Transfer-Encoding: 7BIT" is assumed if the Content-Transfer-Encoding header field is not present.
- - 8bit
- - binary
- - quoted-printable
- - base64
- - ietf-token
- - x-token
- 
- RFC 2045
- 
- 6.2.  Content-Transfer-Encodings Semantics
- 
- This single Content-Transfer-Encoding token actually provides two
- pieces of information.  It specifies what sort of encoding
- transformation the body was subjected to and hence what decoding
- operation must be used to restore it to its original form, and it
- specifies what the domain of the result is.
- The transformation part of any Content-Transfer-Encodings specifies,
- either explicitly or implicitly, a single, well-defined decoding
- algorithm, which for any sequence of encoded octets either transforms
- it to the original sequence of octets which was encoded, or shows
- that it is illegal as an encoded sequence.  Content-Transfer-
- Encodings transformations never depend on any additional external
- profile information for proper operation. Note that while decoders
- must produce a single, well-defined output for a valid encoding no
- such restrictions exist for encoders: Encoding a given sequence of
- octets to different, equivalent encoded sequences is perfectly legal.
- Three transformations are currently defined: identity, the "quoted-
- printable" encoding, and the "base64" encoding.  The domains are
- "binary", "8bit" and "7bit".
- 
- */
 @property (nonatomic, retain) NSString * encoding;
 @property (nonatomic, retain) NSString * extensions;
 @property (nonatomic, retain) NSString * filename;
@@ -77,9 +30,9 @@
 @property (nonatomic, retain) NSString * mime;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * octets;
+@property (nonatomic, retain) NSNumber * subPartNumber;
 @property (nonatomic, retain) NSString * subtype;
 @property (nonatomic, retain) NSString * type;
-@property (nonatomic, retain) NSNumber * subPartNumber;
 @property (nonatomic, retain) NSOrderedSet *childNodes;
 @property (nonatomic, retain) MBMimeData *data;
 @property (nonatomic, retain) MBMimeDisposition *disposition;

@@ -11,6 +11,10 @@
 
 #import "MBViewPortal+Extra.h"
 #import "MBViewPortalMBox+Extra.h"
+#import "MBViewPortalSelection+Extra.h"
+#import "MBViewPortalSmartFolder+Extra.h"
+
+#import "NSManagedObject+Shortcuts.h"
 
 #import <MoedaeMailPlugins/MBoxProxy.h>
 #import "MBox.h"
@@ -162,8 +166,7 @@
 
 -(void) addPortalForMBox: (MBoxProxy*)boxProxy atIndex: (NSUInteger) index {
     //    self.con
-    MBViewPortalMBox* newPortal = [NSEntityDescription insertNewObjectForEntityForName: @"MBViewPortalMBox"
-                                                                inManagedObjectContext:self.managedObjectContext];
+    MBViewPortalMBox* newPortal = [MBViewPortalMBox insertNewObjectIntoContext: self.managedObjectContext];
     
     MBox* mailBox;
     NSPersistentStoreCoordinator* psc = [[self managedObjectContext] persistentStoreCoordinator];

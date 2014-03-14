@@ -11,25 +11,24 @@
 #import "MBPortalViewController.h"
 #import "MBPortalView.h"
 
+#import "MBTreeNode+IntersectsSetFix.h"
+#import "MBox+IMAP.h"
 #import "MBMessage+IMAP.h"
 #import "MBAddress+IMAP.h"
 
-#import "MBMime.h"
-#import "MBMimeData.h"
-
-#import "MBPortal.h"
+#import "MBMime+IMAP.h"
+#import "MBMimeData+IMAP.h"
 
 #import "MBViewPortal+Extra.h"
+#import "MBViewPortalMBox+Extra.h"
 #import "MBViewPortalSelection+Extra.h"
-
-#import "MBTreeNode+IntersectsSetFix.h"
-#import "MBox+Accessors.h"
+#import "MBViewPortalSmartFolder+Extra.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @interface MBPortalViewController ()
 @property (strong,nonatomic,readwrite)     NSArray         *messagesArray;
@@ -293,6 +292,7 @@ CGFloat ONEROW = 18.0;
 
 - (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
     DDLogVerbose(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), row);
+    return nil;
 }
 
 

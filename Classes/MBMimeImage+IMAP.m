@@ -9,7 +9,14 @@
 #import "MBMimeImage+IMAP.h"
 #import "MBMime+IMAP.h"
 
-@implementation MBMimeImage (DataTransforms)
+@implementation MBMimeImage (IMAP)
+
++ (NSString *)entityName {
+    return @"MBMimeImage";
+}
+
+
+
 #pragma message "ToDo: check for base64 encoding before decoding using base64"
 -(void) decoder {
     if (self.data.encoded != nil) {

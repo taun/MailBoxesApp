@@ -2,14 +2,14 @@
 //  MBMimeDisposition.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 12/8/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/11/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MBMime, MBMimeParameter;
+@class MBDispositionParameter, MBMime;
 
 @interface MBMimeDisposition : NSManagedObject
 
@@ -20,8 +20,8 @@
 
 @interface MBMimeDisposition (CoreDataGeneratedAccessors)
 
-- (void)addParametersObject:(MBMimeParameter *)value;
-- (void)removeParametersObject:(MBMimeParameter *)value;
+- (void)addParametersObject:(MBDispositionParameter *)value;
+- (void)removeParametersObject:(MBDispositionParameter *)value;
 - (void)addParameters:(NSSet *)values;
 - (void)removeParameters:(NSSet *)values;
 

@@ -8,14 +8,17 @@
 
 #import "MBSidebarViewController.h"
 #import "MBSidebarTableCellView.h"
-#import "MBUser+IMAP.h"
+
+#import "MBUser+Shorthand.h"
 #import "MBSidebar+Accessors.h"
-#import "MBGroup+Accessors.h"
-#import "MBSmartFolder.h"
-#import "MBFavorites.h"
-#import "MBAddressList.h"
+#import "MBGroup+Shorthand.h"
+#import "MBSmartFolder+Shorthand.h"
+#import "MBFavorites+Shorthand.h"
+#import "MBAddressList+Shorthand.h"
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
+#import "MBMessage+IMAP.h"
+
 #import "MBAccountWindowController.h"
 #import <MoedaeMailPlugins/MBoxProxy.h>
 
@@ -23,7 +26,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @implementation MBSidebarViewController
 
@@ -484,8 +487,20 @@ itemForPersistentObject:(id)object {
                 // Make it appear as a normal label and not a button
                 [[result.button cell] setHighlightsBy:0];
             }
+        } else if ([item isKindOfClass: [MBAccount class]]) {
+            
+            NSUInteger theCount = [MBMessage countInContext: self.managedObjectContext];
+            if (theCount > 0) {
+                // First row in the index
+                hideUnreadIndicator = NO;
+                [result.button setTitle: [NSString stringWithFormat: @"%lu", (unsigned long)theCount]];
+                [result.button sizeToFit];
+                // Make it appear as a normal label and not a button
+                [[result.button cell] setHighlightsBy:0];
+            }
         }
-        [result.button setHidden:hideUnreadIndicator];
+        
+        [result.button setHidden: hideUnreadIndicator];
     }
     return result;
 }
@@ -720,26 +735,24 @@ itemForPersistentObject:(id)object {
     
     NSInteger currentPosition = [[group childNodes] indexOfObject: draggedItem];
     
-    NSMutableOrderedSet* children = [[group childNodes] mutableCopy];
+    // Core data required access style
+    NSMutableOrderedSet* children = [group mutableOrderedSetValueForKey: @"childNodes"];
+    
     
     [children removeObjectAtIndex: currentPosition];
     if (index >= 0 && index < currentPosition) {
         // removing object wont change new index position
         [children insertObject: draggedItem atIndex: index];
-        group.childNodes = children;
         
     } else if (--index > currentPosition || index < 0) {
         // removing object will decrease desired index position by 1
         
         if (index >= [children count] || index < 0) {
             [children addObject: draggedItem];
-            group.childNodes = children;
             index = [group.childNodes count]-1;
             
         } else {
-            [children insertObject: draggedItem atIndex: index];
-            group.childNodes = children;
-            
+            [children insertObject: draggedItem atIndex: index];            
         }
     } 
     

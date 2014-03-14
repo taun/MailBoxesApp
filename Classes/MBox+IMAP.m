@@ -10,7 +10,9 @@
 #import "MBMessage+IMAP.h"
 #import "MBFlag+IMAP.h"
 #import <MoedaeMailPlugins/MBoxProxy.h>
-#import "MBAccount+Accessors.h"
+#import "MBAccount+IMAP.h"
+
+#import "NSManagedObject+Shortcuts.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -19,6 +21,11 @@
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
 @implementation MBox (IMAP)
+
++ (NSString *)entityName {
+    return @"MBox";
+}
+
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     //    for (NSString* key in [MBAccount keysToBeCopied]) {
@@ -110,9 +117,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
             
             if (theMessage == nil && create) {
                 // message was not found and needs to be created
-                theMessage = [NSEntityDescription
-                              insertNewObjectForEntityForName:@"MBMessage"
-                              inManagedObjectContext: context];
+                theMessage = [MBMessage insertNewObjectIntoContext: context];
                 
                 theMessage.uid = uid;
                 [self addMessagesObject: theMessage];
@@ -156,9 +161,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     if (theFlag == nil && create) {
         // message was not found and needs to be created
         [context performBlockAndWait:^{
-            theFlag = [NSEntityDescription
-                       insertNewObjectForEntityForName:@"MBFlag"
-                       inManagedObjectContext: [self managedObjectContext]];
+            theFlag = [MBFlag insertNewObjectIntoContext: [self managedObjectContext]];
             
             theFlag.serverAssignedName = serverName;
         }];

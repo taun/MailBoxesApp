@@ -1,13 +1,13 @@
 //
-//  MBGroup+Accessors.m
+//  MBGroup+Shorthand.h
 //  MailBoxes
 //
 //  Created by Taun Chapman on 11/17/11.
 //  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
 //
 
-#import "MBGroup+Accessors.h"
+#import "MBGroup.h"
 
-@implementation MBGroup (Accessors)
+@interface MBGroup (Shorthand)
 
 @end

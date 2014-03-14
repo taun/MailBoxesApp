@@ -10,6 +10,11 @@
 
 @implementation MBViewPortalSelection (Extra)
 
++ (NSString *)entityName {
+    return @"MBViewPortalSelection";
+}
+
+
 +(NSString*) classTitle {
     return @"Selection";
 }
