@@ -12,6 +12,7 @@
 #import "RFC2822RawMessageHeader.h"
 
 #import <MoedaeMailPlugins/NSString+IMAPConversions.h>
+#import <MoedaeMailPlugins/NSDate+IMAPConversions.h>
 #import <MoedaeMailPlugins/NSObject+TokenDispatch.h>
 
 #import "DDLog.h"

@@ -17,7 +17,6 @@
 #import "MBMessageHeaderView.h"
 #import "MBox+IMAP.h"
 #import "MBAccount+IMAP.h"
-#import "MBSimpleRFC822AddressToStringTransformer.h"
 #import "MBBodyStructureInlineView.h"
 
 #import "MailBoxesAppDelegate.h"
@@ -33,7 +32,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_INFO;
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @interface MBMessageViewController ()
 
@@ -45,29 +44,41 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @implementation MBMessageViewController
 
--(NSArray*) cachedAddressesTo {
+-(NSArray*) emailSortDescriptors {
+    NSSortDescriptor* emailSorting = [NSSortDescriptor sortDescriptorWithKey: @"email" ascending: YES];
+    NSSortDescriptor* nameSorting = [NSSortDescriptor sortDescriptorWithKey: @"name" ascending: YES];
+    return @[nameSorting,emailSorting];
+}
+
+#pragma message "ToDo: need intermediate class which serves as store interface. Converts from persistent object to local object avoiding manual conversions like below."
+-(SimpleRFC822Address*) cachedAddressesTo {
     if (_cachedAddressesTo == nil) {
         MBMessage* message = (MBMessage*) self.representedObject;
-        NSSortDescriptor* sorting = [NSSortDescriptor sortDescriptorWithKey: @"email" ascending: YES];
-        _cachedAddressesTo = [message.addressesTo sortedArrayUsingDescriptors: @[sorting]];
+//        NSSortDescriptor* sorting = [NSSortDescriptor sortDescriptorWithKey: @"email" ascending: YES];
+//        _cachedAddressesBcc = [message.addressesTo sortedArrayUsingDescriptors: @[sorting]];
+        _cachedAddressesTo = [message.addressesTo newSimpleAddress];
+        [self setSelectionForController: self.addressesToArrayController];
     }
     return _cachedAddressesTo;
 }
--(NSArray*) cachedAddressesBcc {
+-(SimpleRFC822Address*) cachedAddressesBcc {
     if (_cachedAddressesBcc == nil) {
         MBMessage* message = (MBMessage*) self.representedObject;
-        NSSortDescriptor* sorting = [NSSortDescriptor sortDescriptorWithKey: @"email" ascending: YES];
-        _cachedAddressesBcc = [message.addressesBcc sortedArrayUsingDescriptors: @[sorting]];
+        _cachedAddressesBcc = [message.addressesBcc newSimpleAddress];
+        [self setSelectionForController: self.addressesBccArrayController];
     }
     return _cachedAddressesBcc;
 }
--(NSArray*) cachedAddressesCc {
+-(SimpleRFC822Address*) cachedAddressesCc {
     if (_cachedAddressesCc == nil) {
         MBMessage* message = (MBMessage*) self.representedObject;
-        NSSortDescriptor* sorting = [NSSortDescriptor sortDescriptorWithKey: @"email" ascending: YES];
-        _cachedAddressesCc = [message.addressesCc sortedArrayUsingDescriptors: @[sorting]];
+        _cachedAddressesCc = [message.addressesCc newSimpleAddress];
+        [self setSelectionForController: self.addressesCcArrayController];
     }
     return _cachedAddressesCc;
+}
+-(void) setSelectionForController: (NSTreeController*) controller {
+    
 }
 
 -(void) awakeFromNib {
@@ -139,6 +150,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self reloadMessage];
 }
 
+- (IBAction)showConstraints:(id)sender {
+    NSString* viewsDesc = [self.view performSelector: NSSelectorFromString(@"_subtreeDescription")];
+    DDLogCVerbose(@"[%@ %@] Subviews Desc: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), viewsDesc);
+    [self.view.window visualizeConstraints: [self.view constraintsAffectingLayoutForOrientation: NSLayoutConstraintOrientationHorizontal]];
+}
+
 
 - (IBAction)showPartsPopover:(NSButton *)sender {
     if (self.partsPopover.isShown) {
@@ -152,7 +169,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 - (IBAction)showRecipientAddressPopover:(id)sender {
-    [self.popoverAddressesArrayController setContent: self.cachedAddressesTo] ;
+    SimpleRFC822Address* renamed = [self.cachedAddressesTo copy];
+    renamed.name = @"To:";
+    [self.popoverAddressesArrayController setContent: renamed] ;
     [self.addressPopover showRelativeToRect: [sender bounds] ofView: sender preferredEdge: NSMaxXEdge];
 }
 

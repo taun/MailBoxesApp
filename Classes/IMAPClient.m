@@ -30,8 +30,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 
 /*!
+ ## Internal IMAPClient implementation details
  
- ## Command Response Table
+ All of the IMAPClient related classes make extensive use of a method dispatch pattern based on adding a set prefix to the desired command or 
+ response and dispatching to that method for handling of the command or response. The code handling the dispatch is unaware of what command 
+ or response is being handled. If a command or response is unimplemented, the dispatch will be to a default method for unhandled commands and 
+ responses. This means the process of implementing the handling of a new response involves adding a method with the appropriate name which can
+ handle the response values.
+ 
+ ### Command Response Table
  
 <pre>
  _commandResponseTable = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -64,7 +71,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 </pre>
  
  
- ## SSL Transport errors
+ ### SSL Transport errors
  
 <pre>
  Result Code,Value,Description
@@ -119,6 +126,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
  errSSLBadConfiguration,–9848,"A configuration error occurred.\nAvailable in OS X v10.3 and later."
 </pre>
  
+
  */
 
 @interface IMAPClient () {
@@ -1091,7 +1099,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void) commandStartTLS{
     // unimplemented as unnecessary?
 }
-/*
+/*!
  Note: a server implementation MUST implement a
  configuration in which it does NOT permit any plaintext
  password mechanisms, unless either the STARTTLS command

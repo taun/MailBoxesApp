@@ -10,6 +10,10 @@
 
 #define VTMBSimpleRFC822AddressToStringTransformer @"MBSimpleRFC822AddressToStringTransformer"
 
+/*!
+ Transform a potential list of Addresses to a string with ONE address for display in a UI.
+ At some point, will be replaced with an AddressView rather than using a textField.
+ */
 @interface MBSimpleRFC822AddressToStringTransformer : NSValueTransformer
 
 @end

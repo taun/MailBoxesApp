@@ -44,6 +44,26 @@ typedef UInt8 IMAPClientStates;
 /*!
  IMAPClient is the primary connector to an IMAP server.
 
+ ## IMAPClient Process flow
+ 
+ 1. IMAPClient is associated with 1 account in initWithParentContext:accountID:
+ 2. High level IMAPClient command is requested such as loadFullMessageID:
+ 2. The high level method opens the network connection and executes the necessary low level IMAP commands.
+ 3. IMAPClient queues a command for the account IMAP server.
+ 4. IMAPClient inserts the server response data into an IMAPResponseBuffer for parsing and tokenizing.
+ 5. When the response complete is received for the current command, the IMAPResponseBuffer is considered complete and the raw ascii is parsed returning an IMAPResponse with a MBTokenTree.
+ 6. The IMAPClient asks the IMAPResponse to evaluate the tokens in the MBTokenTree.
+ 7. IMAPResponse evaluation looks for the first command in the tokens then calls the corresponding named method.
+ 7. The IMAPResponse responseCommand method extracts the appropriate token values and passes them to the <IMAPClientStore> implementation. The values are passed to the ClientStore as the original raw strings.
+ It is up to the ClientStore to either store the data as raw ascii or transform the values to some other form. The current IMAPClientStore implmentation (IMAPCoreDataStore) transforms the values to objects and stores the objects
+ using Core Data.
+ 7. When the high level command is complete, the network connection is closed.
+ 7. If the network connection times out, the connection is closed.
+ 7. If the IMAPClient property isCancelled is set True, the network connection is closed.
+ 7. The IMAPClient status is monitored via the NSOperation properties isFinished, isExecuting and isCancelled.
+
+ ## IMAP Server API Notes from RFC 3501
+ 
  ### State Diagram
  
 <pre>
@@ -94,6 +114,8 @@ typedef UInt8 IMAPClientStates;
  
  IMAPrev4 specifies state only changes if command is successful,
  losing network connection or server does bye.
+ 
+ @see IMAPResponseBuffer, IMAPResponse
  */
 @interface IMAPClient : NSObject <NSStreamDelegate, IMAPResponseDelegate > {
     

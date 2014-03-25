@@ -2,8 +2,8 @@
 //  MBAddressList.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 11/17/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 03/19/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,14 +14,14 @@
 
 @interface MBAddressList : MBTreeNode
 
-@property (nonatomic, retain) NSSet *addresses;
+@property (nonatomic, retain) NSSet *group;
 @end
 
 @interface MBAddressList (CoreDataGeneratedAccessors)
 
-- (void)addAddressesObject:(MBAddress *)value;
-- (void)removeAddressesObject:(MBAddress *)value;
-- (void)addAddresses:(NSSet *)values;
-- (void)removeAddresses:(NSSet *)values;
+- (void)addGroupObject:(MBAddress *)value;
+- (void)removeGroupObject:(MBAddress *)value;
+- (void)addGroup:(NSSet *)values;
+- (void)removeGroup:(NSSet *)values;
 
 @end

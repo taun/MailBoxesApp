@@ -2,7 +2,7 @@
 //  MBMessage.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 03/11/14.
+//  Created by Taun Chapman on 03/19/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -31,9 +31,9 @@
 @property (nonatomic, retain) NSString * subject;
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSNumber * uid;
-@property (nonatomic, retain) NSSet *addressesBcc;
-@property (nonatomic, retain) NSSet *addressesCc;
-@property (nonatomic, retain) NSSet *addressesTo;
+@property (nonatomic, retain) MBAddress *addressesBcc;
+@property (nonatomic, retain) MBAddress *addressesCc;
+@property (nonatomic, retain) MBAddress *addressesTo;
 @property (nonatomic, retain) MBAddress *addressFrom;
 @property (nonatomic, retain) MBAddress *addressReplyTo;
 @property (nonatomic, retain) MBAddress *addressSender;
@@ -44,26 +44,11 @@
 @property (nonatomic, retain) MBLabel *labels;
 @property (nonatomic, retain) MBox *lastChanged;
 @property (nonatomic, retain) MBox *mbox;
-@property (nonatomic, retain) MBRFC2822 *rfc2822;
 @property (nonatomic, retain) NSSet *notes;
+@property (nonatomic, retain) MBRFC2822 *rfc2822;
 @end
 
 @interface MBMessage (CoreDataGeneratedAccessors)
-
-- (void)addAddressesBccObject:(MBAddress *)value;
-- (void)removeAddressesBccObject:(MBAddress *)value;
-- (void)addAddressesBcc:(NSSet *)values;
-- (void)removeAddressesBcc:(NSSet *)values;
-
-- (void)addAddressesCcObject:(MBAddress *)value;
-- (void)removeAddressesCcObject:(MBAddress *)value;
-- (void)addAddressesCc:(NSSet *)values;
-- (void)removeAddressesCc:(NSSet *)values;
-
-- (void)addAddressesToObject:(MBAddress *)value;
-- (void)removeAddressesToObject:(MBAddress *)value;
-- (void)addAddressesTo:(NSSet *)values;
-- (void)removeAddressesTo:(NSSet *)values;
 
 - (void)addAllPartsObject:(MBMime *)value;
 - (void)removeAllPartsObject:(MBMime *)value;

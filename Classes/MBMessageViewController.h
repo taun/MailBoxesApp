@@ -11,6 +11,7 @@
 @class MBMessageHeaderView;
 @class MBBodyStructureInlineView;
 @class MMPMessageViewOptions;
+@class SimpleRFC822Address;
 
 
 /*
@@ -36,22 +37,24 @@
 
 @property (strong) IBOutlet NSPopover *partsPopover;
 @property (strong) IBOutlet NSPopover *addressPopover;
-@property (strong) IBOutlet NSArrayController *popoverAddressesArrayController;
-@property (strong) IBOutlet NSArrayController *addressesBccArrayController;
-@property (strong) IBOutlet NSArrayController *addressesCcArrayController;
-@property (strong) IBOutlet NSArrayController *addressesToArrayController;
+@property (strong) IBOutlet NSTreeController *popoverAddressesArrayController;
+@property (strong) IBOutlet NSTreeController *addressesBccArrayController;
+@property (strong) IBOutlet NSTreeController *addressesCcArrayController;
+@property (strong) IBOutlet NSTreeController *addressesToArrayController;
 
 @property (weak) IBOutlet MBMessageHeaderView *messageHeader;
 
 @property (weak) IBOutlet MBBodyStructureInlineView* messageBodyViewContainer;
 
-@property (strong,nonatomic) NSArray* cachedAddressesTo;
-@property (strong,nonatomic) NSArray* cachedAddressesBcc;
-@property (strong,nonatomic) NSArray* cachedAddressesCc;
+@property (strong,nonatomic) SimpleRFC822Address* cachedAddressesTo;
+@property (strong,nonatomic) SimpleRFC822Address* cachedAddressesBcc;
+@property (strong,nonatomic) SimpleRFC822Address* cachedAddressesCc;
+@property (strong,nonatomic,readonly) NSArray*    emailSortDescriptors;
 
 #pragma Body
 -(void) reloadMessage;
 //@property (strong) NSView* messageBodyView;
+
 - (IBAction)showPartsPopover:(NSButton *)sender;
 - (IBAction)showRecipientAddressPopover:(id)sender;
 - (IBAction)showBccAddressPopover:(id)sender;
@@ -62,5 +65,6 @@
 //- (IBAction)refreshMessageDisplay:(id)sender;
 - (IBAction)showMessageAsPlainText:(id)sender;
 - (IBAction)showMessageAsRichText:(id)sender;
+- (IBAction)showConstraints:(id)sender;
 
 @end

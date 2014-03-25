@@ -811,13 +811,35 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
       	Tip: add breakpoint to NSLog when unknown error pops up and you want to see where it is happening.\
 		"
 \f3\b\fs22 \cb1 \CocoaLigature0 breakpoint set -n NSLog"\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 \cf0 	
 \f2\b0 \CocoaLigature1 In order to handle address groups, we are going to make every address a potential group.\
 	An address group may have no name and an address set of 1 or more.\
-	If there is no name, show as a regular address list (no :;).
-\f5\fs24 \cb5 \
-\pard\pardeftab720\sl220
-\cf0 \
+	If there is no name, show as a regular address list (no :;).\
+2014-03-15\
+	TODO: Test to see form of addresses passed to IMAPClientStore.\
+		Look at an IMAPResponse during evaluation.\
+		Want the IMAPResponse to send the raw string so it is up to the IMAPClientStore or MBMessage to parse the address string.\
+	!! Leave it up to the MBMessage to decide how to parse and store address.\
+2014-03-19\
+	For vCard plugin, use AddressBook framework\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f1\fs38 \cf0 	[ABPerson initWithVCardRepresentation:]\
+
+\fs26 	Returns an 
+\f0 ABPerson
+\f1  instance initialized with the given data.\
+
+\f0 	- (id)initWithVCardRepresentation:({\field{\*\fldinst{HYPERLINK "file:///Users/taun/Library/Developer/Shared/Documentation/DocSets/com.apple.adc.documentation.AppleOSX10.9.CoreReference.docset/Contents/Resources/Documents/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/Reference/Reference.html#//apple_ref/doc/c_ref/NSData"}}{\fldrslt NSData}} *)
+\f1 vCardData
+\f2\fs22 \
+
+\f5\fs24 \
+\
+\
+\
+\
+\
 \
 }

@@ -29,13 +29,17 @@
  */
 - (id)transformedValue:(id)value {
     NSString* addressString;
+    SimpleRFC822Address* address;
     
-    if ([value isKindOfClass:[MBAddress class]] || [value isKindOfClass:[SimpleRFC822Address class]]) {
-        addressString = [value stringRFC822AddressFormat];
-    } else {
-        addressString = nil;
+    if ([value isKindOfClass:[MBAddress class]]) {
+        address = [(MBAddress*)value newSimpleAddress];
+    } else if ([value isKindOfClass:[SimpleRFC822Address class]]) {
+        address = (SimpleRFC822Address*)value;
     }
     
+    if (address) {
+        addressString = [address stringSingleTopLevel];
+    }
     return addressString;
 }
 /* 
@@ -48,7 +52,7 @@
     
     if ([value isKindOfClass: [NSString class]]) {
         
-        rfcaddress = [(NSString*)value mdcSimpleRFC822Address];
+        rfcaddress = [SimpleRFC822Address newFromString: value];//[(NSString*)value mdcSimpleRFC822Address];
         
     }
     

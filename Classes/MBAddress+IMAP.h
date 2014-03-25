@@ -8,18 +8,32 @@
 
 #import <Foundation/Foundation.h>
 #import "MBAddress.h"
-#import "NSManagedObject+Shortcuts.h"
 
+#import <MoedaeMailPlugins/SimpleRFC822Address.h>
+#import <MoedaeMailPlugins/NSObject+MBShorthand.h>
+
+/*!
+ This should be renamed to MBAddressStore. All of the CoreData classes should be Stores.
+ */
 @interface MBAddress (IMAP)
 
-+ (instancetype) newAddressWithEmail: (NSString*) emailAddress
-                createIfMissing: (BOOL) create 
-                        context: (NSManagedObjectContext*) context;
++(instancetype) newAddressFromSimpleAddress: (SimpleRFC822Address*)address
+                                  inContext: (NSManagedObjectContext*) moc;
 
-+ (instancetype) findAddressForEMail: (NSString *) emailAddress
-                           context: (NSManagedObjectContext*) context;
++(instancetype) newAddressWithName: (NSString*) name
+                             Email: (NSString*) emailAddress
+                    createIfMissing: (BOOL) create
+                            context: (NSManagedObjectContext*) context;
 
--(NSString *) stringRFC822AddressFormat;
++(instancetype) newAddressWithEmail: (NSString*) emailAddress
+                    createIfMissing: (BOOL) create
+                            context: (NSManagedObjectContext*) context;
+
++(instancetype) findAddressForEMail: (NSString *) emailAddress
+                            context: (NSManagedObjectContext*) context;
+
+-(SimpleRFC822Address*) newSimpleAddress;
+
 //+ (NSSet *) addressesFromCoreAddressSet: (NSSet *) coreAddressSet context: aContext;
 
 @end

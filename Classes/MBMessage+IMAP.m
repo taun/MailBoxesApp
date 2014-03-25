@@ -36,8 +36,8 @@
 #import "MBTokenTree.h"
 
 #import <MoedaeMailPlugins/SimpleRFC822Address.h>
-
 #import <MoedaeMailPlugins/NSString+IMAPConversions.h>
+#import <MoedaeMailPlugins/NSDate+IMAPConversions.h>
 
 #import "MBSimpleRFC822AddressToStringTransformer.h"
 #import "MBSimpleRFC822AddressSetToStringTransformer.h"
@@ -179,38 +179,44 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.dateSent = [self checkAndDecodeTokenAsDate: tokenized];
 }
 -(void) setParsedAddressSender: (id) tokenized {
-    self.addressSender = [self checkAddress: tokenized];
+
+    MBAddress* mbAddresses = [self parseAddressTokens: tokenized];
+    
+    if (mbAddresses) {
+        [self setAddressSender: mbAddresses];
+    }
 }
 -(void) setParsedAddressFrom: (id) tokenized {
-    self.addressFrom = [self checkAddress: tokenized];
+
+    MBAddress* mbAddresses = [self parseAddressTokens: tokenized];
+    
+    if (mbAddresses) {
+        [self setAddressFrom: mbAddresses];
+    }
 }
 -(void) setParsedAddressReplyTo: (id) tokenized {
-    self.addressReplyTo = [self checkAddress: tokenized];
+
+    MBAddress* mbAddresses = [self parseAddressTokens: tokenized];
+    
+    if (mbAddresses) {
+        [self setAddressReplyTo: mbAddresses];
+    }
 }
 
--(NSSet*) parseAddressTokens: (id) tokenized {
+-(MBAddress*) parseAddressTokens: (id) tokenized {
     DDLogVerbose(@"[%@ %@: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
     
-    NSMutableSet* mbAddressSet;
+    SimpleRFC822Address* simpleAddress;
+    MBAddress* topLevelPersistentAddress;
     
     if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
         
-        mbAddressSet = [NSMutableSet new];
+        simpleAddress = [SimpleRFC822Address newFromString: tokenized];
         
-        NSValueTransformer* addressesTransformer = [NSValueTransformer valueTransformerForName: VTMBSimpleRFC822AddressSetToStringTransformer];
+        topLevelPersistentAddress = [MBAddress newAddressFromSimpleAddress: simpleAddress inContext: self.managedObjectContext];
         
-        NSSet* simpleAddressSet = [addressesTransformer reverseTransformedValue: tokenized];
-        
-        if (simpleAddressSet) {
-            for (SimpleRFC822Address* rfcAddress in simpleAddressSet) {
-                MBAddress* mbAddress = [self checkAddress: rfcAddress];
-                if (mbAddress) {
-                    [mbAddressSet addObject: mbAddress];
-                }
-            }
-        }
     }
-    return [mbAddressSet copy];
+    return topLevelPersistentAddress;
 }
 
 /*
@@ -218,26 +224,26 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 */
 -(void) setParsedAddressesTo: (id) tokenized {
     
-    NSSet* mbAddresses = [self parseAddressTokens: tokenized];
+    MBAddress* mbAddresses = [self parseAddressTokens: tokenized];
     
-    if (mbAddresses.count > 0) {
-        [self addAddressesTo: mbAddresses];
+    if (mbAddresses) {
+        [self setAddressesTo: mbAddresses];
     }
 }
 -(void) setParsedAddressesBcc: (id) tokenized {
     
-    NSSet* mbAddresses = [self parseAddressTokens: tokenized];
+    MBAddress* mbAddresses = [self parseAddressTokens: tokenized];
     
-    if (mbAddresses.count > 0) {
-        [self addAddressesBcc: mbAddresses];
+    if (mbAddresses) {
+        [self setAddressesBcc: mbAddresses];
     }
 }
 -(void) setParsedAddressesCc: (id) tokenized {
     
-    NSSet* mbAddresses = [self parseAddressTokens: tokenized];
+    MBAddress* mbAddresses = [self parseAddressTokens: tokenized];
     
-    if (mbAddresses.count > 0) {
-        [self addAddressesCc: mbAddresses];
+    if (mbAddresses) {
+        [self setAddressesCc: mbAddresses];
     }
 }
 -(void) setParsedMessageId: (id) tokenized {
@@ -1018,7 +1024,7 @@ From RFC3501
         
         if ([tokenized isKindOfClass: [NSString class]]) {
             
-            rfcAddress = [tokenized mdcSimpleRFC822Address];
+            rfcAddress = [SimpleRFC822Address newFromString: tokenized];//[tokenized mdcSimpleRFC822Address];
         } else {
             rfcAddress = tokenized;
         }
@@ -1063,9 +1069,9 @@ From RFC3501
     if (token != nil && [token isKindOfClass: [NSString class]]) {
         NSString* dateString = token;
         
-        decodedDate = [dateString mdcDateFromRFC3501Format];
+        decodedDate = [NSDate newDateFromRFC3501FormatString: dateString];//[dateString mdcDateFromRFC3501Format];
         if (!decodedDate) {
-            decodedDate = [dateString mdcDateFromRFC822Format];
+            decodedDate = [NSDate newDateFromRFC822FormatString: dateString];//[dateString mdcDateFromRFC822Format];
         }
         
     } else if ([token isKindOfClass: [NSDate class]]) {

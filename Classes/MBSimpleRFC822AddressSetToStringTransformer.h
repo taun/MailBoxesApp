@@ -13,6 +13,8 @@
 /*!
  Converts a NSSet of MBAddress or SimpleRFC822Address and converts to a long string representation of the addresses.
  The reverseTransformedVale: takes a long NSString of addresses and converts to an NSSet of SimpleRFC822Address.
+ 
+ Wraps SimpleRFC822Address methods for use in the UI.
  */
 @interface MBSimpleRFC822AddressSetToStringTransformer : NSValueTransformer
 

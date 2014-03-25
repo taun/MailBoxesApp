@@ -103,7 +103,7 @@
             }
                         
             for (NSString* addressString in fixedAddressesArray) {
-                SimpleRFC822Address* rfcAddress = [addressString mdcSimpleRFC822Address];
+                SimpleRFC822Address* rfcAddress = [SimpleRFC822Address newFromString: addressString];//[addressString mdcSimpleRFC822Address];
                 if (rfcAddress) {
                     [addresses addObject: rfcAddress];
                 }

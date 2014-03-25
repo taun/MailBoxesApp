@@ -10,9 +10,6 @@
 #import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 
 
-static NSRegularExpression *regexEncodingFields;
-static NSRegularExpression *regexQSpaces;
-
 
 @implementation MBMIME2047ValueTransformer
 

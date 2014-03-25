@@ -7,6 +7,7 @@
 //
 
 #import "MBAddress+IMAP.h"
+#import "NSManagedObject+Shortcuts.h"
 
 @implementation MBAddress (IMAP)
 
@@ -14,9 +15,39 @@
     return @"MBAddress";
 }
 
-+ (instancetype)newAddressWithEmail:(NSString *)email
-                createIfMissing:(BOOL)create  
-                        context: (NSManagedObjectContext*) context{
++(instancetype) newAddressFromSimpleAddress:(SimpleRFC822Address *)address inContext:(NSManagedObjectContext *)moc {
+    MBAddress *theAddress = nil;
+    
+    if (address.email) {
+        theAddress = [self newAddressWithName: address.name Email: address.email createIfMissing: YES context: moc];
+    } else {
+        // group or just list
+        theAddress = [MBAddress insertNewObjectIntoContext: moc];
+        theAddress.name = address.name;
+        NSMutableSet* subAddresses = [[NSMutableSet alloc] initWithCapacity: address.addresses.count];
+        for (SimpleRFC822Address* subAddress in address.addresses) {
+            //
+            MBAddress* newSubMBAddress = [MBAddress newAddressFromSimpleAddress: subAddress inContext: moc];
+            if (newSubMBAddress) {
+                [subAddresses addObject: newSubMBAddress];
+            }
+        }
+        [theAddress setChildNodes: [subAddresses copy]];
+    }
+    
+    return theAddress;
+}
+
++(instancetype) newAddressWithEmail:(NSString *)emailAddress
+                    createIfMissing:(BOOL)create
+                            context:(NSManagedObjectContext *)context {
+    return [[self class] newAddressWithName: @"" Email: emailAddress createIfMissing: create context: context];
+}
+
++(instancetype)newAddressWithName: (NSString*) name
+                             Email:(NSString *)email
+                   createIfMissing:(BOOL)create
+                           context: (NSManagedObjectContext*) context{
     
     MBAddress *theAddress = nil;
     
@@ -28,13 +59,16 @@
             theAddress = [MBAddress insertNewObjectIntoContext: context];
             
             theAddress.email = email;
+            if ([name isNonNilString]) {
+                theAddress.name = name;
+            }
         }
     }
     
     return theAddress;
 }
 
-+ (instancetype) findAddressForEMail: (NSString *) email context: (NSManagedObjectContext*) context {
++(instancetype) findAddressForEMail: (NSString *) email context: (NSManagedObjectContext*) context {
     MBAddress * address = nil;
     if (email) {
         
@@ -63,37 +97,33 @@
     return address;
 }
 
--(NSString *) stringRFC822AddressFormat {
-    NSString *rfc822Email = nil;
-    if (self.name.length != 0) {
-        rfc822Email = [NSString stringWithFormat: @"%@ <%@>", self.name, self.email];
+-(SimpleRFC822Address*) newSimpleAddress {
+    SimpleRFC822Address* newAddress;
+
+    if (self.email) {
+        // leaf
+        newAddress = [SimpleRFC822Address new];
+        newAddress.name = self.name;
+        newAddress.email = self.email;
+        // should be no addresses
     } else {
-        rfc822Email = [NSString stringWithFormat: @"<%@>", self.email];
+        // group
+        newAddress = [SimpleRFC822Address new];
+        newAddress.name = self.name;
+        NSMutableSet* addressSet = [[NSMutableSet alloc] initWithCapacity: self.childNodes.count];
+        
+        for (MBAddress* childNode in self.childNodes) {
+            SimpleRFC822Address* newChildAddress = [childNode newSimpleAddress];
+            if (newChildAddress) {
+                [addressSet addObject: newChildAddress];
+            }
+        }
+        newAddress.addresses = addressSet;
     }
-    return rfc822Email;
+    
+    return newAddress;
 }
 
 
-//+ (NSSet *) addressesFromCoreAddressSet: (NSSet *) coreAddressSet context: aContext {
-//    NSInteger count = [coreAddressSet count];
-//    NSMutableSet *addressEntities = [[NSMutableSet alloc] initWithCapacity: count];
-//    
-//    for(CTCoreAddress *coreAddress in coreAddressSet) {
-//        MBAddress *address = [NSEntityDescription
-//                              insertNewObjectForEntityForName:@"MBAddress"
-//                              inManagedObjectContext: aContext];
-//        address.email = [coreAddress email];
-//        
-//        if ( ([coreAddress name] == nil) || ([[coreAddress name] length] < 1) ){
-//            address.name = @"";
-//        }
-//        else {
-//            address.name = [coreAddress name];            
-//        }
-//        [addressEntities addObject: address];
-//        [address release];
-//    }
-//    return addressEntities;
-//}
 
 @end
