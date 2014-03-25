@@ -1,0 +1,42 @@
+* 12597 FETCH (FLAGS (\Seen) BODY[HEADER] {2045}
+Return-Path: newsinfo@9flavours.com
+Received: from mz0.moedae.com (LHLO mail.charcoalia.net) (68.238.253.173) by
+ mail.charcoalia.net with LMTP; Sun, 31 Jul 2011 03:19:59 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.charcoalia.net (Postfix) with ESMTP id 67E9138784
+	for <taun@charcoalia.net>; Sun, 31 Jul 2011 03:19:59 -0400 (EDT)
+X-Virus-Scanned: amavisd-new at lpm.moedae.com
+X-Spam-Flag: NO
+X-Spam-Score: 3.936
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.936 tagged_above=-10 required=5
+	tests=[BAYES_00=-1.9, FB_INDEPEND_RWD=2.799, HTML_MESSAGE=0.001,
+	MIME_HEADER_CTYPE_ONLY=0.717, MIME_HTML_ONLY=0.723,
+	SPF_HELO_PASS=-0.001, SPF_PASS=-0.001, T_RP_MATCHES_RCVD=-0.01,
+	URIBL_WS_SURBL=1.608] autolearn=no
+Received: from mail.charcoalia.net ([127.0.0.1])
+	by localhost (mail.charcoalia.net [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 4wq-n-eLkZEn for <taun@charcoalia.net>;
+	Sun, 31 Jul 2011 03:19:54 -0400 (EDT)
+Received: from 9flavours.com (listserv.9flavours.com [71.6.200.53])
+	by mail.charcoalia.net (Postfix) with SMTP id 4D14638781
+	for <taun@charcoalia.net>; Sun, 31 Jul 2011 03:19:53 -0400 (EDT)
+Content-Type: text/html; charset="US-ASCII"
+Date: Sun, 31 Jul 2011 00:20:04 -0700
+To: "'Trisha Tuttle'" <tbtut@aol.com>,	<dbasarab13@gmail.com>,
+	<chamberlain51@comcast.net>,	<hjm041370@gmail.com>,	<adembrak@yahoo.com>,
+	<wendy.dembrak@gmail.com>,	<jamesmckay@verizon.net>,
+	<patrick.a.olivares@gmail.com>,	<jsarr@phoenixmanagement.com>,
+	<marta@gigamyte.com>,	<todd@intelligentprofit.com>,	<mike_stagnaro@yahoo.com>,
+	<theowells@gmail.com>,	<lescraig@hotmail.com>,	<barbycraig@hotmail.com>,
+	<btuttle@teksystems.com>,	<the5mcqs@gmail.com>,	<ajbaci4@yahoo.com>,
+	<arjetbaci@yahoo.com>,	<taun@charcoalia.net>,	<mmckay00@juno.com>,
+	<myrna@charcoalia.net>
+From: 9Flavours.com <newsinfo@9flavours.com>
+X-Mailer: Version 5.0
+Subject: A Home Depot gift card - our gift to you
+Organization: 9Flavours.com
+Message-Id: <20110731071954.4D14638781@mail.charcoalia.net>
+
+)
+a003 OK Fetch completed.
