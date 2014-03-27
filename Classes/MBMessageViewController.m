@@ -153,9 +153,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (IBAction)showConstraints:(id)sender {
     NSString* viewsDesc = [self.view performSelector: NSSelectorFromString(@"_subtreeDescription")];
     DDLogCVerbose(@"[%@ %@] Subviews Desc: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), viewsDesc);
-    [self.view.window visualizeConstraints: [self.view constraintsAffectingLayoutForOrientation: NSLayoutConstraintOrientationHorizontal]];
+    NSMutableArray* constraints = [NSMutableArray new];
+    for (NSView* subview in [[[[[self.view subviews] objectAtIndex:0]subviews]objectAtIndex:0]subviews]) {
+        [constraints addObjectsFromArray: [subview constraintsAffectingLayoutForOrientation: NSLayoutConstraintOrientationHorizontal]];
+        for (NSView* subsubView in subview.subviews) {
+            [constraints addObjectsFromArray: [subview constraintsAffectingLayoutForOrientation: NSLayoutConstraintOrientationHorizontal]];
+        }
+    }
+    [constraints addObjectsFromArray: [self.view constraintsAffectingLayoutForOrientation: NSLayoutConstraintOrientationHorizontal]];
+    [self.view.window visualizeConstraints: constraints];
 }
 
+-(void) dealloc {
+    [self.view.window visualizeConstraints: [NSArray new]];
+}
 
 - (IBAction)showPartsPopover:(NSButton *)sender {
     if (self.partsPopover.isShown) {

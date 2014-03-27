@@ -22,6 +22,8 @@
         // should be a string
         NSNumber* theNumber = (NSNumber*)value;
         theString = [theNumber stringValue];
+    } else {
+        theString = @"0";
     }
     return theString;
 }

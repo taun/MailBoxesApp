@@ -10,7 +10,9 @@
 
 #define VTNumberToString @"MBNumberToString"
 
-
+/*!
+ Convert a number to a string for the UI.
+ */
 @interface MBNumberToString : NSValueTransformer
 
 @end
