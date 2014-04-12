@@ -44,6 +44,8 @@
 
 -(id) initWithParentContext: (NSManagedObjectContext*) pcontext AccountID: (NSManagedObjectID *) anAccount; // Designated initializer
 
+-(MBox*) mboxForObjectID: (NSManagedObjectID *) objectID;
+-(MBMessage*) messageForObjectID:(NSManagedObjectID *)objectID;
 
 #pragma mark - utilities
 

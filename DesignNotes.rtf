@@ -823,19 +823,64 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 	!! Leave it up to the MBMessage to decide how to parse and store address.\
 2014-03-19\
 	For vCard plugin, use AddressBook framework\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 
 \f1\fs38 \cf0 	[ABPerson initWithVCardRepresentation:]\
 
 \fs26 	Returns an 
 \f0 ABPerson
 \f1  instance initialized with the given data.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 
-\f0 	- (id)initWithVCardRepresentation:({\field{\*\fldinst{HYPERLINK "file:///Users/taun/Library/Developer/Shared/Documentation/DocSets/com.apple.adc.documentation.AppleOSX10.9.CoreReference.docset/Contents/Resources/Documents/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/Reference/Reference.html#//apple_ref/doc/c_ref/NSData"}}{\fldrslt NSData}} *)
+\f0 \cf0 	- (id)initWithVCardRepresentation:({\field{\*\fldinst{HYPERLINK "file:///Users/taun/Library/Developer/Shared/Documentation/DocSets/com.apple.adc.documentation.AppleOSX10.9.CoreReference.docset/Contents/Resources/Documents/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/Reference/Reference.html#//apple_ref/doc/c_ref/NSData"}}{\fldrslt NSData}} *)
 \f1 vCardData
 \f2\fs22 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 
-\f5\fs24 \
+\f5\fs24 \cf0 2014-04-04\
+	IMAPClient notes.\
+	Need to create a high level protocol for controlling IMAPClient.\
+	IMAPClient needs to be able to say "do this" and take care of making sure there is a connection first, then asynchronously dispatching the commands.\
+	Want to leave connection open at end of commands.\
+	Dispatched commands need to wait until there is a connection or timeout.\
+	iStream needs to continuously handle responses even when commands are not being dispatched.\
+	\
+	write a method which blocks execution until there is a connection or timeout.\
+	add command to front of block and test result before executing rest of command block.\
+	basically need a block template like above in which the command can be injected.\
+		need to pass a block argument which is the command to execute.\
+	Too much work, just hand roll the 2 or 3 top level dispatch methods.\
+\
+	!! openConnection is blocking. Therefore, can check connection and reconnect in a block. Or only dispatch block if connected?\
+	!! Have openConnection check of connection is open already?!\
+		Then do \
+		if (openConnection) dispatch block. // connection may close before block executes\
+		or\
+		dispatchBlock ^\{ if (openConnection && !isCancelled) execute commands;\}; // safer?\
+2014-04-07\
+	Want to get rid of polling during commands.\
+	Need a variable for the current network event callback.\
+	Queue the command then set the callback.\
+	Each time the callback gets called, check whether to move on to the next state.\
+	IE. the event callback is the "commandState"\
+	How to handle a network timeout? \
+		start a timer on network transmit and when timer triggers, state goes to "timedOut"\
+		need timer for outgoing success and timer for response\
+		what timer is set will depend on the command.\
+\
+	example:\
+		queue command to send - state: waitingToSend...\
+		command is partial sent - state: partialSendOf...\
+		command is sent, waiting for response - state: waitingForResponse....\
+		response is complete - state: commandComplete...\
+2014-04-10\
+	had forgotten how the parser works and went down a rabbit hole.\
+	The parser buffer just keeps filling...\
+	Need to go back to one permanent parser which keeps getting evaluated as long as there is a buffer with data.\
+	Put the evaluation dispatch the parser evaluation as blocks?\
+	Need to remove all of the parser stack and creation/removal code.\
+		\
+		\
 \
 \
 \

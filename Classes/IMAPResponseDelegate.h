@@ -1,5 +1,5 @@
 //
-//  IMAPResponseDelegate.h
+//  IMAPParsedResponseDelegate.h
 //  MailBoxes
 //
 //  Created by Taun Chapman on 9/29/11.
@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-@class IMAPResponse;
+@class IMAPParsedResponse;
 
-@protocol IMAPResponseDelegate <NSObject>
+@protocol IMAPParsedResponseDelegate <NSObject>
 
 
 // MailboxRepsonses
@@ -35,13 +35,13 @@
 //-(void) responseUidvalidity: (id) response;
 //-(void) responseUnseen: (id) response;
 
--(void) commandDone: (IMAPResponse*) response;
--(void) commandContinue: (IMAPResponse*) response;
+-(void) commandDone: (IMAPParsedResponse*) response;
+-(void) commandContinue: (IMAPParsedResponse*) response;
 
 #pragma mark - new delegate methods
--(void) responseUnknown: (IMAPResponse*) response;
--(void) responseIgnore: (IMAPResponse*) response;
--(void) responseBye: (IMAPResponse*) response;
+-(void) responseUnknown: (IMAPParsedResponse*) response;
+-(void) responseIgnore: (IMAPParsedResponse*) response;
+-(void) responseBye: (IMAPParsedResponse*) response;
 // Resp-text-codes
 -(void) responseCapability: (NSArray *) tokens;
 

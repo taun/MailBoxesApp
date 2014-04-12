@@ -157,15 +157,23 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //                                  withObject:notification
 //                               waitUntilDone:YES];	
 //}
-
--(MBMessage*) messageForObjectID:(NSManagedObjectID *)messageID {
-    __block MBMessage* foundMessage;
+-(MBox*) mboxForObjectID: (NSManagedObjectID *) objectID {
+    __block MBox* foundObject;
     
     [self.localManagedContext performBlockAndWait:^{
-        foundMessage = (MBMessage*)[localManagedContext objectWithID: messageID];
+        foundObject = (MBox*)[localManagedContext objectWithID: objectID];
+    }];
+    
+    return foundObject;
+}
+-(MBMessage*) messageForObjectID:(NSManagedObjectID *)objectID {
+    __block MBMessage* foundObject;
+    
+    [self.localManagedContext performBlockAndWait:^{
+        foundObject = (MBMessage*)[localManagedContext objectWithID: objectID];
     }];
 
-    return foundMessage;
+    return foundObject;
 }
 
 #pragma mark - MailBox

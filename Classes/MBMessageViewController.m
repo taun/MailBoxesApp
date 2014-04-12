@@ -92,10 +92,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             // need to load the body
             // ask accountsCoordinator to load body for selectedMessage
             // request will be processed in background and should show up in view when done.
-            NSManagedObjectID* accountID = [[[myMessage mbox] accountReference] objectID];
-            NSManagedObjectID* messageID = [myMessage objectID];
-            MailBoxesAppDelegate *app = (MailBoxesAppDelegate *)[[NSApplication sharedApplication] delegate];
-            [app.accountsCoordinator loadFullMessageID: messageID forAccountID: accountID];
+//            NSManagedObjectID* accountID = [[[myMessage mbox] accountReference] objectID];
+//            NSManagedObjectID* messageID = [myMessage objectID];
+            [[MBAccountsCoordinator sharedInstanceForUser: myMessage.mbox.accountReference.user] loadFullMessage: myMessage forAccount: [[myMessage mbox] accountReference]];
         }
         
         //Get this from user preferences or toggle by a control

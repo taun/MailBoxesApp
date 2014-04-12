@@ -153,7 +153,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqual:@"isFinished"]) {
         DDLogVerbose(@"%@: isFinished=%@ observer triggered.", NSStringFromClass([self class]), [object valueForKeyPath:keyPath]);
-        if (self.accountsCoordinator.isFinished) {
+        if ([[MBAccountsCoordinator sharedInstanceForUser: self.currentUser] isFinished]) {
             [self setSyncStatus: NO];
         }
     }else {
@@ -189,8 +189,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         
         _syncQueue = nil;
         
-        self.accountsCoordinator = [[MBAccountsCoordinator alloc] initWithMBUser: self.currentUser];
-        [self.accountsCoordinator addObserver:self
+        [[MBAccountsCoordinator sharedInstanceForUser: self.currentUser]  addObserver:self
                                    forKeyPath:@"isFinished"
                                       options:NSKeyValueObservingOptionNew
                                       context:NULL];
@@ -331,16 +330,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
  */
 -(void) setSyncStatus:(BOOL) syncOn {
     // Swap Cancel and Sync buttons
-    [self.accountSyncButton setHidden: syncOn];    
-    [self.accountSyncCancelButton setHidden: !syncOn];
-    //[self.accountSyncProgress setHidden: !syncOn];
-    
-    if(syncOn){
-        [self.accountSyncProgress startAnimation: self];
-        //[self.accountSyncProgress display];
-    } else {
-        [self.accountSyncProgress stopAnimation: self];
-    }    
+//    [self.accountSyncButton setHidden: syncOn];    
+//    [self.accountSyncCancelButton setHidden: !syncOn];
+//    //[self.accountSyncProgress setHidden: !syncOn];
+//    
+//    if(syncOn){
+//        [self.accountSyncProgress startAnimation: self];
+//        //[self.accountSyncProgress display];
+//    } else {
+//        [self.accountSyncProgress stopAnimation: self];
+//    }    
 }
 
 #pragma mark - State
@@ -365,7 +364,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 -(IBAction)testIMAPClient:(id)sender {
-    [self.accountsCoordinator testIMAPClientComm];
+    [[MBAccountsCoordinator sharedInstanceForUser: self.currentUser]  testIMAPClientCommForAccount: nil];
 }
 
 #pragma message "TODO:Now"
@@ -386,8 +385,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 DDLogCVerbose(@"Change selection portal: %@ selection to node: %@", portal, node);
                 [(MBViewPortalSelection*)portal setName: [node name]];
                 [(MBViewPortalSelection*)portal setMessageArraySource: node];
+                [(MBViewPortalSelection*)portal updateItemsList];
             } else if ([portal isKindOfClass:[MBViewPortalMBox class]]) {
                 //
+                [(MBViewPortalMBox*)portal updateItemsList];
                 DDLogCVerbose(@"Change mbox portal: %@ selection to node: %@", portal, node);
             }
         }
@@ -417,9 +418,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if (self.syncQueue) {
         //work
         
-        [self.accountsCoordinator refreshAll];
+        [[MBAccountsCoordinator sharedInstanceForUser: self.currentUser]  updateFolderStructureForAllAccounts];
         
-        if (!self.accountsCoordinator.isFinished) {
+        if (![[MBAccountsCoordinator sharedInstanceForUser: self.currentUser] isFinished]) {
             // Only set the sync status once. Not for each account
             [self setSyncStatus: YES];
         }
@@ -435,8 +436,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 - (IBAction)cancelLoadAllAccountFolders:(id)sender {
-    NSAssert(self.accountsCoordinator, @"No account coordinator defined.");
-    [self.accountsCoordinator closeAll];
+    NSAssert([MBAccountsCoordinator sharedInstanceForUser: self.currentUser], @"No account coordinator defined.");
+    [[MBAccountsCoordinator sharedInstanceForUser: self.currentUser] closeAll];
     [self setSyncStatus: NO];
 }
 
@@ -660,7 +661,7 @@ are presented to the user.
 }
 
 - (void)dealloc {  
-    [self.accountsCoordinator removeObserver: self forKeyPath: @"isFinished"];
+    [[MBAccountsCoordinator sharedInstanceForUser: self.currentUser] removeObserver: self forKeyPath: @"isFinished"];
 }
 
 - (IBAction)resetMailStore:(id)sender {

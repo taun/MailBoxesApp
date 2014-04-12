@@ -11,6 +11,14 @@
 @class MBUser;
 @class IMAPClient;
 @class MBAccount;
+@class MBox;
+@class MBMessage;
+
+@protocol IMAPClientDelegate <NSObject>
+
+-(void) clientFinished:(IMAPClient *)client;
+
+@end
 
 /*!
  The MBAccountsCoordinator manages access to all of a users accounts. There is one MBAccountsCoordintator per user. The application can 
@@ -19,18 +27,12 @@
  
  The MBAccountsCoordinator coordinates the IMAP server network connections for the users accounts and portals.
  Each connection is controlled by an IMAPClient. In future there could be other types of server clients coordinated by the MBAccountsCoordinator.
- There can be multiple IMAPClients each with it's own network connection to a server. This is necessary in part, to allow simoultaneous access to 
+ There can be multiple IMAPClients each with it's own network connection to a server. This is necessary in part, to allow simultaneous access to
  multiple mailboxes in one account. The IMAP protocol only allows for one selected mailbox at a time. Multiple network connections to a server
  allows for multiple selected mailboxes which enables to multi portal functionality of the Mac App.
  
  */
-@interface MBAccountsCoordinator : NSObject {
-    MBUser*         _user;
-    BOOL            _finished;
-@private
-    NSMutableDictionary*   _accountConnections;
-    //NSOperationQueue*       _comQueue;
-}
+@interface MBAccountsCoordinator : NSObject
 
 /*!
  YES when all account network connections are finished.
@@ -38,42 +40,47 @@
 @property (nonatomic, assign, readonly) BOOL     isFinished;
 @property (strong) MBUser* user;
 /// @name Public methods
+
+/*!
+ Singleton accountCoordinator. Creates a new accountCoordinator if once does not exist.
+ If one exists for a different user, the old coordinator is closed and a new one created.
+ 
+ @param aUser the user
+ 
+ @return an accountCoordinator for the user's accounts.
+ */
++(instancetype) sharedInstanceForUser: (MBUser*) aUser;
+
+/*!
+ For test purposes to use a mock accountCoordinator or reseting sharedInstance
+ by sending nil.
+ 
+ @param instance mock coordinator or nil to reset. For example, pass nil at end of test method to reset sharedInstance.
+ */
++(void)setSharedInstance:(MBAccountsCoordinator *)instance;
 /*!
  Designated initialiser.
  
  @param aUser the user account
  @returns an MBAccountsCoordinator for the user or nil
  */
--(id) initWithMBUser: (MBUser*) aUser;
-
+-(instancetype) initWithMBUser: (MBUser*) aUser;
+-(void) updateFolderStructureForAllAccounts;
+-(void) updateFolderStructureForAccount: (MBAccount*) account;
 /*!
- Fetches all of the mailboxes and message headers for all of the accounts defined for the MBAccountsCoordinator user.
+ Get messages from account mailbox newer than time.
  
- All IMAP network activity is performed by IMAPClients on a background queue.
- 
- Currently, IMAPClient is hardwired to only fetch X number of headers for each mailbox. This number is set in 
- property IMAPClient.syncQuantaLW and is meant to be a user preference.
- 
- Old notes -refreshAll needs to queue up the IMAPClient tasks which don't return until done.
-            Concurrently across accounts.
-            Callback for when each task is done? Should be clientFinished:
- 
- @see clientFinished:
+ @param account account object
+ @param mbox    mbox object
+ @param time    oldest email to fetch as a time interval from now in seconds.
  */
--(void) refreshAll;
+-(void) updateLatestMessagesForAccount: (MBAccount*) account
+                                  mbox: (MBox*) mbox
+                             olderThan: (NSTimeInterval)time;
 /*!
  Close all client connections as soon as possible.
  */
 -(void) closeAll;
-
-/*!
- A callback method to remove the client from the list of active clients and close it.
- 
- @param client the client which has finished it's work.
- */
--(void) clientFinished: (IMAPClient*) client;
-
-#pragma message "This should use the existing client connection."
 /*!
  Currently, used to load the full message body and attachments when necessary.
  
@@ -91,8 +98,8 @@
  @param accountID account NSManagedObjectID so message account can be retrieved in different thread from the caller.
  
  */
--(void) loadFullMessageID: (NSManagedObjectID*) objectID forAccountID: (NSManagedObjectID*) accountID;
+-(void) loadFullMessage: (MBMessage*) message forAccount: (MBAccount*) account;
 
--(void) testIMAPClientComm;
+-(void) testIMAPClientCommForAccount: (MBAccount*) account;
 
 @end

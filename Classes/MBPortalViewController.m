@@ -15,6 +15,7 @@
 #import "MBox+IMAP.h"
 #import "MBMessage+IMAP.h"
 #import "MBAddress+IMAP.h"
+#import "MBAccount+IMAP.h"
 
 #import "MBMime+IMAP.h"
 #import "MBMimeData+IMAP.h"
@@ -23,6 +24,8 @@
 #import "MBViewPortalMBox+Extra.h"
 #import "MBViewPortalSelection+Extra.h"
 #import "MBViewPortalSmartFolder+Extra.h"
+
+#import "MBAccountsCoordinator.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -75,6 +78,9 @@ CGFloat ONEROW = 18.0;
     if (representedObject) {
         [self addObserver: self forKeyPath: @"collectionView" options: NSKeyValueObservingOptionOld context: NULL];
         MBViewPortal* item = (MBViewPortal*) self.representedObject;
+        
+//        [item updateItemsList];
+        
         NSColor* boxColor = item.color;
         if (boxColor && [boxColor isKindOfClass: [NSColor class]]) {
             MBPortalView* pview = [[self.view subviews] firstObject];

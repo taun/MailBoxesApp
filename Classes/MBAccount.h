@@ -2,8 +2,8 @@
 //  MBAccount.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 11/14/11.
-//  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
+//  Created by Taun Chapman on 04/03/14.
+//  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString * server;
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSNumber * useTLS;
+@property (nonatomic, retain) NSNumber * connectionLimit;
 @property (nonatomic, retain) MBAccountTypes *accountType;
 @property (nonatomic, retain) NSSet *allNodes;
 @property (nonatomic, retain) MBUser *user;

@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IMAPResponseDelegate.h"
+#import "IMAPResponseParser.h"
+#import "MBAccountsCoordinator.h"
 
 @class GCDAsyncSocket;
 
@@ -15,7 +17,7 @@
 @class MBox;
 @class MBMessage;
 @class IMAPCoreDataStore;
-@class IMAPResponseBuffer;
+@class IMAPResponseParser;
 
 /*!
  @header
@@ -33,6 +35,7 @@ enum IMAPClientStates {
     IMAPNotAuthenticated,
     IMAPAuthenticated,
     IMAPSelected,
+    IMAPIdle,
     IMAPLogout
 };
 
@@ -117,7 +120,7 @@ typedef UInt8 IMAPClientStates;
  
  @see IMAPResponseBuffer, IMAPResponse
  */
-@interface IMAPClient : NSObject <NSStreamDelegate, IMAPResponseDelegate > {
+@interface IMAPClient : NSObject <NSStreamDelegate, IMAPParsedResponseDelegate, IMAPResponseParserDelegate> {
     
 @private
     BOOL            _finished;
@@ -134,11 +137,15 @@ typedef UInt8 IMAPClientStates;
 
 #pragma message "ToDo add isAuthenticated, isConnected, both set to NO by a \"BYE\" response"
 ///@name Properties
+@property (nonatomic, strong) id<IMAPClientDelegate>           delegate;
+@property (nonatomic,readonly) MBox                           *selectedMBox;
+@property (nonatomic,readonly) NSString                       *selectedMBoxPath;
+@property (nonatomic,readonly) NSTimeInterval                  idleSince;
 /*!
  Core Data Protocol account information.
  */
-@property (nonatomic, strong) IMAPResponseBuffer            *parser;
-@property (nonatomic, strong) IMAPCoreDataStore             *clientStore;
+@property (nonatomic,readonly) IMAPResponseParser            *parser;
+@property (nonatomic, strong) IMAPCoreDataStore              *clientStore;
 
 /*!
  Here as part of the NSOperation api to indicate the threaded job is finished.
@@ -212,9 +219,7 @@ typedef UInt8 IMAPClientStates;
  */
 @property (strong) NSMutableDictionary                      *mboxSequenceUIDMap;
 
-@property (strong) NSMutableArray*                          mainCommandQueue;
-
-@property (weak)   NSManagedObjectContext*                  parentContext;
+@property (weak)   NSManagedObjectContext                   *parentContext;
 
 + (NSString*) stateAsString: (IMAPClientStates) aState;
 
@@ -227,17 +232,36 @@ typedef UInt8 IMAPClientStates;
  @param anAccount a CoreData user account object
  @return intialised IMAPClient object or nil
  */
--(id) initWithParentContext: (NSManagedObjectContext*) pcontext AccountID: (NSManagedObjectID *) anAccount; 
-
+-(id) initWithParentContext: (NSManagedObjectContext*) pcontext AccountID: (NSManagedObjectID *) anAccount;
+/*!
+ Blocking call. Only returns if the connection is open and authenticated or opening
+ the connection failed.
+ 
+ @return YES if connection is open and authenticated, NO is open failed.
+ */
+-(BOOL) ensureOpenConnection;
+/*!
+ Blocking. Opens a new network connection using the account information.
+ Send IMAP Login and capability commands. Saves result of capability to 
+ the appropriate MBAccount properties.
+ 
+ @param anError an NSError reference for returning the potential error.
+ 
+ @return whether the connection and login was successful.
+ */
 -(BOOL) openConnection: (NSError**) anError;
 
 
 -(void) getResponse;
 
 #pragma mark - High Level App Methods
+#pragma message "TODO: convert High level methods to a protocol"
 /// @name High Level App Methods
--(void) refreshAll;
--(void) loadFullMessageID: (NSManagedObjectID*) objectID;
+//-(void) refreshAll;
+-(void) updateAccountFolderStructure;
+-(void) updateLatestMessagesForMBox: (MBox*) mbox
+                          olderThan: (NSTimeInterval)time;
+-(void) loadFullMessage: (MBMessage*) message;
 -(void) testMessage: (NSString*) aMessage;
 
 
@@ -590,7 +614,10 @@ typedef UInt8 IMAPClientStates;
 //-(void) commandFetch;
 -(void) commandFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange;
 -(void) commandFetchContentStart: (UInt64) startRange end: (UInt64) endRange;
--(void) commandFetchContentForUID: (UInt64) theUID mimeParts: (NSString*) part;
+-(void) commandFetchContentForSequence:(UInt64)theSequence mimeParts:(NSString *)part;
+-(void) commandUIDFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange;
+-(void) commandUIDFetchContentStart: (UInt64) startRange end: (UInt64) endRange;
+-(void) commandFetchContentForMessage: (MBMessage*) message mimeParts: (NSString*) part;
 
 /*!
  STORE Command

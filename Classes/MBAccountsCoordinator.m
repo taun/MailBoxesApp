@@ -8,15 +8,14 @@
 
 #import "MBUser.h"
 #import "MBAccount+IMAP.h"
-#import "IMAPClient.h"
 
 #import "MBTreeNode.h"
 #import "MBGroup.h"
 #import "MBSidebar.h"
 
 #import "MBAccountsCoordinator.h"
+#import "MBAccountConnectionsCoordintator.h"
 
-#import "IMAPCoreDataStore.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -24,15 +23,12 @@
 
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
+#pragma mark - AccountsCoordintator
 @interface MBAccountsCoordinator ()
-    @property (nonatomic, assign, readwrite) BOOL                   isFinished;
-    @property (strong)                      NSMutableDictionary*    accountConnections;
-    @property (nonatomic, readonly)         dispatch_queue_t        accountQueue;
+@property (strong)                      NSMutableDictionary*    accountConnections;
 
--(void) refreshAllDispatch;
--(IMAPClient*) clientForAccountID: (NSManagedObjectID*) accountID;
--(MBAccount*) accountForID:  (NSManagedObjectID*) accountID;
-//-(void) refreshAllOperation;
+-(void)updateAccountConnections;
+-(MBAccountConnectionsCoordintator*) connectionCoordinatorForAccount: (MBAccount*) account;
 
 @end
 
@@ -40,127 +36,140 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @implementation MBAccountsCoordinator
 
 @synthesize isFinished = _finished;
-@synthesize user = _user;
-@synthesize accountConnections = _accountConnections;
-@synthesize accountQueue = _accountQueue;
 
-/// @name Private methods
-- (id)initWithMBUser: (MBUser*) aUser
-{
+static MBAccountsCoordinator *_sharedInstance = nil;
+static dispatch_once_t once_token = 0;
+
++(instancetype) sharedInstanceForUser: (MBUser*) aUser {
+    if (aUser && ((_sharedInstance == nil) || ((_sharedInstance != nil) && (_sharedInstance.user != aUser)))) {
+        dispatch_once(&once_token, ^{
+            _sharedInstance = [[MBAccountsCoordinator alloc] initWithMBUser: aUser];
+        });
+    }
+    return _sharedInstance;
+}
++(void)setSharedInstance:(MBAccountsCoordinator *)instance {
+    once_token = 0; // resets the once_token so dispatch_once will run again
+    _sharedInstance = instance;
+}
+- (id)initWithMBUser: (MBUser*) aUser {
     self = [super init];
     if (self) {
         // Initialization code here.
         _user = aUser;
         _accountConnections = [[NSMutableDictionary alloc] initWithCapacity:1];
+        [self updateAccountConnections];
+        [_user addObserver: self forKeyPath: @"accounts" options: NSKeyValueObservingOptionOld context: NULL];
     }
     
     return self;
 }
-
-/*!
- 
- */
--(dispatch_queue_t) accountQueue {
-    if (_accountQueue == nil) {
-        dispatch_queue_t aQueue = dispatch_queue_create("com.moedae.imapaccount", NULL);
-        _accountQueue = aQueue;
+-(void) dealloc {
+    [_user removeObserver: self forKeyPath: @"accounts"];
+}
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString: @"accounts"]) {
+        // an account was added removed (or edited?)
+        [self updateAccountConnections];
     }
-    return _accountQueue;
+}
+-(void) updateFolderStructureForAllAccounts {
+    for (MBAccount* account in self.user.accounts) {
+        [self updateFolderStructureForAccount: account];
+    }
+}
+-(void) updateFolderStructureForAccount: (MBAccount*) account {
+    MBAccountConnectionsCoordintator* connCoord = [self connectionCoordinatorForAccount: account];
+    
+    if (connCoord) {
+        [connCoord updateAccountFolderStructure];
+    }
+}
+-(void) updateLatestMessagesForAccount: (MBAccount*) account
+                                  mbox: (MBox*) mbox
+                             olderThan: (NSTimeInterval)time {
+    
+    MBAccountConnectionsCoordintator* connCoord = [self connectionCoordinatorForAccount: account];
+    
+    if (connCoord) {
+        [connCoord updateLatestMessagesForMBox: mbox olderThan: time];
+    }
+}
+-(void) loadFullMessage:(MBMessage*) message forAccount:(MBAccount*) account {
+    MBAccountConnectionsCoordintator* connCoord = [self connectionCoordinatorForAccount: account];
+    
+    if (connCoord) {
+        [connCoord loadFullMessage: message];
+    }
+}
+-(void) closeAll {
+    for (NSString* connCoord in self.accountConnections) {
+        [[self.accountConnections objectForKey: connCoord] closeAll];
+    }
 }
 
+-(void) testIMAPClientCommForAccount: (MBAccount*) account {
+    if (account) {
+        MBAccountConnectionsCoordintator* connCoord = [self connectionCoordinatorForAccount: account];
+        if (connCoord) {
+            [connCoord testIMAPClientComm];
+        }
+    } else {
+        for (MBAccount* localAccount in self.user.accounts) {
+            MBAccountConnectionsCoordintator* connCoord = [self connectionCoordinatorForAccount: account];
+            if (connCoord) {
+                [connCoord testIMAPClientComm];
+            }
+        }
+    }
+}
+/// @name Private methods
+#pragma mark - private
+-(MBAccountConnectionsCoordintator*) connectionCoordinatorForAccount:(MBAccount *)account {
+    MBAccountConnectionsCoordintator* connCoord;
+    
+    if (account) {
+        connCoord = [self.accountConnections objectForKey: account.identifier];
+        if (!connCoord) {
+            // This should never happen given the observer and updateAccountConnections
+            DDLogCWarn(@"An accountConnection was missing for account: %@", account);
+            connCoord = [MBAccountConnectionsCoordintator newWithAccount: account];
+            [self.accountConnections setObject: connCoord forKey: account.identifier];
+        }
+    }
+    return connCoord;
+}
+-(void) updateAccountConnections {
+    // var access is used here because this gets called in the init
+    NSMutableDictionary* deletedConnCoords = [_accountConnections mutableCopy];
+    NSMutableDictionary* revisedConnections = [NSMutableDictionary dictionaryWithCapacity: _user.accounts.count];
+    
+    for (MBAccount* account in _user.accounts) {
+        NSString* identifier = account.identifier;
+        MBAccountConnectionsCoordintator* connCoord = [_accountConnections objectForKey: identifier];
+        
+        if (connCoord) {
+            // account still exists and there is an existing connectionCoord
+            [deletedConnCoords removeObjectForKey: connCoord];
+        } else {
+            // account exists but there is no connectionCoord
+            MBAccountConnectionsCoordintator* newConnCoord = [MBAccountConnectionsCoordintator newWithAccount: account];
+            [revisedConnections setObject: newConnCoord forKey: account.identifier];
+        }
+    }
+    // close and remove any account connections not in the new accounts list.
+    for (NSString* connCoord in deletedConnCoords) {
+        [[deletedConnCoords objectForKey: connCoord] closeAll];
+    }
+    // clean up
+    [_accountConnections removeAllObjects];
+    [deletedConnCoords removeAllObjects];
+    // save new connections to property
+    _accountConnections = revisedConnections;
+}
 -(MBAccount*) accountForID:(NSManagedObjectID *)accountID {
     MBAccount* account = (MBAccount*)[self.user.managedObjectContext objectWithID: accountID];
     return account;
 }
 
--(IMAPClient*) clientForAccountID:(NSManagedObjectID *)accountID {
-    IMAPClient* client;
-    
-    MBAccount* account = [self accountForID: accountID];
-    
-    if (account) {
-        client = (self.accountConnections)[account.name];
-        if (!client) {
-            client = [[IMAPClient alloc] initWithParentContext: self.user.managedObjectContext AccountID: accountID];
-            (self.accountConnections)[account.name] = client;
-        }
-    }
-
-    return client;
-}
--(void) refreshAll {
-    [self refreshAllDispatch];
-}
-#pragma message "TODO: need a separate queue for each mail box monitor otherwise, the first monitor thread dispatch blocks all future blocks until it is done."
-/*!
- Don't close the client after the sync?
- */
--(void) refreshAllDispatch {
-    NSSet* accounts = self.user.accounts;
-    for (MBAccount *account in accounts) {
-        self.isFinished = NO;
-        IMAPClient* client = [[IMAPClient alloc] initWithParentContext: [_user managedObjectContext] AccountID: account.objectID];
-        (self.accountConnections)[account.name] = client;
-    }
-    
-    dispatch_queue_t mQueue = dispatch_get_main_queue();
-    for (id key in self.accountConnections) {
-        IMAPClient* client = (self.accountConnections)[key];
-        dispatch_async(self.accountQueue, ^{
-            [client refreshAll];
-            dispatch_async(mQueue, ^{ [self clientFinished: client];}); // could this be sync not async?
-        });
-    }
-    
-}
-
--(void) testIMAPClientComm {
-    for (id key in self.accountConnections) {
-        IMAPClient* client = (self.accountConnections)[key];
-        NSArray* command = @[@"testMessage:", @"queued command"];
-        [client.mainCommandQueue addObject: command];
-    }
-}
-
-//-(void) refreshAllOperation {
-//    NSSet *accounts = self.user.childNodes;
-//    for (MBAccount *account in accounts) {
-//        self.isFinished = NO;
-//        IMAPClient* client = [[IMAPClient alloc] initWithAccount: account.objectID];
-//        [_accountConnections addObject: client];
-//    }
-//    if (!_comQueue) {
-//        _comQueue = [[NSOperationQueue alloc] init];
-//        [_comQueue setName:[NSString stringWithFormat: @"com.moedae.%@", NSStringFromClass([self class])]];
-//    }
-//    for (IMAPClient* client in _accountConnections) {
-//        NSBlockOperation* backgroundTask = [NSBlockOperation blockOperationWithBlock: ^{[client refreshAll];} ];
-//        [backgroundTask setCompletionBlock:^{ [self clientFinished: client];}];
-//        
-//        [_comQueue addOperation: backgroundTask];
-//    }
-//
-//}
-
--(void) clientFinished:(IMAPClient *)client {
-    [self.accountConnections removeObjectForKey: client.clientStore.account.name];
-    if ([_accountConnections count] == 0) {
-        // no more clients running
-        DDLogVerbose(@"%@: All clients closed.", NSStringFromClass([self class]));
-        self.isFinished = YES;
-    }
-}
--(void) closeAll {
-    for (id key in self.accountConnections) {
-        IMAPClient *client = (self.accountConnections)[key];
-        client.isCancelled = YES;
-    }    
-}
--(void) loadFullMessageID:(NSManagedObjectID*) messageID forAccountID:(NSManagedObjectID*) accountID {
-    IMAPClient* client = [[IMAPClient alloc] initWithParentContext: [_user managedObjectContext] AccountID: accountID];
-    dispatch_async(self.accountQueue, ^{
-        [client loadFullMessageID: messageID];
-    });
-}
-    
 @end

@@ -150,6 +150,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         MBUser *localUser = (MBUser *)[self.localManagedContext objectWithID: userID];
         newAccount.user = localUser;
         newAccount.imageName = MBAccountImageName;
+        newAccount.identifier = [NSString stringWithFormat:@"%@/%@/%@",newAccount.user.firstName,newAccount.server,newAccount.username];
         MBTreeNode* userAccountGroup = (MBTreeNode*)[localUser.sidebar accountGroup];
         NSMutableOrderedSet* childNodes = [userAccountGroup mutableOrderedSetValueForKey: @"childNodes"];
         [childNodes addObject: newAccount];

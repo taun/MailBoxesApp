@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IMAPResponse.h"
+#import "IMAPParsedResponse.h"
+
+typedef void (^MBCommandBlock)(void);
 
 @class MBAccount;
 @class MBox;
@@ -40,6 +42,7 @@
 @property (assign)      BOOL                isDone;
 @property (assign)      BOOL                hasLiteral;
 @property (strong)      NSData *            literal;
+@property (strong)      MBCommandBlock      successBlock;
 
 @property (assign)      IMAPResponseStatus  responseStatus;
 

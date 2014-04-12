@@ -11,7 +11,8 @@
 #import "MBox+IMAP.h"
 
 @interface IMAPCommand () 
-@property (strong)      NSMutableArray*            arguments;
+@property (strong)  NSMutableArray*     arguments;
+@property (assign)  BOOL                sentArguments;
 @end
 
 @implementation IMAPCommand
@@ -43,6 +44,7 @@
         literal = nil;
         arguments = nil;
         responseStatus = 0;
+        _sentArguments = NO;
     }
     
     return self;
@@ -59,21 +61,26 @@
 }
 
 -(NSString*) nextOutput {
-    NSString* argumentString = @"";
-    if (self.arguments != nil) {
-        argumentString = [self.arguments componentsJoinedByString:@" "];
-    }
     NSString *outputString, *trimmedString, *commandString;
-    commandString = [NSString stringWithFormat:@"%@ %@ %@",
-                    tag, [atom uppercaseString], argumentString];
-    trimmedString = [commandString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
-    outputString = [trimmedString stringByAppendingString: @"\n"];
+    
+    if (!self.sentArguments) {
+        NSString* argumentString = @"";
+        if (self.arguments && (self.arguments.count > 0)) {
+            argumentString = [self.arguments componentsJoinedByString:@" "];
+        }
+        commandString = [NSString stringWithFormat:@"%@ %@ %@",
+                         tag, [atom uppercaseString], argumentString];
+        trimmedString = [commandString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+        outputString = [trimmedString stringByAppendingString: @"\n"];
+        self.sentArguments = YES;
+    }
+
     return outputString;
 }
 
 - (NSString*) debugDescription {
     NSString* theDescription = [NSString stringWithFormat:@" (atom: %@, tag: %@, responseStatus: %@, info: %@, isActive: %u, isDone: %u,hasLiteral: %u)",
-                                self.atom, self.tag, [IMAPResponse statusAsString: self.responseStatus], self.info, self.isActive, self.isDone, self.hasLiteral];
+                                self.atom, self.tag, [IMAPParsedResponse statusAsString: self.responseStatus], self.info, self.isActive, self.isDone, self.hasLiteral];
     return theDescription;
 }
 @end

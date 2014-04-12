@@ -85,13 +85,6 @@ NSString *PortalEditingEndedKey;
 @property(nonatomic,readonly,strong) NSManagedObjectContext          *nibManagedObjectContext;
 
 /// @name Networking
-/*! The MBAccountsCoordinator.
- 
- Manages all of the account information and network communication for the current MBUser.
- 
- @see MBAccountsCoordinator
- */
-@property (strong)           MBAccountsCoordinator          *accountsCoordinator;
 @property (strong)           NSOperationQueue               *syncQueue;
 
 /// @name Control Actions
