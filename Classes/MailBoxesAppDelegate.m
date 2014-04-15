@@ -383,13 +383,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         for (id portal in portals) {
             if ([portal isKindOfClass:[MBViewPortalSelection class]]) {
                 DDLogCVerbose(@"Change selection portal: %@ selection to node: %@", portal, node);
-                [(MBViewPortalSelection*)portal setName: [node name]];
                 [(MBViewPortalSelection*)portal setMessageArraySource: node];
-                [(MBViewPortalSelection*)portal updateItemsList];
             } else if ([portal isKindOfClass:[MBViewPortalMBox class]]) {
-                //
-                [(MBViewPortalMBox*)portal updateItemsList];
-                DDLogCVerbose(@"Change mbox portal: %@ selection to node: %@", portal, node);
+
             }
         }
     } else if ([node isKindOfClass:[MBSmartFolder class]]) {
