@@ -7,6 +7,7 @@
 //
 
 #import "MBViewPortal+Extra.h"
+#import "MBTreeNode+IntersectsSetFix.h"
 
 @implementation MBViewPortal (Extra)
 
@@ -26,6 +27,15 @@
 -(NSString*) title {
     return [NSString stringWithFormat: @"%@: %@", [[self class] classTitle], self.name];
 }
-
+- (void)setMessageArraySource:(MBTreeNode *)messageArraySource {
+    self.name = messageArraySource.name;
+    [self willChangeValueForKey:@"messageArraySource"];
+    [self setPrimitiveValue: messageArraySource forKey:@"messageArraySource"];
+    [self didChangeValueForKey:@"messageArraySource"];
+    [self updateItemsList];
+}
+-(void) updateItemsList {
+    
+}
 @end
 

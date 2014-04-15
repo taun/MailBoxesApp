@@ -14,4 +14,5 @@
 
 -(NSString*) title;
 
+-(void) updateItemsList;
 @end

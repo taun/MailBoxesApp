@@ -7,6 +7,9 @@
 //
 
 #import "MBViewPortalMBox+Extra.h"
+#import "MBox+IMAP.h"
+#import "MBAccount+IMAP.h"
+#import "MBAccountsCoordinator.h"
 
 @implementation MBViewPortalMBox (Extra)
 
@@ -19,4 +22,11 @@
     return @"MailBox";
 }
 
+-(void) updateItemsList {
+    MBox* mbox = (MBox*)self.messageArraySource;
+    MBAccount* account = mbox.accountReference;
+    MBAccountsCoordinator* accountCoord = [MBAccountsCoordinator sharedInstanceForUser: account.user];
+    [accountCoord updateLatestMessagesForAccount: account mbox: mbox olderThan: 7*24*60*60];
+
+}
 @end
