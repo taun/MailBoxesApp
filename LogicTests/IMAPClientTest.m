@@ -22,8 +22,8 @@
 #import "MBMessage.h"
 #import "MBMessage+IMAP.h"
 
-#import "IMAPResponseBuffer.h"
-#import "IMAPResponse.h"
+#import "IMAPResponseParser.h"
+#import "IMAPParsedResponse.h"
 #import "IMAPCommand.h"
 #import "MBTokenTree.h"
 
@@ -91,7 +91,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
     clientStore = [[IMAPCoreDataStore alloc] initWithParentContext: ctx AccountID: [newAccount objectID]];
 
-    parser = [[IMAPResponseBuffer alloc] init];
+    parser = [[IMAPResponseParser alloc] init];
     [parser setDelegate: self];
     
     testBundle = [NSBundle bundleWithIdentifier: @"com.moedae.LogicTests"];
@@ -128,7 +128,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
  
  @param response IMAPResponse
  */
-- (void)configDefaultResponse:(IMAPResponse *)response {
+- (void)configDefaultResponse:(IMAPParsedResponse *)response {
     response.delegate = self;
     response.clientStore = clientStore;
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @""];
@@ -171,7 +171,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [parser addDataBuffer: newData];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
     
     //    NSMutableArray *tokens = [response.tokens tokenArray];

@@ -12,11 +12,11 @@
 #import "IMAPClientStore.h"
 
 //@class IMAPClient;
-@class IMAPResponseBuffer;
+@class IMAPResponseParser;
 @class IMAPCoreDataStore;
 @class MBox;
 
-@interface IMAPClientTest : XCTestCase <IMAPResponseDelegate> {
+@interface IMAPClientTest : XCTestCase <IMAPParsedResponseDelegate> {
     
     NSPersistentStoreCoordinator *coord;
     NSManagedObjectContext *ctx;
@@ -24,7 +24,7 @@
     NSPersistentStore *store;
 
     //IMAPClient *imapClient;
-    IMAPResponseBuffer        *parser;
+    IMAPResponseParser        *parser;
     BOOL                  saveAnswers;
     
     
@@ -34,7 +34,7 @@
     MBox*               selectedBox;
 }
 
-@property (retain) IMAPResponseBuffer *parser;
+@property (retain) IMAPResponseParser *parser;
 @property (copy)     NSString         *actionCalled;
 
 @end

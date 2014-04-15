@@ -7,8 +7,8 @@
 //
 
 #import "IMAPResponseParserTests.h"
-#import "IMAPResponseBuffer.h"
-#import "IMAPResponse.h"
+#import "IMAPResponseParser.h"
+#import "IMAPParsedResponse.h"
 #import "IMAPCommand.h"
 #import "MBTokenTree.h"
 
@@ -28,7 +28,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [super setUp];
     
     // Set-up code here.
-    parser = [[IMAPResponseBuffer alloc] init];
+    parser = [[IMAPResponseParser alloc] init];
     [parser setDelegate: self];
     
     saveAnswers = NO;
@@ -54,7 +54,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 /* sets up the necessary house keeping for the response to be able to evaluate the tokens */
-- (void)configDefaultResponse:(IMAPResponse *)response {
+- (void)configDefaultResponse:(IMAPParsedResponse *)response {
     response.delegate = self;
     response.clientStore = self;
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @""];
@@ -65,7 +65,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void) parseDataBuffer: (NSMutableData*) sampleResponseData responseMethod: (NSString*) methodName saveAnswer: (BOOL) saving answer: (NSString*) answer {
     [parser addDataBuffer: sampleResponseData];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
     
     NSMutableArray *tokens = [response.tokens tokenArray];
@@ -186,7 +186,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [parser addDataBuffer: newData1];
     [parser addDataBuffer: newData2];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
     
     NSMutableArray *tokens = [response.tokens tokenArray];
@@ -215,7 +215,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [parser addDataBuffer: newData1];
     [parser addDataBuffer: newData2];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
     
     NSMutableArray *tokens = [response.tokens tokenArray];
@@ -242,7 +242,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [parser addDataBuffer: newData];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result;
     //MBTokenTree *tokens = nil;
     NSString *responseMethodName = @"commandDone:";
@@ -270,7 +270,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [parser addDataBuffer: newData];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result;
     //MBTokenTree *tokens = nil;
     NSString *responseMethodName = @"commandDone:";
@@ -299,7 +299,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [parser addDataBuffer: newData];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result;
     //MBTokenTree *tokens = nil;
     NSString *responseMethodName = @"commandDone:";
@@ -330,7 +330,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [parser addDataBuffer: newData];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result;
     //MBTokenTree *tokens = nil;
     NSString *responseMethodName = @"commandDone:";
@@ -370,7 +370,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [parser addDataBuffer: newData];
     [parser addDataBuffer: newData2];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
     
     NSMutableArray *tokens = [response.tokens tokenArray];
@@ -392,7 +392,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [parser addDataBuffer: newData];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
         
     XCTAssertTrue(result == IMAPParseUnexpectedEnd, @"Parse result: %i", result);
@@ -433,7 +433,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [parser addDataBuffer: newData];
     
-    IMAPResponse* response = nil;
+    IMAPParsedResponse* response = nil;
     IMAPParseResult result = [self.parser parseBuffer: &response];
         
     XCTAssertTrue(result == IMAPParseUnexpectedEnd, @"Parse result: %i", result);

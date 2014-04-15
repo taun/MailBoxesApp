@@ -8,19 +8,19 @@
 
 #import <XCTest/XCTest.h>
 
-#import "IMAPResponseBuffer.h"
+#import "IMAPResponseParser.h"
 #import "IMAPResponseDelegate.h"
 #import "IMAPClientStore.h"
 
-@interface IMAPResponseParserTests : XCTestCase <IMAPResponseDelegate, IMAPClientStore> {
-    IMAPResponseBuffer        *parser;
+@interface IMAPResponseParserTests : XCTestCase <IMAPParsedResponseDelegate, IMAPClientStore> {
+    IMAPResponseParser        *parser;
     BOOL                  saveAnswers;
     
     
     NSBundle            *testBundle;
 }
 
-@property (strong) IMAPResponseBuffer *parser;
+@property (strong) IMAPResponseParser *parser;
 @property (copy)     NSString         *actionCalled;
 
 

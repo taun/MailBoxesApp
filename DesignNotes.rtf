@@ -879,8 +879,20 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 	Need to go back to one permanent parser which keeps getting evaluated as long as there is a buffer with data.\
 	Put the evaluation dispatch the parser evaluation as blocks?\
 	Need to remove all of the parser stack and creation/removal code.\
-		\
-		\
+2014-04-11\
+	Working new IMAPClient. Much faster!\
+	Next\
+		* use NSTimer to start IDLE after X seconds of idle.\
+		Cancel timer after every transmission so it doesn't fire.\
+		Make sure when IDLE does fire, it sets a connectionState = IMAPIdle and send DONE command before next block command.\
+		Send DONE in net send command after test for IDLE\
+		* what is IDLE response? Write command to handle IDLE responses.\
+		
+\f1 \cb5 \uc0\u10003 
+\f5 \cb1  Block Recurse through folder structure.\
+		
+\f1 \cb5 \uc0\u10003 
+\f5 \cb1   queue a command block within the LIST command block to LIST the folders with HasChildren flag.\
 \
 \
 \
