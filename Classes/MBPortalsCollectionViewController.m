@@ -176,7 +176,6 @@
         mailBox = (MBox*)managedObject;
     }
     
-    [newPortal setName: [mailBox name]];
     [newPortal setMessageArraySource: mailBox];
     
     [self movePortal: newPortal toIndex: index];
