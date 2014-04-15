@@ -80,7 +80,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     __block NSError *error = nil;
     
     NSDictionary *substitutionDictionary = 
-    @{@"aUID": uid, @"ACCOUNTOBJECT": self.accountReference};
+    @{@"ACCOUNTOBJECT": self.accountReference, @"MBOXNAME": self.name ,@"aUID": uid};
     
     NSFetchRequest *fetchRequest = 
     [model fetchRequestFromTemplateWithName:@"MBMessageForUID"
