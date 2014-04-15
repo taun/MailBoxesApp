@@ -21,6 +21,7 @@
 #import "MBRFC2822.h"
 
 #import <MoedaeMailPlugins/NSString+IMAPConversions.h>
+#import <MoedaeMailPlugins/NSObject+TokenDispatch.h>
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -203,6 +204,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return YES;
 }
 
+/*
+Example
+
+ * XLIST (\HasNoChildren) "/" "GBSchool"
+ * XLIST (\HasChildren \Inbox) "/" "INBOX"
+ * XLIST (\NoInferiors \Spam) "/" "Junk"
+
+ */
 -(BOOL) setMailBoxFlags:(NSArray *)flagTokens onPath:(NSString *)fullPath withSeparator:(NSString *)aSeparator {
     __block MBox *mbox = nil;
     
@@ -215,45 +224,50 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
     }
     if (mbox) {
-        if ([flagTokens containsObject: @"\\NoInferiors"]) {
-            // flag folder
-        } else if ([flagTokens containsObject: @"\\Marked"]) {
-            //apply marked flag so sync can focus on marked folders first
-            mbox.isMarked = @YES;
-            
-        } else if ([flagTokens containsObject: @"\\All"]) {
-            //enable special use flag
-            mbox.specialUse = @"All";
-            
-        } else if ([flagTokens containsObject: @"\\Inbox"]) {
-            //enable special use flag
-            mbox.specialUse = @"Inbox";
-            
-        } else if ([flagTokens containsObject: @"\\Drafts"]) {
-            //enable special use flag
-            mbox.specialUse = @"Drafts";
-            
-        } else if ([flagTokens containsObject: @"\\Sent"]) {
-            //enable special use flag
-            mbox.specialUse = @"Sent";
-            
-        } else if ([flagTokens containsObject: @"\\Trash"]) {
-            //enable special use flag
-            mbox.specialUse = @"Trash";
-            
-        } else if ([flagTokens containsObject: @"\\Spam"]) {
-            //enable special use flag
-            mbox.specialUse = @"Spam";
-            
-        } else if ([flagTokens containsObject: @"\\Flagged"]) {
-            //enable special use flag 
-            // What is this one for?
+        
+        for (NSString* flag in flagTokens) {
+            //
+            [self performCleanedSelectorString: flag prefixedBy: @"setMBoxFlag" fallbackSelector: @"setMBoxFlagUnknown:" withObject: mbox];
         }
-
     }
     return YES;
 }
-
+-(void) setMBoxFlagUnknown: (MBox*)mbox {
+    DDLogCInfo(@"Unknown mailbox flag for: %@", mbox);
+}
+-(void) setMBoxFlagNoinferiors: (MBox*)mbox {
+    mbox.noInferiors = @YES;
+}
+-(void) setMBoxFlagMarked: (MBox*)mbox {
+    mbox.isMarked = @YES;
+}
+-(void) setMBoxFlagUnmarked: (MBox*)mbox {
+    mbox.isMarked = @NO;
+}
+-(void) setMBoxFlagNoselect: (MBox*)mbox {
+    mbox.noInferiors = @YES;
+}
+-(void) setMBoxFlagHaschildren: (MBox*)mbox {
+    mbox.isLeaf = @NO;
+}
+-(void) setMBoxFlagHasnochildren: (MBox*)mbox {
+    mbox.noInferiors = @YES;
+}
+-(void) setMBoxFlagInbox: (MBox*)mbox {
+    mbox.specialUse = @"Inbox";
+}
+-(void) setMBoxFlagDrafts: (MBox*)mbox {
+    mbox.specialUse = @"Drafts";
+}
+-(void) setMBoxFlagSpam: (MBox*)mbox {
+    mbox.specialUse = @"Spam";
+}
+-(void) setMBoxFlagSent: (MBox*)mbox {
+    mbox.specialUse = @"Sent";
+}
+-(void) setMBoxFlagTrash: (MBox*)mbox {
+    mbox.specialUse = @"Trash";
+}
 -(BOOL) setMailBox: (NSString *) fullPath AvailableFlags: (NSArray *) flagTokens {
     MBox* mbox = [self fetchMBox: fullPath];
     MBFlag *flag = nil;

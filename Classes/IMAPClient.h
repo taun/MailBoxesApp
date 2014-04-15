@@ -463,7 +463,7 @@ typedef UInt8 IMAPClientStates;
  of hierarchy are also returned.
  
  */
--(void) commandList;
+-(void) commandList: (NSString*) mboxPath;
 // TODO: GMail needs custom LIST/XLIST to handle labels and "[GMAIL]/..."
 // GMAIL does not have folders all 'folders' are labels.
 // TODO: utilize \Marked for syncs
@@ -495,7 +495,7 @@ typedef UInt8 IMAPClientStates;
  The current list of special folders is: Inbox, Starred, Sent Items, 
  Draft, Spam, All Mail. 
  */
--(void) commandXList;
+-(void) commandXList: (NSString*) mboxPath;
 
 /*!
  @method commandListExtended
@@ -505,7 +505,7 @@ typedef UInt8 IMAPClientStates;
  
  
 */
--(void) commandListExtended;
+-(void) commandListExtended: (NSString*) mboxPath;
 
 /*!
  Arguments:  reference name

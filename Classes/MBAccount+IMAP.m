@@ -144,6 +144,28 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return node;
 }
 
+- (NSArray *) fetchMissingChildren {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    NSManagedObjectModel *model = [[context persistentStoreCoordinator] managedObjectModel];
+    
+    __block NSError *error = nil;
+    
+    NSDictionary *substitutionDictionary =
+    @{@"ACCOUNTOBJECT": self};
+    
+    NSFetchRequest *fetchRequest =
+    [model fetchRequestFromTemplateWithName:@"MBFoldersNeedingChildren"
+                      substitutionVariables:substitutionDictionary];
+    
+    __block NSArray *fetchedObjects;
+    
+    [self.managedObjectContext performBlockAndWait:^{
+        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    }];
+    
+    return fetchedObjects;
+}
 
 /*!
  check if root or node exists?

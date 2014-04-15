@@ -50,6 +50,8 @@
 
 - (MBox *) fetchMBoxForPath: (NSString *) aPath;
 
+-(NSArray*) fetchMissingChildren;
+
 //-(NSError *) saveChanges;
 
 - (void)encodeWithCoder:(NSCoder *)coder;

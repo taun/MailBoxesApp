@@ -351,15 +351,27 @@ static NSUInteger  IMAPClientQueueCount = 0;
     IMAPClient* __weak weakSelf = self;
     
     [self addCommandBlock: ^() {
-        [weakSelf commandList];
+        [weakSelf commandList: @""];
     }];
     
 //    BOOL saveSuccess;
 //    NSError *saveError = nil;
 //    saveSuccess = [self.clientStore save: &saveError];
 }
+-(void) updateMissingFolders {
+    if ([self ensureOpenConnection]) {
+        NSArray* missingChildren = [self.clientStore.account fetchMissingChildren];
+        for (MBox* box in missingChildren) {
+            NSString* path = box.fullPath;
+            IMAPClient* __weak weakSelf = self;
+            
+            [self addCommandBlock: ^() {
+                [weakSelf commandList: path];
+            }];
+        }
+    }
+}
 -(void) updateLatestMessagesForMBox:(MBox *)mbox olderThan:(NSTimeInterval)time {
-    NSManagedObjectID* objectID = [mbox objectID];
     
     if ([self ensureOpenConnection]) {
  
@@ -1193,34 +1205,40 @@ static NSUInteger  IMAPClientQueueCount = 0;
  Add arguments in the future?
  Add default to xlist if it exists in capabilities?
  */
--(void) commandList {
+-(void) commandList: (NSString *) mboxPath {
     // Just always list the full directory structure
     if ([self hasCapability: @"XLIST"]) {
-        [self commandXList];
+        [self commandXList: mboxPath];
     } else {
         IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"LIST"];
-        [command copyAddArgument: @"\"\""];
+        [command copyAddArgument: [NSString stringWithFormat: @"\"%@\"",mboxPath]];
         [command copyAddArgument: @"%"];
-        [self queueCommand: command withSuccessBlock: NULL];
+        MBCommandBlock successBlock = ^() {
+            [self updateMissingFolders];
+        };
+        [self queueCommand: command withSuccessBlock: successBlock];
     }
 }
 
--(void) commandXList {
+-(void) commandXList: (NSString *) mboxPath {
     // Just always list the full directory structure
     if ([self hasCapability: @"XLIST"]) {
         IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"XLIST"];
-        [command copyAddArgument: @"\"\""];
+        [command copyAddArgument: [NSString stringWithFormat: @"\"%@\"",mboxPath]];
         [command copyAddArgument: @"%"];
-        [self queueCommand: command withSuccessBlock: NULL];
+        MBCommandBlock successBlock = ^() {
+            [self updateMissingFolders];
+        };
+        [self queueCommand: command withSuccessBlock: successBlock];
     } else {
-        [self commandList];
+        [self commandList: mboxPath];
     }
 }
 
 /*!
  No need for this with core data structure?
  */
--(void) commandListExtended {
+-(void) commandListExtended: (NSString*) mboxPath {
     
 }
 
