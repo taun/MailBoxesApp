@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
     <entity name="MBAccount" representedClassName="MBAccount" parentEntity="MBTreeNode">
         <attribute name="address" attributeType="String" maxValueString="64" defaultValueString="name@server.com">
             <userInfo/>
         </attribute>
+        <attribute name="connectionLimit" attributeType="Integer 16" minValueString="2" maxValueString="50" defaultValueString="4" syncable="YES"/>
         <attribute name="messageQuanta" attributeType="Integer 16" maxValueString="20000" defaultValueString="50">
             <userInfo/>
         </attribute>
@@ -314,7 +315,7 @@
         <attribute name="fullPath" attributeType="String" indexed="YES">
             <userInfo/>
         </attribute>
-        <attribute name="isMarked" optional="YES" attributeType="Boolean" defaultValueString="NO">
+        <attribute name="isMarked" attributeType="Boolean" defaultValueString="NO" indexed="YES">
             <userInfo/>
         </attribute>
         <attribute name="isReadWrite" optional="YES" attributeType="Boolean" defaultValueString="NO">
@@ -329,6 +330,8 @@
         <attribute name="lastSync" optional="YES" attributeType="Date">
             <userInfo/>
         </attribute>
+        <attribute name="noInferiors" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="noSelect" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="pathSeparator" optional="YES" attributeType="String" defaultValueString="/">
             <userInfo/>
         </attribute>
@@ -415,7 +418,7 @@
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isLeaf" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isLeaf" attributeType="Boolean" defaultValueString="YES" indexed="YES" syncable="YES"/>
         <attribute name="isOwner" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="childNodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MBTreeNode" inverseName="parentNodes" inverseEntity="MBTreeNode" syncable="YES"/>
@@ -447,16 +450,19 @@
     <entity name="MBViewPortalMBox" representedClassName="MBViewPortalMBox" parentEntity="MBViewPortal" syncable="YES"/>
     <entity name="MBViewPortalSelection" representedClassName="MBViewPortalSelection" parentEntity="MBViewPortal" syncable="YES"/>
     <entity name="MBViewPortalSmartFolder" representedClassName="MBViewPortalSmartFolder" parentEntity="MBViewPortal" syncable="YES"/>
-    <fetchRequest name="MBAddressForEmail" entity="MBAddress" predicateString="email == $EMAIL"/>
+    <fetchRequest name="MBAddressForEmail" entity="MBAddress" predicateString="email == $EMAIL" includePropertyValues="YES" includesPendingChanges="YES"/>
     <fetchRequest name="MBDParamNameValueFetch" entity="MBDispositionParameter" predicateString="name == $NAME AND value == $VALUE"/>
     <fetchRequest name="MBFlagForSName" entity="MBFlag" predicateString="serverAssignedName == $SNAME"/>
+    <fetchRequest name="MBFoldersNeedingChildren" entity="MBox" predicateString="accountReference == $ACCOUNTOBJECT AND isLeaf == 0 AND childNodes.@count == 0" includesPendingChanges="YES"/>
     <fetchRequest name="MBMessageEmptyPartsForUID" entity="MBMime" predicateString="messageReference.uid == $UID AND isLeaf == 1 AND data == nil"/>
-    <fetchRequest name="MBMessageForUID" entity="MBMessage" predicateString="uid == $aUID AND mbox.accountReference == $ACCOUNTOBJECT"/>
+    <fetchRequest name="MBMessageForSequence" entity="MBMessage" predicateString="mbox.accountReference == $ACCOUNTOBJECT AND mbox.name == $MBOXNAME AND sequence == $aSEQUENCE"/>
+    <fetchRequest name="MBMessageForUID" entity="MBMessage" predicateString="mbox.accountReference == $ACCOUNTOBJECT AND mbox.name == $MBOXNAME AND uid == $aUID" includePropertyValues="YES" includesPendingChanges="YES"/>
     <fetchRequest name="MBMParamNameValueFetch" entity="MBMimeParameter" predicateString="name == $NAME AND value == $VALUE"/>
     <fetchRequest name="MBoxForPath" entity="MBox" predicateString="fullPath == $PATH AND accountReference == $ACCOUNTOBJECT"/>
     <elements>
-        <element name="MBAccount" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="MBAccount" positionX="0" positionY="0" width="128" height="223"/>
         <element name="MBAccountType" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="MBAddress" positionX="18" positionY="162" width="128" height="238"/>
         <element name="MBAddressList" positionX="0" positionY="0" width="128" height="58"/>
         <element name="MBAttachment" positionX="0" positionY="0" width="128" height="105"/>
         <element name="MBDispositionParameter" positionX="0" positionY="0" width="128" height="90"/>
@@ -485,17 +491,16 @@
         <element name="MBMultiRelated" positionX="0" positionY="0" width="128" height="45"/>
         <element name="MBMultiSigned" positionX="0" positionY="0" width="128" height="75"/>
         <element name="MBNote" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="MBox" positionX="0" positionY="0" width="128" height="345"/>
+        <element name="MBox" positionX="0" positionY="0" width="128" height="373"/>
         <element name="MBPortal" positionX="0" positionY="0" width="128" height="120"/>
         <element name="MBRFC2822" positionX="0" positionY="0" width="128" height="75"/>
         <element name="MBSidebar" positionX="0" positionY="0" width="128" height="60"/>
         <element name="MBSmartFolder" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="MBTreeNode" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="MBTreeNode" positionX="0" positionY="0" width="128" height="178"/>
         <element name="MBUser" positionX="0" positionY="0" width="128" height="120"/>
         <element name="MBViewPortal" positionX="0" positionY="0" width="128" height="135"/>
         <element name="MBViewPortalMBox" positionX="0" positionY="0" width="128" height="45"/>
         <element name="MBViewPortalSelection" positionX="0" positionY="0" width="128" height="45"/>
         <element name="MBViewPortalSmartFolder" positionX="0" positionY="0" width="128" height="45"/>
-        <element name="MBAddress" positionX="18" positionY="162" width="128" height="238"/>
     </elements>
 </model>
