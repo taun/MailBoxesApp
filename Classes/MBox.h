@@ -2,7 +2,7 @@
 //  MBox.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 03/11/14.
+//  Created by Taun Chapman on 04/14/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -29,6 +29,8 @@
 @property (nonatomic, retain) NSNumber * serverUnseen;
 @property (nonatomic, retain) NSString * specialUse;
 @property (nonatomic, retain) NSString * uid;
+@property (nonatomic, retain) NSNumber * noInferiors;
+@property (nonatomic, retain) NSNumber * noSelect;
 @property (nonatomic, retain) MBAccount *accountReference;
 @property (nonatomic, retain) NSSet *availableFlags;
 @property (nonatomic, retain) MBMessage *lastChangedMessage;
