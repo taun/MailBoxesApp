@@ -256,7 +256,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 -(void) setParsedSummary: (id) tokenized {
 //    self.summary = [self checkAnd2047DecodeToken: tokenized];
-    self.summary = tokenized;
+//    self.summary = tokenized;
 }
 -(void) setParsedFlags: (id) tokenized {
     for (id token in tokenized) {
@@ -302,7 +302,23 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         if ([mimePart.bodyIndex caseInsensitiveCompare: partIdentity] == NSOrderedSame) {
             // found the correct part
             [mimePart addEncodedData: partData];
-            
+            BOOL isDecoded = [mimePart decode];
+            BOOL isTEXT = [mimePart.type caseInsensitiveCompare: @"TEXT"] == NSOrderedSame;
+            BOOL isPLAIN = [mimePart.subtype caseInsensitiveCompare: @"PLAIN"] == NSOrderedSame;
+            NSInteger index = [mimePart.bodyIndex integerValue];
+            if (isDecoded && isTEXT && (index == 1 || index == 0 || index == 1.1) ) {
+                //
+                NSString* compressed = [[[mimePart asAttributedStringWithOptions: nil attributes: nil] string] mdcCompressWitespace];
+                NSUInteger summaryLength = MIN(compressed.length, 200);
+                NSString* summary = [compressed substringToIndex: summaryLength];
+                
+                if (isPLAIN || ![self.summary isNonNilString]) {
+                    // some bodies will not have a PLAIN option so we set the summary anyhow.
+                    // if PLAIN is found, it may overwrite the non-PLAIN summary.
+                    // PLAIN is chosen for the summary as it is hoped it would be the best summary representation.
+                    self.summary = summary;
+                }
+            }
 //            if ([mimePart isKindOfClass:[MBMimeText class]]) {
 //                [self setDefaultContent: mimePart.data.encoded];
 //            }
