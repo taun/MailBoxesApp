@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1070" defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MBPortalViewController">
@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" focusRingType="none" borderWidth="0.0" title="Portal" boxType="custom" borderType="line" titlePosition="noTitle" id="2" userLabel="portalBox" customClass="MBPortalView">
-                    <rect key="frame" x="2" y="2" width="260" height="316.00000010051986"/>
+                    <rect key="frame" x="2" y="2.0000001103242071" width="260" height="316"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="260" height="316"/>
@@ -78,8 +78,8 @@
                                                 </binding>
                                             </connections>
                                         </searchField>
-                                        <button toolTip="Increase view detail" id="148">
-                                            <rect key="frame" x="0.0" y="18" width="14" height="16"/>
+                                        <button toolTip="Increase view detail" wantsLayer="YES" alphaValue="0.5" id="148">
+                                            <rect key="frame" x="13" y="15" width="14" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="square" title="Add Detail" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" id="149">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -90,8 +90,8 @@
                                                 <action selector="growTableRows:" target="-2" id="251"/>
                                             </connections>
                                         </button>
-                                        <button toolTip="Decrease view detail" id="150">
-                                            <rect key="frame" x="0.0" y="2" width="14" height="18"/>
+                                        <button toolTip="Decrease view detail" wantsLayer="YES" alphaValue="0.5" id="150">
+                                            <rect key="frame" x="13" y="-1" width="14" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="square" title="Remove detail" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" id="151">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -130,7 +130,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="260" height="274"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnResizing="NO" typeSelect="NO" autosaveName="autosaveMessageSelection" rowHeight="70" rowSizeStyle="automatic" viewBased="YES" id="204">
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" typeSelect="NO" autosaveName="autosaveMessageSelection" rowHeight="70" rowSizeStyle="automatic" viewBased="YES" id="204">
                                             <rect key="frame" x="0.0" y="0.0" width="260" height="274"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -252,12 +252,13 @@
                                                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                                             </dictionary>
                                                                         </binding>
+                                                                        <binding destination="209" name="toolTip" keyPath="objectValue.subject" id="zI6-1a-soZ"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <textField identifier="messageSummary" verticalHuggingPriority="750" id="233">
                                                                     <rect key="frame" x="12" y="0.0" width="242" height="32"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                                                    <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="MessageSummary" placeholderString="" allowsEditingTextAttributes="YES" id="234">
+                                                                    <textFieldCell key="cell" truncatesLastVisibleLine="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="MessageSummary" placeholderString="" allowsEditingTextAttributes="YES" id="234">
                                                                         <font key="font" size="11" name="MyriadPro-Regular"/>
                                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
