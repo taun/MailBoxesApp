@@ -860,11 +860,15 @@ static NSUInteger  IMAPClientQueueCount = 0;
 
 #pragma  mark - stream i/o
 /*!
+ self.parser is the client IMAPResponseParser.
+ The parser is given a current command in [queueCommand:] which assumes previous command is complete.
+ Command is queued from self.commandBlocks array [nextCommandBlock].
+ [nextCommandBlock] called by [parseComplete:] when there is no current command.
  */
 -(void) sendNextCommand {
     
     IMAPCommand* nextCommand = self.parser.command;
-    if (nextCommand) {
+    if (!nextCommand.isActive) {
         NSString* commandString = (NSString*) [nextCommand nextOutput];
         if (commandString) {
             self.isSpaceAvailable = NO;
@@ -982,6 +986,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     DDLogVerbose(@"[%@:%@ %@]; Save Status %i: info %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), parsedResponse.command.tag, success, parsedResponse.command.info);
     
     parsedResponse.command = nil;
+    self.parser.command = nil;
     if (self.commandBlocks.count > 0) {
         [self.commandBlocks removeObjectAtIndex: 0];
     }
@@ -1124,10 +1129,11 @@ static NSUInteger  IMAPClientQueueCount = 0;
     }
 }
 -(void) addCommandBlock: (MBCommandBlock) aBlock {
-    if (self.connectionState == IMAPAuthenticated && self.commandBlocks.count == 0) {
+    [self.commandBlocks addObject: aBlock];
+    // if connection has been idle, the count would be zero and the block needs to be evaluated now.
+    // on the other hand, do not evaluate right away if a command is underway.
+    if (self.connectionState == IMAPAuthenticated && !self.parser.command) {
         aBlock();
-    } else {
-        [self.commandBlocks addObject: aBlock];
     }
 }
 -(void) nextCommandBlock {
