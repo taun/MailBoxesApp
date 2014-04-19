@@ -43,6 +43,7 @@ typedef void (^MBCommandBlock)(void);
 @property (assign)      BOOL                hasLiteral;
 @property (strong)      NSData *            literal;
 @property (strong)      MBCommandBlock      successBlock;
+@property (strong)      MBCommandBlock      failBlock;
 
 @property (assign)      IMAPResponseStatus  responseStatus;
 

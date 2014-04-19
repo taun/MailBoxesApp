@@ -9,7 +9,6 @@
 #import "GCDAsyncSocket.h"
 
 #import "IMAPClient.h"
-#import "IMAPCommand.h"
 #import "IMAPCoreDataStore.h"
 
 #import "MBAccount+IMAP.h"
@@ -17,7 +16,6 @@
 #import "MBMessage+IMAP.h"
 #import "MBMime+IMAP.h"
 
-#import "IMAPParsedResponse.h"
 //#import "GCDAsyncSocket.h"
 
 #import "DDLog.h"
@@ -349,9 +347,13 @@ static NSUInteger  IMAPClientQueueCount = 0;
 }
 -(void) asyncUpdateAccountFolderStructure {
     IMAPClient* __weak weakSelf = self;
-    
+
+    MBCommandBlock successBlock = ^() {
+        [self updateMissingFolders];
+    };
+
     [self addCommandBlock: ^() {
-        [weakSelf commandList: @""];
+        [weakSelf commandList: @"" withSuccessBlock: successBlock withFailBlock: NULL];
     }];
     
 //    BOOL saveSuccess;
@@ -365,11 +367,48 @@ static NSUInteger  IMAPClientQueueCount = 0;
             NSString* path = box.fullPath;
             IMAPClient* __weak weakSelf = self;
             
+            MBCommandBlock successBlock = ^() {
+                [self updateMissingFolders];
+            };
+            
             [self addCommandBlock: ^() {
-                [weakSelf commandList: path];
+                [weakSelf commandList: path withSuccessBlock: successBlock withFailBlock: NULL];
             }];
         }
     }
+}
+-(void) updateLatestMessagesForMBox:(MBox *)mbox {
+    
+    if ([self ensureOpenConnection]) {
+        
+        [self asyncSelectMBox: mbox];
+        
+        DDLogCVerbose(@"[%@ %@]Getting headers for \"%@\"", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.clientStore.selectedMBox.fullPath);
+        
+        [self asyncUpdateLatestMessagesForMBox: mbox];
+    }
+}
+/*!
+ Get all the missing messages. Ultimately, this just needs to be a sync command.
+ It should get all status changes.
+ 
+ Work in progress. Avoid getting existing messages.
+ 
+ @param mbox the mailbox to select for the operation.
+ */
+-(void) asyncUpdateLatestMessagesForMBox:(MBox *)mbox {
+    IMAPClient* __weak weakSelf = self;
+    
+    [self addCommandBlock: ^() {
+        NSInteger endRange = [weakSelf.clientStore.selectedMBox.serverMessages integerValue];
+        if (endRange > 0) {
+            NSInteger initialRange = endRange - 20;
+            NSInteger startRange;
+            startRange = (initialRange < 1) ? 1 : initialRange;
+            
+            [weakSelf commandFetchHeadersStart: startRange end: endRange withSuccessBlock: NULL withFailBlock: NULL];
+        }
+    }];
 }
 -(void) updateLatestMessagesForMBox:(MBox *)mbox olderThan:(NSTimeInterval)time {
     
@@ -386,6 +425,20 @@ static NSUInteger  IMAPClientQueueCount = 0;
     NSManagedObjectID* objectID = [mbox objectID];
     
     IMAPClient* __weak weakSelf = self;
+    
+    MBCommandBlock failBlock = ^() {
+        self.clientStore.selectedMBox = nil;
+    };
+    
+    // The following takes way too long
+    // it is well under 1 second in terminal direct
+    // many minutes here. mostly due to core data search for each item before assigning?
+    // Need to do something like query CoreData for all UIDs as a list or set
+    // Then check for existance in the set rather than redoing the query every time.
+    MBCommandBlock successBlock = ^() {
+        [weakSelf commandFetchFullSequenceUIDMapWithSuccessBlock: NULL withFailBlock: NULL];
+    };
+
     [self addCommandBlock: ^() {
         
         MBox* localMbox = (MBox*)[weakSelf.clientStore mboxForObjectID: objectID];
@@ -394,7 +447,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
         
         // using full path string comparison to avoid potential issues with different contexts
         if (mboxFullPath && ![mboxFullPath isEqualToString: weakSelf.selectedMBoxPath]) {
-            [weakSelf commandSelect: mboxFullPath];
+            [weakSelf commandSelect: mboxFullPath withSuccessBlock: NULL withFailBlock: failBlock];
         }
     }];
 }
@@ -408,7 +461,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
             NSInteger startRange;
             startRange = (initialRange < 1) ? 1 : initialRange;
             
-            [weakSelf commandFetchHeadersStart: startRange end: endRange];
+            [weakSelf commandFetchHeadersStart: startRange end: endRange withSuccessBlock: NULL withFailBlock: NULL];
         }
     }];
 }
@@ -503,7 +556,13 @@ static NSUInteger  IMAPClientQueueCount = 0;
 -(void) asyncLoadFullMessage: (MBMessage*) message {
     
      // fetch the selected message plus seek +- by one
+    MBCommandBlock successBlock = NULL;
+
+    NSUInteger partCount = message.allParts.count;
+    NSUInteger partIndex = 0;
+    
     for (MBMime* part in message.allParts) {
+        ++partIndex;
         // doesn't handle partially loaded data
         // is network disconnect while loading
         // need to make sure data is always fully loaded before saving
@@ -513,8 +572,16 @@ static NSUInteger  IMAPClientQueueCount = 0;
                 
                 IMAPClient* __weak weakSelf = self;
                 
+                if (partIndex == partCount) {
+                    // last part
+                    successBlock = ^() {
+                        message.isFullyCached = @YES;
+                    };
+
+                }
+                
                 [self addCommandBlock: ^() {
-                    [weakSelf commandFetchContentForMessage: message mimeParts: bodyIndex];
+                    [weakSelf commandFetchContentForMessage: message mimeParts: bodyIndex withSuccessBlock: successBlock withFailBlock: NULL];
                 }];
             }
         }
@@ -542,10 +609,10 @@ static NSUInteger  IMAPClientQueueCount = 0;
 
                 IMAPClient* __weak weakSelf = self;
                 [self addCommandBlock: ^() {
-                    [weakSelf commandCapability];
+                    [weakSelf commandCapabilityWithSuccessBlock: NULL withFailBlock: NULL];
                 }];
                 [self addCommandBlock: ^() {
-                    [weakSelf commandLogin];
+                    [weakSelf commandLoginWithSuccessBlock: NULL withFailBlock: NULL];
                 }];
 
                 // TODO: test for error
@@ -742,7 +809,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
                         startRange = 1;
                         self.isFinished = YES;
                     }
-                    [self commandUIDFetchHeadersStart: startRange end: endRange];
+                    [self commandUIDFetchHeadersStart: startRange end: endRange withSuccessBlock: NULL withFailBlock: NULL];
                     // Lock the persistent store
                     saveSuccess = [self.clientStore save: &saveError];
                     if (saveSuccess) {
@@ -778,7 +845,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
         
         if (maxFillUid >= 1) {
             DDLogCVerbose(@"[%@ %@]Getting headers for \"%@\"", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.clientStore.selectedMBox.fullPath);
-            [self commandUIDFetchHeadersStart: startRange end: maxFillUid];
+            [self commandUIDFetchHeadersStart: startRange end: maxFillUid withSuccessBlock: NULL withFailBlock: NULL];
             // Lock the persistent store
             [self.clientStore save: &saveError];
             
@@ -982,8 +1049,14 @@ static NSUInteger  IMAPClientQueueCount = 0;
             successBlock();
         }
 
+    } else {
+        MBCommandBlock failBlock = parsedResponse.command.failBlock;
+        if (failBlock) {
+            failBlock();
+        }
+
     }
-    DDLogVerbose(@"[%@:%@ %@]; Save Status %i: info %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), parsedResponse.command.tag, success, parsedResponse.command.info);
+    DDLogVerbose(@"[%@:%@ Tag: %@; IMAPStatus: %@]; Save Status %i: info %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), parsedResponse.command.tag, [IMAPParsedResponse statusAsString: status], success, parsedResponse.command.info);
     
     parsedResponse.command = nil;
     self.parser.command = nil;
@@ -1120,10 +1193,10 @@ static NSUInteger  IMAPClientQueueCount = 0;
     self.commandIdentifier += 1;
     return [self commandTag];
 }
--(void) queueCommand: (IMAPCommand*)command withSuccessBlock: (MBCommandBlock) block {
+-(void) queueCommand: (IMAPCommand*)command withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     self.parser.command = command;
     self.parser.command.tag = [self nextCommandTag];
-    self.parser.command.successBlock = block;
+    self.parser.command.successBlock = successBlock;
     if (self.isSpaceAvailable) {
         [self sendNextCommand];
     }
@@ -1152,17 +1225,17 @@ static NSUInteger  IMAPClientQueueCount = 0;
  wait in runloop for responses to run to completion | commandDone or commandContinue ends runnLoop | remove command | return command
  Finish command tasks such as selected MailBox, release command
  */
--(void) commandCapability {
+-(void) commandCapabilityWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"CAPABILITY"];
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 
--(void) commandNoop {
+-(void) commandNoopWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"NOOP"];
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 
--(void) commandStartTLS{
+-(void) commandStartTLSWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock{
     // unimplemented as unnecessary?
 }
 /*!
@@ -1191,7 +1264,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
  LOGINDISABLED capability is advertised.
  */
 #pragma message "TODO: Check for LOGINDISABLED and report"
--(void) commandLogin {
+-(void) commandLoginWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     // Check for auth capabilities
     IMAPCommand* command = nil;
     if ([self hasCapability: @"AUTH=PLAIN"] || [self hasCapability: @"AUTH=LOGIN"]) {
@@ -1201,7 +1274,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
         MBCommandBlock successBlock = ^() {
             self.connectionState = IMAPAuthenticated;
         };
-        [self queueCommand: command withSuccessBlock: successBlock];
+        [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
     }
 }
 
@@ -1211,40 +1284,34 @@ static NSUInteger  IMAPClientQueueCount = 0;
  Add arguments in the future?
  Add default to xlist if it exists in capabilities?
  */
--(void) commandList: (NSString *) mboxPath {
+-(void) commandList: (NSString *) mboxPath withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     // Just always list the full directory structure
     if ([self hasCapability: @"XLIST"]) {
-        [self commandXList: mboxPath];
+        [self commandXList: mboxPath withSuccessBlock: NULL withFailBlock: NULL];
     } else {
         IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"LIST"];
         [command copyAddArgument: [NSString stringWithFormat: @"\"%@\"",mboxPath]];
         [command copyAddArgument: @"%"];
-        MBCommandBlock successBlock = ^() {
-            [self updateMissingFolders];
-        };
-        [self queueCommand: command withSuccessBlock: successBlock];
+        [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
     }
 }
 
--(void) commandXList: (NSString *) mboxPath {
+-(void) commandXList: (NSString *) mboxPath withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     // Just always list the full directory structure
     if ([self hasCapability: @"XLIST"]) {
         IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"XLIST"];
         [command copyAddArgument: [NSString stringWithFormat: @"\"%@\"",mboxPath]];
         [command copyAddArgument: @"%"];
-        MBCommandBlock successBlock = ^() {
-            [self updateMissingFolders];
-        };
-        [self queueCommand: command withSuccessBlock: successBlock];
+        [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
     } else {
-        [self commandList: mboxPath];
+        [self commandList: mboxPath withSuccessBlock: successBlock withFailBlock: failBlock];
     }
 }
 
 /*!
  No need for this with core data structure?
  */
--(void) commandListExtended: (NSString*) mboxPath {
+-(void) commandListExtended: (NSString*) mboxPath withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
@@ -1267,14 +1334,14 @@ static NSUInteger  IMAPClientQueueCount = 0;
  section 2.3.1.1 for more information.
  UNSEEN - The number of messages which do not have the \Seen flag set.
  */
--(void) commandStatus: (MBox *) mbox {
+-(void) commandStatus: (MBox *) mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"STATUS"];
     command.mbox = mbox;
     [command copyAddArgument: command.mbox.fullPath];
     [command copyAddArgument: @"(UIDVALIDITY"];
     [command copyAddArgument: @"MESSAGES"];
     [command copyAddArgument: @"UNSEEN)"];
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 
 #pragma message "TODO: IDLE will not complete until \"done\" is sent. results in a continue state."
@@ -1283,9 +1350,9 @@ static NSUInteger  IMAPClientQueueCount = 0;
 /*!
  
  */
--(void) commandIdle {
+-(void) commandIdleWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"IDLE"];
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
     // change state?
     // commands need to check state and send done then wait for completion
     // before new command executes. Add to command class?
@@ -1302,7 +1369,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
  
  */
 #pragma message "TODO: Check OK completion status before assigning selected mailbox."
--(void) commandSelect: (NSString *) mboxPath{
+-(void) commandSelect: (NSString *) mboxPath withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     //    MBox* previousSelectedMbox = self.clientStore.selectedMBox;
     
     // Start selection process for new selection
@@ -1316,9 +1383,31 @@ static NSUInteger  IMAPClientQueueCount = 0;
     command.mboxFullPath =  mboxPath;
     [command copyAddArgument: quotedPath];
     
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
--(void) commandFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange {
+-(void) commandFetchFullSequenceUIDMapWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
+    
+    UInt64 endRange = [self.clientStore.selectedMBox.serverMessages unsignedIntegerValue];
+    IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"FETCH"];
+    NSString *sequence = [NSString stringWithFormat: @"1:%llu", endRange];
+    [command copyAddArgument: sequence];
+    [command copyAddArgument: @"(UID)"];
+    command.mboxFullPath = self.clientStore.selectedMBox.fullPath;
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
+}
+-(void) commandFetchSequenceUIDMap: (UInt64) startRange end: (UInt64) endRange
+                  withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
+    
+    IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"FETCH"];
+    NSString *sequence = [NSString stringWithFormat: @"%llu:%llu", startRange, endRange];
+    [command copyAddArgument: sequence];
+    [command copyAddArgument: @"(UID)"];
+    command.mboxFullPath = self.clientStore.selectedMBox.fullPath;
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
+}
+-(void) commandFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange
+ withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
+    
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"FETCH"];
     NSString *sequence = [NSString stringWithFormat: @"%llu:%llu", startRange, endRange];
     [command copyAddArgument: sequence];
@@ -1328,10 +1417,12 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"RFC822.HEADER"];
     [command copyAddArgument: @"BODYSTRUCTURE)"];
     command.mboxFullPath = self.clientStore.selectedMBox.fullPath;
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 
--(void) commandFetchContentStart: (UInt64) startRange end: (UInt64) endRange {
+-(void) commandFetchContentStart: (UInt64) startRange end: (UInt64) endRange
+ withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
+    
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"FETCH"];
     NSString *sequence = [NSString stringWithFormat: @"%llu:%llu", startRange, endRange];
     [command copyAddArgument: sequence];
@@ -1340,15 +1431,17 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"RFC822.SIZE"];
     [command copyAddArgument: @"RFC822.HEADER)"];
     command.mboxFullPath = self.clientStore.selectedMBox.fullPath;
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
--(void) commandFetchContentForSequence:(UInt64)theSequence mimeParts:(NSString *)part {
+-(void) commandFetchContentForSequence:(UInt64)theSequence mimeParts:(NSString *)part
+ withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
+    
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"FETCH"];
     NSString *sequence = [NSString stringWithFormat: @"%llu", theSequence];
     [command copyAddArgument: sequence];
     [command copyAddArgument: [NSString stringWithFormat:@"(BODY[%@])", part]];
     command.mboxFullPath = self.clientStore.selectedMBox.fullPath;
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 
 // CommandFetch must always include UID to enable proper response parsing!
@@ -1366,7 +1459,9 @@ static NSUInteger  IMAPClientQueueCount = 0;
  
  uid fetch 100:110 (FLAGS BODYSTRUCTURE INTERNALDATE RFC822.SIZE ENVELOPE
  */
--(void) commandUIDFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange {
+-(void) commandUIDFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange
+ withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
+    
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"UID FETCH"];
     NSString *sequence = [NSString stringWithFormat: @"%llu:%llu", startRange, endRange];
     [command copyAddArgument: sequence];
@@ -1376,10 +1471,12 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"RFC822.HEADER"];
     [command copyAddArgument: @"BODYSTRUCTURE)"];
     command.mboxFullPath = self.clientStore.selectedMBox.fullPath;
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 
--(void) commandUIDFetchContentStart: (UInt64) startRange end: (UInt64) endRange {
+-(void) commandUIDFetchContentStart: (UInt64) startRange end: (UInt64) endRange
+ withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
+    
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"UID FETCH"];
     NSString *sequence = [NSString stringWithFormat: @"%llu:%llu", startRange, endRange];
     [command copyAddArgument: sequence];
@@ -1388,9 +1485,11 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"RFC822.SIZE"];
     [command copyAddArgument: @"RFC822.HEADER)"];
     command.mboxFullPath = self.clientStore.selectedMBox.fullPath;
-    [self queueCommand: command withSuccessBlock: NULL];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
--(void) commandFetchContentForMessage:(MBMessage*)message mimeParts:(NSString *)part {
+-(void) commandFetchContentForMessage:(MBMessage*)message mimeParts:(NSString *)part
+ withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
+    
     UInt64 muid = [message.uid longLongValue];
 
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"UID FETCH"];
@@ -1401,66 +1500,62 @@ static NSUInteger  IMAPClientQueueCount = 0;
     
 #pragma message "ToDo: add connection and download error detection and only set cached if sucessful"
     
-    MBCommandBlock successBlock = ^() {
-        message.isFullyCached = @YES;
-    };
-    
-    [self queueCommand: command withSuccessBlock: successBlock];
+    [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 
--(void) commandLogout {
+-(void) commandLogoutWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandAuthenticate {
+-(void) commandAuthenticateWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandExamine:(MBox *)mbox {
+-(void) commandExamine:(MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandCreate:(MBox *)mbox {
+-(void) commandCreate:(MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandDelete:(MBox *)mbox {
+-(void) commandDelete:(MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandRename:(MBox *)mbox to:(NSString *)newName {
+-(void) commandRename:(MBox *)mbox to:(NSString *)newName withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandSubscribe:(MBox *)mbox {
+-(void) commandSubscribe:(MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandUnSubscribe:(MBox *)mbox {
+-(void) commandUnSubscribe:(MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandLsub {
+-(void) commandLsubWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandAppend:(MBox *)mbox {
+-(void) commandAppend:(MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandCheck {
+-(void) commandCheckWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandClose {
+-(void) commandCloseWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandExpunge {
+-(void) commandExpungeWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandSearch {
+-(void) commandSearchWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
@@ -1469,15 +1564,15 @@ static NSUInteger  IMAPClientQueueCount = 0;
 //}
 
 
--(void) commandStore {
+-(void) commandStoreWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandCopy {
+-(void) commandCopyWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 
--(void) commandUid {
+-(void) commandUidWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
 }
 

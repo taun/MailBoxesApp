@@ -9,6 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "IMAPResponseDelegate.h"
 #import "IMAPResponseParser.h"
+#import "IMAPParsedResponse.h"
+#import "IMAPCommand.h"
+
 #import "MBAccountsCoordinator.h"
 
 @class GCDAsyncSocket;
@@ -259,6 +262,7 @@ typedef UInt8 IMAPClientStates;
 /// @name High Level App Methods
 //-(void) refreshAll;
 -(void) updateAccountFolderStructure;
+-(void) updateLatestMessagesForMBox: (MBox*) mbox;
 -(void) updateLatestMessagesForMBox: (MBox*) mbox
                           olderThan: (NSTimeInterval)time;
 -(void) loadFullMessage: (MBMessage*) message;
@@ -279,7 +283,7 @@ typedef UInt8 IMAPClientStates;
  Result:     OK - capability completed
              BAD - command unknown or arguments invalid
  */
--(void) commandCapability;
+-(void) commandCapabilityWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 /*!
@@ -290,7 +294,7 @@ typedef UInt8 IMAPClientStates;
  Result:     OK - noop completed
              BAD - command unknown or arguments invalid
  */
--(void) commandNoop;
+-(void) commandNoopWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 /*!
@@ -301,7 +305,7 @@ typedef UInt8 IMAPClientStates;
  Responses:  REQUIRED untagged response: BYE
  Result:     OK - logout completed
  BAD - command unknown or arguments invalid */
--(void) commandLogout;
+-(void) commandLogoutWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 /*!
@@ -316,7 +320,7 @@ typedef UInt8 IMAPClientStates;
  Result:     OK - starttls completed, begin TLS negotiation
  BAD - command unknown or arguments invalid
  */
--(void) commandStartTLS;
+-(void) commandStartTLSWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 /*!
@@ -331,7 +335,7 @@ typedef UInt8 IMAPClientStates;
  BAD - command unknown or arguments invalid,
  authentication exchange cancelled
  */
--(void) commandAuthenticate;
+-(void) commandAuthenticateWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 /*!
@@ -344,7 +348,7 @@ typedef UInt8 IMAPClientStates;
  Result:     OK - login completed, now in authenticated state
  NO - login failure: user name or password rejected
  BAD - command unknown or arguments invalid */
--(void) commandLogin;
+-(void) commandLoginWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 #pragma mark - authenticated state
@@ -362,7 +366,7 @@ typedef UInt8 IMAPClientStates;
  @param mboxPath full mail box IMAP path as a NSString
  
  */
--(void) commandSelect: (NSString *) mboxPath;
+-(void) commandSelect: (NSString *) mboxPath withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 /*!
@@ -375,7 +379,7 @@ typedef UInt8 IMAPClientStates;
  
  @param mbox the Core Data MBox object to examine.
  */
--(void) commandExamine: (MBox *)mbox;
+-(void) commandExamine: (MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 /*!
@@ -387,7 +391,7 @@ typedef UInt8 IMAPClientStates;
  
  @param mbox the Core Data MBox object to create.
  */
--(void) commandCreate: (MBox *)mbox;
+-(void) commandCreate: (MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 
@@ -400,7 +404,7 @@ typedef UInt8 IMAPClientStates;
  
  @param mbox the Core Data MBox object to delete.
 */
--(void) commandDelete: (MBox *)mbox;
+-(void) commandDelete: (MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 /*!
@@ -413,7 +417,7 @@ typedef UInt8 IMAPClientStates;
  @param mbox the Core Data MBox object to rename.
  @param newName new mailbox name
 */
--(void) commandRename: (MBox *)mbox to: (NSString *) newName;
+-(void) commandRename: (MBox *)mbox to: (NSString *) newName withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 /*!
@@ -425,7 +429,7 @@ typedef UInt8 IMAPClientStates;
  
  @param mbox the Core Data MBox object to subscribe.
  */
--(void) commandSubscribe: (MBox *)mbox;
+-(void) commandSubscribe: (MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  Responses:  no specific responses for this command
@@ -436,7 +440,7 @@ typedef UInt8 IMAPClientStates;
 
  @param mbox the Core Data MBox object to unsubscribe.
  */
--(void) commandUnSubscribe: (MBox *)mbox;
+-(void) commandUnSubscribe: (MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  @method commandList
@@ -463,7 +467,7 @@ typedef UInt8 IMAPClientStates;
  of hierarchy are also returned.
  
  */
--(void) commandList: (NSString*) mboxPath;
+-(void) commandList: (NSString*) mboxPath withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 // TODO: GMail needs custom LIST/XLIST to handle labels and "[GMAIL]/..."
 // GMAIL does not have folders all 'folders' are labels.
 // TODO: utilize \Marked for syncs
@@ -495,7 +499,7 @@ typedef UInt8 IMAPClientStates;
  The current list of special folders is: Inbox, Starred, Sent Items, 
  Draft, Spam, All Mail. 
  */
--(void) commandXList: (NSString*) mboxPath;
+-(void) commandXList: (NSString*) mboxPath withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  @method commandListExtended
@@ -505,7 +509,7 @@ typedef UInt8 IMAPClientStates;
  
  
 */
--(void) commandListExtended: (NSString*) mboxPath;
+-(void) commandListExtended: (NSString*) mboxPath withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  Arguments:  reference name
@@ -514,7 +518,7 @@ typedef UInt8 IMAPClientStates;
  Result:     OK - lsub completed
  NO - lsub failure: can’t list that reference or name
  BAD - command unknown or arguments invalid */
--(void) commandLsub;
+-(void) commandLsubWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  Responses:  untagged responses: STATUS
@@ -525,7 +529,7 @@ typedef UInt8 IMAPClientStates;
  
  @param mbox the Core Data MBox object.
  */
--(void) commandStatus: (MBox *)mbox;
+-(void) commandStatus: (MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  OPTIONAL flag parenthesized list
@@ -540,7 +544,7 @@ typedef UInt8 IMAPClientStates;
  
  @param mbox the Core Data MBox object to append.
  */
--(void) commandAppend: (MBox *)mbox;
+-(void) commandAppend: (MBox *)mbox withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 #pragma mark - selected state
 /// @name Selected State
@@ -556,7 +560,7 @@ typedef UInt8 IMAPClientStates;
  Result:     OK - check completed
              BAD - command unknown or arguments invalid
  */
--(void) commandCheck;
+-(void) commandCheckWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  CLOSE Command
@@ -568,7 +572,7 @@ typedef UInt8 IMAPClientStates;
  Result:     OK - close completed, now in authenticated state
              BAD - command unknown or arguments invalid
  */
--(void) commandClose;
+-(void) commandCloseWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  EXPUNGE Command
@@ -581,7 +585,7 @@ typedef UInt8 IMAPClientStates;
              NO - expunge failure: can’t expunge (e.g., permission denied)
              BAD - command unknown or arguments invalid
  */
--(void) commandExpunge;
+-(void) commandExpungeWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  SEARCH Command
@@ -593,7 +597,7 @@ typedef UInt8 IMAPClientStates;
  criteria
  BAD - command unknown or arguments invalid
  */
--(void) commandSearch;
+-(void) commandSearchWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  FETCH Command
@@ -612,12 +616,13 @@ typedef UInt8 IMAPClientStates;
  @param endRange an IMAP UID
  */
 //-(void) commandFetch;
--(void) commandFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange;
--(void) commandFetchContentStart: (UInt64) startRange end: (UInt64) endRange;
--(void) commandFetchContentForSequence:(UInt64)theSequence mimeParts:(NSString *)part;
--(void) commandUIDFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange;
--(void) commandUIDFetchContentStart: (UInt64) startRange end: (UInt64) endRange;
--(void) commandFetchContentForMessage: (MBMessage*) message mimeParts: (NSString*) part;
+-(void) commandFetchSequenceUIDMap: (UInt64) startRange end: (UInt64) endRange withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
+-(void) commandFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
+-(void) commandFetchContentStart: (UInt64) startRange end: (UInt64) endRange withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
+-(void) commandFetchContentForSequence:(UInt64)theSequence mimeParts:(NSString *)part withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
+-(void) commandUIDFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
+-(void) commandUIDFetchContentStart: (UInt64) startRange end: (UInt64) endRange withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
+-(void) commandFetchContentForMessage: (MBMessage*) message mimeParts: (NSString*) part withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  STORE Command
@@ -631,7 +636,7 @@ typedef UInt8 IMAPClientStates;
              BAD - command unknown or arguments invalid
  
  */
--(void) commandStore;
+-(void) commandStoreWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  COPY Command
@@ -645,7 +650,7 @@ typedef UInt8 IMAPClientStates;
              BAD - command unknown or arguments invalid
  
  */
--(void) commandCopy;
+-(void) commandCopyWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 /*!
  UID Command
@@ -659,9 +664,9 @@ typedef UInt8 IMAPClientStates;
              BAD - command unknown or arguments invalid
  
  */
--(void) commandUid;
+-(void) commandUidWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
--(void) commandIdle;
+-(void) commandIdleWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 
 
 

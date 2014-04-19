@@ -27,6 +27,7 @@
  */
 -(instancetype) initWithAccount: (MBAccount*) account;
 -(void) updateAccountFolderStructure;
+-(void) updateLatestMessagesForMBox: (MBox*) mbox;
 -(void) updateLatestMessagesForMBox: (MBox*) mbox olderThan: (NSTimeInterval)time;
 -(void) loadFullMessage:(MBMessage*) message;
 -(void) closeAll;

@@ -26,7 +26,7 @@
     MBox* mbox = (MBox*)self.messageArraySource;
     MBAccount* account = mbox.accountReference;
     MBAccountsCoordinator* accountCoord = [MBAccountsCoordinator sharedInstanceForUser: account.user];
-    [accountCoord updateLatestMessagesForAccount: account mbox: mbox olderThan: 7*24*60*60];
+    [accountCoord updateLatestMessagesForAccount: account mbox: mbox];
 
 }
 @end

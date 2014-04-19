@@ -463,8 +463,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self generateBodyIndexes: newPart rIndex: 0];
         }
 //        newPart.bodyIndex = [NSString stringWithFormat: @"%u", partIndex];
-        [childNodes addObject: newPart];
-        [allParts addObject: newPart];
+        BOOL alreadyExists = NO;
+        for (MBMime* existingPart in allParts) {
+            if ([existingPart.bodyIndex isEqualToString: newPart.bodyIndex]) {
+//                alreadyExists = YES;
+            }
+        }
+        if (!alreadyExists) {
+            [childNodes addObject: newPart];
+            [allParts addObject: newPart];
+        }
     } else {
         DDLogVerbose(@"%@ problem creating a new mime part.", NSStringFromSelector(_cmd));                
     }

@@ -68,6 +68,14 @@
 -(void) updateFolderStructureForAllAccounts;
 -(void) updateFolderStructureForAccount: (MBAccount*) account;
 /*!
+ Sync messages from account mailbox.
+ 
+ @param account account object
+ @param mbox    mbox object
+ */
+-(void) updateLatestMessagesForAccount: (MBAccount*) account
+                                  mbox: (MBox*) mbox;
+/*!
  Get messages from account mailbox newer than time.
  
  @param account account object

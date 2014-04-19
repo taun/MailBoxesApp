@@ -66,6 +66,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void) updateAccountFolderStructure {
     [self.rootClient updateAccountFolderStructure];
 }
+-(void) updateLatestMessagesForMBox: (MBox*) mbox {
+    if (mbox) {
+        IMAPClient* client = [self clientForSelectedBox: mbox];
+        if (client) {
+            [client updateLatestMessagesForMBox: mbox];
+        }
+    }
+}
 -(void) updateLatestMessagesForMBox: (MBox*) mbox
                           olderThan: (NSTimeInterval)time {
     if (mbox) {

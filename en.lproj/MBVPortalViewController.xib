@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" focusRingType="none" borderWidth="0.0" title="Portal" boxType="custom" borderType="line" titlePosition="noTitle" id="2" userLabel="portalBox" customClass="MBPortalView">
-                    <rect key="frame" x="2" y="2.0000001103242071" width="260" height="316"/>
+                    <rect key="frame" x="2" y="2" width="260" height="316"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="260" height="316"/>
@@ -200,7 +200,7 @@
                                                                     <rect key="frame" x="12" y="53" width="176" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="From" usesSingleLineMode="YES" id="228">
-                                                                        <font key="font" size="13" name="MyriadPro-Bold"/>
+                                                                        <font key="font" size="13" name="MyriadPro-Semibold"/>
                                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -238,7 +238,7 @@
                                                                 <textField identifier="subject" verticalHuggingPriority="750" id="210">
                                                                     <rect key="frame" x="12" y="33" width="242" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Subject" placeholderString="A Message Subject line" usesSingleLineMode="YES" id="211">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Subject" placeholderString="A Message Subject line" usesSingleLineMode="YES" id="211">
                                                                         <font key="font" size="13" name="MyriadPro-SemiboldIt"/>
                                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

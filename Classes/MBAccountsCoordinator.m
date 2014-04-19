@@ -86,6 +86,15 @@ static dispatch_once_t once_token = 0;
     }
 }
 -(void) updateLatestMessagesForAccount: (MBAccount*) account
+                                  mbox: (MBox*) mbox {
+    
+    MBAccountConnectionsCoordintator* connCoord = [self connectionCoordinatorForAccount: account];
+    
+    if (connCoord) {
+        [connCoord updateLatestMessagesForMBox: mbox];
+    }
+}
+-(void) updateLatestMessagesForAccount: (MBAccount*) account
                                   mbox: (MBox*) mbox
                              olderThan: (NSTimeInterval)time {
     
