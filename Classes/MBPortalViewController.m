@@ -85,7 +85,7 @@ CGFloat ONEROW = 18.0;
         if (boxColor && [boxColor isKindOfClass: [NSColor class]]) {
             MBPortalView* pview = [[self.view subviews] firstObject];
             if (pview) {
-                [pview setBorderColor: boxColor];
+                [self changePortal: pview toColor: boxColor];
             }
         }
     }
@@ -161,16 +161,49 @@ CGFloat ONEROW = 18.0;
 -(void) contentUpdated {
     
 }
-
+-(void) changePortal: (MBPortalView*) pview toColor: (NSColor*) newColor {
+    if (pview) {
+        CGFloat hue;
+        CGFloat saturation;
+        CGFloat brightness;
+        CGFloat alpha;
+        [newColor getHue: &hue saturation: &saturation brightness: &brightness alpha: &alpha];
+        
+        NSColor* brightColor = [NSColor colorWithDeviceHue: hue saturation: saturation brightness: brightness alpha: alpha];
+        NSColor* lowColor = [NSColor colorWithDeviceHue: hue saturation: 0.1 brightness: brightness alpha: alpha];
+        [pview setBorderColor: brightColor];
+        [pview setFillColor: lowColor];
+//        [self.labelUnderline setBorderColor: alphaColor];
+//        [self.labelUnderline setFillColor: alphaColor];
+    }
+}
 - (IBAction)changePortalColor:(id)sender {
     MBViewPortal* item = (MBViewPortal*) self.representedObject;
     MBPortalView* pview = [[self.view subviews] firstObject];
     if (pview) {
         NSColor* newColor = [NSColor redColor];
-        NSColor* alphaColor = [newColor colorWithAlphaComponent: 0.5];
-        [pview setBorderColor: alphaColor];
-        [item setColor: alphaColor];
+        [self changePortal: pview toColor: newColor];
+        [item setColor: newColor];
 //        [self.labelUnderline setBorderColor: alphaColor];
+    }
+}
+
+- (IBAction)togglePortalControls:(id)sender {
+    if (self.portalSearchView.isHidden) {
+        [self.portalSearchView setHidden: NO];
+        [self.portalSearchView setContentCompressionResistancePriority: 750 forOrientation: NSLayoutConstraintOrientationVertical];
+        [self.portalRowPlusView setHidden: NO];
+        [self.portalRowPlusView setContentCompressionResistancePriority: 750 forOrientation: NSLayoutConstraintOrientationVertical];
+        [self.portalRowMinusView setHidden: NO];
+        [self.portalRowMinusView setContentCompressionResistancePriority: 750 forOrientation: NSLayoutConstraintOrientationVertical];
+    } else {
+        [self.labelUnderline setHidden: YES];
+        [self.portalSearchView setHidden: YES];
+        [self.portalSearchView setContentCompressionResistancePriority: 1 forOrientation: NSLayoutConstraintOrientationVertical];
+        [self.portalRowPlusView setHidden: YES];
+        [self.portalRowPlusView setContentCompressionResistancePriority: 1 forOrientation: NSLayoutConstraintOrientationVertical];
+        [self.portalRowMinusView setHidden: YES];
+        [self.portalRowMinusView setContentCompressionResistancePriority: 1 forOrientation: NSLayoutConstraintOrientationVertical];
     }
 }
 

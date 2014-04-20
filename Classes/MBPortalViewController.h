@@ -39,10 +39,14 @@
 @property (strong) IBOutlet     NSTableView             *tableView;
 @property (weak) IBOutlet       NSBox                   *labelUnderline;
 
+@property (weak) IBOutlet NSSearchField *portalSearchView;
+@property (weak) IBOutlet NSButton      *portalRowPlusView;
+@property (weak) IBOutlet NSButton      *portalRowMinusView;
 
 -(void) contentUpdated;
 
 - (IBAction)changePortalColor:(id)sender;
+- (IBAction)togglePortalControls:(id)sender;
 
 - (IBAction)growTableRows:(id)sender;
 - (IBAction)shrinkTableRows:(id)sender;
