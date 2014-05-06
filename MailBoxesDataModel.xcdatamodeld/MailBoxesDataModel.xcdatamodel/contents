@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
     <entity name="MBAccount" representedClassName="MBAccount" parentEntity="MBTreeNode">
         <attribute name="address" attributeType="String" maxValueString="64" defaultValueString="name@server.com">
             <userInfo/>
@@ -288,8 +288,8 @@
         <attribute name="boundary" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MBMimeParameter" representedClassName="MBMimeParameter" syncable="YES">
-        <attribute name="name" attributeType="String" minValueString="1" maxValueString="100" syncable="YES"/>
-        <attribute name="value" optional="YES" attributeType="String" maxValueString="100" syncable="YES"/>
+        <attribute name="name" attributeType="String" minValueString="1" maxValueString="400" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="mime" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MBMime" inverseName="parameters" inverseEntity="MBMime" syncable="YES"/>
     </entity>
     <entity name="MBMimeText" representedClassName="MBMimeText" parentEntity="MBMime" syncable="YES"/>
@@ -321,13 +321,13 @@
         <attribute name="isReadWrite" optional="YES" attributeType="Boolean" defaultValueString="NO">
             <userInfo/>
         </attribute>
-        <attribute name="lastSeenUID" optional="YES" attributeType="Integer 64" defaultValueString="1" indexed="YES">
-            <userInfo/>
-        </attribute>
         <attribute name="lastSelected" optional="YES" attributeType="Date">
             <userInfo/>
         </attribute>
         <attribute name="lastSync" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="maxCachedUID" optional="YES" attributeType="Integer 64" defaultValueString="1" indexed="YES">
             <userInfo/>
         </attribute>
         <attribute name="noInferiors" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -354,7 +354,7 @@
         <attribute name="specialUse" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
-        <attribute name="uid" optional="YES" attributeType="String" indexed="YES">
+        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES">
             <userInfo/>
         </attribute>
         <relationship name="accountReference" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MBAccount" inverseName="allNodes" inverseEntity="MBAccount" indexed="YES">
@@ -420,7 +420,7 @@
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isLeaf" attributeType="Boolean" defaultValueString="YES" indexed="YES" syncable="YES"/>
         <attribute name="isOwner" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="childNodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MBTreeNode" inverseName="parentNodes" inverseEntity="MBTreeNode" syncable="YES"/>
         <relationship name="contentViews" optional="YES" toMany="YES" maxCount="10" deletionRule="Cascade" destinationEntity="MBViewPortal" inverseName="messageArraySource" inverseEntity="MBViewPortal" syncable="YES"/>
         <relationship name="parentNodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MBTreeNode" inverseName="childNodes" inverseEntity="MBTreeNode" syncable="YES"/>
@@ -456,21 +456,23 @@
     <fetchRequest name="MBFoldersNeedingChildren" entity="MBox" predicateString="accountReference == $ACCOUNTOBJECT AND isLeaf == 0 AND childNodes.@count == 0" includesPendingChanges="YES"/>
     <fetchRequest name="MBMessageEmptyPartsForUID" entity="MBMime" predicateString="messageReference.uid == $UID AND isLeaf == 1 AND data == nil"/>
     <fetchRequest name="MBMessageForSequence" entity="MBMessage" predicateString="mbox.accountReference == $ACCOUNTOBJECT AND mbox.name == $MBOXNAME AND sequence == $aSEQUENCE"/>
-    <fetchRequest name="MBMessageForUID" entity="MBMessage" predicateString="mbox.accountReference == $ACCOUNTOBJECT AND mbox.name == $MBOXNAME AND uid == $aUID" includePropertyValues="YES" includesPendingChanges="YES"/>
+    <fetchRequest name="MBMessageForUID" entity="MBMessage" predicateString="mbox == $MBOXOBJECT AND uid == $aUID" includePropertyValues="YES" includesPendingChanges="YES"/>
     <fetchRequest name="MBMParamNameValueFetch" entity="MBMimeParameter" predicateString="name == $NAME AND value == $VALUE"/>
     <fetchRequest name="MBoxForPath" entity="MBox" predicateString="fullPath == $PATH AND accountReference == $ACCOUNTOBJECT"/>
+    <fetchRequest name="MBUIDsForMBox" entity="MBMessage" predicateString="mbox == $MBOXOBJECT" resultType="2"/>
+    <fetchRequest name="MBUIDsNotFullyCachedForMBox" entity="MBMessage" predicateString="mbox == $MBOXOBJECT AND isFullyCached == 0" resultType="2"/>
     <elements>
-        <element name="MBAccount" positionX="0" positionY="0" width="128" height="223"/>
+        <element name="MBAccount" positionX="0" positionY="0" width="128" height="225"/>
         <element name="MBAccountType" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="MBAddress" positionX="18" positionY="162" width="128" height="238"/>
-        <element name="MBAddressList" positionX="0" positionY="0" width="128" height="58"/>
+        <element name="MBAddress" positionX="0" positionY="0" width="128" height="240"/>
+        <element name="MBAddressList" positionX="0" positionY="0" width="128" height="60"/>
         <element name="MBAttachment" positionX="0" positionY="0" width="128" height="105"/>
         <element name="MBDispositionParameter" positionX="0" positionY="0" width="128" height="90"/>
         <element name="MBFavorites" positionX="0" positionY="0" width="128" height="45"/>
         <element name="MBFlag" positionX="0" positionY="0" width="128" height="150"/>
         <element name="MBGroup" positionX="0" positionY="0" width="128" height="60"/>
         <element name="MBLabel" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="MBMessage" positionX="0" positionY="0" width="128" height="538"/>
+        <element name="MBMessage" positionX="0" positionY="0" width="128" height="540"/>
         <element name="MBMime" positionX="0" positionY="0" width="128" height="450"/>
         <element name="MBMimeApplication" positionX="0" positionY="0" width="128" height="45"/>
         <element name="MBMimeAudio" positionX="0" positionY="0" width="128" height="45"/>
@@ -479,7 +481,7 @@
         <element name="MBMimeImage" positionX="0" positionY="0" width="128" height="45"/>
         <element name="MBMimeMedia" positionX="0" positionY="0" width="128" height="45"/>
         <element name="MBMimeMulti" positionX="0" positionY="0" width="128" height="60"/>
-        <element name="MBMimeParameter" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="MBMimeParameter" positionX="0" positionY="0" width="128" height="30"/>
         <element name="MBMimeText" positionX="0" positionY="0" width="128" height="45"/>
         <element name="MBMimeVideo" positionX="0" positionY="0" width="128" height="45"/>
         <element name="MBMultiAlternative" positionX="0" positionY="0" width="128" height="45"/>
@@ -496,7 +498,7 @@
         <element name="MBRFC2822" positionX="0" positionY="0" width="128" height="75"/>
         <element name="MBSidebar" positionX="0" positionY="0" width="128" height="60"/>
         <element name="MBSmartFolder" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="MBTreeNode" positionX="0" positionY="0" width="128" height="178"/>
+        <element name="MBTreeNode" positionX="0" positionY="0" width="128" height="180"/>
         <element name="MBUser" positionX="0" positionY="0" width="128" height="120"/>
         <element name="MBViewPortal" positionX="0" positionY="0" width="128" height="135"/>
         <element name="MBViewPortalMBox" positionX="0" positionY="0" width="128" height="45"/>
