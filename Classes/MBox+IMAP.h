@@ -43,6 +43,7 @@
  */
 - (MBMessage *)getMBMessageWithUID:(NSNumber *)uid 
                    createIfMissing:(BOOL)create;
+- (MBMessage *)newMBMessageWithUID:(NSNumber *)uid;
 
 /*!
  Empties the mail box but does not save the context.
@@ -55,7 +56,11 @@
 
 - (MBFlag *) findFlagForServerName: (NSString *) serverName;
 
--(NSNumber*) lowestUID;
+- (NSSet*) allUIDS;
+
+- (NSSet*) allUIDSForNotFullyCached;
+
+- (NSNumber*) lowestUID;
 
 - (void)encodeWithCoder:(NSCoder *)coder;
 

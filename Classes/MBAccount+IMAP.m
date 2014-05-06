@@ -9,6 +9,7 @@
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
 #import "NSManagedObject+Shortcuts.h"
+#import "MailBoxesAppDelegate.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -79,7 +80,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (id) initWithCoder:(NSCoder *)coder {
-    NSManagedObjectContext* moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext* moc = [(MailBoxesAppDelegate*)[NSApp delegate] mainObjectContext];
     if (moc) {
         self = [NSEntityDescription
                 insertNewObjectForEntityForName: NSStringFromClass([self class])
@@ -145,22 +146,22 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (NSArray *) fetchMissingChildren {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    
-    NSManagedObjectModel *model = [[context persistentStoreCoordinator] managedObjectModel];
-    
-    __block NSError *error = nil;
-    
-    NSDictionary *substitutionDictionary =
-    @{@"ACCOUNTOBJECT": self};
-    
-    NSFetchRequest *fetchRequest =
-    [model fetchRequestFromTemplateWithName:@"MBFoldersNeedingChildren"
-                      substitutionVariables:substitutionDictionary];
     
     __block NSArray *fetchedObjects;
     
     [self.managedObjectContext performBlockAndWait:^{
+        NSManagedObjectContext *context = [self managedObjectContext];
+        
+        NSManagedObjectModel *model = [[context persistentStoreCoordinator] managedObjectModel];
+        
+        NSError *error = nil;
+        
+        NSDictionary *substitutionDictionary =
+        @{@"ACCOUNTOBJECT": self};
+        
+        NSFetchRequest *fetchRequest =
+        [model fetchRequestFromTemplateWithName:@"MBFoldersNeedingChildren"
+                          substitutionVariables:substitutionDictionary];
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     }];
     

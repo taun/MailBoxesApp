@@ -393,10 +393,10 @@ Command: uid fetch 1:"UIDNEXTValue" (uid)\
 returns a very fast list of all UIDs. This list would show which messages exist and which don't. This can be used to detect purged messages. How about moved messages? Each folder has it's own range of UIDs. Use NSSet functions to check for missing messages? Create a set from all of the responses then when command is complete, compare Core Data set to response set. Need a way to queue a post command command? Use a block.\
 \
 Initial sync:\
-	Select folder and save UIDNext & UIDValidity response (Compare UIDValidity and if different, set lastSeenUID to 1)\
-	Fetch Envelopes from lastSeenUID:serverUIDNext - lastSeenUID defaults to 1\
+	Select folder and save UIDNext & UIDValidity response (Compare UIDValidity and if different, set maxCachedUID to 1)\
+	Fetch Envelopes from maxCachedUID:serverUIDNext - maxCachedUID defaults to 1\
 	Create messages and store envelope data\
-	Set lastSeenUID to last UID.\
+	Set maxCachedUID to last UID.\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 
 \f2\i0 \cf0 	When done get all messages with nil body and start fetching the rest of the message from highest UID to lowest in background.\
@@ -893,9 +893,27 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 		
 \f1 \cb5 \uc0\u10003 
 \f5 \cb1   queue a command block within the LIST command block to LIST the folders with HasChildren flag.\
-\
-\
-\
+2014-04-19\
+	When listing a full 1:max sequence to uid, code queries for every uid every time and takes forever.\
+	Skipping the query and just creating a message with the uid is much faster but doesn't work when fleshing out a message body.\
+	How to\
+		map sequence to uid for syncing cache while not querying for the uid while getting the full sequence?\
+		need a separate transient object which is the uid to sequence map?\
+		compare separate transient object to cache state?\
+		OR drastically improve query?\
+	Each IMAPClient has its own dataStore.\
+	Each dataStore knows the current selected mailbox and has state information.\
+	Can IMAPClient set dataStore state/property information.\
+	dataStore can improve UID handling based on state information. Getting a sequence map vs updating actual store data.\
+2014-04-20\
+	?? 3 modes? 1. FetchingNewUIDs (bypass query) 2. Existing UIDs (use query)\
+		1. Full Sync for empty mail box.\
+		2. Re-sync for mail box with existing messages and serverHighestModseq\
+		3. Map uid sequence? \
+	Get sequence for last cached message UID = max UID. Then know number & sequence of new messages.\
+2014-04-21\
+	DEBUGGING problems\
+	log when commands are queued and unqueued.\
 \
 \
 \

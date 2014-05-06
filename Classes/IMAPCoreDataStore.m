@@ -7,7 +7,6 @@
 //
 
 #import "IMAPCoreDataStore.h"
-#import "MailBoxesAppDelegate.h"
 
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
@@ -27,16 +26,19 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_INFO;
+static const int ddLogLevel = LOG_LEVEL_WARN;
+
+@interface IMAPCoreDataStore ()
+
+@property (nonatomic, strong, readwrite) NSManagedObjectContext *parentContext;
+@property (nonatomic, strong, readwrite) NSManagedObjectContext *localManagedContext;
+@property (nonatomic, strong, readwrite) MBAccount              *account;
+
+@end
 
 @implementation IMAPCoreDataStore
 
-
-@synthesize appDelegate;
-@synthesize account;
-@synthesize parentContext;
-@synthesize localManagedContext;
-@synthesize selectedMBox;
+@synthesize selectedMBox = _selectedMBox;
 
 -(id) init {
     // Initialization code here.
@@ -48,22 +50,21 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     self = [super init];
     if (self) {
-        appDelegate = (MailBoxesAppDelegate*)[[NSApplication sharedApplication] delegate];
-        parentContext = pcontext;
+        _parentContext = pcontext;
         _accountID = anAccount;
         // We do not assign a local context yet because it may still be on the main thread
-        localManagedContext = nil;
-        selectedMBox = nil;
-        account = nil;
+        _localManagedContext = nil;
+        _selectedMBox = nil;
+        _account = nil;
     }
     return self;
 }
 
 #pragma mark - Core Data 
 -(NSManagedObjectContext *) localManagedContext {
-    if (localManagedContext==nil) {
-        localManagedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSPrivateQueueConcurrencyType];
-        [self.localManagedContext setParentContext: parentContext];
+    if (_localManagedContext==nil) {
+        _localManagedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSPrivateQueueConcurrencyType];
+        [self.localManagedContext setParentContext: _parentContext];
         [self.localManagedContext setUndoManager:nil];
         [self.localManagedContext setMergePolicy: NSOverwriteMergePolicy];
 //        [[NSNotificationCenter defaultCenter] addObserver:self
@@ -72,89 +73,154 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //                 object:self.localManagedContext];
 
     }
-    return localManagedContext;
+    return _localManagedContext;
 }
 
 -(MBAccount *) account {
-    if (account==nil) {
+    if (_account==nil) {
         
         [self.localManagedContext performBlockAndWait:^{
-            account = (MBAccount *)[localManagedContext objectWithID: _accountID];
+            _account = (MBAccount *)[_localManagedContext objectWithID: _accountID];
         }];
 
     }
-    return account;
+    return _account;
 }
-
-- (BOOL) save: (NSError**) error {
-    __block BOOL success;
-    
-    @try {
+-(MBox *) selectedMBox {
+    if (_selectedMBox==nil && _mboxID != nil) {
+        
         [self.localManagedContext performBlockAndWait:^{
-            [localManagedContext commitEditing];
-            success = [self.localManagedContext save: error];
+            _selectedMBox = (MBox *)[_localManagedContext objectWithID: _mboxID];
         }];
-
         
-
-//        id mbapp = [[NSApplication sharedApplication] delegate];
-//        [mbapp performSelectorOnMainThread: @selector(saveAction:) withObject: nil waitUntilDone: NO];
-
-        
-        if (!success) {
-            // ToDo: add more detailed error reporting here. Need to show CoreData validation errors
-            // and give a chance to go back and correct them. Ideally show validation errors earlier.
-            
-            NSMutableString *errorString = nil;
-            NSInteger errorCode = [*error code];
-            if (errorCode == NSValidationMultipleErrorsError) {
-                // For an NSValidationMultipleErrorsError, the original errors
-                // are in an array in the userInfo dictionary for key NSDetailedErrorsKey
-                NSArray *detailedErrors = [*error userInfo][NSDetailedErrorsKey];
+    }
+    return _selectedMBox;
+}
+-(void) setSelectedMBox:(MBox *)selectedMBox {
+    if (_selectedMBox != selectedMBox) {
+        _selectedMBox = selectedMBox;
+        _mboxID = [selectedMBox objectID];
+    }
+}
+- (void) save {
+    
+    [self.localManagedContext performBlockAndWait:^{
+        @try {
+            BOOL success;
+            NSError* error;
+            [_localManagedContext commitEditing];
+            success = [self.localManagedContext save: &error];
+            if (!success) {
+                // ToDo: add more detailed error reporting here. Need to show CoreData validation errors
+                // and give a chance to go back and correct them. Ideally show validation errors earlier.
                 
-                // For this example, only present error messages for up to 3 validation errors at a time.
-                
-                NSUInteger numErrors = [detailedErrors count];
-                errorString = [NSMutableString stringWithFormat:@"%lu validation errors have occurred", (unsigned long)numErrors];
-                
-                if (numErrors > 3) {
-                    [errorString appendFormat:@".\nThe first 3 are:\n"];
+                NSMutableString *errorString = nil;
+                NSInteger errorCode = [error code];
+                if (errorCode == NSValidationMultipleErrorsError) {
+                    // For an NSValidationMultipleErrorsError, the original errors
+                    // are in an array in the userInfo dictionary for key NSDetailedErrorsKey
+                    NSArray *detailedErrors = [error userInfo][NSDetailedErrorsKey];
+                    
+                    // For this example, only present error messages for up to 3 validation errors at a time.
+                    
+                    NSUInteger numErrors = [detailedErrors count];
+                    errorString = [NSMutableString stringWithFormat:@"%lu validation errors have occurred", (unsigned long)numErrors];
+                    
+                    if (numErrors > 3) {
+                        [errorString appendFormat:@".\nThe first 3 are:\n"];
+                    }
+                    else {
+                        [errorString appendFormat:@":\n"];
+                    }
+                    NSUInteger i, displayErrors = numErrors > 3 ? 3 : numErrors;
+                    for (i = 0; i < displayErrors; i++) {
+                        [errorString appendFormat:@"%@\n",
+                         [detailedErrors[i] localizedDescription]];
+                    }
+                } else {
+                    errorString = [NSMutableString stringWithFormat: @"%@>%@", [error localizedDescription], [error localizedFailureReason]];
                 }
-                else {
-                    [errorString appendFormat:@":\n"];
-                }
-                NSUInteger i, displayErrors = numErrors > 3 ? 3 : numErrors;
-                for (i = 0; i < displayErrors; i++) {
-                    [errorString appendFormat:@"%@\n",
-                     [detailedErrors[i] localizedDescription]];
-                }        
+                DDLogError(@"%@:%@ unable to save managedObjectContext",
+                             NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                DDLogError(@"%@", errorString);
             } else {
-                errorString = [NSMutableString stringWithFormat: @"%@>%@", [*error localizedDescription], [*error localizedFailureReason]];
+                DDLogWarn(@"%@:%@ Saved managedObjectContext",
+                             NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                
             }
-            DDLogVerbose(@"%@:%@ unable to save managedObjectContext",
-                         NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-            DDLogVerbose(@"%@", errorString);
-        } else {
-            DDLogVerbose(@"%@:%@ Saved managedObjectContext", 
-                         NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        }
+        @catch (NSException *exception) {
+            //_NSCoreDataOptimisticLockingException ?
+            DDLogError(@"%@:%@ exception: %@",
+                         NSStringFromClass([self class]), NSStringFromSelector(_cmd), exception);
+        }
+        @finally {
             
         }
-    }
-    @catch (NSException *exception) {
-        //_NSCoreDataOptimisticLockingException ?
-        DDLogVerbose(@"%@:%@ exception: %@", 
-                     NSStringFromClass([self class]), NSStringFromSelector(_cmd), exception);
-    }
-    @finally {
-        
-    }
-    
-    return success;    
+    }];
+    [self parentSave];
 }
-
+- (void) parentSave {
+    
+    [self.parentContext performBlockAndWait:^{
+        @try {
+            BOOL success;
+            NSError* error;
+            [_parentContext commitEditing];
+            success = [self.parentContext save: &error];
+            if (!success) {
+                // ToDo: add more detailed error reporting here. Need to show CoreData validation errors
+                // and give a chance to go back and correct them. Ideally show validation errors earlier.
+                
+                NSMutableString *errorString = nil;
+                NSInteger errorCode = [error code];
+                if (errorCode == NSValidationMultipleErrorsError) {
+                    // For an NSValidationMultipleErrorsError, the original errors
+                    // are in an array in the userInfo dictionary for key NSDetailedErrorsKey
+                    NSArray *detailedErrors = [error userInfo][NSDetailedErrorsKey];
+                    
+                    // For this example, only present error messages for up to 3 validation errors at a time.
+                    
+                    NSUInteger numErrors = [detailedErrors count];
+                    errorString = [NSMutableString stringWithFormat:@"%lu validation errors have occurred", (unsigned long)numErrors];
+                    
+                    if (numErrors > 3) {
+                        [errorString appendFormat:@".\nThe first 3 are:\n"];
+                    }
+                    else {
+                        [errorString appendFormat:@":\n"];
+                    }
+                    NSUInteger i, displayErrors = numErrors > 3 ? 3 : numErrors;
+                    for (i = 0; i < displayErrors; i++) {
+                        [errorString appendFormat:@"%@\n",
+                         [detailedErrors[i] localizedDescription]];
+                    }
+                } else {
+                    errorString = [NSMutableString stringWithFormat: @"%@>%@", [error localizedDescription], [error localizedFailureReason]];
+                }
+                DDLogError(@"%@:%@ unable to save managedObjectContext",
+                             NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                DDLogError(@"%@", errorString);
+            } else {
+                DDLogWarn(@"%@:%@ Saved managedObjectContext",
+                             NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                
+            }
+        }
+        @catch (NSException *exception) {
+            //_NSCoreDataOptimisticLockingException ?
+            DDLogError(@"%@:%@ exception: %@",
+                         NSStringFromClass([self class]), NSStringFromSelector(_cmd), exception);
+        }
+        @finally {
+            
+        }
+    }];
+    
+}
 //-(void) mergeChanges:(NSNotification *)notification {
 //	// Merge changes into the main context on the main thread
-//	[self.appManagedContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:)	
+//	[self.appManagedContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:)
 //                                  withObject:notification
 //                               waitUntilDone:YES];	
 //}
@@ -162,7 +228,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     __block MBox* foundObject;
     
     [self.localManagedContext performBlockAndWait:^{
-        foundObject = (MBox*)[localManagedContext objectWithID: objectID];
+        foundObject = (MBox*)[_localManagedContext objectWithID: objectID];
     }];
     
     return foundObject;
@@ -171,7 +237,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     __block MBMessage* foundObject;
     
     [self.localManagedContext performBlockAndWait:^{
-        foundObject = (MBMessage*)[localManagedContext objectWithID: objectID];
+        foundObject = (MBMessage*)[_localManagedContext objectWithID: objectID];
     }];
 
     return foundObject;
@@ -189,6 +255,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(MBox *) selectMailBox: (NSString *) fullPath {
     self.selectedMBox = [self.account fetchMBoxForPath: fullPath];
     self.selectedMBox.lastSelected = [NSDate date];
+    self.selectedMBox.maxCachedUID = [self.selectedMBox.messages valueForKeyPath: @"@max.uid"];
     return self.selectedMBox;
 }
 
@@ -328,8 +395,8 @@ Example
     if (oldValidity != uidValidity) {
         // If server UIDvalidity changes, then no message UIDs are valid 
         // and all messages need to be reloaded from scratch
-        // this is done be reseting lastSeenUID to 1
-        mbox.lastSeenUID = @1;
+        // this is done be reseting maxCachedUID to 0
+        mbox.maxCachedUID = @0;
         mbox.serverUIDValidity = uidValidity;
     }
     return  YES;
@@ -350,12 +417,35 @@ Example
             [self.localManagedContext deleteObject: message];
         }
         //return [self save: error]; // should this be "[[self localManagedContext] processPendingChanges];"?
-        [localManagedContext processPendingChanges];
+        [_localManagedContext processPendingChanges];
     }];
 
     return YES;
 }
 
+-(NSSet*) allCachedUIDsForSelectedMailBox {
+    NSSet* allUIDs;
+//    [self.localManagedContext reset];
+//    _selectedMBox = nil;
+//    _account = nil;
+//    
+//    MBox* mbox = self.selectedMBox;
+//    NSSet* messages = mbox.messages;
+    
+    allUIDs = [self.selectedMBox allUIDS];
+    
+    return allUIDs;
+}
+
+-(NSSet*) allCachedUIDsNotFullyCachedForSelectedMailBox {
+    NSSet* allUIDs;
+    
+    allUIDs = [self.selectedMBox allUIDSForNotFullyCached];
+    
+    return allUIDs;
+}
+
+#pragma message "Was used in deprecated sync of IMAPClient"
 -(NSNumber*) lowestUID {
     __block NSNumber* lowestUID = nil;
     MBox* selectedBox = self.selectedMBox;
@@ -374,6 +464,19 @@ Example
     [self.localManagedContext performBlockAndWait:^{
         MBMessage *message = [selectedBox getMBMessageWithUID: uid createIfMissing: YES];
         [message setPropertiesFromDictionary: aDictionary];
+//        selectedMBox.maxCachedUID = MAX(uid, selectedMBox.maxCachedUID);
+    }];
+    
+    return success;
+}
+-(BOOL) newMessage:(NSNumber *)uid propertiesFromDictionary:(NSDictionary *)aDictionary {
+    __block BOOL success = NO;
+    MBox* selectedBox = self.selectedMBox;
+    
+    [self.localManagedContext performBlockAndWait:^{
+        MBMessage *message = [selectedBox newMBMessageWithUID: uid];
+        [message setPropertiesFromDictionary: aDictionary];
+        //        selectedMBox.maxCachedUID = MAX(uid, selectedMBox.maxCachedUID);
     }];
     
     return success;

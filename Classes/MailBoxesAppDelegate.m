@@ -56,7 +56,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_INFO;
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 #define MBCoreDataErrorDomain @"com.moedae.MailBoxes.CoreData"
@@ -72,16 +72,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @property(nonatomic,readwrite,strong) NSArray                         *accountsACSortDescriptors;
 @property(nonatomic,readwrite,strong) NSArray                         *portalsACSortDescriptors;
 
-@property(nonatomic,readwrite,strong) NSPersistentStoreCoordinator    *persistentStoreCoordinator;
+@property(nonatomic,readwrite,strong) NSPersistentStoreCoordinator    *mainPersistentStoreCoordinator;
 @property(nonatomic,readwrite,strong) NSManagedObjectModel            *managedObjectModel;
-@property(nonatomic,readwrite,strong) NSManagedObjectContext          *managedObjectContext;
-@property(nonatomic,readwrite,strong) NSManagedObjectContext          *nibManagedObjectContext;
+@property(nonatomic,readwrite,strong) NSManagedObjectContext          *mainObjectContext;
 
 //name Startup
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 - (void)loadCurrentUser;
 - (void)createDefaultUser;
-- (void)createDefaultSidebarContent; 
+- (void)createDefaultSidebarContent;
 - (void)createDefaultPortal;
 - (BOOL)isThereAUser;
 
@@ -92,9 +91,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 //name Mail Core
 /*!
- Create a CTCoreAccount for each MBAccount - iterate user.childNodes and pass to 
- Create MBox for each CTCoreAccount folder and add as MBAccount childNodes relationship 
-
+ Create a CTCoreAccount for each MBAccount - iterate user.childNodes and pass to
+ Create MBox for each CTCoreAccount folder and add as MBAccount childNodes relationship
+ 
  @result an IBAction
  */
 - (IBAction)loadAllAccountFolders: (id) sender;
@@ -118,16 +117,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #pragma mark - Startup
 ///@name Startup
 + (void)initialize {
-    NSDictionary *defaults = 
+    NSDictionary *defaults =
     @{@"messageQuanta": @20,
-        MBUPMainSplitWidth: @275.0f,
-        MBUPMessagesSplitIsVertical: @"NO",
-        MBUPMainSplitIsCollapsed: @"NO",
-        @"selectedUser": @"",
-        @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints": @"YES"};
+      MBUPMainSplitWidth: @275.0f,
+      MBUPMessagesSplitIsVertical: @"NO",
+      MBUPMainSplitIsCollapsed: @"NO",
+      @"selectedUser": @"",
+      @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints": @"YES"};
     
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
-
+    
     AccountEditingEndedKey = @"AccountEditingEnded";
     PortalEditingEndedKey = @"PortalEditingEnded";
     
@@ -139,13 +138,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     [NSValueTransformer setValueTransformer: [MBMIME2047ValueTransformer new]
                                     forName: VTMBMIME2047ValueTransformer];
-
+    
     [NSValueTransformer setValueTransformer: [MBMIMEQuotedPrintableTranformer new]
                                     forName: VTMBMIMEQuotedPrintableTranformer];
-
+    
     [NSValueTransformer setValueTransformer: [MBEncodedStringHexOctetTransformer new]
                                     forName: VTMBEncodedStringHexOctetTransformer];
-
+    
     [NSValueTransformer setValueTransformer: [MBMIMECharsetTransformer new]
                                     forName: VTMBMIMECharsetTransformer];
     
@@ -163,9 +162,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)awakeFromNib {
     
-//    NSClipView* clipView = [self.inPaneMessageView contentView];
-//    [clipView setTranslatesAutoresizingMaskIntoConstraints: NO];
-
+    //    NSClipView* clipView = [self.inPaneMessageView contentView];
+    //    [clipView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    
     return;
 }
 
@@ -190,9 +189,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         _syncQueue = nil;
         
         [[MBAccountsCoordinator sharedInstanceForUser: self.currentUser]  addObserver:self
-                                   forKeyPath:@"isFinished"
-                                      options:NSKeyValueObservingOptionNew
-                                      context:NULL];
+                                                                           forKeyPath:@"isFinished"
+                                                                              options:NSKeyValueObservingOptionNew
+                                                                              context:NULL];
         
         //        [[NSNotificationCenter defaultCenter] addObserver:self
         //                                                 selector:@selector(managedObjectContextDidChange:)
@@ -217,35 +216,36 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return _portalsACSortDescriptors;
 }
 - (void)createDefaultUser {
-    __block MBUser *newUser = nil;
-    __block NSError *errorSavingUser = nil;
+    MBUser *newUser = nil;
+    NSError *errorSavingUser = nil;
     
-    [self.managedObjectContext performBlockAndWait:^{
-        newUser = [MBUser insertNewObjectIntoContext: _managedObjectContext];
-        [newUser setValue: @"default" forKey: @"firstName"];
-        
-        self.currentUser = newUser;
-        
-        [self createDefaultSidebarContent];
-        [self createDefaultPortal];
-        
-        if ([_managedObjectContext save: &errorSavingUser] == NO) {
-            [_managedObjectContext deleteObject:newUser];
-            DDLogVerbose(@"An error occurred while inserting and saving an initial User: %@",
-                         [errorSavingUser localizedDescription]);
-            self.currentUser = nil;
-            newUser = nil;
-        } else {
-            DDLogVerbose(@"No initial User was found, inserted and saved an initial User: %@", newUser);
-        }
-    }];
+    newUser = [MBUser insertNewObjectIntoContext: self.mainObjectContext];
+    [newUser setValue: @"default" forKey: @"firstName"];
+    
+    self.currentUser = newUser;
+    
+    [self createDefaultSidebarContent];
+    [self createDefaultPortal];
+    
+    if ([self.mainObjectContext save: &errorSavingUser] == NO) {
+        [self.mainObjectContext deleteObject:newUser];
+        DDLogVerbose(@"An error occurred while inserting and saving an initial User: %@",
+                     [errorSavingUser localizedDescription]);
+        self.currentUser = nil;
+        newUser = nil;
+    } else {
+        DDLogVerbose(@"No initial User was found, inserted and saved an initial User: %@", newUser);
+    }
+    
+    [self.mainObjectContext commitEditing];
+    [self.mainObjectContext save: nil];
     
     if (self.currentUser != nil) {
         [self saveCurrentUserPreference];
     }
 }
 - (void)createDefaultSidebarContent {
-    MBSidebar* sidebar = [MBSidebar insertNewObjectIntoContext: self.managedObjectContext];
+    MBSidebar* sidebar = [MBSidebar insertNewObjectIntoContext: self.mainObjectContext];
     sidebar.name = @"Root";
     sidebar.identifier = @"root";
     self.currentUser.sidebar = sidebar;
@@ -262,28 +262,24 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     MBGroup* lists = [sidebar addGroup: MBGroupListsIdentifier name:@"Lists"];
     lists.isOwner = @NO;
     lists.isExpandable = @YES;
+    [self.mainObjectContext save: nil];
 }
 - (void)createDefaultPortal {
-    MBViewPortalSelection* selectionPortal = [MBViewPortalSelection insertNewObjectIntoContext: self.managedObjectContext];
+    MBViewPortalSelection* selectionPortal = [MBViewPortalSelection insertNewObjectIntoContext: self.mainObjectContext];
     selectionPortal.name = @"Default";
     selectionPortal.user = self.currentUser;
-//    [self.currentUser addPortalsObject: selectionPortal];
+    [self.mainObjectContext save: nil];
+    //    [self.currentUser addPortalsObject: selectionPortal];
 }
 - (BOOL)isThereAUser {
     BOOL status = NO;
     
+    NSError *error = nil;
     NSURL *moURI;
     NSManagedObjectID *suid;
-    
-    __block NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"MBUser"];
-    
-    __block NSError *error = nil;
-    __block NSArray *fetchedObjects;
-    
-    
-    [self.managedObjectContext performBlockAndWait:^{
-        fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    }];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName: @"MBUser"];
+    NSArray *fetchedObjects;
+    fetchedObjects = [self.mainObjectContext executeFetchRequest:fetchRequest error:&error];
     
     
     if ( (fetchedObjects == nil) || ([fetchedObjects count] <= 0) ) {
@@ -291,55 +287,48 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     else {
         moURI = [[NSUserDefaults standardUserDefaults] URLForKey: @"selectedUser"];
-        suid = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation: moURI];
+        suid = [self.mainPersistentStoreCoordinator managedObjectIDForURIRepresentation: moURI];
         if ( suid == nil ) {
             //no currently stored default user so take the first from the store
             self.currentUser = fetchedObjects[0];
         }
         else {
-            __block MBUser *cUser = nil;
-            
-            [self.managedObjectContext performBlockAndWait:^{
-                cUser = (MBUser *)[_managedObjectContext objectWithID: suid];
-            }];
-            
-            self.currentUser = cUser;
+            self.currentUser = (MBUser *)[self.mainObjectContext objectWithID: suid];
         }
         status = YES;
     }
     return status;
 }
 - (void)loadCurrentUser {
-    __block NSError *errorLoading = nil;
-    __block BOOL savedOK = NO;
-    __block MBUser* theCurrentUser;
+    
+    NSError *errorLoading = nil;
+    BOOL savedOK = NO;
+    MBUser* theCurrentUser;
     
     NSURL *moURI = [[NSUserDefaults standardUserDefaults] URLForKey: @"selectedUser"];
-    NSManagedObjectID *suid = [[self persistentStoreCoordinator] managedObjectIDForURIRepresentation: moURI];
+    
+    NSManagedObjectID *suid = [self.mainPersistentStoreCoordinator managedObjectIDForURIRepresentation: moURI];
+    
     if ( suid != nil ) {
-        [self.managedObjectContext performBlockAndWait:^{
-            theCurrentUser = (MBUser *)[_managedObjectContext existingObjectWithID: suid error: &errorLoading];
-        }];
-        self.currentUser = theCurrentUser;
+        self.currentUser = (MBUser *)[self.mainObjectContext existingObjectWithID: suid error: &errorLoading];
     }
 }
-
 
 /*
  Monitor NSCollectionView indexes to update Message Window
  */
 -(void) setSyncStatus:(BOOL) syncOn {
     // Swap Cancel and Sync buttons
-//    [self.accountSyncButton setHidden: syncOn];    
-//    [self.accountSyncCancelButton setHidden: !syncOn];
-//    //[self.accountSyncProgress setHidden: !syncOn];
-//    
-//    if(syncOn){
-//        [self.accountSyncProgress startAnimation: self];
-//        //[self.accountSyncProgress display];
-//    } else {
-//        [self.accountSyncProgress stopAnimation: self];
-//    }    
+    //    [self.accountSyncButton setHidden: syncOn];
+    //    [self.accountSyncCancelButton setHidden: !syncOn];
+    //    //[self.accountSyncProgress setHidden: !syncOn];
+    //
+    //    if(syncOn){
+    //        [self.accountSyncProgress startAnimation: self];
+    //        //[self.accountSyncProgress display];
+    //    } else {
+    //        [self.accountSyncProgress stopAnimation: self];
+    //    }
 }
 
 #pragma mark - State
@@ -385,7 +374,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 DDLogCVerbose(@"Change selection portal: %@ selection to node: %@", portal, node);
                 [(MBViewPortalSelection*)portal setMessageArraySource: node];
             } else if ([portal isKindOfClass:[MBViewPortalMBox class]]) {
-
+                
             }
         }
     } else if ([node isKindOfClass:[MBSmartFolder class]]) {
@@ -398,14 +387,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #pragma mark - IMAPSync
 //name IMAPSync
 /*!
-    ToDo
+ ToDo
  
-        Change this to setup IMAPSync process
-    
-        Need separate MOC, NSOperation, merge changes, observer
+ Change this to setup IMAPSync process
  
-    @param sender standard control action form
-    @result an IBAction
+ Need separate MOC, NSOperation, merge changes, observer
+ 
+ @param sender standard control action form
+ @result an IBAction
  */
 - (IBAction)loadAllAccountFolders: (id) sender {
     if(self.syncQueue == nil){
@@ -424,11 +413,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         //handle error
     }
     
-//    NSUInteger portalCount = [self.collectionView content ].count;
-//    for (NSUInteger portalIndex=0; portalIndex < portalCount; portalIndex++) {
-//        MBPortalViewController* pvController = (MBPortalViewController*)[self.collectionView itemAtIndex: portalIndex];
-//        [pvController.messagesController rearrangeObjects];
-//    }
+    //    NSUInteger portalCount = [self.collectionView content ].count;
+    //    for (NSUInteger portalIndex=0; portalIndex < portalCount; portalIndex++) {
+    //        MBPortalViewController* pvController = (MBPortalViewController*)[self.collectionView itemAtIndex: portalIndex];
+    //        [pvController.messagesController rearrangeObjects];
+    //    }
 }
 
 - (IBAction)cancelLoadAllAccountFolders:(id)sender {
@@ -456,7 +445,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (NSManagedObjectModel *)managedObjectModel {
     if (_managedObjectModel==nil) {
         //NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MailBoxesDataModel" withExtension:@"momd"];
-        //managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
+        //managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
         _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles: nil];
     }
 	
@@ -466,8 +455,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 /**
  Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
  */
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (_persistentStoreCoordinator==nil) {
+- (NSPersistentStoreCoordinator *)mainPersistentStoreCoordinator {
+    if (_mainPersistentStoreCoordinator==nil) {
         NSManagedObjectModel *mom = self.managedObjectModel;
         if (!mom) {
             DDLogVerbose(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
@@ -493,7 +482,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         else {
             if ([properties[NSURLIsDirectoryKey] boolValue] != YES) {
                 // Customize and localize this error.
-                NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]]; 
+                NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]];
                 
                 NSMutableDictionary *dict = [NSMutableDictionary dictionary];
                 [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
@@ -505,24 +494,24 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         }
         
         NSURL *storeURL = [applicationFilesDirectory URLByAppendingPathComponent: MBStoreDataName];
-        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        _mainPersistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+        if (![_mainPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
             [[NSApplication sharedApplication] presentError:error];
-            _persistentStoreCoordinator = nil;
+            _mainPersistentStoreCoordinator = nil;
             return nil;
         }
     }
-        
-    return _persistentStoreCoordinator;
+    
+    return _mainPersistentStoreCoordinator;
 }
 
 /**
  Returns the managed object context for the application (which is already
- bound to the persistent store coordinator for the application.) 
+ bound to the persistent store coordinator for the application.)
  */
-- (NSManagedObjectContext *)managedObjectContext {
-    if (_managedObjectContext==nil) {
-        NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
+- (NSManagedObjectContext *)mainObjectContext {
+    if (_mainObjectContext==nil) {
+        NSPersistentStoreCoordinator *coordinator = self.mainPersistentStoreCoordinator;
         if (!coordinator) {
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
@@ -531,66 +520,53 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [[NSApplication sharedApplication] presentError:error];
             return nil;
         }
-        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+        _mainObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
+        [_mainObjectContext setPersistentStoreCoordinator:coordinator];
     }
     
-    return _managedObjectContext;
-}
-
-- (NSManagedObjectContext *)nibManagedObjectContext {
-    return self.managedObjectContext;
+    return _mainObjectContext;
 }
 
 /*!
  Some discussion here
-
+ 
  @param window NSWindow
  @returns Returns the NSUndoManager for the application.  In this case, the manager
  returned is that of the managed object context for the application.
  */
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
-    return [self.managedObjectContext undoManager];
+    return [self.mainObjectContext undoManager];
 }
 
 - (IBAction)undo:sender {
-    [self.managedObjectContext performBlockAndWait:^{
-        [[self.managedObjectContext undoManager] undo];
-    }];
+    [[self.mainObjectContext undoManager] undo];
 }
 - (IBAction)redo:sender {
-    [self.managedObjectContext performBlockAndWait:^{
-        [[self.managedObjectContext undoManager] redo];
-    }];
+    [[self.mainObjectContext undoManager] redo];
 }
 
 #pragma mark - Clean up and terminate
 //name Clean up and terminate
 /*!
-Performs the save action for the application, which is to send the save:
-message to the application's managed object context.  Any encountered errors
-are presented to the user.
-
-@param sender standard IBAction form
-@returns returns an IBAction
+ Performs the save action for the application, which is to send the save:
+ message to the application's managed object context.  Any encountered errors
+ are presented to the user.
+ 
+ @param sender standard IBAction form
+ @returns returns an IBAction
  */
 - (IBAction) saveAction:(id)sender {
-    __block NSError *error = nil;
+    NSError *error = nil;
     
-    __block BOOL result = NO;
+    BOOL result = NO;
     
-    [self.managedObjectContext performBlockAndWait:^{
-        result = [self.managedObjectContext commitEditing];
-    }];
-
+    result = [self.mainObjectContext commitEditing];
+    
     if (!result) {
         DDLogVerbose(@"%@:%@ unable to commit editing before saving", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     }
-
-    result = NO;
-    [self.managedObjectContext performBlockAndWait:^{
-        result = [self.managedObjectContext save:&error];
-    }];
+    
+    result = [self.mainObjectContext save:&error];
     
     if (!result) {
         [[NSApplication sharedApplication] presentError:error];
@@ -599,33 +575,27 @@ are presented to the user.
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication*)sender
 {
-    if (!self.managedObjectContext) return NSTerminateNow;
+    if (!self.mainObjectContext) return NSTerminateNow;
     
-    __block BOOL result = NO;
+    BOOL result1 = NO;
+    NSError *error1 = nil;
     
-    [self.managedObjectContext performBlockAndWait:^{
-        result = [self.managedObjectContext commitEditing];
-    }];
+    result1 = [self.mainObjectContext commitEditing];
     
-    if (!result) {
+    if (!result1) {
         DDLogVerbose(@"%@:%@ unable to commit editing to terminate", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         return NSTerminateCancel;
     }
     
-    if (![self.managedObjectContext hasChanges]) return NSTerminateNow;
+    result1 = [self.mainObjectContext save: &error1];
     
-    __block NSError *error = nil;
-    result = NO;
-    [self.managedObjectContext performBlockAndWait:^{
-        result = [self.managedObjectContext save:&error];
-    }];
-    if (!result) {
+    if (!result1) {
         // TODO: add more detailed error reporting here. Need to show CoreData validation errors
         // and give a chance to go back and correct them. Ideally show validation errors earlier.
         
         DDLogVerbose(@"%@:%@ unable to save managedObjectContext", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        DDLogVerbose(@"managedObjectContext Error: %@:%@", [error localizedDescription], [error localizedFailureReason]);
-        BOOL shouldCancel = [sender presentError:error];
+        DDLogVerbose(@"managedObjectContext Error: %@:%@", [error1 localizedDescription], [error1 localizedFailureReason]);
+        BOOL shouldCancel = [sender presentError: error1];
         if (shouldCancel) return NSTerminateCancel;
         
         NSString *question = NSLocalizedString(@"Could not save changes while quitting.  Quit anyway?", @"Quit without saves error question message");
@@ -656,7 +626,7 @@ are presented to the user.
     [sud synchronize];
 }
 
-- (void)dealloc {  
+- (void)dealloc {
     [[MBAccountsCoordinator sharedInstanceForUser: self.currentUser] removeObserver: self forKeyPath: @"isFinished"];
 }
 
@@ -674,12 +644,12 @@ are presented to the user.
 - (IBAction)visualizeConstraints:(id)sender {
     [self.appWindow visualizeConstraints: [self.self.messageViewController.view mbAllConstraints]];
     
-//    CGRect tvFrame = self.messageViewController.messageBodyView.frame;
-//    CGSize tcSize = [[(NSTextView*)self.messageViewController.messageBodyView textContainer] containerSize];
-//    NSLog(@"TextView Frame: %@; TextContainer Size: %@", NSStringFromRect(tvFrame), NSStringFromSize(tcSize));
+    //    CGRect tvFrame = self.messageViewController.messageBodyView.frame;
+    //    CGSize tcSize = [[(NSTextView*)self.messageViewController.messageBodyView textContainer] containerSize];
+    //    NSLog(@"TextView Frame: %@; TextContainer Size: %@", NSStringFromRect(tvFrame), NSStringFromSize(tcSize));
     
-//    CGRect bodyContainerFrame = self.messageViewController.messageBodyViewContainer.frame;
-//    CGRect messageFrame = self.messageViewController.messageBodyViewContainer.superview.frame;
-//    NSLog(@"Body Frame: %@; Message Frame: %@", NSStringFromRect(bodyContainerFrame), NSStringFromRect(messageFrame));
+    //    CGRect bodyContainerFrame = self.messageViewController.messageBodyViewContainer.frame;
+    //    CGRect messageFrame = self.messageViewController.messageBodyViewContainer.superview.frame;
+    //    NSLog(@"Body Frame: %@; Message Frame: %@", NSStringFromRect(bodyContainerFrame), NSStringFromRect(messageFrame));
 }
 @end

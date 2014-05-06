@@ -41,10 +41,11 @@ typedef void (^MBCommandBlock)(void);
 @property (assign)      BOOL                isActive;
 @property (assign)      BOOL                isDone;
 @property (assign)      BOOL                hasLiteral;
+@property (assign)      BOOL                isNewMessage;
 @property (strong)      NSData *            literal;
 @property (strong)      MBCommandBlock      successBlock;
 @property (strong)      MBCommandBlock      failBlock;
-
+@property (strong)      id<IMAPDataStore> dataStore;
 @property (assign)      IMAPResponseStatus  responseStatus;
 
 - (NSString*) debugDescription;

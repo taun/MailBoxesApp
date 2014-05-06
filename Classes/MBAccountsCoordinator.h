@@ -38,18 +38,19 @@
  YES when all account network connections are finished.
  */
 @property (nonatomic, assign, readonly) BOOL     isFinished;
-@property (strong) MBUser* user;
+@property (strong) MBUser* mainUser;
+@property (strong) MBUser* masterUser;
 /// @name Public methods
 
 /*!
  Singleton accountCoordinator. Creates a new accountCoordinator if once does not exist.
  If one exists for a different user, the old coordinator is closed and a new one created.
  
- @param aUser the user
+ @param mainUser the user
  
  @return an accountCoordinator for the user's accounts.
  */
-+(instancetype) sharedInstanceForUser: (MBUser*) aUser;
++(instancetype) sharedInstanceForUser: (MBUser*) mainUser;
 
 /*!
  For test purposes to use a mock accountCoordinator or reseting sharedInstance
@@ -61,10 +62,10 @@
 /*!
  Designated initialiser.
  
- @param aUser the user account
+ @param mainUser the user account
  @returns an MBAccountsCoordinator for the user or nil
  */
--(instancetype) initWithMBUser: (MBUser*) aUser;
+-(instancetype) initWithMainUser: (MBUser*) mainUser;
 -(void) updateFolderStructureForAllAccounts;
 -(void) updateFolderStructureForAccount: (MBAccount*) account;
 /*!
@@ -102,8 +103,8 @@
  
  Uses GCD to dispatch the network requests on a background queue.
  
- @param objectID message NSManagedObjectID so message object can be retrieved in different thread from the caller.
- @param accountID account NSManagedObjectID so message account can be retrieved in different thread from the caller.
+ @param message NSManagedObjectID so message object can be retrieved in different thread from the caller.
+ @param account NSManagedObjectID so message account can be retrieved in different thread from the caller.
  
  */
 -(void) loadFullMessage: (MBMessage*) message forAccount: (MBAccount*) account;

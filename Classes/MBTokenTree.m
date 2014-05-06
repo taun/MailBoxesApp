@@ -49,6 +49,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return self;    
 }
 
+-(NSString*) debugDescription {
+    NSString* desc = [NSString stringWithFormat: @"[%@][%@]",[super debugDescription], [_tokens description]];
+    return desc;
+}
+
 -(void) addObject:(id)anObject {
     [self.tokenArray addObject: anObject];
 }
@@ -233,27 +238,29 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
  @return NSDictionary of token key/value
  */
 -(NSDictionary*) scanForKeyValue: (NSString*) key {
-    BOOL keyFound = NO;
-    NSUInteger valueIndex = 0;
     
     NSDictionary* result = nil;
+    NSUInteger valueIndex = 0;
     
     for (id element in self.tokenArray) {
-        if (keyFound) {
-            // element after key is found
-            result = @{key: element};
-            break;
-        } else {
-            if ([element isKindOfClass: [NSString class]]) {
-                if ([((NSString*) element) caseInsensitiveCompare: key] == NSOrderedSame) {
-                    keyFound = YES;
+        if ([element isKindOfClass: [NSString class]]) {
+            if ([((NSString*) element) caseInsensitiveCompare: key] == NSOrderedSame) {
+                if (self.tokenArray.count > (valueIndex+1)) {
+                    result = @{key: self.tokenArray[valueIndex+1]};
+                    break;
                 }
             }
         }
+
         valueIndex++;
     }
-    [self.tokenArray removeObjectAtIndex: valueIndex];
-    [self.tokenArray removeObjectAtIndex: valueIndex -1];
+    if (result) {
+        NSMutableIndexSet* indexes = [NSMutableIndexSet new];
+        [indexes addIndex: valueIndex];
+        [indexes addIndex: valueIndex+1];
+        [self.tokenArray removeObjectsAtIndexes: indexes];
+    }
+    
     return result;
 }
 

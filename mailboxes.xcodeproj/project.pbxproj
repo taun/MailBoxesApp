@@ -60,6 +60,10 @@
 		C50DD7F3137440FD002A6CD6 /* MBPortal+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD7F2137440FD002A6CD6 /* MBPortal+IMAP.m */; };
 		C50DD8171374F0BC002A6CD6 /* MBPortalsCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD8161374F0BB002A6CD6 /* MBPortalsCollectionView.m */; };
 		C512EC8218B44DB40020B77C /* mbox.iconset in Resources */ = {isa = PBXBuildFile; fileRef = C512EC8118B44DB40020B77C /* mbox.iconset */; };
+		C520B9A21912B43300627A01 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74703168FD3A30055FE5E /* DDAbstractDatabaseLogger.m */; };
+		C520B9A31912B43400627A01 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74705168FD3A30055FE5E /* DDASLLogger.m */; };
+		C520B9A41912B43400627A01 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74707168FD3A30055FE5E /* DDFileLogger.m */; };
+		C520B9A51912B43400627A01 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E7470B168FD3A30055FE5E /* DDTTYLogger.m */; };
 		C5279167188DC66500298D01 /* NSManagedObject+Shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = C5279166188DC66500298D01 /* NSManagedObject+Shortcuts.m */; };
 		C527DBEC18BBF586003A5C6D /* MBViewPortal+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C527DBEB18BBF586003A5C6D /* MBViewPortal+Extra.m */; };
 		C527DBEF18BBF902003A5C6D /* MBViewPortalMBox+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C527DBEE18BBF902003A5C6D /* MBViewPortalMBox+Extra.m */; };
@@ -87,12 +91,15 @@
 		C54954A618A8377C005D195D /* MoedaeMailPlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C583066218A6B201006C279D /* MoedaeMailPlugins.framework */; };
 		C54BE48112C1AF9700BCC20D /* MBAccountWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54BE47F12C1AF9700BCC20D /* MBAccountWindowController.m */; };
 		C5552EF418980B2F008F2196 /* MBMessagesDesktopView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5552EF318980B2F008F2196 /* MBMessagesDesktopView.m */; };
+		C55571FB19097E46006E4B64 /* MBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C55571FA19097E46006E4B64 /* MBox.m */; };
+		C55571FC19097E46006E4B64 /* MBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C55571FA19097E46006E4B64 /* MBox.m */; };
+		C55571FF190980E5006E4B64 /* IMAPMemCacheStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C55571FE190980E5006E4B64 /* IMAPMemCacheStore.m */; };
+		C5557200190980E5006E4B64 /* IMAPMemCacheStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C55571FE190980E5006E4B64 /* IMAPMemCacheStore.m */; };
+		C5557202190EAC2F006E4B64 /* MBIMAPMemCacheStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5557201190EAC2F006E4B64 /* MBIMAPMemCacheStoreTests.m */; };
 		C55648A9188C927600110263 /* MBMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55648A7188C927600110263 /* MBMessageViewController.xib */; };
 		C558907A18A01C730005CAAD /* MBAutolayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C558907818A01C730005CAAD /* MBAutolayoutViewController.m */; };
 		C558907B18A01C730005CAAD /* MBAutolayoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558907918A01C730005CAAD /* MBAutolayoutViewController.xib */; };
 		C55D32B418995903005F8802 /* MBMessagesDesktopViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C55D32B318995903005F8802 /* MBMessagesDesktopViewDelegate.m */; };
-		C55E8FDE18FCA38600F83173 /* MBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E8FDD18FCA38600F83173 /* MBox.m */; };
-		C55E8FDF18FCA38600F83173 /* MBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E8FDD18FCA38600F83173 /* MBox.m */; };
 		C55E8FE218FCA38700F83173 /* MBTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E8FE118FCA38700F83173 /* MBTreeNode.m */; };
 		C55E8FE318FCA38700F83173 /* MBTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E8FE118FCA38700F83173 /* MBTreeNode.m */; };
 		C55E8FE618FCA42F00F83173 /* MBEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E8FE518FCA42F00F83173 /* MBEncodedString.m */; };
@@ -318,7 +325,6 @@
 		C500629718AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; name = MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin; path = "/Users/taun/Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin"; sourceTree = "<absolute>"; };
 		C50062BC18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; name = MoedaeMailMimeImageViewer.mmmimeviewerplugin; path = "/Users/taun/Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailMimeImageViewer.mmmimeviewerplugin"; sourceTree = "<absolute>"; };
 		C50062CD18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; name = MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin; path = "/Users/taun/Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin"; sourceTree = "<absolute>"; };
-		C502DE8C14185DDE000AA9E4 /* IMAPResponseParserTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IMAPResponseParserTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C502DE8D14185DDE000AA9E4 /* IMAPResponseParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IMAPResponseParserTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C50386BC146381C100BF6EB3 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		C5052DD81810502600696782 /* MBTransformerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTransformerTests.m; sourceTree = "<group>"; };
@@ -385,6 +391,11 @@
 		C55081B318A179BA00F4D77A /* MoedaeMailPluginsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MoedaeMailPluginsBase.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug/MoedaeMailPluginsBase.framework"; sourceTree = "<group>"; };
 		C5552EF218980B2F008F2196 /* MBMessagesDesktopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMessagesDesktopView.h; sourceTree = "<group>"; };
 		C5552EF318980B2F008F2196 /* MBMessagesDesktopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMessagesDesktopView.m; sourceTree = "<group>"; };
+		C55571F919097E46006E4B64 /* MBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBox.h; path = Classes/MBox.h; sourceTree = "<group>"; };
+		C55571FA19097E46006E4B64 /* MBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBox.m; path = Classes/MBox.m; sourceTree = "<group>"; };
+		C55571FD190980E5006E4B64 /* IMAPMemCacheStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAPMemCacheStore.h; sourceTree = "<group>"; };
+		C55571FE190980E5006E4B64 /* IMAPMemCacheStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAPMemCacheStore.m; sourceTree = "<group>"; };
+		C5557201190EAC2F006E4B64 /* MBIMAPMemCacheStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBIMAPMemCacheStoreTests.m; sourceTree = "<group>"; };
 		C55648A8188C927600110263 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MBMessageViewController.xib; sourceTree = SOURCE_ROOT; };
 		C5579C131316DC5F009B3A9E /* MBox+IMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBox+IMAP.h"; path = "Classes/MBox+IMAP.h"; sourceTree = "<group>"; };
 		C558907718A01C730005CAAD /* MBAutolayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAutolayoutViewController.h; sourceTree = "<group>"; };
@@ -392,8 +403,6 @@
 		C558907918A01C730005CAAD /* MBAutolayoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBAutolayoutViewController.xib; sourceTree = "<group>"; };
 		C55D32B218995903005F8802 /* MBMessagesDesktopViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMessagesDesktopViewDelegate.h; sourceTree = "<group>"; };
 		C55D32B318995903005F8802 /* MBMessagesDesktopViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMessagesDesktopViewDelegate.m; sourceTree = "<group>"; };
-		C55E8FDC18FCA38600F83173 /* MBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBox.h; path = Classes/MBox.h; sourceTree = "<group>"; };
-		C55E8FDD18FCA38600F83173 /* MBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBox.m; path = Classes/MBox.m; sourceTree = "<group>"; };
 		C55E8FE018FCA38700F83173 /* MBTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBTreeNode.h; path = Classes/MBTreeNode.h; sourceTree = "<group>"; };
 		C55E8FE118FCA38700F83173 /* MBTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBTreeNode.m; path = Classes/MBTreeNode.m; sourceTree = "<group>"; };
 		C55E8FE418FCA42F00F83173 /* MBEncodedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBEncodedString.h; path = Classes/MBEncodedString.h; sourceTree = "<group>"; };
@@ -891,7 +900,6 @@
 			children = (
 				C5AE2E1C1415B55E0087CD93 /* IMAPClientTest.h */,
 				C5AE2E1D1415B55E0087CD93 /* IMAPClientTest.m */,
-				C502DE8C14185DDE000AA9E4 /* IMAPResponseParserTests.h */,
 				C502DE8D14185DDE000AA9E4 /* IMAPResponseParserTests.m */,
 				C5AE2E0D1410374D0087CD93 /* LogicTests.h */,
 				C5AE2E0F1410374D0087CD93 /* LogicTests.m */,
@@ -899,6 +907,7 @@
 				C5DBB876143CDBD2006C1908 /* RFC2822RawMessageHeaderTest.h */,
 				C5DBB877143CDBD2006C1908 /* RFC2822RawMessageHeaderTest.m */,
 				C5052DD81810502600696782 /* MBTransformerTests.m */,
+				C5557201190EAC2F006E4B64 /* MBIMAPMemCacheStoreTests.m */,
 				C5AE2E081410374D0087CD93 /* Supporting Files */,
 			);
 			path = LogicTests;
@@ -1118,10 +1127,10 @@
 		C5DB7E5E13FDBB7D00C73188 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				C55571F919097E46006E4B64 /* MBox.h */,
+				C55571FA19097E46006E4B64 /* MBox.m */,
 				C55E8FE018FCA38700F83173 /* MBTreeNode.h */,
 				C55E8FE118FCA38700F83173 /* MBTreeNode.m */,
-				C55E8FDC18FCA38600F83173 /* MBox.h */,
-				C55E8FDD18FCA38600F83173 /* MBox.m */,
 				C5EE3E5C18EDEF4A00F3B2FC /* MBAccount.h */,
 				C5EE3E5D18EDEF4A00F3B2FC /* MBAccount.m */,
 				C51B52681316F36A002A1F52 /* Categories */,
@@ -1211,6 +1220,8 @@
 		C5DB7E5F13FDBBAF00C73188 /* IMAP */ = {
 			isa = PBXGroup;
 			children = (
+				C55571FD190980E5006E4B64 /* IMAPMemCacheStore.h */,
+				C55571FE190980E5006E4B64 /* IMAPMemCacheStore.m */,
 				C50C437313F0298400AF7A65 /* IMAPClient.h */,
 				C50C437413F0298400AF7A65 /* IMAPClient.m */,
 				C5724AAE145EF1C600E8C25F /* IMAPResponseParser.h */,
@@ -1454,7 +1465,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"MOEDAE\";\ncompanyID=\"com.MOEDAEE\";\ncompanyURL=\"http://www.moedae.com\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--keep-undocumented-objects \\\n--keep-undocumented-members \\\n--use-code-order \\\n--no-warn-undocumented-object \\\n--no-warn-undocumented-member \\\n--no-warn-missing-arg \\\n--no-warn-empty-description \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"MOEDAE\";\ncompanyID=\"com.MOEDAE\";\ncompanyURL=\"http://www.moedae.com\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--keep-undocumented-objects \\\n--keep-undocumented-members \\\n--use-code-order \\\n--no-warn-undocumented-object \\\n--no-warn-undocumented-member \\\n--no-warn-missing-arg \\\n--no-warn-empty-description \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 		C5AE2DFD1410374C0087CD93 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1476,6 +1487,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C520B9A21912B43300627A01 /* DDAbstractDatabaseLogger.m in Sources */,
+				C520B9A31912B43400627A01 /* DDASLLogger.m in Sources */,
+				C520B9A41912B43400627A01 /* DDFileLogger.m in Sources */,
+				C520B9A51912B43400627A01 /* DDTTYLogger.m in Sources */,
 				C578A02818CFF87100E2ADE0 /* MBNote.m in Sources */,
 				C5888C0F18ABDD9200EB9F00 /* MBAttachment.m in Sources */,
 				C5888C1318ABDD9200EB9F00 /* MBLabel.m in Sources */,
@@ -1495,10 +1510,10 @@
 				C54139DB18BD5FE900441FC3 /* MBNumberToString.m in Sources */,
 				C5052DEE1810568800696782 /* MBMimeMedia.m in Sources */,
 				C5052DEF1810568800696782 /* MBMimeMulti.m in Sources */,
+				C5557200190980E5006E4B64 /* IMAPMemCacheStore.m in Sources */,
 				C578A02418CFF0B600E2ADE0 /* MBDispositionParameter+Shorthand.m in Sources */,
 				C5888C0918ABDD9200EB9F00 /* MBox+IMAP.m in Sources */,
 				C5052DF11810568800696782 /* MBMimeText.m in Sources */,
-				C55E8FDF18FCA38600F83173 /* MBox.m in Sources */,
 				C5052DF21810568800696782 /* MBMimeVideo.m in Sources */,
 				C5EE3E6318EEE8EA00F3B2FC /* MBAccountConnectionsCoordintator.m in Sources */,
 				C578A01018CFE40B00E2ADE0 /* MBMimeParameter+Shorthand.m in Sources */,
@@ -1550,6 +1565,7 @@
 				C5C7E77917F5CBE00053B08B /* RFC2822RawMessageHeader.m in Sources */,
 				C566983B18C556E900F05440 /* MBMIMEQuotedPrintableTranformer.m in Sources */,
 				C566983918C556E500F05440 /* MBSimpleRFC822AddressToStringTransformer.m in Sources */,
+				C55571FC19097E46006E4B64 /* MBox.m in Sources */,
 				C55E8FE318FCA38700F83173 /* MBTreeNode.m in Sources */,
 				C578A06818CFFD9300E2ADE0 /* MBViewPortal.m in Sources */,
 				C566983818C556E300F05440 /* MBMIME2047ValueTransformer.m in Sources */,
@@ -1569,6 +1585,7 @@
 				C5DBB878143CDBD2006C1908 /* RFC2822RawMessageHeaderTest.m in Sources */,
 				C5888C1518ABDD9200EB9F00 /* MBMultiEncrypted.m in Sources */,
 				C5C49E1B17F5CC54002C0475 /* MBTokenTree.m in Sources */,
+				C5557202190EAC2F006E4B64 /* MBIMAPMemCacheStoreTests.m in Sources */,
 				C5C7E77417F5CB230053B08B /* MIMERFC2047EncodeDecodeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1606,6 +1623,7 @@
 				C5B2103F180482160093531A /* MBMultiMixed+IMAP.m in Sources */,
 				C50C437813F04AC600AF7A65 /* MBAccountsCoordinator.m in Sources */,
 				C58305E618D107D40032C72F /* MBAddressList+Shorthand.m in Sources */,
+				C55571FF190980E5006E4B64 /* IMAPMemCacheStore.m in Sources */,
 				C578A07F18CFFD9400E2ADE0 /* MBSmartFolder.m in Sources */,
 				C58305DE18D107500032C72F /* MBFavorites+Shorthand.m in Sources */,
 				C5DB7E6E13FE9FDB00C73188 /* IMAPCommand.m in Sources */,
@@ -1642,6 +1660,7 @@
 				C5A7B3FC181ED20800DE00AE /* MBApplicationView.m in Sources */,
 				C53CF5D218D132E6008EB083 /* MBMimeDisposition+Shorthand.m in Sources */,
 				C578A06B18CFFD9400E2ADE0 /* MBViewPortalMBox.m in Sources */,
+				C55571FB19097E46006E4B64 /* MBox.m in Sources */,
 				C58305E218D107940032C72F /* MBLabel+Shorthand.m in Sources */,
 				C578A00F18CFE40B00E2ADE0 /* MBMimeParameter+Shorthand.m in Sources */,
 				C5974077147199350033E4CF /* MBLabel.m in Sources */,
@@ -1664,7 +1683,6 @@
 				C577634C14895B1300C60438 /* MBMultiRelated.m in Sources */,
 				C577635B14895B1600C60438 /* MBMultiAlternative.m in Sources */,
 				C5B2103B180479F40093531A /* MBMimeText+IMAP.m in Sources */,
-				C55E8FDE18FCA38600F83173 /* MBox.m in Sources */,
 				C577636414895B1800C60438 /* MBMultiSigned.m in Sources */,
 				C58305DA18D106E30032C72F /* MBSmartFolder+Shorthand.m in Sources */,
 				C577637014895B1A00C60438 /* MBMimeMulti.m in Sources */,

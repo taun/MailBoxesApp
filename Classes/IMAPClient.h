@@ -20,6 +20,7 @@
 @class MBox;
 @class MBMessage;
 @class IMAPCoreDataStore;
+@class IMAPMemCacheStore;
 @class IMAPResponseParser;
 
 /*!
@@ -121,7 +122,7 @@ typedef UInt8 IMAPClientStates;
  IMAPrev4 specifies state only changes if command is successful,
  losing network connection or server does bye.
  
- @see IMAPResponseBuffer, IMAPResponse
+ @see IMAPResponseParser, IMAPParsedResponse
  */
 @interface IMAPClient : NSObject <NSStreamDelegate, IMAPParsedResponseDelegate, IMAPResponseParserDelegate> {
     
@@ -148,7 +149,8 @@ typedef UInt8 IMAPClientStates;
  Core Data Protocol account information.
  */
 @property (nonatomic,readonly) IMAPResponseParser            *parser;
-@property (nonatomic, strong) IMAPCoreDataStore              *clientStore;
+@property (nonatomic, strong) IMAPCoreDataStore              *coreDataStore;
+@property (nonatomic, strong) IMAPMemCacheStore              *memCacheStore;
 
 /*!
  Here as part of the NSOperation api to indicate the threaded job is finished.
@@ -620,6 +622,7 @@ typedef UInt8 IMAPClientStates;
 -(void) commandFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 -(void) commandFetchContentStart: (UInt64) startRange end: (UInt64) endRange withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 -(void) commandFetchContentForSequence:(UInt64)theSequence mimeParts:(NSString *)part withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
+-(void) commandUIDFetchHeadersUIDSetString: (NSString*) uidString withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 -(void) commandUIDFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 -(void) commandUIDFetchContentStart: (UInt64) startRange end: (UInt64) endRange withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;
 -(void) commandFetchContentForMessage: (MBMessage*) message mimeParts: (NSString*) part withSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock;

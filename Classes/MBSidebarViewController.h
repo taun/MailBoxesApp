@@ -31,7 +31,7 @@
  */
 @property (weak) IBOutlet id<MBSidebarViewDelegate> delegate;
 
-@property (unsafe_unretained) IBOutlet NSObjectController       *userController;
+@property (unsafe_unretained) IBOutlet NSObjectController       *selectedUserController;
 @property (readonly, weak)             MBUser                   *currentUser;
 @property (readonly, weak)             NSManagedObjectContext   *managedObjectContext;
 @property (weak) IBOutlet NSOutlineView            *view;

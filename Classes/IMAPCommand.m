@@ -41,6 +41,7 @@
         isActive = NO;
         isDone = NO;
         hasLiteral = NO;
+        _isNewMessage = NO;
         literal = nil;
         arguments = nil;
         responseStatus = 0;
@@ -77,7 +78,6 @@
 
     return outputString;
 }
-
 - (NSString*) debugDescription {
     NSString* theDescription = [NSString stringWithFormat:@" (atom: %@, tag: %@, responseStatus: %@, info: %@, isActive: %u, isDone: %u,hasLiteral: %u)",
                                 self.atom, self.tag, [IMAPParsedResponse statusAsString: self.responseStatus], self.info, self.isActive, self.isDone, self.hasLiteral];

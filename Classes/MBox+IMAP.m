@@ -11,6 +11,7 @@
 #import "MBFlag+IMAP.h"
 #import <MoedaeMailPlugins/MBoxProxy.h>
 #import "MBAccount+IMAP.h"
+#import "MailBoxesAppDelegate.h"
 
 #import "NSManagedObject+Shortcuts.h"
 
@@ -41,7 +42,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (id) initWithCoder:(NSCoder *)coder {
-    NSManagedObjectContext* moc = [[NSApp delegate] managedObjectContext];
+    NSManagedObjectContext* moc = [(MailBoxesAppDelegate*)[NSApp delegate] mainObjectContext];
     if (moc) {
         self = [NSEntityDescription
                 insertNewObjectForEntityForName: NSStringFromClass([self class])
@@ -69,6 +70,93 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return proxy;
 }
 
+-(NSSet*) allUIDS {
+    __block NSMutableSet* uids;
+
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    [context performBlockAndWait:^{
+    
+        NSManagedObjectModel *model = [[context persistentStoreCoordinator] managedObjectModel];
+    
+        NSError *error = nil;
+    
+        NSDictionary *substitutionDictionary = @{@"MBOXOBJECT": self};
+    
+        NSArray *fetchedObjects;
+        NSFetchRequest *fetchRequest = [model fetchRequestFromTemplateWithName:@"MBUIDsForMBox"
+                      substitutionVariables:substitutionDictionary];
+    
+        NSEntityDescription* entity = [[model entitiesByName] objectForKey: @"MBMessage"];
+        NSDictionary * entityProperties = [entity propertiesByName];
+        NSPropertyDescription * nameInitialProperty = [entityProperties objectForKey:@"uid"];
+        NSArray * tempPropertyArray = [NSArray arrayWithObject:nameInitialProperty];
+
+        [fetchRequest setResultType: NSDictionaryResultType]; // This is redundant and set in IB CD model but maybe build folder needed cleaning?
+        [fetchRequest setPropertiesToFetch: tempPropertyArray];
+        [fetchRequest setShouldRefreshRefetchedObjects: YES];
+        [fetchRequest setFetchLimit: 0];
+        [fetchRequest setSortDescriptors: @[[[NSSortDescriptor alloc] initWithKey: @"uid" ascending:YES]]];
+//        [fetchRequest setIncludesPendingChanges: YES]; // not valid with NSDictionaryResultType
+    
+        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+
+        if (fetchedObjects.count > 0) {
+            uids = [NSMutableSet setWithCapacity: fetchedObjects.count];
+        }
+        for (NSDictionary* dictEntry in fetchedObjects) {
+            [uids addObject: [dictEntry objectForKey: @"uid"]];
+        }
+    }];
+    
+    
+    // ToDo deal with error
+    // There should always be only one. Don't know what error to post if > 1
+
+    return [uids copy];
+}
+//
+-(NSSet*) allUIDSForNotFullyCached {
+    __block NSMutableSet* uids;
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    [context performBlockAndWait:^{
+        
+        NSManagedObjectModel *model = [[context persistentStoreCoordinator] managedObjectModel];
+        
+        NSError *error = nil;
+        
+        NSDictionary *substitutionDictionary = @{@"MBOXOBJECT": self};
+        
+        NSArray *fetchedObjects;
+        NSFetchRequest *fetchRequest = [model fetchRequestFromTemplateWithName:@"MBUIDsNotFullyCachedForMBox"
+                                                         substitutionVariables:substitutionDictionary];
+        
+        NSEntityDescription* entity = [[model entitiesByName] objectForKey: @"MBMessage"];
+        NSDictionary * entityProperties = [entity propertiesByName];
+        NSPropertyDescription * nameInitialProperty = [entityProperties objectForKey:@"uid"];
+        NSArray * tempPropertyArray = [NSArray arrayWithObject:nameInitialProperty];
+        
+        [fetchRequest setResultType: NSDictionaryResultType]; // This is redundant and set in IB CD model but maybe build folder needed cleaning?
+        [fetchRequest setPropertiesToFetch: tempPropertyArray];
+        
+        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        
+        if (fetchedObjects.count > 0) {
+            uids = [NSMutableSet setWithCapacity: fetchedObjects.count];
+        }
+        for (NSDictionary* dictEntry in fetchedObjects) {
+            [uids addObject: [dictEntry objectForKey: @"uid"]];
+        }
+    }];
+    
+    
+    // ToDo deal with error
+    // There should always be only one. Don't know what error to post if > 1
+    
+    return [uids copy];
+}
 #pragma message "TODO: deal with errors "
 - (MBMessage *) findMessageForUID: (NSNumber *) uid {
     MBMessage * message = nil;
@@ -80,7 +168,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     __block NSError *error = nil;
     
     NSDictionary *substitutionDictionary = 
-    @{@"ACCOUNTOBJECT": self.accountReference, @"MBOXNAME": self.name ,@"aUID": uid};
+    @{@"MBOXOBJECT": self, @"aUID": uid};
     
     NSFetchRequest *fetchRequest = 
     [model fetchRequestFromTemplateWithName:@"MBMessageForUID"
@@ -102,7 +190,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return message;
 }
 
-
+#pragma message "There is an optimisation assumption here that new UIDs will always be fetched from lowest to highest."
 - (MBMessage *)getMBMessageWithUID:(NSNumber *)uid 
                    createIfMissing:(BOOL)create {
     
@@ -122,7 +210,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                 theMessage.uid = uid;
                 [self addMessagesObject: theMessage];
                 
-                
             }
             self.lastChangedMessage = theMessage;
             
@@ -132,6 +219,27 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         }
     }];
 
+    
+    // create a new message.
+    
+    return theMessage;
+}
+- (MBMessage *)newMBMessageWithUID:(NSNumber *)uid {
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    __block MBMessage *theMessage = nil;
+    
+    [context performBlockAndWait:^{
+        theMessage = [MBMessage insertNewObjectIntoContext: context];
+        
+        theMessage.uid = uid;
+        [self addMessagesObject: theMessage];
+        
+        self.lastChangedMessage = theMessage;
+        
+    }];
+    
     
     // create a new message.
     

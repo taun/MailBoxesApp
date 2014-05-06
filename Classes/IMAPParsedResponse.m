@@ -19,7 +19,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_INFO;
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 static     NSSet *RespDataStateTokens;
 static     NSSet *RespDataCommandTokens;
@@ -149,7 +149,7 @@ static     NSDictionary *HeaderToModelMap;
     if (self) {
         _tokens = [[MBTokenTree alloc] init];
         _command = nil;
-        _clientStore = nil;
+        _dataStore = nil;
         _messageProperties = [[NSMutableDictionary alloc] initWithCapacity: 10];
         
         _type = 0;
@@ -474,7 +474,7 @@ static     NSDictionary *HeaderToModelMap;
     NSString *path = [self.tokens scanString];
     
     
-    [self.clientStore setMailBoxFlags: flagTokens onPath: path withSeparator: separator];
+    [self.dataStore setMailBoxFlags: flagTokens onPath: path withSeparator: separator];
 }
 /*!
  Contents:   flag parenthesized list
@@ -490,7 +490,7 @@ static     NSDictionary *HeaderToModelMap;
     
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
     NSMutableArray *flagTokens = [[self.tokens scanSubTree] tokenArray]; // TODO: check for array at 0
-    [self.clientStore setMailBox: self.command.mboxFullPath AvailableFlags: flagTokens];
+    [self.dataStore setMailBox: self.command.mboxFullPath AvailableFlags: flagTokens];
 }
 
 /*!
@@ -512,19 +512,19 @@ static     NSDictionary *HeaderToModelMap;
     
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
     NSMutableArray *flagTokens = [[self.tokens scanSubTree] tokenArray]; // TODO: check for array at 0
-    [self.clientStore setMailBox: self.command.mboxFullPath PermanentFlags: flagTokens];
+    [self.dataStore setMailBox: self.command.mboxFullPath PermanentFlags: flagTokens];
 }
 
 -(void) responseReadOnly {
     [self localLog];
     // set MBox mode to RO
-    [self.clientStore setMailBoxReadOnly: self.command.mboxFullPath];
+    [self.dataStore setMailBoxReadOnly: self.command.mboxFullPath];
 }
 
 -(void) responseReadWrite {
     [self localLog];
     // set MBox mode to RO
-    [self.clientStore setMailBoxReadWrite: self.command.mboxFullPath];
+    [self.dataStore setMailBoxReadWrite: self.command.mboxFullPath];
 }
 
 /*!
@@ -550,7 +550,7 @@ static     NSDictionary *HeaderToModelMap;
     
     NSNumber *arg = [self.tokens scanNumber];
     if (arg != nil) {
-        [self.clientStore setMailBox: self.command.mboxFullPath serverMessageCount: arg];
+        [self.dataStore setMailBox: self.command.mboxFullPath serverMessageCount: arg];
     }
 }
 
@@ -560,7 +560,7 @@ static     NSDictionary *HeaderToModelMap;
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
     NSNumber *arg = [self.tokens scanNumber];
     if (arg != nil) {
-        [self.clientStore setMailBox: self.command.mboxFullPath serverRecentCount: arg];
+        [self.dataStore setMailBox: self.command.mboxFullPath serverRecentCount: arg];
     }
 }
 
@@ -569,7 +569,7 @@ static     NSDictionary *HeaderToModelMap;
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
     NSNumber *arg = [self.tokens scanNumber];
     if (arg != nil) {
-        [self.clientStore setMailBox: self.command.mboxFullPath serverHighestmodseq: arg];
+        [self.dataStore setMailBox: self.command.mboxFullPath serverHighestmodseq: arg];
     }
 }
 
@@ -578,7 +578,7 @@ static     NSDictionary *HeaderToModelMap;
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
     NSNumber *arg = [self.tokens scanNumber];
     if (arg != nil) {
-        [self.clientStore setMailBox: self.command.mboxFullPath Uidnext: arg];
+        [self.dataStore setMailBox: self.command.mboxFullPath Uidnext: arg];
     }
 }
 
@@ -587,7 +587,7 @@ static     NSDictionary *HeaderToModelMap;
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
     NSNumber *arg = [self.tokens scanNumber];
     if (arg != nil) {
-        [self.clientStore setMailBox: self.command.mboxFullPath Uidvalidity: arg];
+        [self.dataStore setMailBox: self.command.mboxFullPath Uidvalidity: arg];
     }
 }
 
@@ -596,7 +596,7 @@ static     NSDictionary *HeaderToModelMap;
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
     NSNumber *arg = [self.tokens scanNumber];
     if (arg != nil) {
-        [self.clientStore setMailBox: self.command.mboxFullPath serverUnseen: arg];
+        [self.dataStore setMailBox: self.command.mboxFullPath serverUnseen: arg];
     }
 }
 
@@ -702,8 +702,11 @@ static     NSDictionary *HeaderToModelMap;
                     [self performResponseMethodFromToken: prePreFixedToken ];
                 }
             }
-            
-            [self.clientStore setMessage: messageUid propertiesFromDictionary: self.messageProperties];
+            if (self.command.isNewMessage) {
+                [self.dataStore newMessage: messageUid propertiesFromDictionary: self.messageProperties];
+            } else {
+                [self.dataStore setMessage: messageUid propertiesFromDictionary: self.messageProperties];
+            }
             [self.messageProperties removeAllObjects];
         } else {
 #pragma message "ToDo: error finding UID?"

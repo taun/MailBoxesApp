@@ -76,13 +76,12 @@ NSString *PortalEditingEndedKey;
  
  @see MBUser
  */
-@property(strong)                    MBUser                   *currentUser;
+@property(strong)                    MBUser                         *currentUser;
 
 /// @name accessors for Core Data
-@property(nonatomic,readonly,strong) NSPersistentStoreCoordinator    *persistentStoreCoordinator;
+@property(nonatomic,readonly,strong) NSPersistentStoreCoordinator    *mainPersistentStoreCoordinator;
 @property(nonatomic,readonly,strong) NSManagedObjectModel            *managedObjectModel;
-@property(nonatomic,readonly,strong) NSManagedObjectContext          *managedObjectContext;
-@property(nonatomic,readonly,strong) NSManagedObjectContext          *nibManagedObjectContext;
+@property(nonatomic,readonly,strong) NSManagedObjectContext          *mainObjectContext;
 
 /// @name Networking
 @property (strong)           NSOperationQueue               *syncQueue;

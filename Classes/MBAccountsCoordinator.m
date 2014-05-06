@@ -40,10 +40,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 static MBAccountsCoordinator *_sharedInstance = nil;
 static dispatch_once_t once_token = 0;
 
-+(instancetype) sharedInstanceForUser: (MBUser*) aUser {
-    if (aUser && ((_sharedInstance == nil) || ((_sharedInstance != nil) && (_sharedInstance.user != aUser)))) {
++(instancetype) sharedInstanceForUser: (MBUser*) mainUser {
+    if (mainUser && ((_sharedInstance == nil) || ((_sharedInstance != nil) && (_sharedInstance.mainUser != mainUser)))) {
         dispatch_once(&once_token, ^{
-            _sharedInstance = [[MBAccountsCoordinator alloc] initWithMBUser: aUser];
+            _sharedInstance = [[MBAccountsCoordinator alloc] initWithMainUser: mainUser];
         });
     }
     return _sharedInstance;
@@ -52,20 +52,20 @@ static dispatch_once_t once_token = 0;
     once_token = 0; // resets the once_token so dispatch_once will run again
     _sharedInstance = instance;
 }
-- (id)initWithMBUser: (MBUser*) aUser {
+- (id)initWithMainUser: (MBUser*) mainUser {
     self = [super init];
     if (self) {
         // Initialization code here.
-        _user = aUser;
+        _mainUser = mainUser;
         _accountConnections = [[NSMutableDictionary alloc] initWithCapacity:1];
         [self updateAccountConnections];
-        [_user addObserver: self forKeyPath: @"accounts" options: NSKeyValueObservingOptionOld context: NULL];
+        [_mainUser addObserver: self forKeyPath: @"accounts" options: NSKeyValueObservingOptionOld context: NULL];
     }
     
     return self;
 }
 -(void) dealloc {
-    [_user removeObserver: self forKeyPath: @"accounts"];
+    [_mainUser removeObserver: self forKeyPath: @"accounts"];
 }
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString: @"accounts"]) {
@@ -74,7 +74,7 @@ static dispatch_once_t once_token = 0;
     }
 }
 -(void) updateFolderStructureForAllAccounts {
-    for (MBAccount* account in self.user.accounts) {
+    for (MBAccount* account in self.mainUser.accounts) {
         [self updateFolderStructureForAccount: account];
     }
 }
@@ -124,7 +124,7 @@ static dispatch_once_t once_token = 0;
             [connCoord testIMAPClientComm];
         }
     } else {
-        for (MBAccount* localAccount in self.user.accounts) {
+        for (MBAccount* localAccount in self.mainUser.accounts) {
             MBAccountConnectionsCoordintator* connCoord = [self connectionCoordinatorForAccount: account];
             if (connCoord) {
                 [connCoord testIMAPClientComm];
@@ -151,9 +151,9 @@ static dispatch_once_t once_token = 0;
 -(void) updateAccountConnections {
     // var access is used here because this gets called in the init
     NSMutableDictionary* deletedConnCoords = [_accountConnections mutableCopy];
-    NSMutableDictionary* revisedConnections = [NSMutableDictionary dictionaryWithCapacity: _user.accounts.count];
+    NSMutableDictionary* revisedConnections = [NSMutableDictionary dictionaryWithCapacity: _mainUser.accounts.count];
     
-    for (MBAccount* account in _user.accounts) {
+    for (MBAccount* account in _mainUser.accounts) {
         NSString* identifier = account.identifier;
         MBAccountConnectionsCoordintator* connCoord = [_accountConnections objectForKey: identifier];
         
@@ -177,7 +177,7 @@ static dispatch_once_t once_token = 0;
     _accountConnections = revisedConnections;
 }
 -(MBAccount*) accountForID:(NSManagedObjectID *)accountID {
-    MBAccount* account = (MBAccount*)[self.user.managedObjectContext objectWithID: accountID];
+    MBAccount* account = (MBAccount*)[self.mainUser.managedObjectContext objectWithID: accountID];
     return account;
 }
 

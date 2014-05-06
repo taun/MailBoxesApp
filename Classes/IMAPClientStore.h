@@ -1,5 +1,5 @@
 //
-//  IMAPClientStore.h
+//  IMAPDataStore.h
 //  MailBoxes
 //
 //  Created by Taun Chapman on 12/1/11.
@@ -11,20 +11,28 @@
 @class MBox;
 
 /*!
- Currently only one implementor of the IMAPClientStore protocol, IMAPCoreDataStore.
+ Currently only one implementor of the IMAPDataStore protocol, IMAPCoreDataStore.
  
  Intent is to allow other protocol implementors to allow other non Core Data persistance mechanisms.
  */
 
-@protocol IMAPClientStore <NSObject>
+@protocol IMAPDataStore <NSObject>
+
+@property (nonatomic,strong) MBox                  *selectedMBox;
 
 -(MBox *) selectMailBox: (NSString *) fullPath;
 
--(BOOL) save: (NSError**) error;
+-(void) save;
 
 -(MBMessage*) messageForObjectID: (NSManagedObjectID*) messageID;
 
 -(NSNumber*) lowestUID;
+
+-(NSSet*) allUIDsForSelectedMailBox;
+
+-(NSSet*) allCachedUIDsForSelectedMailBox;
+
+-(NSSet*) allCachedUIDsNotFullyCachedForSelectedMailBox;
 
 /*!
  Will need to implement all of the required methods for setting values in the store.
@@ -71,11 +79,20 @@
 
 
 /*!
- All of the following message methods work on the messages in the selectedMBox.
+ Work on the messages in the selectedMBox. Check for an existing message with uid first.
  
  @param uid NSNumber
  @param aDictionary NSDictionary
  */
 -(BOOL) setMessage: (NSNumber*) uid propertiesFromDictionary: (NSDictionary*) aDictionary;
+/*!
+ Do not check for existing message. Just create a new message.
+ 
+ @param uid
+ @param aDictionary
+ 
+ @return 
+ */
+-(BOOL) newMessage: (NSNumber*) uid propertiesFromDictionary: (NSDictionary*) aDictionary;
 
 @end

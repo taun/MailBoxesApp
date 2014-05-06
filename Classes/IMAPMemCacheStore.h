@@ -1,5 +1,5 @@
 //
-//  IMAPCoreDataStore.h
+//  IMAPMemCacheStore.h
 //  MailBoxes
 //
 //  Created by Taun Chapman on 9/28/11.
@@ -30,10 +30,9 @@
     IMAPClientStore - interfaces response with store
  
  */
-@interface IMAPCoreDataStore : NSObject <IMAPDataStore> {
+@interface IMAPMemCacheStore : NSObject <IMAPDataStore> {
     NSManagedObjectID *_accountID;
     NSManagedObjectID *_mboxID;
-    
 }
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *parentContext;

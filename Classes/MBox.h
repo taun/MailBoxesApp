@@ -2,7 +2,7 @@
 //  MBox.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 04/14/14.
+//  Created by Taun Chapman on 04/24/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -17,9 +17,11 @@
 @property (nonatomic, retain) NSString * fullPath;
 @property (nonatomic, retain) NSNumber * isMarked;
 @property (nonatomic, retain) NSNumber * isReadWrite;
-@property (nonatomic, retain) NSNumber * lastSeenUID;
+@property (nonatomic, retain) NSNumber * maxCachedUID;
 @property (nonatomic, retain) NSDate * lastSelected;
 @property (nonatomic, retain) NSDate * lastSync;
+@property (nonatomic, retain) NSNumber * noInferiors;
+@property (nonatomic, retain) NSNumber * noSelect;
 @property (nonatomic, retain) NSString * pathSeparator;
 @property (nonatomic, retain) NSNumber * serverHighestModSeq;
 @property (nonatomic, retain) NSNumber * serverMessages;
@@ -28,9 +30,7 @@
 @property (nonatomic, retain) NSNumber * serverUIDValidity;
 @property (nonatomic, retain) NSNumber * serverUnseen;
 @property (nonatomic, retain) NSString * specialUse;
-@property (nonatomic, retain) NSString * uid;
-@property (nonatomic, retain) NSNumber * noInferiors;
-@property (nonatomic, retain) NSNumber * noSelect;
+@property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) MBAccount *accountReference;
 @property (nonatomic, retain) NSSet *availableFlags;
 @property (nonatomic, retain) MBMessage *lastChangedMessage;

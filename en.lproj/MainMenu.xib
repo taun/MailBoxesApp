@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -176,7 +176,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="271" height="663"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="948" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" typeSelect="NO" autosaveName="AccountSidebarView" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="14" outlineTableColumn="1062" id="1061" customClass="MBSidebarView">
+                                                <outlineView focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="948" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" typeSelect="NO" autosaveName="AccountSidebarView" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="14" autosaveExpandedItems="YES" outlineTableColumn="1062" id="1061" customClass="MBSidebarView">
                                                     <rect key="frame" x="0.0" y="0.0" width="271" height="663"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
@@ -394,7 +394,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="Ovp-zj-tQH" secondAttribute="trailing" priority="200" id="mfS-Fo-ANX"/>
                                                                 <constraint firstItem="Ovp-zj-tQH" firstAttribute="leading" secondItem="5k9-DR-QWV" secondAttribute="leading" id="z5Q-Zl-mll"/>
                                                             </constraints>
-                                                            <color key="backgroundColor" patternImage="ED5E0E41-9B35-41DE-BD04-465F0A66E9DB" colorSpace="pattern"/>
+                                                            <color key="backgroundColor" patternImage="3C16E246-9D19-40D3-8CD1-814954A00C52" colorSpace="pattern"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="fzv-cM-tBI">
                                                             <rect key="frame" x="0.0" y="328" width="751" height="16"/>
@@ -574,7 +574,6 @@
                 <outlet property="appWindow" destination="371" id="1403"/>
                 <outlet property="collectionView" destination="1128" id="1402"/>
                 <outlet property="mainSplitView" destination="838" id="aPW-Zb-t5M"/>
-                <outlet property="mainSplitViewDelegate" destination="854" id="858"/>
                 <outlet property="messagesSplitView" destination="1080" id="1406"/>
                 <outlet property="portalsArrayController" destination="1133" id="Ygp-fz-nuP"/>
                 <outlet property="preferencesWindow" destination="823" id="837"/>
@@ -599,8 +598,8 @@
                 <outlet property="menuSidebarGroup" destination="1473" id="1533"/>
                 <outlet property="menuSidebarMailBoxNode" destination="1544" id="1567"/>
                 <outlet property="menuSidebarNode" destination="1478" id="1532"/>
+                <outlet property="selectedUserController" destination="1020" id="Ixa-Ln-qtj"/>
                 <outlet property="sidebarOutlineView" destination="1061" id="1534"/>
-                <outlet property="userController" destination="1020" id="1537"/>
                 <outlet property="view" destination="1061" id="1536"/>
             </connections>
         </customObject>
@@ -612,12 +611,12 @@
         <objectController mode="entity" entityName="MBUser" editable="NO" automaticallyPreparesContent="YES" id="1020" userLabel="Selected User Controller">
             <connections>
                 <binding destination="494" name="contentObject" keyPath="currentUser" id="1196"/>
-                <binding destination="494" name="managedObjectContext" keyPath="nibManagedObjectContext" id="1379"/>
+                <binding destination="494" name="managedObjectContext" keyPath="mainObjectContext" id="58a-IF-d0Q"/>
             </connections>
         </objectController>
         <arrayController mode="entity" entityName="MBPortal" usesLazyFetching="YES" editable="NO" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="1133" userLabel="Portals Array Controller">
             <connections>
-                <binding destination="494" name="managedObjectContext" keyPath="nibManagedObjectContext" id="1381"/>
+                <binding destination="494" name="managedObjectContext" keyPath="mainObjectContext" id="Aoi-4k-J3b"/>
                 <binding destination="494" name="sortDescriptors" keyPath="portalsACSortDescriptors" id="1194"/>
                 <binding destination="1020" name="contentArray" keyPath="selection.self.portals.@array" id="kaT-sh-jpg"/>
             </connections>
@@ -1495,7 +1494,7 @@
         </menu>
     </objects>
     <resources>
-        <image name="ED5E0E41-9B35-41DE-BD04-465F0A66E9DB" width="450" height="420">
+        <image name="3C16E246-9D19-40D3-8CD1-814954A00C52" width="450" height="420">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

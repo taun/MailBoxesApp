@@ -2,7 +2,7 @@
 //  MBox.m
 //  MailBoxes
 //
-//  Created by Taun Chapman on 04/14/14.
+//  Created by Taun Chapman on 04/24/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -17,9 +17,11 @@
 @dynamic fullPath;
 @dynamic isMarked;
 @dynamic isReadWrite;
-@dynamic lastSeenUID;
+@dynamic maxCachedUID;
 @dynamic lastSelected;
 @dynamic lastSync;
+@dynamic noInferiors;
+@dynamic noSelect;
 @dynamic pathSeparator;
 @dynamic serverHighestModSeq;
 @dynamic serverMessages;
@@ -29,8 +31,6 @@
 @dynamic serverUnseen;
 @dynamic specialUse;
 @dynamic uid;
-@dynamic noInferiors;
-@dynamic noSelect;
 @dynamic accountReference;
 @dynamic availableFlags;
 @dynamic lastChangedMessage;

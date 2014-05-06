@@ -46,7 +46,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     [self.view setDraggingSourceOperationMask: NSDragOperationEvery forLocal:YES];
     
-    [self.view setDraggingDestinationFeedbackStyle: NSTableViewDraggingDestinationFeedbackStyleSourceList]; 
+    [self.view setDraggingDestinationFeedbackStyle: NSTableViewDraggingDestinationFeedbackStyleSourceList];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(managedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
@@ -54,7 +55,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 -(NSManagedObjectContext*) managedObjectContext {
-    return [self.currentUser managedObjectContext];
+    NSManagedObjectContext* moc = [self.selectedUserController managedObjectContext];
+    return moc;
+}
+-(MBUser*) currentUser {
+    MBUser* user = (MBUser*)[self.selectedUserController content];
+    return user;
 }
 
 - (void) managedObjectContextDidChange: (NSNotification *)notification {
@@ -314,10 +320,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 
--(MBUser*) currentUser {
-    return (MBUser*)[self.userController content];
-}
-
 -(void) reloadData {
     [self.view reloadData];
 }
@@ -327,6 +329,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self.view expandItem: self.currentUser.sidebar.accountGroup expandChildren: NO];
     DDLogVerbose(@"%@ row: %i", NSStringFromSelector(_cmd), row);
 }
+-(void) expandFavoritesGroup {
+    NSInteger row = [self.view rowForItem: self.currentUser.sidebar.favoritesGroup];
+    [self.view expandItem: self.currentUser.sidebar.favoritesGroup expandChildren: NO];
+    DDLogVerbose(@"%@ row: %i", NSStringFromSelector(_cmd), row);
+}
+
 
 #pragma mark - Menu Delegate
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem {

@@ -62,9 +62,9 @@ typedef UInt8 IMAPResponseStatus;
  The response status as returned by the server after the IMAPCommand.
  */
 @property (assign)              IMAPResponseStatus              status;
-@property (nonatomic,weak,readwrite) id <IMAPClientStore>       clientStore;
+@property (nonatomic,weak,readwrite) id <IMAPDataStore>         dataStore;
 @property (nonatomic,strong)              NSMutableDictionary*  messageProperties;
-@property (nonatomic,weak) id <IMAPParsedResponseDelegate>            delegate;
+@property (nonatomic,weak) id <IMAPParsedResponseDelegate>      delegate;
 
 /// @name Property convenience methods
 + (NSString*) typeAsString: (IMAPResponseType) aType;
