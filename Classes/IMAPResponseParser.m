@@ -32,10 +32,62 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @implementation IMAPResponseParser
 
++ (NSString*) resultAsString: (IMAPParseResult) aResult {
+    NSString* typeString = nil;
+    
+    switch (aResult) {
+        case IMAPParsingNotStarted:
+            typeString = @"IMAPParsingNotStarted";
+            break;
+        case IMAPParseComplete:
+            typeString = @"IMAPParseComplete";
+            break;
+        case IMAPParseWaiting:
+            typeString = @"IMAPParseWaiting";
+            break;
+        case IMAPParseUnexpectedEnd:
+            typeString = @"IMAPParseUnexpectedEnd";
+            break;
+        case IMAPParseError:
+            typeString = @"IMAPParseError";
+            break;
+        case IMAPParseTimeOut:
+            typeString = @"IMAPParseTimeOut";
+            break;
+        case IMAPParsing:
+            typeString = @"IMAPParsing";
+            break;
+            
+        default:
+            break;
+    }
+    return typeString;
+}
+
++ (NSString*) stateAsString: (IMAPResponseState) aState {
+    NSString* typeString = nil;
+    
+    switch (aState) {
+        case IMAPResponseLineMode:
+            typeString = @"IMAPResponseLineMode";
+            break;
+        case IMAPResponseLiteralMode:
+            typeString = @"IMAPResponseLiteralMode";
+            break;
+        case IMAPResponseContinuationMode:
+            typeString = @"IMAPResponseContinuationMode";
+            break;
+            
+        default:
+            break;
+    }
+    return typeString;
+}
+
 #pragma mark - initialization and dealloc
-+(instancetype) newResponseBufferWithStore:(IMAPCoreDataStore *)store {
++(instancetype) newResponseBufferWithDefaultStore:(IMAPCoreDataStore *)store {
     IMAPResponseParser* newRB = [[[self class] alloc] init];
-    newRB.clientStore = store;
+    newRB.defaultDataStore = store;
     return newRB;
 }
 - (id)init {
@@ -79,7 +131,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if (!_parsedResponse) {
         _parsedResponse = [[IMAPParsedResponse alloc] init];
         [_parsedResponse setDelegate: self.responseDelegate];
-        [_parsedResponse setClientStore: self.clientStore];
+        if (self.command && self.command.dataStore) {
+            [_parsedResponse setDataStore: self.command.dataStore];
+        } else {
+            [_parsedResponse setDataStore: self.defaultDataStore];
+        }
     }
     return _parsedResponse;
 }
@@ -161,7 +217,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 [self.parsedResponse setCommand: self.command];
                 
                 while ( (self.currentByte != 0) && ((self.result == IMAPParsing) || (self.result == IMAPParseWaiting))) {
-                    //
+#pragma message "TODO: create test & add code to break out of loop if it runs too many iterations without progress, was happening with bad \" "
                     
                     if (self.currentByte == '[') {
                         // get all in brackets
@@ -188,8 +244,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                             NSInteger literalValue = [returnedString integerValue];
                             if ([self incrementBytePosition] == 0) {
                                 NSRange literalRange = NSMakeRange(self.currentCharLocation, literalValue);
-                                NSString *literalString = [[NSString alloc] initWithData: [self.currentBuffer subdataWithRange: literalRange] encoding: NSASCIIStringEncoding];
-                                [self.parsedResponse.tokens addObject: literalString];
+                                if (self.currentBuffer.length >= (literalRange.location+literalRange.length)) {
+                                    NSString *literalString = [[NSString alloc] initWithData: [self.currentBuffer subdataWithRange: literalRange] encoding: NSASCIIStringEncoding];
+                                    [self.parsedResponse.tokens addObject: literalString];
+                                } else {
+                                    // buffer is too short
+                                    self.result = IMAPParseUnexpectedEnd;
+                                }
                             } else {
                                 self.result = IMAPParseUnexpectedEnd;
                             }
@@ -464,11 +525,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSUInteger rangeStart = self.currentCharLocation;
     NSUInteger rangeLength = 0;
     
-    do {
-        if ([self incrementBytePosition] != 0) {
-            self.result = IMAPParseUnexpectedEnd;
-        };
-    } while (strchr(stopChars, self.currentByte) == NULL && (self.currentByte != 0) && ((self.result == IMAPParsing) || (self.result == IMAPParseWaiting)));
+    while (strchr(stopChars, self.currentByte) == NULL && (self.currentByte != 0) && ((self.result == IMAPParsing) || (self.result == IMAPParseWaiting))) {
+        if ([self incrementBytePosition] != 0) self.result = IMAPParseUnexpectedEnd;
+    };
     
     // If stop char, we want to leave the stop char
     // but if the stop char is the last character move the currentChar to the end
@@ -556,28 +615,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 #pragma clang diagnostic pop
-
-
-
-//-(void) performClientStoreMethodSelector: (SEL) commandSelector {
-//
-//    if ([[self clientStore] respondsToSelector: commandSelector]) {
-//        [[self clientStore] performSelector: commandSelector withObject: self];
-//    } else {
-//        [[self delegate] performSelector: NSSelectorFromString(@"responseUnknown") withObject: self];
-//    }
-//}
-//
-//-(void) performClientStoreMessageMethodFromToken: (NSString *) commandToken {
-//    NSString *clientStoreCommand = [NSString stringWithFormat: @"setMessage%@:", [self normalizeToken: commandToken]];
-//    [self performClientStoreMethodSelector: NSSelectorFromString(clientStoreCommand)];
-//}
-
-//-(void) performClientStoreMailBoxMethodFromToken: (NSString *) commandToken {
-//    NSString *clientStoreCommand = [NSString stringWithFormat: @"setMailBox%@:", [self normalizeToken: commandToken]];
-//    [self performClientStoreMethodSelector: NSSelectorFromString(clientStoreCommand)];
-//}
-
 
 
 @end

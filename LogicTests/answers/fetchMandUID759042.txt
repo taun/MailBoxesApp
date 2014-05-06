@@ -1,0 +1,45 @@
+----------- BUG in parsing this ---------
+* 4677 FETCH (UID 759042 RFC822.SIZE 2606358 BODYSTRUCTURE ((("TEXT" "PLAIN" NIL NIL NIL "8BIT" 552 5 NIL NIL NIL NIL)("TEXT" "HTML" NIL NIL NIL "8BIT" 647 7 NIL NIL NIL NIL) "ALTERNATIVE" ("BOUNDARY" "NextPart_Webmail_9m3u9jl4l_14802_1206100365_1") NIL NIL NIL)("MESSAGE" "RFC822" NIL NIL NIL "7BIT" 2602211 ("Thu, 20 Mar 2008 00:54:07 +0000" "" (("Randy and Diane Kane" NIL "mabbymia" "comcast.net")) (("Randy and Diane Kane" NIL "mabbymia" "comcast.net")) (("Randy and Diane Kane" NIL "mabbymia" "comcast.net")) (("Ida Ladner" NIL "idapaul" "comcast.net")) NIL NIL NIL NIL) (("IMAGE" "JPEG" ("NAME" "2007-2008 190.jpg") NIL NIL "BASE64" 1306862 NIL ("attachment" ("FILENAME" "2007-2008 190.jpg")) NIL NIL)("IMAGE" "JPEG" ("NAME" "2007-2008 283.jpg") NIL NIL "BASE64" 1294636 NIL ("attachment" ("FILENAME" "2007-2008 283.jpg")) NIL NIL) "MIXED" ("BOUNDARY" "NextPart_Webmail_9m3u9jl4l_14802_1206100365_2") NIL NIL NIL) 33378 NIL NIL NIL NIL) "MIXED" ("BOUNDARY" "NextPart_Webmail_9m3u9jl4l_14802_1206100365_0") NIL NIL NIL) RFC822.HEADER {2386}
+Return-Path: idapaul@comcast.net
+Received: from 68.238.253.173 (LHLO mz0.moedae.com) (68.238.253.173) by
+ mz0.moedae.com with LMTP; Fri, 21 Mar 2008 07:53:08 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mz0.moedae.com (Postfix) with ESMTP id A244013C0C5;
+	Fri, 21 Mar 2008 07:53:08 -0400 (EDT)
+X-Virus-Scanned: amavisd-new at 
+X-Spam-Flag: NO
+X-Spam-Score: 0
+X-Spam-Level: 
+X-Spam-Status: No, score=x tagged_above=-10 required=6.6 tests=[]
+Received: from mz0.moedae.com ([127.0.0.1])
+	by localhost (mz0.moedae.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 3ho43-qcApx0; Fri, 21 Mar 2008 07:53:07 -0400 (EDT)
+Received: from QMTA06.emeryville.ca.mail.comcast.net (qmta06.emeryville.ca.mail.comcast.net [76.96.30.56])
+	by mz0.moedae.com (Postfix) with ESMTP id BED1213C0C1
+	for <mandt@charcoalia.net>; Fri, 21 Mar 2008 07:53:02 -0400 (EDT)
+Received: from OMTA14.emeryville.ca.mail.comcast.net ([76.96.30.60])
+	by QMTA06.emeryville.ca.mail.comcast.net with comcast
+	id 3nKC1Z0041HpZEsA601o00; Fri, 21 Mar 2008 11:52:09 +0000
+Received: from amailcenter17.comcast.net ([204.127.225.117])
+	by OMTA14.emeryville.ca.mail.comcast.net with comcast
+	id 3nsp1Z00N2Yc4cU8a00000; Fri, 21 Mar 2008 11:52:52 +0000
+X-Authority-Analysis: v=1.0 c=1 a=VkDuBaSG729DltQAxBy/9g==:17
+ a=CfqXJtMzDpfA__z46CkA:9 a=UdvBLgVCPUMUKBIk0fe_95p_Y74A:4 a=v47ZLdibA2YA:10
+ a=3X8KCACfZ0xeQufPDL8A:9 a=yKmjwzg3dhJh3HsNBt2l9gLM4CAA:4 a=37WNUvjkh6kA:10
+ a=yb3ffbU9y1JQpdcHRtMA:9 a=wKbvbaRfYCKVaIy8MQ_Z8aDeJGUA:4 a=si9q_4b84H0A:10
+ a=pMJwLHLTxccA:10 a=-J5-jlqaKAoA:10 a=REEM3VDMXLQA:10 a=M5aF-dNDyIoA:10
+ a=guUHgH6spFYA:10 a=CoDMQ3SKUUsA:10 a=Fo4nVP6H3dUA:10 a=zVSjA-NB77AA:10
+ a=syZBlzWpj6wA:10 a=MXcAeKb4O0wA:10 a=X-JKFS-oLjAA:10 a=iYlkOlhu7C0A:10
+Received: from [71.225.78.200] by amailcenter17.comcast.net;
+	Fri, 21 Mar 2008 11:52:45 +0000
+From: idapaul@comcast.net
+To: "Randy and Diane Kane" <mabbymia@comcast.net>,mandt@charcoalia.net,studlienw@comcast.net
+Subject: pic of your son for Kids! Magazine
+Date: Fri, 21 Mar 2008 11:52:45 +0000
+Message-Id: <032120081152.14802.47E3A18D0003113E000039D22215575474049A0E9F0E0B07@comcast.net>
+X-Mailer: AT&T Message Center Version 1 (Oct 30 2007)
+X-Authenticated-Sender: aWRhcGF1bEBjb21jYXN0Lm5ldA==
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="NextPart_Webmail_9m3u9jl4l_14802_1206100365_0"
+
+ FLAGS (\Answered \Seen))

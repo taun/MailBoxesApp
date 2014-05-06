@@ -8,7 +8,7 @@
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "NO"
+            buildForRunning = "YES"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "YES">
@@ -51,10 +51,76 @@
                   Identifier = "IMAPClientTest/testRespFetchUidBodystructureMultiPartImageMessage">
                </Test>
                <Test
-                  Identifier = "IMAPResponseParserTests">
+                  Identifier = "IMAPResponseParserTests/testDoneOkFetchCompleted">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testFetchGrandMastersSampleRFC822Header">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testFetchLW200">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testFetchRFC822Header">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testFetchRFC822Multipart">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testHalfBufferPlusHalfBuffer">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testOkPermanentFlags">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testOkRespTextCapability">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testOkUidnext1Line">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testOkUidvalidity1Line">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testOkUnseen1Line">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testParenRecursion">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testRangeOfStringEnclosedByWithBadString">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testRespCapability">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testRespFetchBodyPart2CommandEnd">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testRespFetchBodyPart2CommandEndIncompleteMultiBuffer">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testRespFetchBodyPart2CommandEndMultiBuffer">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testRespFetchUidBody2">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testRespFetchUidEnvelope">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testRespFetchUidEnvelopeEmptyFlags">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testXList1Line">
+               </Test>
+               <Test
+                  Identifier = "IMAPResponseParserTests/testXList1LineNoLineFeed">
                </Test>
                <Test
                   Identifier = "LogicTests">
+               </Test>
+               <Test
+                  Identifier = "MBIMAPMemCacheStoreTests">
                </Test>
                <Test
                   Identifier = "MBTransformerTests">

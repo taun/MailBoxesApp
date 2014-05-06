@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "IMAPResponseDelegate.h"
+#import "IMAPClientStore.h"
 
 @class IMAPCommand;
 @class IMAPCoreDataStore;
@@ -70,7 +71,7 @@ typedef UInt8 IMAPResponseState;
     unsigned char _currentByte;
     dispatch_queue_t _parserQueue;
 }
-@property (nonatomic, weak, readwrite) IMAPCoreDataStore    *clientStore;
+@property (nonatomic, weak, readwrite) id<IMAPDataStore>    defaultDataStore;
 @property (nonatomic,strong)  IMAPParsedResponse            *parsedResponse;
 @property (weak)  id<IMAPParsedResponseDelegate>            responseDelegate;
 @property (weak)  id<IMAPResponseParserDelegate>            bufferDelegate;
@@ -89,7 +90,11 @@ typedef UInt8 IMAPResponseState;
 
 @property (assign) NSTimeInterval             timeOutPeriod; //seconds
 
-+(instancetype) newResponseBufferWithStore: (IMAPCoreDataStore*) store;
+/// @name Property convenience methods
++ (NSString*) resultAsString: (IMAPParseResult) aResult;
++ (NSString*) stateAsString: (IMAPResponseState) aState;
+
++(instancetype) newResponseBufferWithDefaultStore: (IMAPCoreDataStore*) store;
 -(void) addDataBuffer:(NSMutableData *)newDataBuffer;
 /*!
  Start parsing in the background.
