@@ -1,4 +1,4 @@
-* 12597 FETCH (UID 12597 RFC822.HEADER {1489}
+* 12597 FETCH (UID 12597 BODY[HEADER] {1489}
 Return-Path: newsinfo@9flavours.com
 Received: from mz0.moedae.com (LHLO mail.charcoalia.net) (68.238.253.173) by
  mail.charcoalia.net with LMTP; Sun, 31 Jul 2011 03:19:59 -0400 (EDT)

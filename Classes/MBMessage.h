@@ -2,7 +2,7 @@
 //  MBMessage.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 03/19/14.
+//  Created by Taun Chapman on 05/07/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -31,6 +31,11 @@
 @property (nonatomic, retain) NSString * subject;
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSNumber * uid;
+@property (nonatomic, retain) NSNumber * xSpamFlag;
+@property (nonatomic, retain) NSString * returnPath;
+@property (nonatomic, retain) NSNumber * xSpamScore;
+@property (nonatomic, retain) NSString * xSpamLevel;
+@property (nonatomic, retain) NSString * xSpamStatus;
 @property (nonatomic, retain) MBAddress *addressesBcc;
 @property (nonatomic, retain) MBAddress *addressesCc;
 @property (nonatomic, retain) MBAddress *addressesTo;

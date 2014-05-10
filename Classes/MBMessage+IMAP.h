@@ -35,6 +35,14 @@
 -(void) setParsedAddressesCc: (id) tokenized;
 -(void) setParsedFlags: (id) tokenized;
 -(void) setParsedSubject: (id) tokenized;
+
+-(void) setParsedOrganization: (id) tokenized;
+-(void) setParsedReturnPath: (id) tokenized;
+-(void) setParsedXSpamFlag: (id) tokenized;
+-(void) setParsedXSpamLevel: (id) tokenized;
+-(void) setParsedXSpamScore: (id) tokenized;
+-(void) setParsedXSpamStatus: (id) tokenized;
+
 -(void) setParsedSummary: (id) tokenized;
 -(void) setParsedRfc2822size: (id) tokenized;
 -(void) setParsedBodystructure: (id) tokenized;

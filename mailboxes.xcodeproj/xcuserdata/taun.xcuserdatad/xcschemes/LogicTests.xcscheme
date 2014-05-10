@@ -54,13 +54,7 @@
                   Identifier = "IMAPResponseParserTests/testDoneOkFetchCompleted">
                </Test>
                <Test
-                  Identifier = "IMAPResponseParserTests/testFetchGrandMastersSampleRFC822Header">
-               </Test>
-               <Test
                   Identifier = "IMAPResponseParserTests/testFetchLW200">
-               </Test>
-               <Test
-                  Identifier = "IMAPResponseParserTests/testFetchRFC822Header">
                </Test>
                <Test
                   Identifier = "IMAPResponseParserTests/testFetchRFC822Multipart">
@@ -72,9 +66,6 @@
                   Identifier = "IMAPResponseParserTests/testOkPermanentFlags">
                </Test>
                <Test
-                  Identifier = "IMAPResponseParserTests/testOkRespTextCapability">
-               </Test>
-               <Test
                   Identifier = "IMAPResponseParserTests/testOkUidnext1Line">
                </Test>
                <Test
@@ -84,13 +75,7 @@
                   Identifier = "IMAPResponseParserTests/testOkUnseen1Line">
                </Test>
                <Test
-                  Identifier = "IMAPResponseParserTests/testParenRecursion">
-               </Test>
-               <Test
                   Identifier = "IMAPResponseParserTests/testRangeOfStringEnclosedByWithBadString">
-               </Test>
-               <Test
-                  Identifier = "IMAPResponseParserTests/testRespCapability">
                </Test>
                <Test
                   Identifier = "IMAPResponseParserTests/testRespFetchBodyPart2CommandEnd">

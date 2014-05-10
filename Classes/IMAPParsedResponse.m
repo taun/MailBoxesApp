@@ -105,7 +105,26 @@ static     NSDictionary *HeaderToModelMap;
     return statusString;
 }
 
-
+/*
+ "Return-Path: newsinfo@9flavours.com
+ Received: from mz0.moedae.com (LHLO mail.charcoalia.net) (68.238.253.173) by mail.charcoalia.net with LMTP; Sun, 31 Jul 2011 03:19:59 -0400 (EDT)
+ Received: from localhost (localhost [127.0.0.1]) by mail.charcoalia.net (Postfix) with ESMTP id 67E9138784 for <taun@charcoalia.net>; Sun, 31 Jul 2011 03:19:59 -0400 (EDT)
+ X-Virus-Scanned: amavisd-new at lpm.moedae.com
+ X-Spam-Flag: NO
+ X-Spam-Score: 3.936
+ X-Spam-Level: ***
+ X-Spam-Status: No, score=3.936 tagged_above=-10 required=5 tests=[BAYES_00=-1.9, FB_INDEPEND_RWD=2.799, HTML_MESSAGE=0.001, MIME_HEADER_CTYPE_ONLY=0.717, MIME_HTML_ONLY=0.723, SPF_HELO_PASS=-0.001, SPF_PASS=-0.001, T_RP_MATCHES_RCVD=-0.01, URIBL_WS_SURBL=1.608] autolearn=no
+ Received: from mail.charcoalia.net ([127.0.0.1]) by localhost (mail.charcoalia.net [127.0.0.1]) (amavisd-new, port 10024) with ESMTP id 4wq-n-eLkZEn for <taun@charcoalia.net>; Sun, 31 Jul 2011 03:19:54 -0400 (EDT)
+ Received: from 9flavours.com (listserv.9flavours.com [71.6.200.53]) by mail.charcoalia.net (Postfix) with SMTP id 4D14638781 for <taun@charcoalia.net>; Sun, 31 Jul 2011 03:19:53 -0400 (EDT)
+ Content-Type: text/html; charset=\"US-ASCII\"
+ Date: Sun, 31 Jul 2011 00:20:04 -0700
+ To: taun@charcoalia.net
+ From: 9Flavours.com <newsinfo@9flavours.com>
+ X-Mailer: Version 5.0
+ Subject: A Home Depot gift card - our gift to you
+ Organization: 9Flavours.com
+ Message-Id: <20110731071954.4D14638781@mail.charcoalia.net>
+*/
 +(void) initialize {
     if (RespDataStateTokens == nil) {
         RespDataStateTokens = [[NSSet alloc] initWithObjects: @"OK",@"NO",@"BAD", nil];
@@ -140,7 +159,13 @@ static     NSDictionary *HeaderToModelMap;
                              @"TO": @"AddressesTo",
                              @"CC": @"AddressesCc",
                              @"BCC": @"AddressesBcc",
-                             @"MESSAGE-ID": @"MessageId"};
+                             @"MESSAGE-ID": @"MessageId",
+                             @"ORGANIZATION": @"Organization",
+                             @"RETURN-PATH": @"ReturnPath",
+                             @"X-SPAM-FLAG": @"XSpamFlag",
+                             @"X-SPAM-LEVEL": @"XSpamLevel",
+                             @"X-SPAM-SCORE": @"XSpamScore",
+                             @"X-SPAM-STATUS": @"XSpamStatus" };
     }
 }
 
@@ -771,7 +796,7 @@ static     NSDictionary *HeaderToModelMap;
         (self.messageProperties)[@"Rfc2822size"] = rfcSize;
     }
 }
-
+#pragma message "ToDo: Add responseFetchedMessageBodyHeader version"
 #pragma message "ToDo: Change message summary to a real summary rather than raw header"
 #pragma message "ToDo: Perhaps get first 2 lines of text portion of body when fetching headers?"
 -(void) responseFetchedMessageRfc822Header {
@@ -794,6 +819,7 @@ static     NSDictionary *HeaderToModelMap;
     
 }
 
+#pragma message "ToDo: look for key [header] in tokens and parse so body.peek[header] can replace rfc822.header"
 /*!
  a007 uid fetch 1100 (body[2])
  * 1100 FETCH (UID 1100 BODY[2] {510708}
@@ -812,12 +838,22 @@ static     NSDictionary *HeaderToModelMap;
     if (bodyPartTree) {
         NSString* bodyPart = [bodyPartTree scanString];
         NSString* data = [self.tokens scanToken];
-        NSArray* bodyArray = @[bodyPart, data];
-        (self.messageProperties)[[@"body" mdcStringAsSelectorSafeCamelCase]] = bodyArray;
+        if ([bodyPart isEqualToString: @"HEADER"]) {
+            // response to body[header]
+            RFC2822RawMessageHeader *header = [[RFC2822RawMessageHeader alloc] initWithString: data];
+
+            for (NSString* headerKey in header.fields) {
+                NSString* modelKey = HeaderToModelMap[headerKey];
+                if (modelKey) {
+                    (self.messageProperties)[modelKey] = (header.fields)[headerKey];
+                }
+            }
+        } else {
+            NSArray* bodyArray = @[bodyPart, data];
+            (self.messageProperties)[[@"body" mdcStringAsSelectorSafeCamelCase]] = bodyArray;
+        }
     }
-    //    [self.messageProperties setObject: [bodyPart tokenArray] forKey: [@"bodystructure" stringAsSelectorSafeCamelCase]];
-    //    // should be no objects left in bodystructure
-    //    DDLogVerbose(@"%@ body part: %@", NSStringFromSelector(_cmd),bodyPart);
+ 
     bodyPartTree = nil;
 }
 

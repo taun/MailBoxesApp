@@ -254,6 +254,45 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void) setParsedSubject: (id) tokenized {
     self.subject = [self checkAnd2047DecodeToken: tokenized];
 }
+
+-(void) setParsedOrganization: (id) tokenized {
+    self.organization = [self checkAnd2047DecodeToken: tokenized];
+}
+
+-(void) setParsedReturnPath: (id) tokenized {
+    self.returnPath = [self checkAnd2047DecodeToken: tokenized];
+}
+
+-(void) setParsedXSpamFlag: (id) tokenized {
+    NSNumber* spamFlag = @NO;
+    
+    if ([[tokenized uppercaseString] isEqualToString: @"YES"]) {
+        spamFlag = @YES;
+    }
+    self.xSpamFlag = spamFlag;
+}
+
+-(void) setParsedXSpamLevel: (id) tokenized {
+    self.xSpamLevel = tokenized;
+}
+
+-(void) setParsedXSpamScore: (id) tokenized {
+    NSNumber* score = nil;
+    
+    if (tokenized != nil && [tokenized isKindOfClass: [NSString class]]) {
+        NSString* scoreString = tokenized;
+        
+        score = [NSNumber numberWithFloat: [scoreString floatValue]];
+        
+    } else if ([tokenized isKindOfClass: [NSNumber class]]) {
+        score = tokenized;
+    }
+    [self setXSpamScore: score];
+}
+-(void) setParsedXSpamStatus: (id) tokenized {
+    self.xSpamStatus = tokenized;
+}
+
 -(void) setParsedSummary: (id) tokenized {
 //    self.summary = [self checkAnd2047DecodeToken: tokenized];
 //    self.summary = tokenized;
@@ -582,7 +621,7 @@ From RFC3501
             return leaf
 </pre>
  
- ### Tow type of multipart
+ ### Two types of multipart
  
  1. multipart -- data consisting of multiple entities of independent data types.  Four subtypes are initially defined, including the basic 
  "mixed" subtype specifying a generic mixed set of parts, 

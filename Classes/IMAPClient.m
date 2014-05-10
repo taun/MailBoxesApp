@@ -1527,7 +1527,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     [command copyAddArgument: @"UID"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER"];
+    [command copyAddArgument: @"RFC822.HEADER"]; // should be body.peek[header]
     [command copyAddArgument: @"BODYSTRUCTURE)"];
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
@@ -1542,7 +1542,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     [command copyAddArgument: @"UID"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER)"];
+    [command copyAddArgument: @"RFC822.HEADER)"]; // should be body.peek[header]
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
@@ -1583,7 +1583,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     //[command copyAddArgument: @"INTERNALDATE"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER"];
+    [command copyAddArgument: @"RFC822.HEADER"]; // should be body.peek[header]
     [command copyAddArgument: @"BODYSTRUCTURE)"];
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
@@ -1597,7 +1597,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     [command copyAddArgument: @"UID"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER"];
+    [command copyAddArgument: @"RFC822.HEADER"]; // should be body.peek[header]
     [command copyAddArgument: @"BODYSTRUCTURE)"];
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
@@ -1612,7 +1612,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     //[command copyAddArgument: @"INTERNALDATE"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER)"];
+    [command copyAddArgument: @"RFC822.HEADER)"]; // should be body.peek[header]
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }

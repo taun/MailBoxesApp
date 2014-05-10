@@ -192,7 +192,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)testRespFetchUidEnvelope {
     
     const char *line =  "* 120 FETCH (UID 120 FLAGS (\\Seen) ENVELOPE (\"Mon, 4 Feb 2008 06:17:46 -0000\" \"You've been granted access\" ((\"Borders Rewards Perks\" NIL \"Borders\" \"e.bordersstores.com\")) ((\"Borders Rewards Perks\" NIL \"Borders\" \"e.bordersstores.com\")) ((\"Borders Rewards Perks\" NIL \"support-b09pdbwaxsb41ra3r0ag2bq8we1dqm\" \"e.bordersstores.com\")) ((NIL NIL \"taun\" \"charcoalia.net\")) NIL NIL NIL \"<b09pdbwaxsb41ra3r0ag2bq8we1dqm.822905916.2082@mta45.e.bordersstores.com>\"))\r\n";
-
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
     self.responseMethodName =  @"setMessage:";
@@ -204,7 +203,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)testRespFetchUidEnvelopeEmptyFlags {
     
     const char *line =  "* 120 FETCH (UID 120 FLAGS () ENVELOPE (\"Mon, 4 Feb 2008 06:17:46 -0000\" \"You've been granted access\" ((\"Borders Rewards Perks\" NIL \"Borders\" \"e.bordersstores.com\")) ((\"Borders Rewards Perks\" NIL \"Borders\" \"e.bordersstores.com\")) ((\"Borders Rewards Perks\" NIL \"support-b09pdbwaxsb41ra3r0ag2bq8we1dqm\" \"e.bordersstores.com\")) ((NIL NIL \"taun\" \"charcoalia.net\")) NIL NIL NIL \"<b09pdbwaxsb41ra3r0ag2bq8we1dqm.822905916.2082@mta45.e.bordersstores.com>\"))\r\n";
-    
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
     self.responseMethodName =  @"setMessage:";
@@ -216,7 +214,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)testRespFetchUidBodystructureSinglePart {
     
     const char *line =  "* 1072 FETCH (UID 1072 BODYSTRUCTURE (\"text\" \"plain\" (\"charset\" \"UTF-8\") NIL NIL \"7bit\" 2021 29 NIL NIL NIL NIL))\r\n";
-    
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
     self.responseMethodName =  @"setMessage:";
@@ -242,7 +239,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)testRespFetchUidBody2 {
     
     const char *line =  "* 1100 FETCH (UID 1100 BODY[2] \"This is the body data\")\r\n";
-    
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
     self.responseMethodName =  @"setMessage:";
@@ -265,6 +261,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.saveAnswers = NO;
     [self parseDataBuffer: [self newDataFromFile: @"fetchBodyPart2CommandEnd"]];
 }
+#pragma message "ToDo: none of the multi-buffer tests work since async changes to Parser."
 - (void)testRespFetchBodyPart2CommandEndMultiBuffer {
     
     self.answer = NSStringFromSelector(_cmd);
@@ -318,45 +315,32 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.saveAnswers = NO;
     self.responseMethodName = @"commandDone";
     self.expectedParseResult = IMAPParseComplete;
-    [_parser startParsing];
-    
-    NSString *path = [self.testBundle pathForResource: @"fetch200Response" ofType: @"txt" inDirectory: @"answers"];
-    
-    NSMutableData *newData = [[NSMutableData alloc] initWithContentsOfFile: path];
-    
-    [_parser addDataBuffer: newData];
-    
+    [self parseDataBuffer: [self newDataFromFile: @"fetch200Response"]];
 }
 - (void)testFetchRFC822Header {
     
     self.answer = NSStringFromSelector(_cmd);
     self.saveAnswers = NO;
-    self.responseMethodName = @"commandDone";
+    self.responseMethodName = @"setMessage:";
     self.expectedParseResult = IMAPParseComplete;
-    [_parser startParsing];
-    
-    NSString *path = [self.testBundle pathForResource: @"uidfetchrfc822header" ofType: @"txt" inDirectory: @"answers"];
-    
-    NSMutableData *newData = [[NSMutableData alloc] initWithContentsOfFile: path];
-    
-    [_parser addDataBuffer: newData];
-    
+    [self parseDataBuffer: [self newDataFromFile: @"uidfetchrfc822header"]];
 }
-
+//uidfetchbodyheader.txt
+- (void)testFetchBodyHeader {
+    
+    self.answer = NSStringFromSelector(_cmd);
+    self.saveAnswers = NO;
+    self.responseMethodName = @"setMessage:";
+    self.expectedParseResult = IMAPParseComplete;
+    [self parseDataBuffer: [self newDataFromFile: @"uidfetchbodyheader"]];
+}
 - (void)testFetchRFC822Multipart {
     
     self.answer = NSStringFromSelector(_cmd);
     self.saveAnswers = NO;
     self.responseMethodName = @"commandDone";
     self.expectedParseResult = IMAPParseComplete;
-    [_parser startParsing];
-    
-    NSString *path = [self.testBundle pathForResource: @"sampleFetchRFC2822" ofType: @"txt" inDirectory: @"answers"];
-    
-    NSMutableData *newData = [[NSMutableData alloc] initWithContentsOfFile: path];
-    
-    [_parser addDataBuffer: newData];
-    
+    [self parseDataBuffer: [self newDataFromFile: @"sampleFetchRFC2822"]];
 }
 
 
@@ -367,13 +351,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.saveAnswers = NO;
     self.responseMethodName = @"commandDone";
     self.expectedParseResult = IMAPParseComplete;
-    [_parser startParsing];
-    
-    NSString *path = [self.testBundle pathForResource: @"GrandMastersSampleHeader1" ofType: @"txt" inDirectory: @"answers"];
-    
-    NSMutableData *newData = [[NSMutableData alloc] initWithContentsOfFile: path];
-    
-    [_parser addDataBuffer: newData];
+    [self parseDataBuffer: [self newDataFromFile: @"GrandMastersSampleHeader1"]];
 }
 
 - (void)testOkPermanentFlags {
@@ -407,19 +385,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)testRangeOfStringEnclosedByWithBadString {
     
+    const char *line = "ENVELOPE (data1 (data2) data3 UID 1231 FLAGS (data1 data2)\r\n";
+    NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
+
     self.answer = NSStringFromSelector(_cmd);
     self.saveAnswers = NO;
     self.responseMethodName = nil;
-    [_parser startParsing];
-    
-    const char *line = "ENVELOPE (data1 (data2) data3 UID 1231 FLAGS (data1 data2)\r\n";
-    NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
-    
-    [_parser addDataBuffer: newData];
-    
-//    IMAPParseResult result = [self.parser parseBuffer: &response];
-    
-//    XCTAssertTrue(result == IMAPParseUnexpectedEnd, @"Parse result: %i", result);
+    [self parseDataBuffer: newData];
 }
 
 - (void)testXList1Line {
@@ -438,7 +410,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     const char *line = "* OK [UNSEEN 19] First unseen.\r\n";
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
-    self.responseMethodName = @"serverUnseen:";
+    self.responseMethodName = @"responseUnseen:";
     self.expectedParseResult = IMAPParseComplete;
     self.saveAnswers = NO;
     self.answer = NSStringFromSelector(_cmd);
@@ -449,7 +421,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     const char *line = "* OK [UIDVALIDITY 1312094147] UIDs valid\r\n";
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
-    self.responseMethodName = @"Uidvalidity:";
+    self.responseMethodName = @"responseUidvalidity:";
     self.expectedParseResult = IMAPParseComplete;
     self.saveAnswers = NO;
     self.answer = NSStringFromSelector(_cmd);
@@ -460,7 +432,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     const char *line = "* OK [UIDNEXT 12598] Predicted next UID\r\n";
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
-    self.responseMethodName = @"Uidnext:";
+    self.responseMethodName = @"responseUidnext:";
     self.expectedParseResult = IMAPParseComplete;
     self.saveAnswers = NO;
     self.answer = NSStringFromSelector(_cmd);
@@ -471,12 +443,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     const char *line = "* XLIST (\\HasNoChildren) \"/\" \"admin@moedae.com's Inbox/mz1.moedaworks.com\"\r";
     NSMutableData *newData = [[NSMutableData alloc] initWithBytes: line length: strlen(line)];
     
-    [_parser addDataBuffer: newData];
-    
-    IMAPParsedResponse* response = nil;
-//    IMAPParseResult result = [self.parser parseBuffer: &response];
-    
-//    XCTAssertTrue(result == IMAPParseUnexpectedEnd, @"Parse result: %i", result);
+    self.responseMethodName = @"responseXlist:";
+    self.expectedParseResult = IMAPParseComplete;
+    self.saveAnswers = NO;
+    self.answer = NSStringFromSelector(_cmd);
+    [self parseDataBuffer: newData];
 }
 
 - (void)testDoneOkFetchCompleted {

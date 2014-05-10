@@ -2,7 +2,7 @@
 //  MBMessage.m
 //  MailBoxes
 //
-//  Created by Taun Chapman on 03/19/14.
+//  Created by Taun Chapman on 05/07/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -37,6 +37,11 @@
 @dynamic subject;
 @dynamic summary;
 @dynamic uid;
+@dynamic xSpamFlag;
+@dynamic returnPath;
+@dynamic xSpamScore;
+@dynamic xSpamLevel;
+@dynamic xSpamStatus;
 @dynamic addressesBcc;
 @dynamic addressesCc;
 @dynamic addressesTo;

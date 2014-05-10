@@ -1,3 +1,6 @@
+* 4677 FETCH (UID 759042 BODYSTRUCTURE ((("TEXT" "PLAIN" NIL NIL NIL "8BIT" 552 5 NIL NIL NIL NIL)("TEXT" "HTML" NIL NIL NIL "8BIT" 647 7 NIL NIL NIL NIL) "ALTERNATIVE" ("BOUNDARY" "NextPart_Webmail_9m3u9jl4l_14802_1206100365_1") NIL NIL NIL)("MESSAGE" "RFC822" NIL NIL NIL "7BIT" 2602211 ("Thu, 20 Mar 2008 00:54:07 +0000" "" (("Randy and Diane Kane" NIL "mabbymia" "comcast.net")) (("Randy and Diane Kane" NIL "mabbymia" "comcast.net")) (("Randy and Diane Kane" NIL "mabbymia" "comcast.net")) (("Ida Ladner" NIL "idapaul" "comcast.net")) NIL NIL NIL NIL) (("IMAGE" "JPEG" ("NAME" "2007-2008 190.jpg") NIL NIL "BASE64" 1306862 NIL ("attachment" ("FILENAME" "2007-2008 190.jpg")) NIL NIL)("IMAGE" "JPEG" ("NAME" "2007-2008 283.jpg") NIL NIL "BASE64" 1294636 NIL ("attachment" ("FILENAME" "2007-2008 283.jpg")) NIL NIL) "MIXED" ("BOUNDARY" "NextPart_Webmail_9m3u9jl4l_14802_1206100365_2") NIL NIL NIL) 33378 NIL NIL NIL NIL) "MIXED" ("BOUNDARY" "NextPart_Webmail_9m3u9jl4l_14802_1206100365_0") NIL NIL NIL))
+
+
     "*",
     4677,
     FETCH,
@@ -320,3 +323,631 @@
 )
 
 (lldb) 
+------------------------------------------------------------------------------------------------------------------------------
+2014-05-06 10:22:31:268 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:31:268 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:22:31:271 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:31:271 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:22:31:277 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:31:277 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:22:31:329 MailBoxes[10948:303] IMAPParsedResponse:localLog Tokens (
+    6869
+)
+2014-05-06 10:22:31:330 MailBoxes[10948:303] IMAPParsedResponse:localLog Tokens (
+    0
+)
+2014-05-06 10:22:31:330 MailBoxes[10948:303] IMAPParsedResponse:localLog Tokens (
+    102
+)
+2014-05-06 10:22:31:330 MailBoxes[10948:303] IMAPParsedResponse:localLog Tokens (
+    1676044
+)
+2014-05-06 10:22:31:330 MailBoxes[10948:303] IMAPParsedResponse:localLog Tokens (
+    783658
+)
+2014-05-06 10:22:31:330 MailBoxes[10948:303] IMAPParsedResponse:localLog Tokens (
+        (
+        "\\Answered",
+        "\\Deleted",
+        "\\Draft",
+        "\\Flagged",
+        "\\Seen",
+        "$Forwarded",
+        "$MDNSent",
+        Forwarded,
+        "$Junk",
+        "$NotJunk",
+        Junk,
+        JunkRecorded,
+        NonJunk,
+        NotJunk,
+        ToDo,
+        "CISVCommWork:FLAG9",
+        MAYER,
+        Knowledge
+    )
+)
+2014-05-06 10:22:31:333 MailBoxes[10948:303] IMAPParsedResponse:localLog Tokens (
+        (
+        "\\Answered",
+        "\\Deleted",
+        "\\Draft",
+        "\\Flagged",
+        "\\Seen",
+        "$Forwarded",
+        "$MDNSent",
+        Forwarded,
+        ToDo,
+        "CISVCommWork:FLAG9",
+        MAYER,
+        Knowledge,
+        "\\*"
+    )
+)
+2014-05-06 10:22:31:336 MailBoxes[10948:303] IMAPParsedResponse:localLog Tokens (
+)
+2014-05-06 10:22:31:340 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:31:366 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:22:31:373 MailBoxes[10948:303] IMAPParsedResponse:localLog Tokens (
+        (
+        "\\Answered",
+        "\\Deleted",
+        "\\Draft",
+        "\\Flagged",
+        "\\Seen",
+        "$Forwarded",
+        "$MDNSent",
+        Forwarded,
+        "$Junk",
+        "$NotJunk",
+        Junk,
+        JunkRecorded,
+        NonJunk,
+        NotJunk,
+        ToDo,
+        "CISVCommWork:FLAG9",
+        MAYER,
+        Knowledge
+    )
+)
+ResponseFetch token: @"BODY"
+2014-05-06 10:22:31:499 MailBoxes[10948:303] Body response tokens ((
+        (
+        1
+    ),
+    "
+\n--NextPart_Webmail_9m3u9jl4l_14802_1206100365_1
+\nContent-Type: text/plain
+\nContent-Transfer-Encoding: 8bit
+\n
+\nAll-
+\nHi! I am writing an article on the upcoming april fun run for starkweather for the Kids! Magazine. They would like to run a pic of our run- and since this is our first annual run, I asked Diane Kane for a Striders pic.  Diane Kane sent me a great pick of your two sons from Striders. Because school is closed, I need to  get yor parental permission to run the picture ( attached). The Kids! Magazine would like to have the picture by the end of today. If you could email me back, that would be great!
+\nThanks,
+\nIda Ladner
+\n(starkweather mom of 3)
+\n--NextPart_Webmail_9m3u9jl4l_14802_1206100365_1
+\nContent-Type: text/html
+\nContent-Transfer-Encoding: 8bit
+\n
+\n<html><body>
+\n<DIV>All-</DIV>
+\n<DIV>Hi! I am writing an article on the upcoming april fun run for starkweather for the Kids! Magazine. They would like to run a pic of our run- and since this is our first annual run, I asked Diane Kane for a Striders pic. &nbsp;Diane Kane sent me a great pick of your two sons from Striders. Because school is closed, I need to&nbsp; get yor parental permission to run the picture ( attached). The Kids! Magazine would like to have the picture by the end of today. If you could email me back, that would be great!</DIV>
+\n<DIV>Thanks,</DIV>
+\n<DIV>Ida Ladner</DIV>
+\n<DIV>(starkweather mom of 3)</DIV></body></html>
+\n
+\n--NextPart_Webmail_9m3u9jl4l_14802_1206100365_1--
+\n
+\n"
+))
+2014-05-06 10:22:31:513 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:31:517 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+ResponseFetch token: @"BODY"
+2014-05-06 10:22:31:753 MailBoxes[10948:303] Body response tokens ((
+        (
+        "2.1"
+    ),
+    "/9j/4AAQSkZJRgABAQEA5gDmAAD/4SB6RXhpZgAASUkqAAgAAAARAA8BAgAWAAAA2gAAABABAgAf
+.......
+\npQUlZM7Y4xtWaJfGt5YWWpxpBFCkMWJJ1h4V5e5XvzXMnxIdYmeaa5lVRhUQliAB6EYrM1Z3kvxu
+\ndjhGk+8fvA8Gr2i4l0tXdVZ/Mb5iozXBVl7LRHjTxUnM/9k=
+\n"
+))
+2014-05-06 10:22:31:758 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:31:763 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:22:31:777 MailBoxes[10948:303] Body response tokens ((
+        (
+        "2.1.1"
+    ),
+    NIL
+))
+2014-05-06 10:22:31:781 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:31:781 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:22:31:796 MailBoxes[10948:303] Body response tokens ((
+        (
+        "1.1"
+    ),
+    "All-
+\nHi! I am writing an article on the upcoming april fun run for starkweather for the Kids! Magazine. They would like to run a pic of our run- and since this is our first annual run, I asked Diane Kane for a Striders pic.  Diane Kane sent me a great pick of your two sons from Striders. Because school is closed, I need to  get yor parental permission to run the picture ( attached). The Kids! Magazine would like to have the picture by the end of today. If you could email me back, that would be great!
+\nThanks,
+\nIda Ladner
+\n(starkweather mom of 3)"
+))
+2014-05-06 10:22:31:798 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:31:799 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:22:31:813 MailBoxes[10948:303] Body response tokens ((
+        (
+        "2.1.2"
+    ),
+    NIL
+))
+2014-05-06 10:22:31:814 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:31:814 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:22:32:080 MailBoxes[10948:303] Body response tokens ((
+        (
+        2
+    ),
+    "From:    \"Randy and Diane Kane\" <mabbymia@comcast.net>
+\nTo:    \"Ida Ladner\" <idapaul@comcast.net>
+\nSubject:    
+\nDate:    Thu, 20 Mar 2008 00:54:07 +0000
+\nContent-Type: Multipart/mixed;
+\n boundary=\"NextPart_Webmail_9m3u9jl4l_14802_1206100365_2\"
+\n
+\n--NextPart_Webmail_9m3u9jl4l_14802_1206100365_2
+\nContent-Type: image/jpeg;
+\n\tname=\"2007-2008 190.jpg\"
+\nContent-Transfer-Encoding: base64
+\nContent-Disposition: attachment;
+\n\tfilename=\"2007-2008 190.jpg\"
+\n
+\n/9j/4AAQSkZJRgABAQEA5gDmAAD/4SB6RXhpZgAASUkqAAgAAAARAA8BAgAWAAAA2gAAABABAgAf
+......
+......
+\npQUlZM7Y4xtWaJfGt5YWWpxpBFCkMWJJ1h4V5e5XvzXMnxIdYmeaa5lVRhUQliAB6EYrM1Z3kvxu
+\ndjhGk+8fvA8Gr2i4l0tXdVZ/Mb5iozXBVl7LRHjTxUnM/9k=
+\n
+\n--NextPart_Webmail_9m3u9jl4l_14802_1206100365_2
+\nContent-Type: image/jpeg;
+\n\tname=\"2007-2008 283.jpg\"
+\nContent-Transfer-Encoding: base64
+\nContent-Disposition: attachment;
+\n\tfilename=\"2007-2008 283.jpg\"
+\n
+\n/9j/4AAQSkZJRgABAQEA5gDmAAD/4SB6RXhpZgAASUkqAAgAAAARAA8BAgAWAAAA2gAAABABAgAf
+\nAAAA8AAAABIBAwABAAAAAQBC/ygBAwABAAAAAgAAABMCAwABAAAAAQAAAGmHBAABAAAAGAEAAAGk
+......
+......
+\nVtqDRzPCfPhlRcHAX5g3160UVF3ZGUF71jDuFF00M9ui2jsoVthOCR3x71DZeFFCz39xdTSXMrll
+\nKuRswO1FFZTXvDqL3rBB4xv9KmaFRHP5qA7pckg9B9ayNK8TzjV44GZipP3f4ef5daKK64pKGhEJ
+\nPud7bNFey3+7exgYAq54I646+9c14j8CeHNVuzLdWDCUnOYX28elFFOG5tGTb1P/2Q==
+\n
+\n--NextPart_Webmail_9m3u9jl4l_14802_1206100365_2--
+\n"
+))
+2014-05-06 10:22:32:088 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:32:128 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:22:32:142 MailBoxes[10948:303] Body response tokens ((
+        (
+        "1.2"
+    ),
+    "<html><body>
+\n<DIV>All-</DIV>
+\n<DIV>Hi! I am writing an article on the upcoming april fun run for starkweather for the Kids! Magazine. They would like to run a pic of our run- and since this is our first annual run, I asked Diane Kane for a Striders pic. &nbsp;Diane Kane sent me a great pick of your two sons from Striders. Because school is closed, I need to&nbsp; get yor parental permission to run the picture ( attached). The Kids! Magazine would like to have the picture by the end of today. If you could email me back, that would be great!</DIV>
+\n<DIV>Thanks,</DIV>
+\n<DIV>Ida Ladner</DIV>
+\n<DIV>(starkweather mom of 3)</DIV></body></html>
+\n"
+))
+2014-05-06 10:22:32:166 MailBoxes[10948:303] IMAPCoreDataStore:save Saved managedObjectContext
+2014-05-06 10:22:32:167 MailBoxes[10948:303] IMAPCoreDataStore:parentSave Saved managedObjectContext
+2014-05-06 10:27:50:544 MailBoxes[10948:303] Part: <MBMultiAlternative: 0x6080002cbde0> (entity: MBMultiAlternative; id: 0x2867c0016b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiAlternative/p41375> ; data: {
+    bodyIndex = 1;
+    boundary = "NextPart_Webmail_9m3u9jl4l_14802_1206100365_1";
+    charset = nil;
+    childNodes =     (
+        "0x28844001ab <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeText/p41489>",
+        "0x287e0001ab <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeText/p41464>"
+    );
+    data = "0x1d40022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p117>";
+    desc = nil;
+    disposition = nil;
+    encoding = nil;
+    extensions = nil;
+    filename = nil;
+    id = nil;
+    isAttachment = 0;
+    isInline = 0;
+    isLeaf = 0;
+    language = nil;
+    lines = 0;
+    location = nil;
+    md5 = nil;
+    message = nil;
+    messageReference = "0xf080000cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMessage/p15392>";
+    mime = nil;
+    name = nil;
+    octets = 0;
+    parameters = "<relationship fault: 0x61800082ace0 'parameters'>";
+    parentNode = "0x286f40018b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMixed/p41405>";
+    subPartNumber = 1;
+    subtype = ALTERNATIVE;
+    type = Multipart;
+})
+2014-05-06 10:27:50:544 MailBoxes[10948:303] Data: <MBMimeData: 0x618000aa3480> (entity: MBMimeData; id: 0x1d40022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p117> ; data: {
+    decoded = nil;
+    encoded = "
+\n--NextPart_Webmail_9m3u9jl4l_14802_1206100365_1
+\nContent-Type: text/plain
+\nContent-Transfer-Encoding: 8bit
+\n
+\nAll-
+\nHi! I am writing an article on the upcoming april fun run for starkweather for the";
+    encoding = nil;
+    isDecoded = 0;
+    mimeStructure = "0x2867c0016b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiAlternative/p41375>";
+})
+2014-05-06 10:27:50:544 MailBoxes[10948:303] Part: <MBMultiMixed: 0x6080002cbec0> (entity: MBMultiMixed; id: 0x287000018b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMixed/p41408> ; data: {
+    bodyIndex = "2.1";
+    boundary = "NextPart_Webmail_9m3u9jl4l_14802_1206100365_2";
+    charset = nil;
+    childNodes =     (
+        "0x2862c0014b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeImage/p41355>",
+        "0x286380014b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeImage/p41358>"
+    );
+    data = "0x1d80022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p118>";
+    desc = nil;
+    disposition = nil;
+    encoding = nil;
+    extensions = nil;
+    filename = nil;
+    id = nil;
+    isAttachment = 0;
+    isInline = 0;
+    isLeaf = 0;
+    language = nil;
+    lines = 0;
+    location = nil;
+    md5 = nil;
+    message = nil;
+    messageReference = "0xf080000cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMessage/p15392>";
+    mime = nil;
+    name = nil;
+    octets = 0;
+    parameters = "<relationship fault: 0x608000428e00 'parameters'>";
+    parentNode = "0x28950001cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMessage/p41556>";
+    subPartNumber = 0;
+    subtype = MIXED;
+    type = Multipart;
+})
+2014-05-06 10:27:50:544 MailBoxes[10948:303] Data: <MBMimeData: 0x6080000b9560> (entity: MBMimeData; id: 0x1d80022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p118> ; data: {
+    decoded = nil;
+    encoded = "/9j/4AAQSkZJRgABAQEA5gDmAAD/4SB6RXhpZgAASUkqAAgAAAARAA8BAgAWAAAA2gAAABABAgAf
+\nAAAA8AAAABIBAwABAAAAAQAAACgBAwABAAAAAgAAABMCAwABAAAAAQAAAGmHBAABAAAAGAEAAAGk
+\nAwABAAAAAABpPwKkAwABAAAAAABpPwOkAwABAAAAAAAA";
+    encoding = nil;
+    isDecoded = 0;
+    mimeStructure = "0x287000018b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMixed/p41408>";
+})
+2014-05-06 10:27:50:545 MailBoxes[10948:303] Part: <MBMimeImage: 0x6080002cbd70> (entity: MBMimeImage; id: 0x2862c0014b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeImage/p41355> ; data: {
+    bodyIndex = "2.1.1";
+    charset = nil;
+    childNodes =     (
+    );
+    data = "0x1dc0022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p119>";
+    desc = nil;
+    disposition = "0x5c18001eb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeDisposition/p5894>";
+    encoding = BASE64;
+    extensions = nil;
+    filename = "2007-2008 190.jpg";
+    id = nil;
+    isAttachment = 1;
+    isInline = 0;
+    isLeaf = 1;
+    language = nil;
+    lines = 0;
+    location = nil;
+    md5 = nil;
+    message = nil;
+    messageReference = "0xf080000cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMessage/p15392>";
+    mime = nil;
+    name = "2007-2008 190.jpg";
+    octets = 1306862;
+    parameters = "<relationship fault: 0x60800003fea0 'parameters'>";
+    parentNode = "0x287000018b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMixed/p41408>";
+    subPartNumber = 1;
+    subtype = JPEG;
+    type = IMAGE;
+})
+2014-05-06 10:27:50:545 MailBoxes[10948:303] Data: <MBMimeData: 0x6080000b72e0> (entity: MBMimeData; id: 0x1dc0022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p119> ; data: {
+    decoded = nil;
+    encoded = NIL;
+    encoding = BASE64;
+    isDecoded = 0;
+    mimeStructure = "0x2862c0014b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeImage/p41355>";
+})
+2014-05-06 10:27:50:545 MailBoxes[10948:303] Part: <MBMimeText: 0x6080002cbfa0> (entity: MBMimeText; id: 0x28844001ab <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeText/p41489> ; data: {
+    bodyIndex = "1.1";
+    charset = "utf-8";
+    childNodes =     (
+    );
+    data = "0x1e00022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p120>";
+    desc = nil;
+    disposition = nil;
+    encoding = 8BIT;
+    extensions = nil;
+    filename = nil;
+    id = nil;
+    isAttachment = 0;
+    isInline = 0;
+    isLeaf = 1;
+    language = nil;
+    lines = 5;
+    location = nil;
+    md5 = nil;
+    message = nil;
+    messageReference = "0xf080000cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMessage/p15392>";
+    mime = nil;
+    name = nil;
+    octets = 552;
+    parameters = "<relationship fault: 0x61800082b6c0 'parameters'>";
+    parentNode = "0x2867c0016b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiAlternative/p41375>";
+    subPartNumber = 1;
+    subtype = PLAIN;
+    type = TEXT;
+})
+2014-05-06 10:27:50:545 MailBoxes[10948:303] Data: <MBMimeData: 0x618000aa2d00> (entity: MBMimeData; id: 0x1e00022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p120> ; data: {
+    decoded = <416c6c2d 0d0a4869 21204920 616d2077 72697469 6e672061 6e206172 7469636c 65206f6e 20746865 20757063 6f6d696e 6720>;
+    encoded = nil;
+    encoding = 8BIT;
+    isDecoded = 1;
+    mimeStructure = "0x28844001ab <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeText/p41489>";
+})
+2014-05-06 10:27:50:545 MailBoxes[10948:303] Part: <MBMultiMixed: 0x6080002cbe50> (entity: MBMultiMixed; id: 0x286f40018b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMixed/p41405> ; data: {
+    bodyIndex = "";
+    boundary = "NextPart_Webmail_9m3u9jl4l_14802_1206100365_0";
+    charset = nil;
+    childNodes =     (
+        "0x2867c0016b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiAlternative/p41375>",
+        "0x28950001cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMessage/p41556>"
+    );
+    data = nil;
+    desc = nil;
+    disposition = nil;
+    encoding = nil;
+    extensions = nil;
+    filename = nil;
+    id = nil;
+    isAttachment = 0;
+    isInline = 0;
+    isLeaf = 0;
+    language = nil;
+    lines = 0;
+    location = nil;
+    md5 = nil;
+    message = "0xf080000cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMessage/p15392>";
+    messageReference = "0xf080000cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMessage/p15392>";
+    mime = nil;
+    name = nil;
+    octets = 0;
+    parameters = "<relationship fault: 0x618000a30ae0 'parameters'>";
+    parentNode = nil;
+    subPartNumber = 0;
+    subtype = MIXED;
+    type = Multipart;
+})
+2014-05-06 10:27:50:545 MailBoxes[10948:303] Part: <MBMimeImage: 0x6080002cb520> (entity: MBMimeImage; id: 0x286380014b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeImage/p41358> ; data: {
+    bodyIndex = "2.1.2";
+    charset = nil;
+    childNodes =     (
+    );
+    data = "0x1e40022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p121>";
+    desc = nil;
+    disposition = "0x5c2c001eb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeDisposition/p5899>";
+    encoding = BASE64;
+    extensions = nil;
+    filename = "2007-2008 283.jpg";
+    id = nil;
+    isAttachment = 1;
+    isInline = 0;
+    isLeaf = 1;
+    language = nil;
+    lines = 0;
+    location = nil;
+    md5 = nil;
+    message = nil;
+    messageReference = "0xf080000cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMessage/p15392>";
+    mime = nil;
+    name = "2007-2008 283.jpg";
+    octets = 1294636;
+    parameters = "<relationship fault: 0x61000003e700 'parameters'>";
+    parentNode = "0x287000018b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMixed/p41408>";
+    subPartNumber = 2;
+    subtype = JPEG;
+    type = IMAGE;
+})
+2014-05-06 10:27:50:545 MailBoxes[10948:303] Data: <MBMimeData: 0x6100002a2fa0> (entity: MBMimeData; id: 0x1e40022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p121> ; data: {
+    decoded = nil;
+    encoded = NIL;
+    encoding = BASE64;
+    isDecoded = 0;
+    mimeStructure = "0x286380014b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeImage/p41358>";
+})
+2014-05-06 10:27:50:545 MailBoxes[10948:303] Part: <MBMultiMessage: 0x6080002cc080> (entity: MBMultiMessage; id: 0x28950001cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMessage/p41556> ; data: {
+    bodyIndex = 2;
+    charset = nil;
+    childNodes =     (
+        "0x287000018b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMixed/p41408>"
+    );
+    data = "0x1e80022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p122>";
+    desc = nil;
+    disposition = nil;
+    encoding = 7BIT;
+    extensions = nil;
+    filename = nil;
+    id = nil;
+    isAttachment = 0;
+    isInline = 0;
+    isLeaf = 0;
+    language = nil;
+    lines = 33378;
+    location = nil;
+    md5 = nil;
+    message = nil;
+    messageReference = "0xf080000cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMessage/p15392>";
+    mime = nil;
+    name = nil;
+    octets = 2602211;
+    parameters = "<relationship fault: 0x608000436da0 'parameters'>";
+    parentNode = "0x286f40018b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMixed/p41405>";
+    subPartNumber = 2;
+    subtype = RFC822;
+    type = MESSAGE;
+})
+2014-05-06 10:27:50:545 MailBoxes[10948:303] Data: <MBMimeData: 0x6080000b8900> (entity: MBMimeData; id: 0x1e80022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p122> ; data: {
+    decoded = nil;
+    encoded = "From:    \"Randy and Diane Kane\" <mabbymia@comcast.net>
+\nTo:    \"Ida Ladner\" <idapaul@comcast.net>
+\nSubject:    
+\nDate:    Thu, 20 Mar 2008 00:54:07 +0000
+\nContent-Type: Multipart/mixed;
+\n boundary=\"Ne";
+    encoding = 7BIT;
+    isDecoded = 0;
+    mimeStructure = "0x28950001cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiMessage/p41556>";
+})
+2014-05-06 10:27:50:546 MailBoxes[10948:303] Part: <MBMimeText: 0x6080002cbf30> (entity: MBMimeText; id: 0x287e0001ab <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeText/p41464> ; data: {
+    bodyIndex = "1.2";
+    charset = "utf-8";
+    childNodes =     (
+    );
+    data = "0x1ec0022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p123>";
+    desc = nil;
+    disposition = nil;
+    encoding = 8BIT;
+    extensions = nil;
+    filename = nil;
+    id = nil;
+    isAttachment = 0;
+    isInline = 0;
+    isLeaf = 1;
+    language = nil;
+    lines = 7;
+    location = nil;
+    md5 = nil;
+    message = nil;
+    messageReference = "0xf080000cb <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMessage/p15392>";
+    mime = nil;
+    name = nil;
+    octets = 647;
+    parameters = "<relationship fault: 0x610000437560 'parameters'>";
+    parentNode = "0x2867c0016b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMultiAlternative/p41375>";
+    subPartNumber = 2;
+    subtype = HTML;
+    type = TEXT;
+})
+2014-05-06 10:27:50:546 MailBoxes[10948:303] Data: <MBMimeData: 0x6100002a3120> (entity: MBMimeData; id: 0x1ec0022b <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeData/p123> ; data: {
+    decoded = <3c68746d 6c3e3c62 6f64793e 0d0a3c44 49563e41 6c6c2d3c 2f444956 3e0d0a3c 4449563e 48692120 4920616d 20777269 7469>;
+    encoded = nil;
+    encoding = 8BIT;
+    isDecoded = 1;
+    mimeStructure = "0x287e0001ab <x-coredata://6F0A81BC-C495-47AA-A428-D74D8E1F8D1A/MBMimeText/p41464>";
+})
+------------------------
+Notes:
+    Actual body part for images is 2.1 & 2.2 NOT 2.1.1 & 2.1.2 as the parsing results in.
+    Index only increases where there is a BRANCH.
+    Body part 2 is multipart/mixed
+    
+
+Solution - can use index into separate message as below.
+
+Note from IMAP RFC 3501: With the exception of RFC822.SIZE, there are more modern
+   replacements; for example, the modern version of RFC822.HEADER is
+   BODY.PEEK[HEADER].
+
+    RFC822.HEADER
+         Functionally equivalent to BODY.PEEK[HEADER], differing in the
+         syntax of the resulting untagged FETCH data (RFC822.HEADER is
+         returned).
+         
+* 4677 FETCH (UID 759042 BODY[2.HEADER] {248}
+From:    "Randy and Diane Kane" <mabbymia@comcast.net>
+To:    "Ida Ladner" <idapaul@comcast.net>
+Subject:    
+Date:    Thu, 20 Mar 2008 00:54:07 +0000
+Content-Type: Multipart/mixed;
+ boundary="NextPart_Webmail_9m3u9jl4l_14802_1206100365_2"
+
+)
+* 6879 EXISTS
+* 2 RECENT
+m04 OK UID FETCH completed
+
+m06 uid fetch 759042 body.peek[2.header]
+* 4677 FETCH (UID 759042 BODY[2.HEADER] {248}
+From:    "Randy and Diane Kane" <mabbymia@comcast.net>
+To:    "Ida Ladner" <idapaul@comcast.net>
+Subject:    
+Date:    Thu, 20 Mar 2008 00:54:07 +0000
+Content-Type: Multipart/mixed;
+ boundary="NextPart_Webmail_9m3u9jl4l_14802_1206100365_2"
+
+)
+* 6880 EXISTS
+* 3 RECENT
+m06 OK UID FETCH completed
+m07 uid fetch 759042 body.peek[header]
+* 4677 FETCH (UID 759042 BODY[HEADER] {2386}
+Return-Path: idapaul@comcast.net
+Received: from 68.238.253.173 (LHLO mz0.moedae.com) (68.238.253.173) by
+ mz0.moedae.com with LMTP; Fri, 21 Mar 2008 07:53:08 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mz0.moedae.com (Postfix) with ESMTP id A244013C0C5;
+	Fri, 21 Mar 2008 07:53:08 -0400 (EDT)
+X-Virus-Scanned: amavisd-new at 
+X-Spam-Flag: NO
+X-Spam-Score: 0
+X-Spam-Level: 
+X-Spam-Status: No, score=x tagged_above=-10 required=6.6 tests=[]
+Received: from mz0.moedae.com ([127.0.0.1])
+	by localhost (mz0.moedae.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 3ho43-qcApx0; Fri, 21 Mar 2008 07:53:07 -0400 (EDT)
+Received: from QMTA06.emeryville.ca.mail.comcast.net (qmta06.emeryville.ca.mail.comcast.net [76.96.30.56])
+	by mz0.moedae.com (Postfix) with ESMTP id BED1213C0C1
+	for <mandt@charcoalia.net>; Fri, 21 Mar 2008 07:53:02 -0400 (EDT)
+Received: from OMTA14.emeryville.ca.mail.comcast.net ([76.96.30.60])
+	by QMTA06.emeryville.ca.mail.comcast.net with comcast
+	id 3nKC1Z0041HpZEsA601o00; Fri, 21 Mar 2008 11:52:09 +0000
+Received: from amailcenter17.comcast.net ([204.127.225.117])
+	by OMTA14.emeryville.ca.mail.comcast.net with comcast
+	id 3nsp1Z00N2Yc4cU8a00000; Fri, 21 Mar 2008 11:52:52 +0000
+X-Authority-Analysis: v=1.0 c=1 a=VkDuBaSG729DltQAxBy/9g==:17
+ a=CfqXJtMzDpfA__z46CkA:9 a=UdvBLgVCPUMUKBIk0fe_95p_Y74A:4 a=v47ZLdibA2YA:10
+ a=3X8KCACfZ0xeQufPDL8A:9 a=yKmjwzg3dhJh3HsNBt2l9gLM4CAA:4 a=37WNUvjkh6kA:10
+ a=yb3ffbU9y1JQpdcHRtMA:9 a=wKbvbaRfYCKVaIy8MQ_Z8aDeJGUA:4 a=si9q_4b84H0A:10
+ a=pMJwLHLTxccA:10 a=-J5-jlqaKAoA:10 a=REEM3VDMXLQA:10 a=M5aF-dNDyIoA:10
+ a=guUHgH6spFYA:10 a=CoDMQ3SKUUsA:10 a=Fo4nVP6H3dUA:10 a=zVSjA-NB77AA:10
+ a=syZBlzWpj6wA:10 a=MXcAeKb4O0wA:10 a=X-JKFS-oLjAA:10 a=iYlkOlhu7C0A:10
+Received: from [71.225.78.200] by amailcenter17.comcast.net;
+	Fri, 21 Mar 2008 11:52:45 +0000
+From: idapaul@comcast.net
+To: "Randy and Diane Kane" <mabbymia@comcast.net>,mandt@charcoalia.net,studlienw@comcast.net
+Subject: pic of your son for Kids! Magazine
+Date: Fri, 21 Mar 2008 11:52:45 +0000
+Message-Id: <032120081152.14802.47E3A18D0003113E000039D22215575474049A0E9F0E0B07@comcast.net>
+X-Mailer: AT&T Message Center Version 1 (Oct 30 2007)
+X-Authenticated-Sender: aWRhcGF1bEBjb21jYXN0Lm5ldA==
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="NextPart_Webmail_9m3u9jl4l_14802_1206100365_0"
+
+)
+m07 OK UID FETCH completed
+
+m03 uid fetch 759042 rfc822.header
+* FLAGS (\Answered \Deleted \Draft \Flagged \Seen $Forwarded $MDNSent Forwarded $Junk $NotJunk Junk JunkRecorded NonJunk NotJunk ToDo CISVCommWork:FLAG9 MAYER Knowledge)
+* 4677 FETCH (UID 759042 RFC822.HEADER {2386}
+Return-Path: idapaul@comcast.net
+Received: from 68.238.253.173 (LHLO mz0.moedae.com) (68.238.253.173) by
+ mz0.moedae.com with LMTP; Fri, 21 Mar 2008 07:53:08 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
