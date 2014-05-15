@@ -22,8 +22,11 @@
         NSString* qpString = ((MBEncodedString*)anMBEncodedString).string;
         NSStringEncoding encoding = ((MBEncodedString*)anMBEncodedString).encoding;
         
-        dequotedPrintable.string = [qpString mdcStringDeQuotedPrintableFromCharset: encoding];
-        dequotedPrintable.encoding = encoding;
+        NSString* decodedString = [qpString mdcStringDeQuotedPrintableFromCharset: encoding];
+        
+        if (decodedString) {
+            dequotedPrintable = [MBEncodedString newEncodedString: decodedString encoding: encoding];
+        }
     }
     return dequotedPrintable;
 }
