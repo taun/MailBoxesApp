@@ -11,9 +11,6 @@
 
 @implementation MBDispositionParameter (Shorthand)
 
-+ (NSString *)entityName {
-    return @"MBDispositionParameter";
-}
 
 + (instancetype) newParameterWithName: (NSString*) aName
                                 value: (NSString*) aValue

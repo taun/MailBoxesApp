@@ -12,10 +12,6 @@
 @implementation MBMimeParameter (Shorthand)
 
 
-+ (NSString *)entityName {
-    return @"MBMimeParameter";
-}
-
 + (instancetype) newParameterWithName: (NSString*) aName
                                 value: (NSString*) aValue
                               context: (NSManagedObjectContext*) context {

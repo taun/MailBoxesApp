@@ -20,10 +20,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 @implementation MBMime (IMAP)
 
-+ (NSString *)entityName {
-    return @"MBMime";
-}
-
 
 
 #pragma mark - encoding decoding

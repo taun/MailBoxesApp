@@ -11,8 +11,9 @@
 @implementation NSManagedObject (Shortcuts)
 
 + (NSString *)entityName {
-    return @"NSManagedObject";
+    return NSStringFromClass([self class]);
 }
+
 
 + (instancetype)insertNewObjectIntoContext:(NSManagedObjectContext *)context {
     return [NSEntityDescription insertNewObjectForEntityForName:[self entityName]

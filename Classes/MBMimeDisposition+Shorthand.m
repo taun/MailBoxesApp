@@ -10,9 +10,6 @@
 
 @implementation MBMimeDisposition (Shorthand)
 
-+ (NSString *)entityName {
-    return @"MBMimeDisposition";
-}
 
 
 @end

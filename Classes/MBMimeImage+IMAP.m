@@ -11,10 +11,6 @@
 
 @implementation MBMimeImage (IMAP)
 
-+ (NSString *)entityName {
-    return @"MBMimeImage";
-}
-
 
 
 #pragma message "ToDo: check for base64 encoding before decoding using base64"

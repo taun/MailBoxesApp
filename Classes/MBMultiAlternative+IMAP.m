@@ -15,10 +15,6 @@
 @implementation MBMultiAlternative (IMAP)
 
 
-+ (NSString *)entityName {
-    return @"MBMultiAlternative";
-}
-
 
 //-(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
 //    

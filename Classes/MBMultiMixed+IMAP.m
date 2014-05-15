@@ -11,10 +11,6 @@
 
 @implementation MBMultiMixed (IMAP)
 
-+ (NSString *)entityName {
-    return @"MBMultiMixed";
-}
-
 
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes:(NSDictionary *)attributes {
     NSMutableAttributedString* composition = [[NSMutableAttributedString alloc] initWithString: @"" attributes: attributes];

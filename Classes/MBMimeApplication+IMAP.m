@@ -15,10 +15,6 @@ NSString* attachmentIconName = @"attach_48.png";
 
 @implementation MBMimeApplication (IMAP)
 
-+ (NSString *)entityName {
-    return @"MBMimeApplication";
-}
-
 
 -(void) decoder {
     
