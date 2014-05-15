@@ -16,6 +16,8 @@
 #import "MBAccount+IMAP.h"
 #import "MBox+IMAP.h"
 #import "MBMessage+IMAP.h"
+#import "MBMimeMessage+IMAP.h"
+#import "MBMimeImage+IMAP.h"
 
 #import "DDLog.h"
 
@@ -236,7 +238,25 @@ static NSString* kDefaultBoxPath = @"inbox";
 }
 -(void)fetchUidBodystructureWithPicturesPostEvalCheck {
     MBMessage* message = self.clientStore.selectedMBox.lastChangedMessage;
-    XCTAssertEqualObjects(message.subject, @"");
+    XCTAssertTrue(message.subject==nil); // should be nil
+    XCTAssertEqualObjects(message.uid, @759042);
+    XCTAssertEqualObjects(message.rfc2822Size, @2606358);
+    XCTAssertEqualObjects(message.isRecentFlag, @YES);
+    
+    MBMimeMessage* shouldBeMimeMessage = [[[[message childNodes]objectAtIndex:0]childNodes]objectAtIndex:1];
+    XCTAssertTrue([shouldBeMimeMessage isKindOfClass: [MBMimeMessage class]]);//
+    
+    MBMimeImage* shouldBeMimeImage22 = [[[shouldBeMimeMessage.childNodes objectAtIndex: 0]childNodes]objectAtIndex:1];
+    XCTAssertTrue([shouldBeMimeImage22 isKindOfClass: [MBMimeImage class]]);//
+    XCTAssertTrue([shouldBeMimeImage22.bodyIndex isEqualToString: @"2.2"]);//
+    XCTAssertTrue([shouldBeMimeImage22.filename isEqualToString: @"2007-2008 283.jpg"]);//
+    XCTAssertTrue([shouldBeMimeMessage isKindOfClass: [MBMimeMessage class]]);//
+    
+    MBMimeImage* shouldBeMimeImage21 = [[[shouldBeMimeMessage.childNodes objectAtIndex: 0]childNodes]objectAtIndex:0];
+    XCTAssertTrue([shouldBeMimeImage21 isKindOfClass: [MBMimeImage class]]);//
+    XCTAssertTrue([shouldBeMimeImage21.bodyIndex isEqualToString: @"2.1"]);//
+    XCTAssertTrue([shouldBeMimeImage21.filename isEqualToString: @"2007-2008 190.jpg"]);//
+
 //    XCTAssertEqualObjects(message.messageId, @"");
 //    XCTAssertEqualObjects(message.xSpamScore, [NSNumber numberWithFloat: 0], @"Wrong spam score.");
 //    XCTAssertEqualObjects(message.xSpamLevel, @"***", @"Wrong spam level.");

@@ -197,7 +197,7 @@
     
     NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
     
-    NSString* shouldBe = @"";
+    NSString* shouldBe = @"***SPAM***Alzheimerâs* Conspiracy Exposed ";
     
     XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
@@ -214,7 +214,7 @@
     
     NSString* decoded = [self.mimeEncodingTransformer transformedValue: [self.rfcRawHeader.fields objectForKey: @"SUBJECT"]];
     
-    NSString* shouldBe = @"";
+    NSString* shouldBe = @"***SPAM***Alzheimerâs* Conspiracy Exposed âone *Old Trick*... You need To know";
     
     XCTAssertEqualObjects(decoded, shouldBe, @"Raw header fields: \r%@\rDecoded: %@",  self.rfcRawHeader.fields, decoded);
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);

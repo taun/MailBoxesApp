@@ -87,12 +87,6 @@
                   Identifier = "IMAPResponseParserTests/testRespFetchBodyPart2CommandEndMultiBuffer">
                </Test>
                <Test
-                  Identifier = "IMAPResponseParserTests/testRespFetchUidBody2">
-               </Test>
-               <Test
-                  Identifier = "IMAPResponseParserTests/testRespFetchUidEnvelope">
-               </Test>
-               <Test
                   Identifier = "IMAPResponseParserTests/testRespFetchUidEnvelopeEmptyFlags">
                </Test>
                <Test
@@ -106,12 +100,6 @@
                </Test>
                <Test
                   Identifier = "MBIMAPMemCacheStoreTests">
-               </Test>
-               <Test
-                  Identifier = "MBTransformerTests">
-               </Test>
-               <Test
-                  Identifier = "MIMERFC2047EncodeDecodeTests">
                </Test>
                <Test
                   Identifier = "RFC2822RawMessageHeaderTest">

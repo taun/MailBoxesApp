@@ -16,7 +16,7 @@
 #import "MBSimpleRFC822AddressToStringTransformer.h"
 #import "MBSimpleRFC822AddressSetToStringTransformer.h"
 #import "MBEncodedStringHexOctetTransformer.h"
-
+#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
 #import "MBEncodedString.h"
 
 #pragma message "ToDo: need stub MBAddress class for testing transformer."
@@ -75,7 +75,28 @@
     
     NSString* sampleContent = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
     
-    NSString* decoded = [[MBMIMEQuotedPrintableTranformer new] transformedValue: sampleContent];
+    NSString* decoded = [sampleContent mdcStringDeQuotedPrintableFromCharset: NSASCIIStringEncoding];
+    
+    if (NO) {
+        [self saveAnswer: decoded As: NSStringFromSelector(_cmd)];
+    }
+    
+    NSString *shouldBe = [self loadAnswersFor: NSStringFromSelector(_cmd)];
+    
+    XCTAssertTrue([decoded isEqualToString: shouldBe], @"Raw content: \r%@\rDecoded: %@", sampleContent, decoded);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+
+- (void)testFromHTMLQuotedPrintableTrans {
+    NSError *error = nil;
+    
+    NSString *path = [self.testBundle pathForResource: @"mimeTextHTMLQuotedPrintable" ofType: @"txt" inDirectory: @"answers"];
+    
+    NSString* sampleContent = [NSString stringWithContentsOfFile: path encoding: NSASCIIStringEncoding error: &error];
+    
+    MBEncodedString* encodedString = [MBEncodedString newEncodedString: sampleContent encoding: NSASCIIStringEncoding];
+    
+    NSString* decoded = [[[MBMIMEQuotedPrintableTranformer new] transformedValue: encodedString] string];
     
     if (NO) {
         [self saveAnswer: decoded As: NSStringFromSelector(_cmd)];
@@ -148,8 +169,12 @@
 
 -(void)testStringToAddress1 {
     SimpleRFC822Address* address = [self reverseTranformAddress: @"Taun Chapman <taun@taun.org>"];
+    
     SimpleRFC822Address* reference = [SimpleRFC822Address newAddressName: @"Taun Chapman" email: @"taun@taun.org"];
-    XCTAssertEqualObjects(address, reference, @"%@ & %@ should be the same.", address, reference);
+    SimpleRFC822Address* topLevel = [SimpleRFC822Address new];
+    topLevel.addresses = [NSSet setWithObject: reference];
+
+    XCTAssertEqualObjects(address, topLevel, @"%@ & %@ should be the same.", address, reference);
 }
 
 -(void)testEmptyAddressesStringToSet { // should return empty set
@@ -160,11 +185,11 @@
 }
 
 -(void)testMultipleAddressesStringToSet {
-    NSString* addresses = [NSString stringWithFormat: @"\"'Taun'\" <taun@taun.org>, \"Taun Chapman\" <taun@taun.org>, \"Taun Chapman\" <news@taun.org>, <myrna@charcoalia.net>"];
+    NSSet* addressesSet = [NSSet setWithObjects: @"\"Taun\" <taun@taun.org>", @"\"Taun Chapman\" <taun@taun.org>", @"\"Taun Chapman\" <news@taun.org>", @"<myrna@charcoalia.net>", nil];
+    NSString* addresses = [[addressesSet allObjects] componentsJoinedByString: @", "];
     NSSet* simpleAddressSet = [self reverseTranformAddresses: addresses];
-    NSString* reference = [self transformAddressesToString: simpleAddressSet];
     
-    XCTAssertEqualObjects(addresses, reference, @"%@ & %@ Should be equal.", addresses, reference);
+    XCTAssertEqualObjects(addressesSet, simpleAddressSet, @"%@ & %@ Should be equal.", addressesSet, simpleAddressSet);
 }
 
 -(void)testLongAddressesStringNamesWithCommasToSet {
