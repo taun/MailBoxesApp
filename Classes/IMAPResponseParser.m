@@ -394,8 +394,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             }
         }
     }
-    
-    [self cacheCurrentByte];
+    if (!bufferError) {
+        [self cacheCurrentByte];
+    }
     return bufferError; // no error?
 }
 
