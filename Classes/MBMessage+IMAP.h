@@ -47,6 +47,7 @@
 -(void) setParsedRfc2822size: (id) tokenized;
 -(void) setParsedBodystructure: (id) tokenized;
 -(void) setParsedBody: (id) tokenized;
+-(void) setParsedEnvelope: (id) tokenized;
 
 -(void) setFlag: (NSString*) flag;
 

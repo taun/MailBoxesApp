@@ -20,7 +20,7 @@
 #import "MBMultiParallel.h"
 #import "MBMultiRelated.h"
 #import "MBMultiSigned.h"
-#import "MBMultiMessage.h"
+#import "MBMimeMessage.h"
 #import "MBMultiEncrypted.h"
 #import "MBMultiDigest.h"
 
@@ -70,7 +70,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
  
  @param parts MBTokenTree
  */
--(MBMime*) unpackCompositeMessageMimeFrom: (MBTokenTree*) parts;
+-(MBMime*) unpackSubMessageMimeFrom: (MBTokenTree*) parts;
+
+/*!
+ a composite mime envelope
+ 
+ @param parts MBTokenTree
+ */
+-(MBMime*) unpackIMAPEnvelopeFrom: (MBTokenTree*) parts;
 
 /*!
  leaf content of a multi part
@@ -88,7 +95,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(MBMimeDisposition*) unpackDispositionFromNextToken: (MBTokenTree*) tokens;
 
-- (void) generateBodyIndexes: (MBMime*) topLevel rIndex: (NSUInteger) rIndex;
+/*!
+ Called once after parsing a bodystructure to traverse the mime tree and assign the appropriate IMAP body index.
+ 
+ @param topLevel Node to traverse.
+ @param path The path index array as strings or nil if just starting.
+ @param rIndex Recursion index to stop runaway recursion.
+ */
+- (void) generateBodyIndexes: (MBMime*) topLevel path: (NSArray*) path rIndex: (NSUInteger) rIndex;
 
 -(MBAddress*) checkAddress: (id) token;
 
@@ -215,10 +229,55 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         
         topLevelPersistentAddress = [MBAddress newAddressFromSimpleAddress: simpleAddress inContext: self.managedObjectContext];
         
+    } else if (tokenized != nil && [tokenized isKindOfClass: [MBTokenTree class]]) {
+        
+        topLevelPersistentAddress = [self parseEnvelopeAddressTokens: tokenized];
     }
     return topLevelPersistentAddress;
 }
+-(MBAddress*) parseEnvelopeAddressTokens: (MBTokenTree*) tokenized {
+    SimpleRFC822Address* simpleAddress;
+    MBAddress* topLevelPersistentAddress;
+    
+    // we will convert to a string then to an address since all of the group parsing logic is already working from a string
+    // and it is more trivial to convert to a string than redo the group and address logic here.
+    NSMutableString* addressesString = [NSMutableString new];
+    BOOL previousPassWasAddress = NO;
+    
+    for (NSArray* envelopeAddress in tokenized.tokenArray) {
+        //
+        
+        if ([envelopeAddress isKindOfClass: [NSArray class]] && envelopeAddress.count == 4) {
+            // correct argument
+            // address structure are in the following order: personal name, [SMTP] at-domain-list (source route), mailbox name, and host name.
+            // group syntax is indicated by a special form of address structure in which the host name field is NIL.
+            if ([envelopeAddress[3] isNonNilString]) {
+                // normal address
+                if (previousPassWasAddress) [addressesString appendString: @","];
+                [addressesString appendFormat: @"\"%@\" <%@@%@>",envelopeAddress[0],envelopeAddress[2],envelopeAddress[3]];
 
+                previousPassWasAddress = YES;
+            } else if (![envelopeAddress[3] isNonNilString] && [envelopeAddress[0] isNonNilString]) {
+                // start of group
+                if (previousPassWasAddress) [addressesString appendString: @", "];
+                [addressesString appendFormat: @"%@:",envelopeAddress[0]];
+                previousPassWasAddress = NO;
+            } else if (![envelopeAddress[3] isNonNilString] && ![envelopeAddress[0] isNonNilString]) {
+                // end of group
+                [addressesString appendFormat: @";"];
+                previousPassWasAddress = NO;
+            }
+        } else {
+            // something wrong
+            DDLogError(@"[%@ %@: Should have an array with 4 strings, instead we have: %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), tokenized);
+        }
+        if ([addressesString isNonNilString]) {
+            simpleAddress = [SimpleRFC822Address newFromString: addressesString];
+            topLevelPersistentAddress = [MBAddress newAddressFromSimpleAddress: simpleAddress inContext: self.managedObjectContext];
+        }
+    }
+    return topLevelPersistentAddress;
+}
 /*
  "Nancy Reigel" <ndreigel@bellatlantic.net>, "'Carl Davies'" <carl_davies99@yahoo.com>, "'Taun'" <taun@charcoalia.net>, "'Michael B. Parmet'" <mbparmet@parmetech.com>, <geminikc9@yahoo.com>, <richard.hankin@hankingroup.com>, <DBoscher@CNTUS.JNJ.COM>, <mark@mccay.com>, <canniff@canniff.net>, <ndreigel@verizon.net>, <monckma@yahoo.com>, "'Alicia Shultz'" <AliciaShultz@princetowncable.com>, "'Laurie'" <reelmom5@verizon.net>, "'Wagner, Tim [NCSUS]'" <twagner@ncsus.jnj.com>, <jppsd@msn.com>, <karen_vanbemmel@yahoo.com>
 */
@@ -368,6 +427,126 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
 //    [self didChangeValueForKey:@"defaultContent"];
 }
+/*!
+ The fields of the envelope structure are in the following
+ order: date, subject, from, sender, reply-to, to, cc, bcc,
+ in-reply-to, and message-id.  The date, subject, in-reply-to,
+ and message-id fields are strings.  The from, sender, reply-to,
+ to, cc, and bcc fields are parenthesized lists of address
+ structures.
+ 
+ Envelope   = "(" env-date SP env-subject SP env-from SP
+ env-sender SP env-reply-to SP env-to SP env-cc SP
+ env-bcc SP env-in-reply-to SP env-message-id ")"
+ 
+ 
+ An address structure is a parenthesized list that describes an
+ electronic mail address.  The fields of an address structure
+ are in the following order: personal name, [SMTP]
+ at-domain-list (source route), mailbox name, and host name.
+ [RFC-2822] group syntax is indicated by a special form of
+ address structure in which the host name field is NIL.  If the
+ mailbox name field is also NIL, this is an end of group marker
+ (semi-colon in RFC 822 syntax).  If the mailbox name field is
+ non-NIL, this is a start of group marker, and the mailbox name
+ field holds the group name phrase.
+ 
+ env-bcc         = "(" 1*address ")" / nil
+ 
+ env-cc          = "(" 1*address ")" / nil
+ 
+ env-date        = nstring
+ 
+ env-from        = "(" 1*address ")" / nil
+ 
+ env-in-reply-to = nstring
+ 
+ env-message-id  = nstring
+ 
+ env-reply-to    = "(" 1*address ")" / nil
+ 
+ env-sender      = "(" 1*address ")" / nil
+ 
+ env-subject     = nstring
+ 
+ env-to          = "(" 1*address ")" / nil
+ 
+ */
+-(void) setParsedEnvelope:(id)tokenized {
+    MBTokenTree* tokenScanner = nil;
+    if ([tokenized isKindOfClass: [MBTokenTree class]]) {
+        tokenScanner = (MBTokenTree*) tokenized;
+    } else if ([tokenized isKindOfClass: [NSArray class]]) {
+        tokenScanner = [[MBTokenTree alloc] initWithArray: tokenized];
+    } else {
+        DDLogError(@"%@ the token list was: %@ which is neither an Array or TokenTree", NSStringFromSelector(_cmd), NSStringFromClass([tokenized class]));
+    }
+    
+    //env-date string
+    NSString* dateToken = [tokenScanner scanString];
+    if ([dateToken isNonNilString]) {
+        [self setParsedDateSent: dateToken];
+    } else {
+        [tokenScanner removeToken];
+    }
+    
+    //env-subject string
+    NSString* subjectToken = [tokenScanner scanString];
+    if ([subjectToken isNonNilString]) {
+        [self setParsedSubject: subjectToken];
+    } else {
+        [tokenScanner removeToken];
+    }
+    
+    MBTokenTree* addressTokens;
+    
+    //env-from array
+    addressTokens = [tokenScanner scanSubTree];
+    [self setParsedAddressFrom: addressTokens];
+    
+    //env-sender array
+    addressTokens = [tokenScanner scanSubTree];
+    [self setParsedAddressSender: addressTokens];
+    
+    //env-reply-to array
+    addressTokens = [tokenScanner scanSubTree];
+    [self setParsedAddressReplyTo: addressTokens];
+    
+    //env-to array
+    addressTokens = [tokenScanner scanSubTree];
+    [self setParsedAddressesTo: addressTokens];
+    
+    //env-cc array
+    addressTokens = [tokenScanner scanSubTree];
+    [self setParsedAddressesCc: addressTokens];
+    
+    //env-bcc array
+    addressTokens = [tokenScanner scanSubTree];
+    [self setParsedAddressesBcc: addressTokens];
+    
+    //env-in-reply-to array
+    addressTokens = [tokenScanner scanSubTree];
+    // throw away for now
+    
+    //env-message-id string
+    NSString* messageIDToken = [tokenScanner scanString];
+    if ([messageIDToken isNonNilString]) {
+        [self setParsedMessageId: messageIDToken];
+    }
+    
+    
+}
+/*
+ <__NSArrayM 0x1003574d0>(
+ <__NSArrayM 0x100357d60>(
+ Randy and Diane Kane,
+ NIL,
+ mabbymia,
+ comcast.net
+ )
+ 
+ )
+*/
 
 -(NSString*) composeContent {
     
@@ -499,7 +678,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         } else {
             // multipart
             newPart.bodyIndex = @"";
-            [self generateBodyIndexes: newPart rIndex: 0];
+            [self generateBodyIndexes: newPart path: nil rIndex: 0];
         }
 //        newPart.bodyIndex = [NSString stringWithFormat: @"%u", partIndex];
         BOOL alreadyExists = NO;
@@ -517,9 +696,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
 }
 
-/*!
- 
-From RFC3501
+/*
+ @discussion From RFC3501
  
 "Every message has at least one part number. Non-[MIME-IMB] messages,
  and non-multipart [MIME-IMB] messages with no encapsulated message, 
@@ -554,27 +732,54 @@ From RFC3501
                 recurse
 </pre>
  
- @param mime MBMime
- @param rIndex NSUInteger
 */
-- (void) generateBodyIndexes: (MBMime*) mime rIndex: (NSUInteger) rIndex{
-    if (rIndex < 10) {
-        NSString* prefix = nil;
-        if ([mime.bodyIndex length] > 0) {
-            prefix = [NSString stringWithFormat: @"%@.",mime.bodyIndex];
-        } else {
-            prefix = @"";
-        }
-        NSUInteger index = 1;
-        for (MBMime* node in mime.childNodes) {
-            //
-            node.bodyIndex = [NSString stringWithFormat: @"%@%lu",prefix,(unsigned long)index];
-            DDLogVerbose(@"%@\n", node);
-            if ([node.childNodes count]>0) {
-                [self generateBodyIndexes: node rIndex: ++rIndex];
+- (void) generateBodyIndexes: (MBMime*) mime path: (NSArray*) path rIndex: (NSUInteger) rIndex{
+    if (rIndex < 20) {
+        // plan to pass copy of path array for each path recursion adding to the array with the next part index.
+        // when at a leaf, set bodyindex using [path componentsJoinedByString: @"."]
+        // index only gets added when there is a branch, meaning only add branch index.
+        
+        if (mime.childNodes.count == 0) {
+            // leaf, set bodyindex
+            mime.bodyIndex = [path componentsJoinedByString: @"."];
+        } else if (mime.childNodes.count > 1){
+            if (!path) {
+                path = [NSMutableArray arrayWithCapacity: 2];
             }
-            index++;
+            NSUInteger partIndex = 1;
+            for (MBMime* node in mime.childNodes) {
+                // branches
+                NSString* nextIndexString = [NSString stringWithFormat:@"%lu",(unsigned long)partIndex];
+                NSArray* nextPath = [path arrayByAddingObject: nextIndexString];
+                [self generateBodyIndexes: node path: nextPath rIndex: rIndex];
+                
+                partIndex++;
+            }
+        } else if (mime.childNodes.count == 1) {
+            // special case of message/rfc822 ?
+            MBMime* node = [mime.childNodes objectAtIndex: 0];
+            [self generateBodyIndexes: node path: path rIndex: rIndex];
         }
+        
+//        NSString* prefix = nil;
+//        if (rIndex > 0) {
+//            prefix = [NSString stringWithFormat: @"%lu.",rIndex];
+//        } else {
+//            prefix = @"";
+//        }
+//        NSUInteger index = 1;
+//        for (MBMime* node in mime.childNodes) {
+//            //
+//            if ([node.type caseInsensitiveCompare: @"MULTIPART"] != NSOrderedSame) {
+//                // not multipart, multipart does not get index
+//                node.bodyIndex = [NSString stringWithFormat: @"%@%lu",prefix,(unsigned long)index];
+//            }
+//            DDLogVerbose(@"%@\n", node);
+//            if ([node.childNodes count]>0) {
+//                [self generateBodyIndexes: node path: path rIndex: ++rIndex];
+//            }
+//            index++;
+//        }
 
     } else {
         DDLogError(@"%@ Maximum recursion exceeded.", NSStringFromSelector(_cmd));
@@ -750,7 +955,7 @@ From RFC3501
         
     } else if ([[parts peekToken] caseInsensitiveCompare: @"message"]==NSOrderedSame) {
         // it is a Composite Message mime
-        result = [self unpackCompositeMessageMimeFrom: parts];
+        result = [self unpackSubMessageMimeFrom: parts];
     } else {
         // it is a discrete mime or empty
         result = [self unpackDiscreteMimeFrom: parts];
@@ -759,6 +964,11 @@ From RFC3501
 }
 
 /*!
+ A body type of type MESSAGE and subtype RFC822 contains,
+ immediately after the basic fields, the envelope structure,
+ body structure, and size in text lines of the encapsulated
+ message.
+ 
  > Explicit Composite Message
      type = message
      subtype = rfc822
@@ -775,24 +985,31 @@ From RFC3501
      language
      location
  
+ 
+ 
  @param tokens MBTokenTree
  */
-- (MBMime*) unpackCompositeMessageMimeFrom:(MBTokenTree *)tokens {
+- (MBMime*) unpackSubMessageMimeFrom:(MBTokenTree *)tokens {
     
-    MBMime* newPart = nil;
+    MBMimeMessage* newPart = nil;
+    MBMessage* subMessage = nil;
     
     NSString* type = [tokens scanString];
     if (type!=nil) {
         if ([type caseInsensitiveCompare: @"message"] == NSOrderedSame) {
-            newPart = [NSEntityDescription
-                      insertNewObjectForEntityForName: @"MBMultiMessage"
-                      inManagedObjectContext: self.managedObjectContext];
+            newPart = [MBMimeMessage insertNewObjectIntoContext: self.managedObjectContext];
         }
         newPart.type = type;
     }
     // subtype
     NSString* subtype = [tokens scanString];
-    if (subtype!=nil) newPart.subtype = subtype;
+    if (subtype!=nil) {
+        newPart.subtype = subtype;
+        if ([subtype caseInsensitiveCompare: @"rfc822"] == NSOrderedSame) {
+            subMessage = [MBMessage insertNewObjectIntoContext: self.managedObjectContext];
+            newPart.subMessage = subMessage;
+        }
+    }
     
     // parameters
     MBTokenTree* parameterTokens = [tokens scanSubTree];
@@ -828,18 +1045,30 @@ From RFC3501
     if (octets!=nil) newPart.octets = octets;
     
     // Envelope
-    // discard for now
-    [tokens removeToken];
+    MBTokenTree* subMessageEnvelope = [tokens scanSubTree];
+    if (subMessageEnvelope!=nil) {
+        [subMessage setParsedEnvelope: subMessageEnvelope];
+    } else {
+        [tokens removeToken];
+    }
     
-    // Bodystructure
+    // subMessage Bodystructure
     MBTokenTree* subBodystructure = [tokens scanSubTree];
     if (subBodystructure!=nil) {
         // recurse to unpack
-        MBMime* newChild = [self unpackCompositeMimeFrom: subBodystructure];
-        if (newChild != nil) {
+        [subMessage setParsedBodystructure: subBodystructure];
+        if (subMessage.childNodes.count > 0) {
             NSMutableOrderedSet* childNodes = [newPart mutableOrderedSetValueForKey: @"childNodes"];
-            [childNodes addObject: newChild];
+            for (MBMime* part in subMessage.childNodes) {
+                [childNodes addObject: part];
+            }
+            [self addAllParts: subMessage.allParts];
         }
+//        MBMime* newChild = [self unpackCompositeMimeFrom: subBodystructure];
+//        if (newChild != nil) {
+//            NSMutableOrderedSet* childNodes = [newPart mutableOrderedSetValueForKey: @"childNodes"];
+//            [childNodes addObject: newChild];
+//        }
     } else {
         [tokens removeToken];
     }
