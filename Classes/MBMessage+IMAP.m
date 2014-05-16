@@ -683,7 +683,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //        newPart.bodyIndex = [NSString stringWithFormat: @"%u", partIndex];
         BOOL alreadyExists = NO;
         for (MBMime* existingPart in allParts) {
-            if ([existingPart.bodyIndex isEqualToString: newPart.bodyIndex]) {
+            if (existingPart.bodyIndex && [existingPart.bodyIndex isEqualToString: newPart.bodyIndex]) {
 //                alreadyExists = YES;
             }
         }
