@@ -262,7 +262,6 @@ typedef UInt8 IMAPClientStates;
 #pragma mark - High Level App Methods
 #pragma message "TODO: convert High level methods to a protocol"
 /// @name High Level App Methods
-//-(void) refreshAll;
 -(void) updateAccountFolderStructure;
 -(void) updateLatestMessagesForMBox: (MBox*) mbox;
 -(void) updateLatestMessagesForMBox: (MBox*) mbox

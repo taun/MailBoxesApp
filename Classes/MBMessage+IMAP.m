@@ -382,7 +382,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 #pragma message "ToDo: check performance of looping for part vs fetch request for part"
 /*!
- dictionary key: "body" object (part, data)
+ dictionary key: "body" object (part#, data)
  
  Need to find the body part then assign the data
  
@@ -397,7 +397,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //    [self willChangeValueForKey:@"defaultContent"];
     
     for (MBMime* mimePart in allParts) {
-        if ([mimePart.bodyIndex caseInsensitiveCompare: partIdentity] == NSOrderedSame) {
+        if (mimePart.bodyIndex && [mimePart.bodyIndex caseInsensitiveCompare: partIdentity] == NSOrderedSame) {
             // found the correct part
             [mimePart addEncodedData: partData];
             BOOL isDecoded = [mimePart decode];

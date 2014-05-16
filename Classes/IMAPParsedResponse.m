@@ -19,7 +19,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_INFO;
 
 static     NSSet *RespDataStateTokens;
 static     NSSet *RespDataCommandTokens;
@@ -863,14 +863,12 @@ static     NSDictionary *HeaderToModelMap;
 
 -(void) responseFetchedMessageBodystructure {
     NSAssert([self.tokens count] > 0, @"%@ - No tokens!", NSStringFromSelector(_cmd));
-    DDLogVerbose(@"BodyStructure:\n%@", self.tokens);
+    DDLogVerbose(@"BodyStructure:\n%@", self.tokens.tokenArray);
     // starts as a parenthesized list and parser should have converted
     // to a nested array of tokens
     MBTokenTree* bodystructure = [self.tokens scanSubTree];
     if (bodystructure) {
-        (self.messageProperties)[[@"bodystructure" mdcStringAsSelectorSafeCamelCase]] = [bodystructure tokenArray];
-        // should be no objects left in bodystructure
-        DDLogVerbose(@"%@ bodystructure count after cache: %@", NSStringFromSelector(_cmd),bodystructure);
+        [self.messageProperties setObject: [bodystructure tokenArray] forKey: [@"bodystructure" mdcStringAsSelectorSafeCamelCase]];
     }
     bodystructure = nil;
 }

@@ -494,119 +494,6 @@ static NSUInteger  IMAPClientQueueCount = 0;
 }
 
 
-//-(void) updateLatestMessagesForMBox:(MBox *)mbox olderThan:(NSTimeInterval)time {
-//    
-//    if ([self ensureOpenConnection]) {
-// 
-//        [self asyncSelectMBox: mbox];
-//        
-//        DDLogCVerbose(@"[%@ %@]Getting headers for \"%@\"", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.clientStore.selectedMBox.fullPath);
-//        
-//        [self asyncUpdateLatestMessagesForMBox: mbox olderThan: time];
-//    }
-//}
-//-(void) updateFullSequenceUIDMap {
-//    IMAPClient* __weak weakSelf = self;
-//
-//    MBCommandBlock successBlock = ^() {
-//        [weakSelf updateFullSequenceUIDMap];
-//    };
-//    
-////    DDLogInfo(@"[%@ %@] Added CommandBlock for commandSelect:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-//    
-//    [self addCommandBlock: ^() {
-//        UInt64 startRange = [weakSelf.clientStore.selectedMBox.maxCachedUID unsignedIntegerValue];
-//        if (startRange == 0) startRange = 1;
-//        UInt64 endRange = [weakSelf.clientStore.selectedMBox.serverMessages unsignedIntegerValue];
-//
-//        [weakSelf commandFetchSequenceUIDMap: startRange end: endRange withSuccessBlock: successBlock withFailBlock: NULL];
-//    }];
-//}
-//-(void) asyncUpdateLatestMessagesForMBox:(MBox *)mbox olderThan:(NSTimeInterval)time {
-//    IMAPClient* __weak weakSelf = self;
-//
-//    DDLogInfo(@"[%@ %@] Added CommandBlock for commandFetchHeadersStart:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-//
-//    [self addCommandBlock: ^() {
-//        NSInteger endRange = [weakSelf.clientStore.selectedMBox.serverMessages integerValue];
-//        if (endRange > 0) {
-//            NSInteger initialRange = endRange - 20;
-//            NSInteger startRange;
-//            startRange = (initialRange < 1) ? 1 : initialRange;
-//            
-//            [weakSelf commandFetchHeadersStart: startRange end: endRange withSuccessBlock: NULL withFailBlock: NULL];
-//        }
-//    }];
-//}
-/*
- STATUS vs SELECT vs EXAMINE
- perhaps use EXAMINE rather than SELECT?
- Then query which boxes have changes and SELECT and get headers for them?
- 
- Best to use SELECT. Status is for a separate net connection and Examine is read only.
- */
--(void) refreshAll {
-//        [self asyncRefreshAll];
-//        [self.delegate clientFinished: self]; // could this be sync not async?
-}
--(void) asyncRefreshAll {
-    //    self.isCancelled = NO;
-    //    self.isFinished = NO;
-    //    self.isExecuting = YES;
-    //    self.isCommandComplete = YES;
-    //
-    //    NSError* error = nil;
-    //    BOOL connected;
-    //    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    //
-    //    @try {
-    //        @autoreleasepool {
-    //            connected = [self openConnection: &error];
-    //            if (connected && self.connectionState == IMAPAuthenticated) {
-    //                // do some work process an event?
-    //
-    //                [self commandList];
-    //
-    //                for (MBox* box in self.clientStore.account.allNodes) {
-    //                    if (self.connectionState != IMAPAuthenticated) {
-    //                        self.isCancelled = YES;
-    //                        break;
-    //                    }
-    //                    //[self commandSelect: @"INBOX"];
-    //                    [self commandSelect: box.fullPath];
-    //                    [self syncQuanta];
-    //                    // Queue a command to set "isFinished"?
-    //
-    //                }
-    //
-    //            }
-    //            else {
-    //                // parse connection error
-    //                DDLogVerbose(@"%@: ConnectionState %@, Streams connection error: %@.", NSStringFromSelector(_cmd), [IMAPClient stateAsString: self.connectionState], error);
-    //
-    //                while (!self.isCancelled) {
-    //                    // do nothing
-    //                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow: self.runLoopInterval]];
-    //                }
-    //            }
-    //
-    //        }
-    //    }
-    //    @catch (NSException *exception) {
-    //        self.isExecuting = NO;
-    //
-    //        NSString *exceptionMessage = [NSString stringWithFormat:@"%@\nReason: %@\nUser Info: %@", [exception name], [exception reason], [exception userInfo]];
-    //        // Always log to console for history
-    //        DDLogCVerbose(@"[%@ %@]Exception raised:\n%@", NSStringFromClass([self class]), NSStringFromSelector(_cmd),exceptionMessage);
-    //        DDLogCVerbose(@"[%@ %@]Backtrace: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [exception callStackSymbols]);
-    //    }
-    //    @finally {
-    //        self.isExecuting = NO;
-    //        [self closeStreams];
-    //        self.isFinished = YES;
-    //    }
-}
-
 -(void) loadFullMessage: (MBMessage*) message {
     MBox* mbox = message.mbox;
     
@@ -628,38 +515,46 @@ static NSUInteger  IMAPClientQueueCount = 0;
  */
 -(void) asyncLoadFullMessage: (MBMessage*) message {
     
-     // fetch the selected message plus seek +- by one
-    MBCommandBlock successBlock = NULL;
-
     NSUInteger partCount = message.allParts.count;
-    NSUInteger partIndex = 0;
+    
+    NSMutableArray* downloadableParts = [NSMutableArray arrayWithCapacity: partCount];
     
     for (MBMime* part in message.allParts) {
-        ++partIndex;
         // doesn't handle partially loaded data
         // is network disconnect while loading
         // need to make sure data is always fully loaded before saving
         if (part.isLeaf && part.data == nil) {
             NSString* bodyIndex = part.bodyIndex;
-            if ([bodyIndex length] > 0) {
+            if (bodyIndex && [bodyIndex length] > 0) {
                 
-                IMAPClient* __weak weakSelf = self;
+                [downloadableParts addObject: part];
                 
-                if (partIndex == partCount) {
-                    // last part
-                    successBlock = ^() {
-                        message.isFullyCached = @YES;
-                    };
-
-                }
-                
-                DDLogInfo(@"[%@ %@] Added CommandBlock for commandFetchContentForMessage:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-
-                [self addCommandBlock: ^() {
-                    [weakSelf commandFetchContentForMessage: message mimeParts: bodyIndex withSuccessBlock: successBlock withFailBlock: NULL];
-                }];
             }
         }
+    }
+    
+    MBCommandBlock successBlock = NULL;
+    NSUInteger downloadCount = downloadableParts.count;
+    NSUInteger partIndex = 0;
+
+    for (MBMime* part in downloadableParts) {
+        ++partIndex;
+        
+        IMAPClient* __weak weakSelf = self;
+        
+        if (partIndex == downloadCount) {
+            // last part
+            successBlock = ^() {
+                message.isFullyCached = @YES;
+            };
+        }
+        
+        DDLogInfo(@"[%@ %@] Added CommandBlock for commandFetchContentForMessage:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        
+        [self addCommandBlock: ^() {
+            [weakSelf commandFetchContentForMessage: message mimeParts: part.bodyIndex withSuccessBlock: successBlock withFailBlock: NULL];
+        }];
+
     }
 }
 
@@ -1527,7 +1422,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     [command copyAddArgument: @"UID"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER"]; // should be body.peek[header]
+    [command copyAddArgument: @"BODY.PEEK[HEADER]"]; // should be BODY.PEEK[HEADER]
     [command copyAddArgument: @"BODYSTRUCTURE)"];
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
@@ -1542,7 +1437,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     [command copyAddArgument: @"UID"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER)"]; // should be body.peek[header]
+    [command copyAddArgument: @"BODY.PEEK[HEADER])"]; // should be body.peek[header]
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
@@ -1583,7 +1478,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     //[command copyAddArgument: @"INTERNALDATE"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER"]; // should be body.peek[header]
+    [command copyAddArgument: @"BODY.PEEK[HEADER]"]; // should be body.peek[header]
     [command copyAddArgument: @"BODYSTRUCTURE)"];
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
@@ -1597,7 +1492,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     [command copyAddArgument: @"UID"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER"]; // should be body.peek[header]
+    [command copyAddArgument: @"BODY.PEEK[HEADER]"]; // should be body.peek[header]
     [command copyAddArgument: @"BODYSTRUCTURE)"];
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
@@ -1612,7 +1507,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"(FLAGS"];
     //[command copyAddArgument: @"INTERNALDATE"];
     [command copyAddArgument: @"RFC822.SIZE"];
-    [command copyAddArgument: @"RFC822.HEADER)"]; // should be body.peek[header]
+    [command copyAddArgument: @"BODY.PEEK[HEADER])"]; // should be body.peek[header]
     command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
