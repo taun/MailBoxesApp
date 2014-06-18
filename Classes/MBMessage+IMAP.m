@@ -392,7 +392,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSString* partIdentity = tokenized[0];
     NSString* partData = tokenized[1];
     
-    NSSet* allParts = self.allParts;
+    NSSet* allParts = self.allMimeContentParts;
     
 //    [self willChangeValueForKey:@"defaultContent"];
     
@@ -669,7 +669,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     newPart = [self unpackCompositeMimeFrom: tokenScanner];
 
     NSMutableOrderedSet* childNodes = [self mutableOrderedSetValueForKey: @"childNodes"];
-    NSMutableSet* allParts = [self mutableSetValueForKey: @"allParts"];
+//    NSMutableSet* allParts = [self allMimeParts];
     
     if (newPart) {
         if (newPart.childNodes.count == 0) {
@@ -681,16 +681,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self generateBodyIndexes: newPart path: nil rIndex: 0];
         }
 //        newPart.bodyIndex = [NSString stringWithFormat: @"%u", partIndex];
-        BOOL alreadyExists = NO;
-        for (MBMime* existingPart in allParts) {
-            if (existingPart.bodyIndex && [existingPart.bodyIndex isEqualToString: newPart.bodyIndex]) {
+//        BOOL alreadyExists = NO;
+//        for (MBMime* existingPart in allParts) {
+//            if (existingPart.bodyIndex && [existingPart.bodyIndex isEqualToString: newPart.bodyIndex]) {
 //                alreadyExists = YES;
-            }
-        }
-        if (!alreadyExists) {
+//            }
+//        }
+//        if (!alreadyExists) {
             [childNodes addObject: newPart];
-            [allParts addObject: newPart];
-        }
+//            [allParts addObject: newPart];
+//        }
     } else {
         DDLogVerbose(@"%@ problem creating a new mime part.", NSStringFromSelector(_cmd));                
     }
@@ -709,8 +709,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
  within that nested multipart part."
  
  This means the multiPart part should have no index since it has no individual content.
- The initial multiPart has no index and the parts are 1, 2
- An sub mulitpart has no index and the parts are 1.1, 1.2 or similar.
+ The root multiPart has no index and the parts are 1, 2
+ Sub multiparts do have an index just like a normal sub part.
+ A root multipart of a message/rfc822 is just like a regular root multipart and has no index. 
+ The message/rfc822 has the index. The multipart subparts are the #.x indexes.
  
  Only multiParts have childnodes?
  
@@ -739,48 +741,40 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         // when at a leaf, set bodyindex using [path componentsJoinedByString: @"."]
         // index only gets added when there is a branch, meaning only add branch index.
         
-        if (mime.childNodes.count == 0) {
-            // leaf, set bodyindex
+        if (!path) {
+            path = [NSMutableArray arrayWithCapacity: 2];
+        }
+
+        if ([mime.type caseInsensitiveCompare: @"MESSAGE"] == NSOrderedSame && [mime.subtype caseInsensitiveCompare: @"RFC822"] == NSOrderedSame) {
+            // special case of message/rfc822
+            MBMimeMessage* messageMime = (MBMimeMessage*)mime;
+            mime.isLeaf = @NO;
             mime.bodyIndex = [path componentsJoinedByString: @"."];
-        } else if (mime.childNodes.count > 1){
-            if (!path) {
-                path = [NSMutableArray arrayWithCapacity: 2];
+            MBMime* node = [messageMime.subMessage.childNodes firstObject]; // should also be only object
+            [self generateBodyIndexes: node path: path rIndex: 0]; //reset rIndex so root message multipart has no bodyindex
+            
+        } else if (mime.childNodes.count == 0) {
+            // leaf node, set bodyindex
+            mime.isLeaf = @YES;
+            mime.bodyIndex = [path componentsJoinedByString: @"."];
+            
+        } else if (mime.childNodes.count > 0){
+            // multipart node
+            mime.isLeaf = @NO;
+            
+            if (rIndex != 0) {
+                mime.bodyIndex = [path componentsJoinedByString: @"."];
             }
             NSUInteger partIndex = 1;
             for (MBMime* node in mime.childNodes) {
                 // branches
                 NSString* nextIndexString = [NSString stringWithFormat:@"%lu",(unsigned long)partIndex];
                 NSArray* nextPath = [path arrayByAddingObject: nextIndexString];
-                [self generateBodyIndexes: node path: nextPath rIndex: rIndex];
+                [self generateBodyIndexes: node path: nextPath rIndex: ++rIndex];
                 
                 partIndex++;
             }
-        } else if (mime.childNodes.count == 1) {
-            // special case of message/rfc822 ?
-            MBMime* node = [mime.childNodes objectAtIndex: 0];
-            [self generateBodyIndexes: node path: path rIndex: rIndex];
         }
-        
-//        NSString* prefix = nil;
-//        if (rIndex > 0) {
-//            prefix = [NSString stringWithFormat: @"%lu.",rIndex];
-//        } else {
-//            prefix = @"";
-//        }
-//        NSUInteger index = 1;
-//        for (MBMime* node in mime.childNodes) {
-//            //
-//            if ([node.type caseInsensitiveCompare: @"MULTIPART"] != NSOrderedSame) {
-//                // not multipart, multipart does not get index
-//                node.bodyIndex = [NSString stringWithFormat: @"%@%lu",prefix,(unsigned long)index];
-//            }
-//            DDLogVerbose(@"%@\n", node);
-//            if ([node.childNodes count]>0) {
-//                [self generateBodyIndexes: node path: path rIndex: ++rIndex];
-//            }
-//            index++;
-//        }
-
     } else {
         DDLogError(@"%@ Maximum recursion exceeded.", NSStringFromSelector(_cmd));
     }
@@ -868,7 +862,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             if (subPart) {
                 [mimeParts addObject: subPart];
                 subPart.subPartNumber = @(partIndex);
-                [self addAllPartsObject: subPart];
             }
             // get the next subPart if there is one
             firstToken = [parts scanSubTree];
@@ -919,7 +912,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             result.subtype = subtype;
             result.type = @"Multipart";
             [result addChildNodes: mimeParts];
-            [self addAllPartsObject: result];
         }
         // parameters
         MBTokenTree* parameterTokens = [parts scanSubTree];
@@ -1007,6 +999,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         newPart.subtype = subtype;
         if ([subtype caseInsensitiveCompare: @"rfc822"] == NSOrderedSame) {
             subMessage = [MBMessage insertNewObjectIntoContext: self.managedObjectContext];
+            subMessage.mbox = self.mbox;
             newPart.subMessage = subMessage;
         }
     }
@@ -1057,13 +1050,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if (subBodystructure!=nil) {
         // recurse to unpack
         [subMessage setParsedBodystructure: subBodystructure];
-        if (subMessage.childNodes.count > 0) {
-            NSMutableOrderedSet* childNodes = [newPart mutableOrderedSetValueForKey: @"childNodes"];
-            for (MBMime* part in subMessage.childNodes) {
-                [childNodes addObject: part];
-            }
-            [self addAllParts: subMessage.allParts];
-        }
+//        if (subMessage.childNodes.count > 0) {
+//            NSMutableOrderedSet* childNodes = [newPart mutableOrderedSetValueForKey: @"childNodes"];
+//            for (MBMime* part in subMessage.childNodes) {
+//                [childNodes addObject: part];
+//            }
+//        }
 //        MBMime* newChild = [self unpackCompositeMimeFrom: subBodystructure];
 //        if (newChild != nil) {
 //            NSMutableOrderedSet* childNodes = [newPart mutableOrderedSetValueForKey: @"childNodes"];
@@ -1337,17 +1329,70 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (NSArray*) attachments {
     NSMutableArray* result = nil;
 
-    for (MBMime* mimePart in self.allParts) {
-        if (mimePart.isAttachment) {
+    for (MBMime* mimePart in self.childNodes) {
+        NSSet* attachments = [mimePart allChildNodeAttachments];
+        if (attachments.count > 0) {
             if (result == nil) {
-                result = [[NSMutableArray alloc] initWithCapacity: 2];
+                result = [[NSMutableArray alloc] initWithCapacity: attachments.count];
             }
-            [result addObject: mimePart];
+            for (MBMime* attachment in attachments) {
+                [result addObject: attachment];
+            }
+        }
+    }
+    
+    return [result copy];
+}
+
+-(NSSet*) allMimeParts {
+    NSMutableSet* result = nil;
+    
+    for (MBMime* mimePart in self.childNodes) {
+        NSSet* contentParts = [mimePart allChildNodes];
+        if (contentParts.count > 0) {
+            if (result == nil) {
+                result = [[NSMutableSet alloc] initWithSet: contentParts];
+            } else {
+                [result unionSet: contentParts];
+            }
         }
     }
     
     return result;
 }
+-(NSSet*) allMimeContentParts {
+    NSMutableSet* result = nil;
+
+    for (MBMime* mimePart in self.childNodes) {
+        NSSet* contentParts = [mimePart allChildNodesWithContentPotential];
+        if (contentParts.count > 0) {
+            if (result == nil) {
+                result = [[NSMutableSet alloc] initWithSet: contentParts];
+            } else {
+                [result unionSet: contentParts];
+            }
+        }
+    }
+    
+    return result;
+}
+-(NSSet*) allMimePartsMissingContent {
+    NSMutableSet* result = nil;
+    
+    for (MBMime* mimePart in self.childNodes) {
+        NSSet* contentParts = [mimePart allChildNodesMissingContent];
+        if (contentParts.count > 0) {
+            if (result == nil) {
+                result = [[NSMutableSet alloc] initWithSet: contentParts];
+            } else {
+                [result unionSet: contentParts];
+            }
+        }
+    }
+    
+    return result;
+}
+
 -(NSString*) checkAnd2047DecodeToken:(id)token {
     NSString* decodedString;
     if (token != nil && [token isKindOfClass: [NSString class]]) {

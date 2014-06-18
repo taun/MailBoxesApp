@@ -52,6 +52,27 @@
 -(void) setFlag: (NSString*) flag;
 
 -(NSArray*) attachments;
+/*!
+ Collate all of the mime parts\.
+ Assumes all part data was populated by a fetch bodystructure.
+ 
+ @return a set of mime parts.
+ */
+-(NSSet*) allMimeParts;
+/*!
+ Collate all of the mime parts which have content.
+ Based on a part being a leaf. Assumes all part data was populated by a fetch bodystructure.
+ 
+ @return a set of mime parts which have or need content.
+ */
+-(NSSet*) allMimeContentParts;
+/*!
+ Collate all of the mime parts which need content fetched.
+ Based on a part being a leaf. Assumes all part data was populated by a fetch bodystructure.
+ 
+ @return a set of mime parts which need content.
+ */
+-(NSSet*) allMimePartsMissingContent;
 
 //-(NSArray*) childNodesArray;
 //-(NSSet*) childNodesSet;

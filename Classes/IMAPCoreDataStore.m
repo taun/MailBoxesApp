@@ -114,44 +114,16 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                 // ToDo: add more detailed error reporting here. Need to show CoreData validation errors
                 // and give a chance to go back and correct them. Ideally show validation errors earlier.
                 
-                NSMutableString *errorString = nil;
-                NSInteger errorCode = [error code];
-                if (errorCode == NSValidationMultipleErrorsError) {
-                    // For an NSValidationMultipleErrorsError, the original errors
-                    // are in an array in the userInfo dictionary for key NSDetailedErrorsKey
-                    NSArray *detailedErrors = [error userInfo][NSDetailedErrorsKey];
-                    
-                    // For this example, only present error messages for up to 3 validation errors at a time.
-                    
-                    NSUInteger numErrors = [detailedErrors count];
-                    errorString = [NSMutableString stringWithFormat:@"%lu validation errors have occurred", (unsigned long)numErrors];
-                    
-                    if (numErrors > 3) {
-                        [errorString appendFormat:@".\nThe first 3 are:\n"];
-                    }
-                    else {
-                        [errorString appendFormat:@":\n"];
-                    }
-                    NSUInteger i, displayErrors = numErrors > 3 ? 3 : numErrors;
-                    for (i = 0; i < displayErrors; i++) {
-                        [errorString appendFormat:@"%@\n",
-                         [detailedErrors[i] localizedDescription]];
-                    }
-                } else {
-                    errorString = [NSMutableString stringWithFormat: @"%@>%@", [error localizedDescription], [error localizedFailureReason]];
-                }
-                DDLogError(@"%@:%@ unable to save managedObjectContext",
-                             NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-                DDLogError(@"%@", errorString);
+                [self handleManagedObjectContextSaveError: error];
             } else {
-                DDLogWarn(@"%@:%@ Saved managedObjectContext",
+                DDLogWarn(@"Warning [%@:%@] Saved managedObjectContext",
                              NSStringFromClass([self class]), NSStringFromSelector(_cmd));
                 
             }
         }
         @catch (NSException *exception) {
             //_NSCoreDataOptimisticLockingException ?
-            DDLogError(@"%@:%@ exception: %@",
+            DDLogError(@"Error [%@:%@] exception: %@",
                          NSStringFromClass([self class]), NSStringFromSelector(_cmd), exception);
         }
         @finally {
@@ -172,35 +144,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                 // ToDo: add more detailed error reporting here. Need to show CoreData validation errors
                 // and give a chance to go back and correct them. Ideally show validation errors earlier.
                 
-                NSMutableString *errorString = nil;
-                NSInteger errorCode = [error code];
-                if (errorCode == NSValidationMultipleErrorsError) {
-                    // For an NSValidationMultipleErrorsError, the original errors
-                    // are in an array in the userInfo dictionary for key NSDetailedErrorsKey
-                    NSArray *detailedErrors = [error userInfo][NSDetailedErrorsKey];
-                    
-                    // For this example, only present error messages for up to 3 validation errors at a time.
-                    
-                    NSUInteger numErrors = [detailedErrors count];
-                    errorString = [NSMutableString stringWithFormat:@"%lu validation errors have occurred", (unsigned long)numErrors];
-                    
-                    if (numErrors > 3) {
-                        [errorString appendFormat:@".\nThe first 3 are:\n"];
-                    }
-                    else {
-                        [errorString appendFormat:@":\n"];
-                    }
-                    NSUInteger i, displayErrors = numErrors > 3 ? 3 : numErrors;
-                    for (i = 0; i < displayErrors; i++) {
-                        [errorString appendFormat:@"%@\n",
-                         [detailedErrors[i] localizedDescription]];
-                    }
-                } else {
-                    errorString = [NSMutableString stringWithFormat: @"%@>%@", [error localizedDescription], [error localizedFailureReason]];
-                }
-                DDLogError(@"%@:%@ unable to save managedObjectContext",
-                             NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-                DDLogError(@"%@", errorString);
+                [self handleManagedObjectContextSaveError: error];
             } else {
                 DDLogWarn(@"%@:%@ Saved managedObjectContext",
                              NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -209,7 +153,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         }
         @catch (NSException *exception) {
             //_NSCoreDataOptimisticLockingException ?
-            DDLogError(@"%@:%@ exception: %@",
+            DDLogError(@"Error [%@:%@] exception: %@",
                          NSStringFromClass([self class]), NSStringFromSelector(_cmd), exception);
         }
         @finally {
@@ -218,11 +162,49 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     }];
     
 }
+-(void) handleManagedObjectContextSaveError: (NSError*) error {
+    // ToDo: add more detailed error reporting here. Need to show CoreData validation errors
+    // and give a chance to go back and correct them. Ideally show validation errors earlier.
+    
+    NSMutableString *errorString = nil;
+    NSInteger errorCode = [error code];
+    if (errorCode == NSValidationMultipleErrorsError) {
+        // For an NSValidationMultipleErrorsError, the original errors
+        // are in an array in the userInfo dictionary for key NSDetailedErrorsKey
+        NSArray *detailedErrors = [error userInfo][NSDetailedErrorsKey];
+        
+        // For this example, only present error messages for up to 3 validation errors at a time.
+        
+        NSUInteger numErrors = [detailedErrors count];
+        errorString = [NSMutableString stringWithFormat:@"%lu validation errors have occurred", (unsigned long)numErrors];
+        
+        if (numErrors > 3) {
+            [errorString appendFormat:@".\nThe first 3 are:\n"];
+        }
+        else {
+            [errorString appendFormat:@":\n"];
+        }
+        NSUInteger i, displayErrors = numErrors > 3 ? 3 : numErrors;
+        for (i = 0; i < displayErrors; i++) {
+            [errorString appendFormat:@"%@\n",
+             [detailedErrors[i] localizedDescription]];
+        }
+    } else if (errorCode == NSValidationMissingMandatoryPropertyError) {
+        NSString* errorObject = [[[error userInfo] objectForKey: NSValidationObjectErrorKey] description];
+        NSString* errorKey = [[[error userInfo] objectForKey: NSValidationKeyErrorKey] description];
+        DDLogError(@"Error [%@:%@] Validation error when saving managedObjectContext", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        DDLogError(@"Missing Key: %@; in Object: %@", errorKey, errorObject);
+    } else {
+        errorString = [NSMutableString stringWithFormat: @"%@>%@", [error localizedDescription], [error localizedFailureReason]];
+        DDLogError(@"Error [%@:%@] unable to save managedObjectContext", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        DDLogError(@"%@", errorString);
+    }
+}
 //-(void) mergeChanges:(NSNotification *)notification {
 //	// Merge changes into the main context on the main thread
 //	[self.appManagedContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:)
 //                                  withObject:notification
-//                               waitUntilDone:YES];	
+//                               waitUntilDone:YES];
 //}
 -(MBox*) mboxForObjectID: (NSManagedObjectID *) objectID {
     __block MBox* foundObject;

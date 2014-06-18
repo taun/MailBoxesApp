@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf190
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf200
 {\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fnil\fcharset0 LucidaGrande;\f2\fnil\fcharset0 Menlo-Regular;
 \f3\fnil\fcharset0 Menlo-Bold;\f4\fnil\fcharset0 Menlo-Italic;\f5\fswiss\fcharset0 Helvetica;
 \f6\fnil\fcharset0 Monaco;}
@@ -913,8 +913,33 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 	Get sequence for last cached message UID = max UID. Then know number & sequence of new messages.\
 2014-04-21\
 	DEBUGGING problems\
-	log when commands are queued and unqueued.\
-\
+	
+\f1 \cb5 \uc0\u10003  
+\f5 \cb1 log when commands are queued and unqueued.\
+2014-05-16\
+	
+\f1 \cb5 \uc0\u10003   
+\f5 \cb1 Fix bodystructure generateIndexes. Not working.\
+	
+\f1 \cb5 \uc0\u10003   
+\f5 \cb1 Replace allParts with a recursive method on message based on bodystructure generateIndexes. Just look for leaf, with non-nil bodyindex. Use for getting parts and displaying, ...\
+2014-05-20\
+	
+\f1 \cb5 \uc0\u10003  
+\f5 \cb1 How to parse MBMimeMessage in outline view.\
+	
+\f1 \cb5 \uc0\u10003 
+\f5 \cb1  How to display MBMimeMessage in message view\
+	? Why did jpg image not load properly once. How robust is loading. If not loaded, it should try again.\
+2014-06-18\
+	? How to eliminated redundant included messages?\
+\pard\pardeftab720\sl220
+\cf0 \cb5 		MBVPortal.xib messagesController Content set = self.representedObject.messageArraySource.messages\
+		MailBoxesAppDelegate sets messageArraySource to a MBTreeNode instance such as a MBox.\
+		Only MBox and MBLabel respond to 'messages'  \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
+\cf0 \cb1 	? How to convey 'no network connection" to user? In the message body view?\
+		Check for data == nil and display message about no data until replaced by data?\
 \
 \
 }

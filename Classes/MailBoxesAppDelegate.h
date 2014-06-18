@@ -47,6 +47,7 @@ NSString *PortalEditingEndedKey;
 @property(strong)           IBOutlet NSProgressIndicator      *accountSyncProgress;
 @property(strong)           IBOutlet NSButton                 *accountSyncButton;
 @property(strong)           IBOutlet NSButton                 *accountSyncCancelButton;
+@property(weak)             IBOutlet NSTextField              *statusTextField;
 /*!
  The portalsArrayController content set comes from self.currentUser.portals
  

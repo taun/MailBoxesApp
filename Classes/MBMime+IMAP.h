@@ -124,6 +124,39 @@
 -(NSArray*) childNodesArray;
 -(NSSet*) childNodesSet;
 
+/*!
+ Recursively collate all of the child mime parts.
+ 
+ @return a set of all child mime parts.
+ */
+-(NSSet*) allChildNodes;
+/*!
+ Filter allChildNodes based on whether a node will contain content.
+ 
+ @return a set of all child mime parts with content including self.
+ */
+-(NSSet*) allChildNodesWithContentPotential;
+/*!
+ Filter allChildNodesWithContent based on whether a node needs content fetched.
+ 
+ @return a set of all child mime parts.
+ */
+-(NSSet*) allChildNodesMissingContent;
+/*!
+ Filter allChildNodesWithContent based on whether a node is an attachment.
+ 
+ @return a set of all child mime parts.
+ */
+-(NSSet*) allChildNodeAttachments;
+/*!
+ Way to use the pre-existing subclassing to make one call for childNodes without 
+ having the coreData model be all subclassed. Should ultimately rename coreData
+ childNodes to mimeNodes and mappedChildNodes to childNodes.
+ 
+ @return the set of childNodes
+ */
+-(NSOrderedSet*) mappedChildNodes;
+
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes;
 
 -(MMPMimeProxy*) asMimeProxy;

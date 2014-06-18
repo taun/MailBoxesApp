@@ -26,6 +26,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 -(MMPMimeProxy*) asMimeProxy {
     MMPMimeProxy* mimeProxy = [MMPMimeProxy new];
+    mimeProxy.objectID = self.objectID;
     mimeProxy.bodyIndex = self.bodyIndex;
     mimeProxy.subPartNumber = self.subPartNumber;
     mimeProxy.charset = self.charset;
@@ -35,6 +36,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     mimeProxy.id = self.id;
     mimeProxy.isAttachment = self.isAttachment;
     mimeProxy.isInline = self.isInline;
+    mimeProxy.isLeaf = self.isLeaf;
     mimeProxy.language = self.language;
     mimeProxy.lines = self.lines;
     mimeProxy.location = self.location;
@@ -48,9 +50,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     // getDecodedData is a lazy decoding which sets the isDecoded flag if successfull
     mimeProxy.isDecoded = self.data.isDecoded;
     
-    if ([self.childNodes count] > 0) {
+    if ([[self mappedChildNodes] count] > 0) {
         NSMutableOrderedSet* childNodes = [NSMutableOrderedSet new];
-        for (MBMime* child in self.childNodes) {
+        for (MBMime* child in [self mappedChildNodes]) {
             [childNodes addObject: [child asMimeProxy]];
         }
         mimeProxy.childNodes = [childNodes copy];
@@ -72,6 +74,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [coder encodeObject: self.id forKey:@"id"];
     [coder encodeObject: self.isAttachment forKey:@"isAttachment"];
     [coder encodeObject: self.isInline forKey:@"isInline"];
+    [coder encodeObject: self.isLeaf forKey:@"isLeaf"];
     [coder encodeObject: self.language forKey:@"language"];
     [coder encodeObject: self.lines forKey:@"lines"];
     [coder encodeObject: self.location forKey:@"location"];
@@ -80,7 +83,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [coder encodeObject: self.octets forKey:@"octets"];
     [coder encodeObject: self.subtype forKey:@"subtype"];
     [coder encodeObject: self.type forKey:@"type"];
-    [coder encodeObject: self.childNodes forKey:@"childNodes"];
+    [coder encodeObject: self.childNodes forKey:@"childNodes"]; // how to handle mappedChildNodes of MBMimeMessage
     // need to add encoding of self.data?
 }
 
@@ -114,7 +117,49 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 -(NSSet*) childNodesSet {
     return [self.childNodes set];
 }
-
+#pragma message "TODO add cache for _allChildNodes"
+#pragma message "TODO change from recursive algorithm"
+-(NSSet*) allChildNodes {
+    NSMutableSet* _allChildNodes = [NSMutableSet setWithCapacity: self.childNodes.count];
+    for (MBMime* node in self.childNodes) {
+        [_allChildNodes unionSet: [node allChildNodes]];
+    }
+    [_allChildNodes addObject: self];
+    return [_allChildNodes copy];
+}
+-(NSSet*) allChildNodesWithContentPotential {
+    NSSet* _allChildNodes = [self allChildNodes];
+    NSMutableSet* _allChildNodesWithContentPotential = [NSMutableSet setWithCapacity: _allChildNodes.count];
+    for (MBMime* node in _allChildNodes) {
+        if ([node.isLeaf boolValue]) {
+            [_allChildNodesWithContentPotential addObject: node];
+        }
+    }
+    return [_allChildNodesWithContentPotential copy];
+}
+-(NSSet*) allChildNodeAttachments {
+    NSSet* _allChildNodes = [self allChildNodes];
+    NSMutableSet* _allChildNodeAttachments = [NSMutableSet setWithCapacity: _allChildNodes.count];
+    for (MBMime* node in _allChildNodes) {
+        if ([node.isAttachment boolValue]) {
+            [_allChildNodeAttachments addObject: node];
+        }
+    }
+    return [_allChildNodeAttachments copy];
+}
+-(NSSet*) allChildNodesMissingContent {
+    NSSet* _allChildNodesWithContentPotential = [self allChildNodesWithContentPotential];
+    NSMutableSet* _allChildNodesMissingContent = [NSMutableSet setWithCapacity: _allChildNodesWithContentPotential.count];
+    for (MBMime* node in _allChildNodesWithContentPotential) {
+        if (node.data == nil) {
+            [_allChildNodesMissingContent addObject: node];
+        }
+    }
+    return [_allChildNodesMissingContent copy];
+}
+-(NSOrderedSet*) mappedChildNodes {
+    return self.childNodes;
+}
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSData* nsData = [self.data.encoded dataUsingEncoding: NSASCIIStringEncoding];
 

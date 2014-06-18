@@ -60,7 +60,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (IBAction)showPartsInLog:(id)sender {
     if ([self.representedObject isKindOfClass:[MBMessage class]]) {
-        NSSet* parts = ((MBMessage*)self.representedObject).allParts;
+        NSSet* parts = ((MBMessage*)self.representedObject).allMimeParts;
         for (id part in parts) {
             DDLogCVerbose(@"Part: %@", part);
             if ([part isKindOfClass:[MBMime class]]) {
@@ -92,14 +92,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #pragma mark - Outline Datasource
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
-    MBMime* node = nil;
+    id node = nil;
     
     if (!item) {
         node = (((MBMessage*)self.representedObject).childNodes)[index];
     } else {
-        if ([item isKindOfClass:[MBMime class]]) {
-            node = [(MBMime*)item childNodes][index];
-        }
+            node = [item mappedChildNodes][index];
     }
     
     return node;
@@ -107,11 +105,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
     BOOL expandable = NO;
-    if ([item isKindOfClass:[MBMime class]]) {
-        if ([[(MBMime*)item childNodes] count] > 0) {
+        if ([[item mappedChildNodes] count] > 0) {
             expandable = YES;
         }
-    }
     
     return expandable;
 }
@@ -122,9 +118,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if (!item) {
         count = [((MBMessage*)self.representedObject).childNodes count];
     } else {
-        if ([item isKindOfClass:[MBMime class]]) {
-            count = [[(MBMime*)item childNodes] count];
-        }
+            count = [[item mappedChildNodes] count];
     }
     
     

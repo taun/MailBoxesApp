@@ -66,5 +66,8 @@
 - (IBAction)showMessageAsPlainText:(id)sender;
 - (IBAction)showMessageAsRichText:(id)sender;
 - (IBAction)showConstraints:(id)sender;
+- (IBAction)toggleViewOutlines:(id)sender;
+- (IBAction)changeVerticalHugging:(id)sender;
+- (IBAction)debugLayoutSubtree:(id)sender;
 
 @end

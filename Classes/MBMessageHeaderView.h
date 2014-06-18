@@ -7,11 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MBMessage+IMAP.h"
+#import <MoedaeMailPlugins/MoedaeMailPlugins.h>
 
-@interface MBMessageHeaderView : NSView
+@interface MBMessageHeaderView : MMPBaseMimeView
 
-//@property (strong, nonatomic)          MBMessage*         message;
 
 @property (weak) IBOutlet NSTextField *subject;
 @property (weak) IBOutlet NSTextField *dateSent;

@@ -9,69 +9,32 @@
 #import "MBMessageHeaderView.h"
 #import "MBAddress+IMAP.h"
 #import "MBAddressList.h"
-#import <MoedaeMailPlugins/NSString+IMAPConversions.h>
-#import "MBSimpleRFC822AddressToStringTransformer.h"
 
 @implementation MBMessageHeaderView
 
-//- (id)initWithFrame:(NSRect)frame
-//{
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        // Initialization code here.
-//    }
-//    return self;
-//}
-
-//- (void)drawRect:(NSRect)dirtyRect
-//{
-//	[super drawRect:dirtyRect];
-//	
-//    // Drawing code here.
-//}
-
-//- (void) awakeFromNib {
-//    [self setBoxType: NSBoxCustom];
-//    [self setCornerRadius: 0.0];
-//    [self setFillColor: [NSColor whiteColor]];
-//    [self setBorderColor: [NSColor grayColor]];
-//    [self setBorderWidth: 0.0];
-//    [self setTitlePosition: NSNoTitle];
-//}
-
-//-(void) setMessage:(MBMessage *)message {
-//    if (message != _message) {
-//        _message = message;
-//        //        [_message addObserver: self forKeyPath: @"defaultContent" options: NSKeyValueObservingOptionNew context: NULL];
-//        if (_message) {
-////            self.title = self.message.subject;
-//        }
-//    }
-//    [self refreshMessageDisplay: nil];
+//-(NSSize) intrinsicContentSize {
+//    CGFloat height = self.frame.size.height;
+//    NSSize newSize = NSMakeSize(NSViewNoInstrinsicMetric, height);
+//    return newSize;
 //}
 //
-//- (IBAction)refreshMessageDisplay:(id)sender {
-//    if (self.message.addressFrom) {
-//        [self.sender setStringValue: [self.message.addressFrom stringRFC822AddressFormat]];
-//    }
-//    
-//    [self.dateSent setObjectValue: self.message.dateSent];
-//    
-//    if ([self.message.addressesTo count]>0) {
-//        [self.recipients setStringValue: [self stringFromAddresses: self.message.addressesTo]];
-//    }
-//    
-//    [self.subject setStringValue: self.message.subject];
+//-(void) removeSubviews {
 //}
 //
-//-(NSString*) stringFromAddresses:(NSSet *)addresses {
-//    NSMutableString* addressesAsString = [NSMutableString new];
-//    for (MBAddress* address in addresses) {
-//        if ([addresses isKindOfClass:[MBAddress class]]) {
-//            [addressesAsString appendString: [address stringRFC822AddressFormat]];
-//        }
+//-(void) createSubviews {
+//    if (self.node.addressFrom) {
+//        [self.sender setStringValue: [self.node.addressFrom stringRFC822AddressFormat]];
 //    }
-//    return addressesAsString;
+//    
+////    [self.dateSent setObjectValue: self.node.dateSent];
+//    
+//    if (self.node.addressesTo) {
+//        [self.recipients setStringValue: [self.node.addressesTo stringRFC822AddressFormat]];
+//    }
+//    
+//    [self.subject setStringValue: self.node.subject];
+//    [self removeConstraints: self.constraints];
+//    [self setNeedsUpdateConstraints: YES];
 //}
 
 @end

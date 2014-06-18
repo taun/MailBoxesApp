@@ -50,7 +50,9 @@
 
 #import <FScript/FScript.h>
 #import <QuartzCore/QuartzCore.h>
+
 #import <MoedaeMailPlugins/MoedaeMailPlugins.h>
+#import "MMPMimeMessageView.h"
 
 #import "DDLog.h"
 #import "DDASLLogger.h"
@@ -193,6 +195,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                                                                               options:NSKeyValueObservingOptionNew
                                                                               context:NULL];
         
+        [self loadBuiltInPlugins];
         //        [[NSNotificationCenter defaultCenter] addObserver:self
         //                                                 selector:@selector(managedObjectContextDidChange:)
         //                                                     name:NSManagedObjectContextObjectsDidChangeNotification
@@ -329,6 +332,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     //    } else {
     //        [self.accountSyncProgress stopAnimation: self];
     //    }
+}
+
+-(void) loadBuiltInPlugins {
+    [[MBMimeViewerPluginsManager manager] registerPluginClass: [MMPMimeMessageView class]];
 }
 
 #pragma mark - State

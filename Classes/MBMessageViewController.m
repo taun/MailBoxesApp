@@ -163,6 +163,24 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self.view.window visualizeConstraints: constraints];
 }
 
+- (IBAction)toggleViewOutlines:(id)sender {
+    self.options.showViewOutlines = !self.options.showViewOutlines;
+    [self reloadMessage];
+}
+
+- (IBAction)changeVerticalHugging:(id)sender {
+    if (self.options.verticalHuggingPriority == 750) {
+        self.options.verticalHuggingPriority = 1000.0;
+    } else {
+        self.options.verticalHuggingPriority = 750.0;
+    }
+    [self reloadMessage];
+}
+
+- (IBAction)debugLayoutSubtree:(id)sender {
+    [self.messageBodyViewContainer layoutSubtreeIfNeeded];
+}
+
 -(void) dealloc {
     [self.view.window visualizeConstraints: [NSArray new]];
 }
@@ -203,7 +221,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 - (IBAction)showPartsInLog:(id)sender {
-    NSSet* parts = [(MBMessage*)(self.representedObject) allParts];
+    NSSet* parts = [(MBMessage*)(self.representedObject) allMimeParts];
     for (id part in parts) {
         DDLogCVerbose(@"Part: %@", part);
         if ([part isKindOfClass:[MBMime class]]) {

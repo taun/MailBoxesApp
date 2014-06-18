@@ -25,7 +25,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_WARN;
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
 /*!
@@ -132,6 +132,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     GCDAsyncSocket *_asyncSocket;
 }
 /// @name Private Properties
+@property (nonatomic,readwrite) MBox                           *selectedMBox;
+@property (nonatomic,readwrite) NSString                       *selectedMBoxPath;
+
 @property (nonatomic,readwrite) IMAPResponseParser              *parser;
 @property (nonatomic, strong) dispatch_queue_t                  dispatchQueue;
 @property (atomic, assign, readwrite) NSTimeInterval            idleSince;
@@ -331,6 +334,14 @@ static NSUInteger  IMAPClientQueueCount = 0;
 }
 
 #pragma mark - High level App Methods
+-(void) selectMBoxFromPath: (NSString*) path {
+    [self.coreDataStore selectMailBox: path];
+    [self.memCacheStore selectMailBox: path];
+}
+-(void) setSelectedMBox:(MBox *)selectedMBox {
+    [self.memCacheStore setSelectedMBox: selectedMBox];
+    [self.coreDataStore setSelectedMBox: selectedMBox];
+}
 -(MBox*) selectedMBox {
     MBox* selectedBox = nil;
     
@@ -409,7 +420,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     };
     
     MBCommandBlock failBlock = ^() {
-        weakSelf.coreDataStore.selectedMBox = nil;
+        weakSelf.selectedMBox = nil;
     };
     
     DDLogInfo(@"[%@ %@] Added CommandBlock for commandSelect:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -515,24 +526,8 @@ static NSUInteger  IMAPClientQueueCount = 0;
  */
 -(void) asyncLoadFullMessage: (MBMessage*) message {
     
-    NSUInteger partCount = message.allParts.count;
-    
-    NSMutableArray* downloadableParts = [NSMutableArray arrayWithCapacity: partCount];
-    
-    for (MBMime* part in message.allParts) {
-        // doesn't handle partially loaded data
-        // is network disconnect while loading
-        // need to make sure data is always fully loaded before saving
-        if (part.isLeaf && part.data == nil) {
-            NSString* bodyIndex = part.bodyIndex;
-            if (bodyIndex && [bodyIndex length] > 0) {
-                
-                [downloadableParts addObject: part];
-                
-            }
-        }
-    }
-    
+    NSSet* downloadableParts = [message allMimePartsMissingContent];
+        
     MBCommandBlock successBlock = NULL;
     NSUInteger downloadCount = downloadableParts.count;
     NSUInteger partIndex = 0;
@@ -714,7 +709,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [self close: _iStream];
     [self close: _oStream];
     self.connectionState = IMAPDisconnected;
-    self.coreDataStore.selectedMBox = nil;
+    self.selectedMBox = nil;
     [_parser stopParsing]; // bypass lazy init of property call.
     _parser = nil;
     
@@ -1125,17 +1120,17 @@ static NSUInteger  IMAPClientQueueCount = 0;
 }
 -(void) parseUnexpectedEnd: (IMAPParsedResponse*) parsedResponse {
     if ([parsedResponse.command.atom isEqualToString: @"SELECT"]) {
-        self.coreDataStore.selectedMBox = nil;
+        self.selectedMBox = nil;
     }
 }
 -(void) parseError: (IMAPParsedResponse*) parsedResponse {
     if ([parsedResponse.command.atom isEqualToString: @"SELECT"]) {
-        self.coreDataStore.selectedMBox = nil;
+        self.selectedMBox = nil;
     }
 }
 -(void) parseTimeout: (IMAPParsedResponse*) parsedResponse {
     if ([parsedResponse.command.atom isEqualToString: @"SELECT"]) {
-        self.coreDataStore.selectedMBox = nil;
+        self.selectedMBox = nil;
     }
 }
 
@@ -1378,7 +1373,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     // Selected box needs to be set before command is sent so the response
     // attributes can be assign to the appropriate box.
     // The response data does not specify the box.
-    [self.coreDataStore selectMailBox: mboxPath];
+    [self selectMBoxFromPath: mboxPath];
     
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"SELECT"];
     NSString* quotedPath = [NSString stringWithFormat:@"\"%@\"",mboxPath];
@@ -1389,17 +1384,17 @@ static NSUInteger  IMAPClientQueueCount = 0;
 }
 -(void) commandFetchFullSequenceUIDMapWithSuccessBlock: (MBCommandBlock) successBlock withFailBlock: (MBCommandBlock) failBlock {
     
-    [self.memCacheStore selectMailBox: self.coreDataStore.selectedMBox.fullPath];
+//    [self.memCacheStore selectMailBox: self.selectedMBox.fullPath];
     
     UInt64 startRange = 1;
-    UInt64 endRange = [self.coreDataStore.selectedMBox.serverMessages unsignedIntegerValue];
+    UInt64 endRange = [self.selectedMBox.serverMessages unsignedIntegerValue];
     
     IMAPCommand* command = [[IMAPCommand alloc] initWithAtom: @"FETCH"];
     command.dataStore = self.memCacheStore;
     NSString *sequence = [NSString stringWithFormat: @"%llu:%llu", startRange, endRange];
     [command copyAddArgument: sequence];
     [command copyAddArgument: @"(UID)"];
-    command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
+    command.mboxFullPath = self.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 -(void) commandFetchSequenceUIDMap: (UInt64) startRange end: (UInt64) endRange
@@ -1409,7 +1404,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     NSString *sequence = [NSString stringWithFormat: @"%llu:%llu", startRange, endRange];
     [command copyAddArgument: sequence];
     [command copyAddArgument: @"(UID)"];
-    command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
+    command.mboxFullPath = self.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 -(void) commandFetchHeadersStart: (UInt64) startRange end: (UInt64) endRange
@@ -1424,7 +1419,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"RFC822.SIZE"];
     [command copyAddArgument: @"BODY.PEEK[HEADER]"]; // should be BODY.PEEK[HEADER]
     [command copyAddArgument: @"BODYSTRUCTURE)"];
-    command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
+    command.mboxFullPath = self.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 -(void) commandFetchContentStart: (UInt64) startRange end: (UInt64) endRange
@@ -1438,7 +1433,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"UID"];
     [command copyAddArgument: @"RFC822.SIZE"];
     [command copyAddArgument: @"BODY.PEEK[HEADER])"]; // should be body.peek[header]
-    command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
+    command.mboxFullPath = self.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 -(void) commandFetchContentForSequence:(UInt64)theSequence mimeParts:(NSString *)part
@@ -1449,7 +1444,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     NSString *sequence = [NSString stringWithFormat: @"%llu", theSequence];
     [command copyAddArgument: sequence];
     [command copyAddArgument: [NSString stringWithFormat:@"(BODY[%@])", part]];
-    command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
+    command.mboxFullPath = self.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 
@@ -1480,7 +1475,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"RFC822.SIZE"];
     [command copyAddArgument: @"BODY.PEEK[HEADER]"]; // should be body.peek[header]
     [command copyAddArgument: @"BODYSTRUCTURE)"];
-    command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
+    command.mboxFullPath = self.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 -(void) commandUIDFetchHeadersUIDSetString: (NSString*) uidString
@@ -1494,7 +1489,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     [command copyAddArgument: @"RFC822.SIZE"];
     [command copyAddArgument: @"BODY.PEEK[HEADER]"]; // should be body.peek[header]
     [command copyAddArgument: @"BODYSTRUCTURE)"];
-    command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
+    command.mboxFullPath = self.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 -(void) commandUIDFetchContentStart: (UInt64) startRange end: (UInt64) endRange
@@ -1508,7 +1503,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     //[command copyAddArgument: @"INTERNALDATE"];
     [command copyAddArgument: @"RFC822.SIZE"];
     [command copyAddArgument: @"BODY.PEEK[HEADER])"]; // should be body.peek[header]
-    command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
+    command.mboxFullPath = self.selectedMBox.fullPath;
     [self queueCommand: command withSuccessBlock: successBlock withFailBlock: failBlock];
 }
 -(void) commandFetchContentForMessage:(MBMessage*)message mimeParts:(NSString *)part
@@ -1521,7 +1516,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     NSString *sequence = [NSString stringWithFormat: @"%llu", muid];
     [command copyAddArgument: sequence];
     [command copyAddArgument: [NSString stringWithFormat:@"(BODY[%@])", part]];
-    command.mboxFullPath = self.coreDataStore.selectedMBox.fullPath;
+    command.mboxFullPath = self.selectedMBox.fullPath;
     
 #pragma message "ToDo: add connection and download error detection and only set cached if sucessful"
     

@@ -63,6 +63,7 @@
         _message = message;
         
         [self createSubviews];
+        [self setNeedsUpdateConstraints: YES];
         [_message addObserver: self forKeyPath: @"isFullyCached" options: (NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew) context: NULL];
     }
 }

@@ -18,6 +18,8 @@
 #import "MBMessage+IMAP.h"
 #import "MBMimeMessage+IMAP.h"
 #import "MBMimeImage+IMAP.h"
+#import "MBMultiAlternative+IMAP.h"
+#import "MBMultiMixed+IMAP.h"
 
 #import "DDLog.h"
 
@@ -243,20 +245,39 @@ static NSString* kDefaultBoxPath = @"inbox";
     XCTAssertEqualObjects(message.rfc2822Size, @2606358);
     XCTAssertEqualObjects(message.isRecentFlag, @YES);
     
+    MBMimeMessage* shouldBeMimeAlternative = [[[[message childNodes]objectAtIndex:0]childNodes]objectAtIndex:0];
+    XCTAssertTrue([shouldBeMimeAlternative isKindOfClass: [MBMultiAlternative class]]);//
+    XCTAssertTrue([shouldBeMimeAlternative.bodyIndex isEqualToString: @"1"]);//
+
     MBMimeMessage* shouldBeMimeMessage = [[[[message childNodes]objectAtIndex:0]childNodes]objectAtIndex:1];
     XCTAssertTrue([shouldBeMimeMessage isKindOfClass: [MBMimeMessage class]]);//
+    XCTAssertTrue([shouldBeMimeMessage.bodyIndex isEqualToString: @"2"]);//
     
-    MBMimeImage* shouldBeMimeImage22 = [[[shouldBeMimeMessage.childNodes objectAtIndex: 0]childNodes]objectAtIndex:1];
+    MBMessage* shouldBeMessage = [shouldBeMimeMessage subMessage];
+    XCTAssertTrue([shouldBeMessage isKindOfClass: [MBMessage class]]);//
+    
+    MBMime* shouldBeMimeMixed = [shouldBeMessage.childNodes objectAtIndex: 0];
+    XCTAssertTrue([shouldBeMimeMixed isKindOfClass: [MBMultiMixed class]]);//
+
+    MBMimeImage* shouldBeMimeImage22 = [shouldBeMimeMixed.childNodes objectAtIndex: 1];
     XCTAssertTrue([shouldBeMimeImage22 isKindOfClass: [MBMimeImage class]]);//
     XCTAssertTrue([shouldBeMimeImage22.bodyIndex isEqualToString: @"2.2"]);//
     XCTAssertTrue([shouldBeMimeImage22.filename isEqualToString: @"2007-2008 283.jpg"]);//
     XCTAssertTrue([shouldBeMimeMessage isKindOfClass: [MBMimeMessage class]]);//
     
-    MBMimeImage* shouldBeMimeImage21 = [[[shouldBeMimeMessage.childNodes objectAtIndex: 0]childNodes]objectAtIndex:0];
+    MBMimeImage* shouldBeMimeImage21 = [shouldBeMimeMixed.childNodes objectAtIndex: 0];
     XCTAssertTrue([shouldBeMimeImage21 isKindOfClass: [MBMimeImage class]]);//
     XCTAssertTrue([shouldBeMimeImage21.bodyIndex isEqualToString: @"2.1"]);//
     XCTAssertTrue([shouldBeMimeImage21.filename isEqualToString: @"2007-2008 190.jpg"]);//
 
+    NSSet* allParts = [message allMimeParts];
+    XCTAssertTrue(allParts.count == 8, @"");
+    NSSet* allContentParts = [message allMimeContentParts];
+    XCTAssertTrue(allContentParts.count == 4, @"");
+    NSSet* allMissingContent = [message allMimePartsMissingContent];
+    XCTAssertTrue(allMissingContent.count==4, @"");
+    NSArray* allAttachments = [message attachments];
+    XCTAssertTrue(allAttachments.count==2, @"");
 //    XCTAssertEqualObjects(message.messageId, @"");
 //    XCTAssertEqualObjects(message.xSpamScore, [NSNumber numberWithFloat: 0], @"Wrong spam score.");
 //    XCTAssertEqualObjects(message.xSpamLevel, @"***", @"Wrong spam level.");

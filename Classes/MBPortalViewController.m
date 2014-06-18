@@ -262,7 +262,7 @@ CGFloat ONEROW = 18.0;
         MBMessage *selectedMessage = (MBMessage *)[self.messagesController arrangedObjects][index];
         // MBMessageViewController only tries to update messages with isFullyCached == NO
         selectedMessage.isFullyCached = @NO;
-        for (MBMime* mime in selectedMessage.allParts) {
+        for (MBMime* mime in selectedMessage.allMimeContentParts) {
             if (mime.data) {
                 // IMAPClient only loads mime parts where data == nil
                 mime.data = nil;
