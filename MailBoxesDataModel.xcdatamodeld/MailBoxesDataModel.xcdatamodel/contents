@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Automatic" macOSVersion="Mac OS X 10.7">
     <entity name="MBAccount" representedClassName="MBAccount" parentEntity="MBTreeNode">
         <attribute name="address" attributeType="String" maxValueString="64" defaultValueString="name@server.com">
             <userInfo/>
@@ -424,6 +424,7 @@
     </entity>
     <entity name="MBTreeNode" representedClassName="MBTreeNode" isAbstract="YES" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expandedState" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isLeaf" attributeType="Boolean" defaultValueString="YES" indexed="YES" syncable="YES"/>
@@ -470,47 +471,47 @@
     <fetchRequest name="MBUIDsForMBox" entity="MBMessage" predicateString="mbox == $MBOXOBJECT" resultType="2"/>
     <fetchRequest name="MBUIDsNotFullyCachedForMBox" entity="MBMessage" predicateString="mbox == $MBOXOBJECT AND isFullyCached == 0" resultType="2"/>
     <elements>
-        <element name="MBAccount" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBAccountType" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBAddress" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBAddressList" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBAttachment" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBDispositionParameter" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBFavorites" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBFlag" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBGroup" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBLabel" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMessage" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMime" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeApplication" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeAudio" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeData" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeDisposition" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeImage" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeMedia" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeMulti" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeParameter" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeText" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeVideo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMultiAlternative" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMultiDigest" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMultiEncrypted" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMimeMessage" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMultiMixed" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMultiParallel" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMultiRelated" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBMultiSigned" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBNote" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBox" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBPortal" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBRFC2822" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBSidebar" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBSmartFolder" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBTreeNode" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBUser" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBViewPortal" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBViewPortalMBox" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBViewPortalSelection" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MBViewPortalSmartFolder" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MBAccount" positionX="0" positionY="0" width="128" height="225"/>
+        <element name="MBAccountType" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="MBAddress" positionX="0" positionY="0" width="128" height="240"/>
+        <element name="MBAddressList" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="MBAttachment" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="MBDispositionParameter" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="MBFavorites" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBFlag" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="MBGroup" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="MBLabel" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="MBMessage" positionX="0" positionY="0" width="128" height="630"/>
+        <element name="MBMime" positionX="0" positionY="0" width="128" height="450"/>
+        <element name="MBMimeApplication" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMimeAudio" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMimeData" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="MBMimeDisposition" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="MBMimeImage" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMimeMedia" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMimeMessage" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="MBMimeMulti" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="MBMimeParameter" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="MBMimeText" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMimeVideo" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMultiAlternative" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMultiDigest" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMultiEncrypted" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMultiMixed" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMultiParallel" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMultiRelated" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBMultiSigned" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="MBNote" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="MBox" positionX="0" positionY="0" width="128" height="375"/>
+        <element name="MBPortal" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="MBRFC2822" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="MBSidebar" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="MBSmartFolder" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="MBTreeNode" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="MBUser" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="MBViewPortal" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="MBViewPortalMBox" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBViewPortalSelection" positionX="0" positionY="0" width="128" height="45"/>
+        <element name="MBViewPortalSmartFolder" positionX="0" positionY="0" width="128" height="45"/>
     </elements>
 </model>
