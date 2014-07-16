@@ -22,9 +22,6 @@
 #import "MBAccountWindowController.h"
 #import <MoedaeMailPlugins/MBoxProxy.h>
 
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
 
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
@@ -300,8 +297,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //    else {
 //        DDLogError(@"%@", error);
 //    }
-    BOOL result = [NSKeyedArchiver archiveRootObject: account  toFile: plistPath];
-    DDLogVerbose(@"%@ result: %i", NSStringFromSelector(_cmd), result);
+    DDLogVerbose(@"%@ result: %i", NSStringFromSelector(_cmd), [NSKeyedArchiver archiveRootObject: account  toFile: plistPath]);
 }
 
 - (void) importAccountSettingsFor: (NSURL*) accountFile {
@@ -325,14 +321,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 -(void) expandAccountGroup {
-    NSInteger row = [self.view rowForItem: self.currentUser.sidebar.accountGroup];
     [self.view expandItem: self.currentUser.sidebar.accountGroup expandChildren: NO];
-    DDLogVerbose(@"%@ row: %i", NSStringFromSelector(_cmd), row);
+    DDLogVerbose(@"%@ row: %i", NSStringFromSelector(_cmd), [self.view rowForItem: self.currentUser.sidebar.accountGroup]);
 }
 -(void) expandFavoritesGroup {
-    NSInteger row = [self.view rowForItem: self.currentUser.sidebar.favoritesGroup];
     [self.view expandItem: self.currentUser.sidebar.favoritesGroup expandChildren: NO];
-    DDLogVerbose(@"%@ row: %i", NSStringFromSelector(_cmd), row);
+    DDLogVerbose(@"%@ row: %i", NSStringFromSelector(_cmd), [self.view rowForItem: self.currentUser.sidebar.favoritesGroup]);
 }
 
 
@@ -440,17 +434,29 @@ itemForPersistentObject:(id)object {
 
 #pragma mark - ***Outline Delegate Protocol***
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item
-{
+- (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
     return [item isKindOfClass: [MBGroup class]];
 }
 
-- (NSTableRowView *)outlineView:(NSOutlineView *)outlineView 
-                 rowViewForItem:(id)item {
+- (void)outlineViewItemDidExpand:(NSNotification *)notification {
+    MBTreeNode* group = [[notification userInfo]valueForKey:@"NSObject"];
+    [group setExpandedState:[NSNumber numberWithBool:YES]];
+}
+
+- (void)outlineViewItemDidCollapse:(NSNotification *)notification {
+    MBTreeNode* group = [[notification userInfo]valueForKey:@"NSObject"];
+    [group setExpandedState:[NSNumber numberWithBool:NO]];
+}
+
+//- (NSTableRowView *)outlineView:(NSOutlineView *)outlineView
+//                 rowViewForItem:(id)item {
 //    LPTableRowView *view = [[LPTableRowView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
 //    return [view autorelease];
-    return nil;
-}
+//    if ([[item identifier] isEqualToString: @"accounts"]) {
+//
+//    }
+//    return nil;
+//}
 
 - (NSView *)outlineView:(NSOutlineView *)outlineView 
      viewForTableColumn:(NSTableColumn *)tableColumn 
@@ -628,9 +634,8 @@ itemForPersistentObject:(id)object {
         MBTreeNode* node = (MBTreeNode*)[draggedItems lastObject];
         MBGroup* parent = (MBGroup*)[[node parentNodes] lastObject];
         NSInteger index = [[parent childNodes] indexOfObject: node];
-        NSIndexSet* indexes = [NSIndexSet indexSetWithIndex: index];
         
-        DDLogVerbose(@"%@ - indexes:%@", NSStringFromSelector(_cmd), indexes);
+        DDLogVerbose(@"%@ - indexes:%@", NSStringFromSelector(_cmd), [NSIndexSet indexSetWithIndex: index]);
         //[self.outlineView removeItemsAtIndexes: indexes inParent: parent withAnimation:NSTableViewAnimationEffectGap];
     }
     

@@ -2,7 +2,7 @@
 //  MBTreeNode.h
 //  MailBoxes
 //
-//  Created by Taun Chapman on 04/14/14.
+//  Created by Taun Chapman on 07/15/14.
 //  Copyright (c) 2014 MOEDAE LLC. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSNumber * isLeaf;
 @property (nonatomic, retain) NSNumber * isOwner;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * expandedState;
 @property (nonatomic, retain) NSOrderedSet *childNodes;
 @property (nonatomic, retain) NSSet *contentViews;
 @property (nonatomic, retain) NSOrderedSet *parentNodes;
