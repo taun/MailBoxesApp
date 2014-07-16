@@ -27,10 +27,6 @@
 
 #import "MBAccountsCoordinator.h"
 
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
-
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @interface MBPortalViewController ()
@@ -38,22 +34,42 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @property (strong,nonatomic,readwrite)     NSArray         *collectionItemSortDescriptors;
 @property (strong,nonatomic,readwrite)     NSPredicate     *compoundPredicate;
 @property (strong,nonatomic,readwrite)     NSSet           *selectedMessages;
+
+@property (assign,nonatomic,readonly)     CGFloat         oneRowHeight;
+@property (assign,nonatomic,readonly)     CGFloat         cellBaseHeight;
+@property (assign,nonatomic,readonly)     CGFloat         cellMaxRows;
+
 @end
 
 @implementation MBPortalViewController
 
-
-CGFloat ONEROW = 18.0;
 
 -(void) awakeFromNib {
     if (self.tableView) {
         [self.tableView setRowSizeStyle: NSTableViewRowSizeStyleCustom];
     }
     
+    _cellMaxRows = 6.0;
+    
+    NSTextFieldCell* summaryCell = self.messageSummaryField.cell;
+
+    if (summaryCell) {
+        CGFloat totalHeight = self.tableCellView.bounds.size.height;
+        CGFloat summaryHeight = self.messageSummaryField.bounds.size.height;
+        
+        _cellBaseHeight = totalHeight - summaryHeight;
+        _oneRowHeight = summaryCell.cellSize.height;
+    }
+    
     if (self.tableView && self.representedObject) {
         MBViewPortal* item = (MBViewPortal*) self.representedObject;
         
         CGFloat rowHeight = [item.rowHeight floatValue];
+        
+        if (rowHeight < (_cellBaseHeight+_oneRowHeight) || rowHeight > (_cellBaseHeight+_cellMaxRows*_oneRowHeight)) {
+            rowHeight = _cellBaseHeight + 2*_oneRowHeight;
+        }
+        
         [self.tableView setRowHeight: rowHeight];
     }
     
@@ -80,7 +96,7 @@ CGFloat ONEROW = 18.0;
         MBViewPortal* item = (MBViewPortal*) self.representedObject;
         
 //        [item updateItemsList];
-        
+
         NSColor* boxColor = item.color;
         if (boxColor && [boxColor isKindOfClass: [NSColor class]]) {
             MBPortalView* pview = [[self.view subviews] firstObject];
@@ -231,9 +247,9 @@ CGFloat ONEROW = 18.0;
 
 - (IBAction)growTableRows:(id)sender {
     CGFloat currentHeight = [self.tableView rowHeight];
-    CGFloat newHeight = currentHeight + ONEROW;
-    if (newHeight <= 6*ONEROW) {
-        [self.tableView setRowHeight: currentHeight + ONEROW];
+    CGFloat newHeight = currentHeight + self.oneRowHeight;
+    if (newHeight <= (self.cellBaseHeight+self.cellMaxRows*self.oneRowHeight)) {
+        [self.tableView setRowHeight: currentHeight + self.oneRowHeight];
         MBViewPortal* item = (MBViewPortal*) self.representedObject;
         
         item.rowHeight = [NSNumber numberWithFloat: newHeight];
@@ -244,10 +260,10 @@ CGFloat ONEROW = 18.0;
 - (IBAction)shrinkTableRows:(id)sender {
     CGFloat currentHeight = [self.tableView rowHeight];
 //    [self.tableView setRowSizeStyle: [self changeSize: -1]];
-    CGFloat newHeight = currentHeight - ONEROW;
+    CGFloat newHeight = currentHeight - self.oneRowHeight;
 
-    if (newHeight < 38) {
-        newHeight = 38.0;
+    if (newHeight < self.cellBaseHeight) {
+        newHeight = self.cellBaseHeight;
     }
     [self.tableView setRowHeight: newHeight];
     MBViewPortal* item = (MBViewPortal*) self.representedObject;
