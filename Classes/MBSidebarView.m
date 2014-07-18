@@ -10,9 +10,6 @@
 #import "MBTreeNode+IntersectsSetFix.h"
 #import "MBSidebarViewController.h"
 
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
@@ -31,6 +28,17 @@ sourceOperationMaskForDraggingContext:(NSDraggingContext)context {
             return NSDragOperationMove;
             break;
     }
+}
+
+- (void)reloadData {
+	[super reloadData];
+	NSInteger i;
+	for( i = 0; i < [self numberOfRows]; i++ ) {
+		MBTreeNode* item = [self itemAtRow:i]; // maybe should use NSTreeNode and representedObject
+//        MBTreeNode* node = (MBTreeNode*) [item representedObject];
+		if( [item isKindOfClass: [MBTreeNode class]] && [item.expandedState boolValue] )
+			[self expandItem: item];
+	}
 }
 
 @end
