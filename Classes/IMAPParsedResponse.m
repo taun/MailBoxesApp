@@ -15,10 +15,6 @@
 #import <MoedaeMailPlugins/NSDate+IMAPConversions.h>
 #import <MoedaeMailPlugins/NSObject+TokenDispatch.h>
 
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
-
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
 static     NSSet *RespDataStateTokens;

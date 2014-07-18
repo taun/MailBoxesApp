@@ -13,10 +13,6 @@
 #import "MBSidebar+Accessors.h"
 #import "MBTreeNode+IntersectsSetFix.h"
 
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
-
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @interface MBAccountWindowController ()

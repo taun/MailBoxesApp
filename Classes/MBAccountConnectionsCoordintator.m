@@ -12,9 +12,6 @@
 #import "IMAPClient.h"
 //#import "IMAPCoreDataStore.h"
 
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
 
 static const int ddLogLevel = LOG_LEVEL_INFO;
 

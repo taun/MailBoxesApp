@@ -22,10 +22,6 @@
 #import "MBPortal+IMAP.h"
 #import "MBUser+Shorthand.h"
 
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
-
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
 #define DEFAULT_PREDICATE @"(name = 'inbox')" 
