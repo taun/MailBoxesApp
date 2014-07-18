@@ -21,9 +21,6 @@
 
 //#import "GCDAsyncSocket.h"
 
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -884,8 +881,12 @@ static NSUInteger  IMAPClientQueueCount = 0;
         
         DDLogVerbose(@"[%@] %@",NSStringFromSelector(_cmd),
                      [NSString stringWithFormat:@"Error %li: %@", errorCode, [theError localizedDescription]]);
+        DDLogInfo(@"[%@] %@",NSStringFromSelector(_cmd),
+                     [NSString stringWithFormat:@"Error %li: %@", errorCode, [theError localizedDescription]]);
     } else {
         DDLogVerbose(@"[%@] %@, Continuing anyway.",NSStringFromSelector(_cmd),
+                     [NSString stringWithFormat:@"Error %li: %@", errorCode, [theError localizedDescription]]);
+        DDLogInfo(@"Attention: [%@] %@, Continuing anyway.",NSStringFromSelector(_cmd),
                      [NSString stringWithFormat:@"Error %li: %@", errorCode, [theError localizedDescription]]);
     }
 }
