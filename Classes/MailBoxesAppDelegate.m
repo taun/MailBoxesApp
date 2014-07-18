@@ -54,10 +54,6 @@
 #import <MoedaeMailPlugins/MoedaeMailPlugins.h>
 #import "MMPMimeMessageView.h"
 
-#import "DDLog.h"
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
-
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 
@@ -78,6 +74,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @property(nonatomic,readwrite,strong) NSManagedObjectModel            *managedObjectModel;
 @property(nonatomic,readwrite,strong) NSManagedObjectContext          *mainObjectContext;
 
+@property(atomic,readwrite,strong) MBUserStatusLogger                 *userStatusLogger;
+
 //name Startup
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 - (void)loadCurrentUser;
@@ -89,7 +87,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //name State
 - (IBAction)showPreferences: (id) sender;
 - (void)saveCurrentUserPreference;
-
+- (void)handleUserLogMessage: (NSNotification*) notification;
 
 //name Mail Core
 /*!
@@ -178,8 +176,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         FScriptMenuItem *fsm = [[FScriptMenuItem alloc] init];
         [[NSApp mainMenu] addItem: fsm];
         
-        [DDLog addLogger:[DDASLLogger sharedInstance]];
+//        [DDLog addLogger:[DDASLLogger sharedInstance]];
         [DDLog addLogger:[DDTTYLogger sharedInstance]];
+        self.userStatusLogger = [MBUserStatusLogger new];
+        [DDLog addLogger: self.userStatusLogger];
         
         if(![self isThereAUser])
             [self createDefaultUser];
@@ -196,10 +196,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                                                                               context:NULL];
         
         [self loadBuiltInPlugins];
-        //        [[NSNotificationCenter defaultCenter] addObserver:self
-        //                                                 selector:@selector(managedObjectContextDidChange:)
-        //                                                     name:NSManagedObjectContextObjectsDidChangeNotification
-        //                                                   object: self.managedObjectContext];
+        
+        [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleUserLogMessage:) name: kMBStatusLoggerHasNewMessage object: nil];
+        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(managedObjectContextDidChange:)
+//                                                     name:NSManagedObjectContextObjectsDidChangeNotification
+//                                                   object: self.managedObjectContext];
     }
 }
 
@@ -361,6 +364,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(IBAction)testIMAPClient:(id)sender {
     [[MBAccountsCoordinator sharedInstanceForUser: self.currentUser]  testIMAPClientCommForAccount: nil];
+}
+
+-(void) handleUserLogMessage:(NSNotification *)notification {
+    if (self.statusTextField) {
+        //
+        NSString* message = notification.userInfo[kMBStatusLoggerMessageKey];
+        if (message) {
+            int logFlag = [notification.userInfo[kMBStatusLoggerLogFlagKey] intValue];
+            
+            if (logFlag == LOG_FLAG_INFO) {
+                [self.statusTextField setStringValue: message];
+            }
+        }
+    }
 }
 
 #pragma message "TODO:Now"
