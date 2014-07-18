@@ -42,6 +42,8 @@
 @property (weak) IBOutlet NSSearchField *portalSearchView;
 @property (weak) IBOutlet NSButton      *portalRowPlusView;
 @property (weak) IBOutlet NSButton      *portalRowMinusView;
+@property (weak) IBOutlet NSTextField   *messageSummaryField;
+@property (unsafe_unretained) IBOutlet NSTableCellView *tableCellView;
 
 -(void) contentUpdated;
 
