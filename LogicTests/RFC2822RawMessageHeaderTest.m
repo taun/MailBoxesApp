@@ -18,7 +18,6 @@
 #import "MBSimpleRFC822AddressSetToStringTransformer.h"
 
 #import "DDLog.h"
-#import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
@@ -35,6 +34,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     // Set-up code here.
     
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+
     testBundle = [NSBundle bundleWithIdentifier: @"com.moedae.LogicTests"];
         
     sampleHeader = nil;
