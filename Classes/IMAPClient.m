@@ -367,7 +367,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
         [self updateMissingFolders];
     };
 
-    DDLogInfo(@"[%@ %@] Added CommandBlock for commandList:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    DDLogVerbose(@"[%@ %@] Added CommandBlock for commandList:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     
     // start at the root of the structure, then recurse to leaves
     [self addCommandBlock: ^() {
@@ -389,7 +389,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
                 [self updateMissingFolders];
             };
             
-            DDLogInfo(@"[%@ %@] Added CommandBlock for commandList:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+            DDLogVerbose(@"[%@ %@] Added CommandBlock for commandList:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
             [self addCommandBlock: ^() {
                 [weakSelf commandList: path withSuccessBlock: successBlock withFailBlock: NULL];
             }];
@@ -420,7 +420,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
         weakSelf.selectedMBox = nil;
     };
     
-    DDLogInfo(@"[%@ %@] Added CommandBlock for commandSelect:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    DDLogVerbose(@"[%@ %@] Added CommandBlock for commandSelect:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     
     [self addCommandBlock: ^() {
         
@@ -467,7 +467,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
 -(void) asyncUpdateLatestMessages {
     IMAPClient* __weak weakSelf = self;
     
-    DDLogInfo(@"[%@ %@] Added CommandBlock for commandFetchHeadersStart:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    DDLogVerbose(@"[%@ %@] Added CommandBlock for commandFetchHeadersStart:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     
     
     MBCommandBlock successBlock = ^() {
@@ -541,7 +541,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
             };
         }
         
-        DDLogInfo(@"[%@ %@] Added CommandBlock for commandFetchContentForMessage:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        DDLogVerbose(@"[%@ %@] Added CommandBlock for commandFetchContentForMessage:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
         [self addCommandBlock: ^() {
             [weakSelf commandFetchContentForMessage: message mimeParts: part.bodyIndex withSuccessBlock: successBlock withFailBlock: NULL];
@@ -571,13 +571,13 @@ static NSUInteger  IMAPClientQueueCount = 0;
 
                 IMAPClient* __weak weakSelf = self;
                 
-                DDLogInfo(@"[%@ %@] Added CommandBlock for commandCapabilityWithSuccessBlock:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                DDLogVerbose(@"[%@ %@] Added CommandBlock for commandCapabilityWithSuccessBlock:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 
                 [self addCommandBlock: ^() {
                     [weakSelf commandCapabilityWithSuccessBlock: NULL withFailBlock: NULL];
                 }];
                 
-                DDLogInfo(@"[%@ %@] Added CommandBlock for commandLoginWithSuccessBlock:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                DDLogVerbose(@"[%@ %@] Added CommandBlock for commandLoginWithSuccessBlock:", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 
                 [self addCommandBlock: ^() {
                     [weakSelf commandLoginWithSuccessBlock: NULL withFailBlock: NULL];
@@ -886,6 +886,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     } else {
         DDLogVerbose(@"[%@] %@, Continuing anyway.",NSStringFromSelector(_cmd),
                      [NSString stringWithFormat:@"Error %li: %@", errorCode, [theError localizedDescription]]);
+#pragma message "ToDo: localize network status message"
         DDLogInfo(@"Attention: [%@] %@, Continuing anyway.",NSStringFromSelector(_cmd),
                      [NSString stringWithFormat:@"Error %li: %@", errorCode, [theError localizedDescription]]);
     }
@@ -932,7 +933,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
                 }
             }
             self.idleSince = [NSDate timeIntervalSinceReferenceDate];
-            DDLogInfo(@"[%@ %@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), commandString);
+            DDLogVerbose(@"[%@ %@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd), commandString);
         } else {
             self.isSpaceAvailable = YES;
         }
@@ -1073,13 +1074,13 @@ static NSUInteger  IMAPClientQueueCount = 0;
     // if a command, is it done? If so remove from stack
     
     IMAPResponseStatus status = parsedResponse.status;
-    DDLogInfo(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    DDLogVerbose(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 
     if ((parsedResponse.command != nil) && parsedResponse.command.isDone) {
         
         if (self.commandBlocks.count > 0) {
             [self.commandBlocks removeObjectAtIndex: 0];
-            DDLogInfo(@"[%@ %@] Remove finished command block", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+            DDLogVerbose(@"[%@ %@] Remove finished command block", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         }
         
         if (status==IMAPOK) {
@@ -1088,14 +1089,14 @@ static NSUInteger  IMAPClientQueueCount = 0;
              
             MBCommandBlock successBlock = parsedResponse.command.successBlock;
             if (successBlock) {
-                DDLogInfo(@"[%@ %@] Executing successBlock", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                DDLogVerbose(@"[%@ %@] Executing successBlock", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
                 successBlock();
             }
             
         } else {
             MBCommandBlock failBlock = parsedResponse.command.failBlock;
             if (failBlock) {
-                DDLogInfo(@"[%@ %@] Executing failBlock", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                DDLogVerbose(@"[%@ %@] Executing failBlock", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
                 failBlock();
             }
             
@@ -1103,7 +1104,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
         
         parsedResponse.command = nil;
         self.parser.command = nil;
-        DDLogInfo(@"[%@ %@] nextCommandBlock after isDone. Count: %u", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.commandBlocks.count);
+        DDLogVerbose(@"[%@ %@] nextCommandBlock after isDone. Count: %u", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.commandBlocks.count);
         [self nextCommandBlock];
         
     } else if (parsedResponse.command == nil) {
@@ -1112,7 +1113,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
         // successBlock may queue another command immediately in which case this will fail and
         // the nextCommandBlock will not be pulled until there are no more commands queued by a success or fail block.
         [parsedResponse.dataStore save];
-        DDLogInfo(@"[%@ %@] nextCommandBlock after parse of no command. Count: %u", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.commandBlocks.count);
+        DDLogVerbose(@"[%@ %@] nextCommandBlock after parse of no command. Count: %u", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.commandBlocks.count);
         [self nextCommandBlock];
     }
 }
@@ -1190,7 +1191,7 @@ static NSUInteger  IMAPClientQueueCount = 0;
     self.parser.command.tag = [self nextCommandTag];
     self.parser.command.successBlock = successBlock;
 
-    DDLogInfo(@"[%@ %@] Queued Command: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [command debugDescription]);
+    DDLogVerbose(@"[%@ %@] Queued Command: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [command debugDescription]);
 
     if (self.isSpaceAvailable) {
         [self sendNextCommand];
@@ -1198,11 +1199,11 @@ static NSUInteger  IMAPClientQueueCount = 0;
 }
 -(void) addCommandBlock: (MBCommandBlock) aBlock {
     [self.commandBlocks addObject: aBlock];
-    DDLogInfo(@"[%@ %@] Added CommandBlock. Count: %u", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.commandBlocks.count);
+    DDLogVerbose(@"[%@ %@] Added CommandBlock. Count: %u", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.commandBlocks.count);
     // if connection has been idle, the count would be zero and the block needs to be evaluated now.
     // on the other hand, do not evaluate right away if a command is underway.
     if (self.connectionState == IMAPAuthenticated && !self.parser.command) {
-        DDLogInfo(@"[%@ %@] Dispatching CommandBlock Immediately. No current Parser Command.", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        DDLogVerbose(@"[%@ %@] Dispatching CommandBlock Immediately. No current Parser Command.", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
 
         aBlock();
     }

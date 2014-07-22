@@ -22,7 +22,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="687"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1505">
+                    <box autoresizesSubviews="NO" title="ControlsBox" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1505">
                         <rect key="frame" x="0.0" y="663" width="1024" height="24"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <view key="contentView">
@@ -123,13 +123,13 @@
                                     </popUpButtonCell>
                                     <accessibility description="Popup a menu to add an account or folder" help="Add a new folder or account"/>
                                 </popUpButton>
-                                <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fmV-YW-9ax">
-                                    <rect key="frame" x="278" y="4" width="102" height="17"/>
+                                <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fmV-YW-9ax">
+                                    <rect key="frame" x="280" y="1" width="112" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Status indicator" id="Tgg-dF-9Tt">
-                                        <font key="font" metaFont="system"/>
+                                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Status indicator" usesSingleLineMode="YES" bezelStyle="round" id="Tgg-dF-9Tt">
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Open a portal editor" translatesAutoresizingMaskIntoConstraints="NO" id="1103">
@@ -406,7 +406,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="Ovp-zj-tQH" secondAttribute="trailing" priority="200" id="mfS-Fo-ANX"/>
                                                                 <constraint firstItem="Ovp-zj-tQH" firstAttribute="leading" secondItem="5k9-DR-QWV" secondAttribute="leading" id="z5Q-Zl-mll"/>
                                                             </constraints>
-                                                            <color key="backgroundColor" patternImage="31E89D78-672C-4EBC-B1A0-DD22252EF284" colorSpace="pattern"/>
+                                                            <color key="backgroundColor" patternImage="41E027F6-6339-4053-BA1A-C4C96C69DFEF" colorSpace="pattern"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="fzv-cM-tBI">
                                                             <rect key="frame" x="0.0" y="328" width="751" height="16"/>
@@ -1507,7 +1507,7 @@
         </menu>
     </objects>
     <resources>
-        <image name="31E89D78-672C-4EBC-B1A0-DD22252EF284" width="450" height="420">
+        <image name="41E027F6-6339-4053-BA1A-C4C96C69DFEF" width="450" height="420">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

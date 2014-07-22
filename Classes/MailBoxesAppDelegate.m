@@ -197,6 +197,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         
         [self loadBuiltInPlugins];
         
+        // Get rid of Nib placeholder text before starting status monitoring.
+#pragma message "ToDo: add user preference to show or hide status?"
+#pragma message "ToDo: add user panel for errors which need to be acknowledged like no network."
+        [self.statusTextField setHidden: YES];
+        [self.statusTextField setStringValue: @""];
+        [self.statusTextField setToolTip: @""];
+        
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleUserLogMessage:) name: kMBStatusLoggerHasNewMessage object: nil];
         
 //        [[NSNotificationCenter defaultCenter] addObserver:self
@@ -375,6 +382,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             
             if (logFlag == LOG_FLAG_INFO) {
                 [self.statusTextField setStringValue: message];
+                [self.statusTextField setToolTip: message];
+                [self.statusTextField setHidden: NO];
             }
         }
     }
