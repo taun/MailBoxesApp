@@ -17,6 +17,8 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <rect key="contentRect" x="449" y="277" width="1024" height="687"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <value key="minSize" type="size" width="800" height="600"/>
+            <value key="maxSize" type="size" width="2048" height="1600"/>
             <view key="contentView" focusRingType="none" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="687"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -314,7 +316,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <scrollView toolTip="Drag and drop folders into this view to create a new portal. " focusRingType="exterior" misplaced="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1125">
-                                                        <rect key="frame" x="0.0" y="337" width="751" height="318"/>
+                                                        <rect key="frame" x="0.0" y="-7" width="751" height="318"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="Wgf-b4-naE">
                                                             <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -337,7 +339,7 @@
                                                             <accessibility help="Portals"/>
                                                         </clipView>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="751" id="EqC-l7-fEU"/>
+                                                            <constraint firstAttribute="width" constant="751" placeholder="YES" id="EqC-l7-fEU"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="266" id="xcI-5l-2pG"/>
                                                         </constraints>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="1127">
@@ -355,7 +357,7 @@
                                                     <constraint firstItem="1125" firstAttribute="top" secondItem="1081" secondAttribute="top" id="7M6-ix-WZE"/>
                                                     <constraint firstItem="1125" firstAttribute="leading" secondItem="1081" secondAttribute="leading" id="KPk-es-kHQ"/>
                                                     <constraint firstAttribute="bottom" secondItem="1125" secondAttribute="bottom" id="Ljl-DF-yfv"/>
-                                                    <constraint firstAttribute="height" constant="318" id="b8j-F4-Ceq"/>
+                                                    <constraint firstAttribute="height" constant="318" placeholder="YES" id="b8j-F4-Ceq"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="dhx-tN-Qxk"/>
                                                     <constraint firstAttribute="trailing" secondItem="1125" secondAttribute="trailing" id="wZL-g3-3rX"/>
                                                 </constraints>
@@ -365,8 +367,8 @@
                                                 <rect key="frame" x="0.0" y="319" width="751" height="344"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView wantsLayer="YES" misplaced="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-sY-zqu">
-                                                        <rect key="frame" x="0.0" y="-344" width="751" height="344"/>
+                                                    <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-sY-zqu">
+                                                        <rect key="frame" x="0.0" y="0.0" width="751" height="344"/>
                                                         <clipView key="contentView" wantsLayer="YES" id="5k9-DR-QWV">
                                                             <rect key="frame" x="0.0" y="0.0" width="751" height="344"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -389,11 +391,11 @@
                                                                 <constraint firstAttribute="trailing" secondItem="Ovp-zj-tQH" secondAttribute="trailing" priority="200" id="mfS-Fo-ANX"/>
                                                                 <constraint firstItem="Ovp-zj-tQH" firstAttribute="leading" secondItem="5k9-DR-QWV" secondAttribute="leading" id="z5Q-Zl-mll"/>
                                                             </constraints>
-                                                            <color key="backgroundColor" patternImage="9FE2C5AC-7721-4906-8F98-585A0F3B3062" colorSpace="pattern"/>
+                                                            <color key="backgroundColor" patternImage="A6C4CEF8-9F68-4BCC-BC42-375F32D7601D" colorSpace="pattern"/>
                                                         </clipView>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="344" id="8F0-D9-Vpu"/>
-                                                            <constraint firstAttribute="width" constant="751" id="X3e-yR-pLS"/>
+                                                            <constraint firstAttribute="height" constant="344" placeholder="YES" id="8F0-D9-Vpu"/>
+                                                            <constraint firstAttribute="width" constant="751" placeholder="YES" id="X3e-yR-pLS"/>
                                                         </constraints>
                                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="fzv-cM-tBI">
                                                             <rect key="frame" x="0.0" y="328" width="751" height="16"/>
@@ -406,7 +408,7 @@
                                                     </scrollView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="344" id="7v2-Yf-doX"/>
+                                                    <constraint firstAttribute="height" constant="344" placeholder="YES" id="7v2-Yf-doX"/>
                                                     <constraint firstAttribute="bottom" secondItem="jbs-sY-zqu" secondAttribute="bottom" id="BBH-Eg-jhX"/>
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="1800" id="EBO-Fp-37F"/>
                                                     <constraint firstItem="jbs-sY-zqu" firstAttribute="top" secondItem="1082" secondAttribute="top" id="aOW-dk-RFG"/>
@@ -1487,7 +1489,7 @@
         </menu>
     </objects>
     <resources>
-        <image name="9FE2C5AC-7721-4906-8F98-585A0F3B3062" width="450" height="420">
+        <image name="A6C4CEF8-9F68-4BCC-BC42-375F32D7601D" width="450" height="420">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

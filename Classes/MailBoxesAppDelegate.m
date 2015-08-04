@@ -126,7 +126,7 @@ const NSString* PortalEditingEndedKey = @"PortalEditingEnded";
       MBUPMessagesSplitIsVertical: @"NO",
       MBUPMainSplitIsCollapsed: @"NO",
       @"selectedUser": @"",
-      @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints": @"YES"};
+      @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints": @"NO"};
     
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
     
@@ -164,7 +164,7 @@ const NSString* PortalEditingEndedKey = @"PortalEditingEnded";
     
     //    NSClipView* clipView = [self.inPaneMessageView contentView];
     //    [clipView setTranslatesAutoresizingMaskIntoConstraints: NO];
-    [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
+    [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
     return;
 }
 
