@@ -67,7 +67,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         CGFloat rowHeight = [item.rowHeight floatValue];
         
         if (rowHeight < (_cellBaseHeight+_oneRowHeight) || rowHeight > (_cellBaseHeight+_cellMaxRows*_oneRowHeight)) {
-            rowHeight = _cellBaseHeight + 2*_oneRowHeight;
+            rowHeight = fmaxf(_cellBaseHeight + 2*_oneRowHeight,44.0);
         }
         
         [self.tableView setRowHeight: rowHeight];
@@ -162,11 +162,19 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
  
  */
 -(NSPredicate *) compoundPredicate {
+    NSPredicate* results = nil;
+    
+#pragma message "ToDo: make showing or hiding deleted messages a user preference."
+    NSPredicate* removeDeletedMessages = [NSPredicate predicateWithFormat:@"isDeletedFlag == NO"];
+    NSPredicate* removeSubmessages = [NSPredicate predicateWithFormat:@"parentMessage == nil"];
+    
     if (self.searchPredicate) {
-        NSPredicate* results = [NSCompoundPredicate andPredicateWithSubpredicates: @[self.searchPredicate]];
-        return results;
+        // Deleted messages re-appear (on purpose) during search.
+        results = [NSCompoundPredicate andPredicateWithSubpredicates: @[self.searchPredicate]];
+    } else {
+        results = [NSCompoundPredicate andPredicateWithSubpredicates: @[removeDeletedMessages,removeSubmessages]];
     }
-    return nil;
+    return results;
             //[NSPredicate predicateWithFormat: [self valueForKeyPath: @"representedObject.predicateString"]], self.searchPredicate, nil]];
 }
 

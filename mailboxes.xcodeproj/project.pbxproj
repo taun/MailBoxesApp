@@ -21,9 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		C500629818AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C500629718AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin */; };
-		C50062BD18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C50062BC18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin */; };
-		C50062CE18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C50062CD18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin */; };
+		C500629818AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C500629718AD766C00371E5D /* MoedaeMailMimeMultiMixedViewer.mmmimeviewerplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C50062BD18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C50062BC18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C50062CE18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C50062CD18AFE5ED00371E5D /* MoedaeMailMimeApplicationPDFViewer.mmmimeviewerplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C502DE8E14185DDE000AA9E4 /* IMAPResponseParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C502DE8D14185DDE000AA9E4 /* IMAPResponseParserTests.m */; };
 		C50386BD146381C200BF6EB3 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50386BC146381C100BF6EB3 /* Quartz.framework */; };
 		C5052DD91810502600696782 /* MBTransformerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5052DD81810502600696782 /* MBTransformerTests.m */; };
@@ -64,6 +64,7 @@
 		C520B9A31912B43400627A01 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74705168FD3A30055FE5E /* DDASLLogger.m */; };
 		C520B9A41912B43400627A01 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74707168FD3A30055FE5E /* DDFileLogger.m */; };
 		C520B9A51912B43400627A01 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E7470B168FD3A30055FE5E /* DDTTYLogger.m */; };
+		C5227C5D1B702C0B00DBE052 /* FScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5227C5C1B702C0B00DBE052 /* FScript.framework */; };
 		C5279167188DC66500298D01 /* NSManagedObject+Shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = C5279166188DC66500298D01 /* NSManagedObject+Shortcuts.m */; };
 		C527DBEC18BBF586003A5C6D /* MBViewPortal+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C527DBEB18BBF586003A5C6D /* MBViewPortal+Extra.m */; };
 		C527DBEF18BBF902003A5C6D /* MBViewPortalMBox+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C527DBEE18BBF902003A5C6D /* MBViewPortalMBox+Extra.m */; };
@@ -179,8 +180,8 @@
 		C58305ED18D109C90032C72F /* MBViewPortalSmartFolder+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C58305EC18D109C90032C72F /* MBViewPortalSmartFolder+Extra.m */; };
 		C58305EE18D109C90032C72F /* MBViewPortalSmartFolder+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C58305EC18D109C90032C72F /* MBViewPortalSmartFolder+Extra.m */; };
 		C583066318A6B201006C279D /* MoedaeMailPlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C583066218A6B201006C279D /* MoedaeMailPlugins.framework */; };
-		C583066518A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C583066418A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin */; };
-		C583068A18A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C583068918A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin */; };
+		C583066518A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C583066418A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C583068A18A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C583068918A6B927006C279D /* MoedaeMailMimeMultiAlternativeViewer.mmmimeviewerplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C584824318B70E27003DBC35 /* MBPortalView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50DD7EF13730284002A6CD6 /* MBPortalView.m */; };
 		C58743A4143A96FB00FCBDA2 /* RFC2822Message.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743A3143A96FB00FCBDA2 /* RFC2822Message.m */; };
 		C58743AA143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743A9143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m */; };
@@ -203,7 +204,6 @@
 		C58DC38717AAF75B009CB9B9 /* ConnectTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C58DC38617AAF75B009CB9B9 /* ConnectTestAppDelegate.m */; };
 		C58DC38A17AAF770009CB9B9 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C58DC38917AAF770009CB9B9 /* GCDAsyncSocket.m */; };
 		C58F658F14902CD800720D69 /* MBMessage+IntersectSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C58F658E14902CD800720D69 /* MBMessage+IntersectSetFix.m */; };
-		C594059817A2F1550016F179 /* FScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C594059717A2F1550016F179 /* FScript.framework */; };
 		C596A47A19216EF6009888BC /* MBMimeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C596A47919216EF6009888BC /* MBMimeMessage.m */; };
 		C596A47B19216EF6009888BC /* MBMimeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C596A47919216EF6009888BC /* MBMimeMessage.m */; };
 		C596A47E19217999009888BC /* MBMimeMessage+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C596A47D19217999009888BC /* MBMimeMessage+IMAP.m */; };
@@ -280,7 +280,7 @@
 		C5C7E77817F5CBD40053B08B /* IMAPResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C5724AAF145EF1C600E8C25F /* IMAPResponseParser.m */; };
 		C5C7E77917F5CBE00053B08B /* RFC2822RawMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C58743A9143A9EE700FCBDA2 /* RFC2822RawMessageHeader.m */; };
 		C5C84AF618B992AC00DF410C /* MBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B34D9418B688F0004E3BD2 /* MBUser.m */; };
-		C5CF830018B7D63B00CE92B3 /* MoedaeMailWebKitMimeViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5CF82FF18B7D63B00CE92B3 /* MoedaeMailWebKitMimeViewer.mmmimeviewerplugin */; };
+		C5CF830018B7D63B00CE92B3 /* MoedaeMailWebKitMimeViewer.mmmimeviewerplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5CF82FF18B7D63B00CE92B3 /* MoedaeMailWebKitMimeViewer.mmmimeviewerplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C5D016A4148812250048E00D /* MBMime+IntersectsSetFix.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D016A3148812250048E00D /* MBMime+IntersectsSetFix.m */; };
 		C5D335D3148EB323005D56AC /* MBMime+IMAP.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D335D2148EB323005D56AC /* MBMime+IMAP.m */; };
 		C5D3C6B21460CE4600E739C5 /* AppleTips.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C5D3C6B11460CE4600E739C5 /* AppleTips.rtf */; };
@@ -353,6 +353,7 @@
 		C512EC8118B44DB40020B77C /* mbox.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = mbox.iconset; path = Resources/mbox.iconset; sourceTree = "<group>"; };
 		C51C59591937927B00B2104E /* MMPMimeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMPMimeHeaderView.h; path = Classes/MMPMimeHeaderView.h; sourceTree = "<group>"; };
 		C51C595A1937927B00B2104E /* MMPMimeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMPMimeHeaderView.m; path = Classes/MMPMimeHeaderView.m; sourceTree = "<group>"; };
+		C5227C5C1B702C0B00DBE052 /* FScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FScript.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Release/FScript.framework"; sourceTree = "<group>"; };
 		C5279165188DC66500298D01 /* NSManagedObject+Shortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Shortcuts.h"; path = "Classes/NSManagedObject+Shortcuts.h"; sourceTree = "<group>"; };
 		C5279166188DC66500298D01 /* NSManagedObject+Shortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Shortcuts.m"; path = "Classes/NSManagedObject+Shortcuts.m"; sourceTree = "<group>"; };
 		C527DBEA18BBF586003A5C6D /* MBViewPortal+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBViewPortal+Extra.h"; path = "Classes/MBViewPortal+Extra.h"; sourceTree = "<group>"; };
@@ -700,9 +701,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5227C5D1B702C0B00DBE052 /* FScript.framework in Frameworks */,
 				C5888C2018ABDE4400EB9F00 /* CoreData.framework in Frameworks */,
 				C583066318A6B201006C279D /* MoedaeMailPlugins.framework in Frameworks */,
-				C594059817A2F1550016F179 /* FScript.framework in Frameworks */,
 				C50386BD146381C200BF6EB3 /* Quartz.framework in Frameworks */,
 				C5A1017E145CAB2B005B941B /* Security.framework in Frameworks */,
 				C5C7A56E128B93EC006B1E86 /* Cocoa.framework in Frameworks */,
@@ -1033,6 +1034,7 @@
 		C5C7A565128B93EC006B1E86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5227C5C1B702C0B00DBE052 /* FScript.framework */,
 				C5E56B25191BF6A300B297EA /* XCTest.framework */,
 				C5FD82BC18CA8DB4001BC8B9 /* libMoedaeMailCommon.a */,
 				C583066218A6B201006C279D /* MoedaeMailPlugins.framework */,
@@ -1417,7 +1419,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MB;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "MOEDAE LLC";
 				TargetAttributes = {
 					C5AE2DFE1410374C0087CD93 = {
@@ -1967,11 +1969,14 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = NO;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_ENABLE_SSE3_EXTENSIONS = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					MACOSX,
@@ -1986,7 +1991,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				GENERATE_PROFILING_CODE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				MOMC_NO_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2008,10 +2013,13 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = NO;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_ENABLE_SSE3_EXTENSIONS = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = MACOSX;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2022,7 +2030,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				GENERATE_PROFILING_CODE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				MOMC_NO_WARNINGS = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2087,6 +2095,7 @@
 					"$(SRCROOT)",
 					"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Release",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2119,6 +2128,7 @@
 					"$(SRCROOT)",
 					"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Release",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;

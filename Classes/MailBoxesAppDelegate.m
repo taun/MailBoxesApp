@@ -66,6 +66,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #define MBFavoriteEntityName @"MBFavorites"
 #define MBListsEntityName @"MBAddressList"
 
+const NSString* AccountEditingEndedKey = @"AccountEditingEnded";
+const NSString* PortalEditingEndedKey = @"PortalEditingEnded";
+
 @interface MailBoxesAppDelegate()
 @property(nonatomic,readwrite,strong) NSArray                         *accountsACSortDescriptors;
 @property(nonatomic,readwrite,strong) NSArray                         *portalsACSortDescriptors;
@@ -127,9 +130,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
     
-    AccountEditingEndedKey = @"AccountEditingEnded";
-    PortalEditingEndedKey = @"PortalEditingEnded";
-    
     [NSValueTransformer setValueTransformer: [MBSimpleRFC822AddressToStringTransformer new]
                                     forName: VTMBSimpleRFC822AddressToStringTransformer];
     
@@ -164,7 +164,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     //    NSClipView* clipView = [self.inPaneMessageView contentView];
     //    [clipView setTranslatesAutoresizingMaskIntoConstraints: NO];
-    
+    [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
     return;
 }
 

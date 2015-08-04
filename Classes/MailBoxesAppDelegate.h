@@ -21,8 +21,8 @@
 @class MBMessage;
 @class MBMessageViewController;
 
-NSString *AccountEditingEndedKey;
-NSString *PortalEditingEndedKey;
+extern const NSString *AccountEditingEndedKey;
+extern const NSString *PortalEditingEndedKey;
 
 /*!
  The standard AppDelegate class.

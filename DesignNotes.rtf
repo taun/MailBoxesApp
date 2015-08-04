@@ -944,5 +944,20 @@ Subject: =?UTF-8?B?QUFBIFRyYXZlbCBEZWFscyDigJMgU2F2ZSBvbiByaXZlciBjcnVp?=\
 	? Need to have changes to account password updated before connecting.\
 2014-07-20\
 	* Create network connected/not connected icon for state display on ControlsBox.\
+2014-07-24\
+	Next steps\
+	Implement CONDSTORE sync\
+		Check to see MBox serverHighestModSeq is being populated.\
+		Add CONDSTORE to the SELECT command.\
+			Check CONDSTORE highestModSeq status on box after select.\
+		Add 2 new response codes\
+\pard\pardeftab720\sl220
+\cf0 		HIGHESTMODSEQ * \cb5 OK [HIGHESTMODSEQ <mod-sequence-value>]\cb1 \
+		NOMODSEQ \cb5 * OK [NOMODSEQ] Sorry, this mailbox format doesn\'92t support modsequences\cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
+\cf0 		Add MODSEQ to MBMessage data model.\
+		Add MODSEQ to the initial message FETCH command.\
+\
+	Implement CONDSTORE QRESYNC sync\
 \
 }

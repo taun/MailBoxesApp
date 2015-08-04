@@ -34,7 +34,7 @@
 @property (unsafe_unretained) IBOutlet NSObjectController       *selectedUserController;
 @property (readonly, weak)             MBUser                   *currentUser;
 @property (readonly, weak)             NSManagedObjectContext   *managedObjectContext;
-@property (weak) IBOutlet NSOutlineView            *view;
+@property (weak) IBOutlet NSOutlineView                         *view;
 @property (strong)                     NSArray                  *draggedNodes;
 @property (weak) IBOutlet NSMenu                   *menuSidebarAccountNode;
 @property (weak) IBOutlet NSMenu                   *menuSidebarAccountGroup;

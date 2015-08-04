@@ -145,6 +145,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.options.asPlainText = NO;
     [self reloadMessage];
 }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 - (IBAction)showConstraints:(id)sender {
     NSString* viewsDesc = [self.view performSelector: NSSelectorFromString(@"_subtreeDescription")];
@@ -159,6 +161,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [constraints addObjectsFromArray: [self.view constraintsAffectingLayoutForOrientation: NSLayoutConstraintOrientationHorizontal]];
     [self.view.window visualizeConstraints: constraints];
 }
+#pragma clang diagnostic pop
 
 - (IBAction)toggleViewOutlines:(id)sender {
     self.options.showViewOutlines = !self.options.showViewOutlines;
@@ -212,6 +215,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (IBAction)showMessageDebug:(id)sender {
     MBMessage* message = (MBMessage*) self.representedObject;
+    MBox* box = message.mbox;
+    DDLogCVerbose(@"[%@ %@] Box: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), box);
     DDLogCVerbose(@"[%@ %@] Message: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), message);
     DDLogCVerbose(@"[%@ %@] AddressFrom: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), message.addressFrom);
     DDLogCVerbose(@"[%@ %@] AddressTo: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), message.addressesTo);

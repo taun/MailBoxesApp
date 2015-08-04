@@ -3,12 +3,16 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "UnreadOutline.png"
+      "filename" : "unread.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "UnreadOutline@2x.png"
+      "filename" : "unread@2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

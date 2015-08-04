@@ -5,7 +5,7 @@
 //  Created by Taun Chapman on 11/17/11.
 //  Copyright (c) 2011 MOEDAE LLC. All rights reserved.
 //
-
+#import "MailBoxesAppDelegate.h"
 #import "MBSidebarViewController.h"
 #import "MBSidebarTableCellView.h"
 
@@ -255,7 +255,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 - (IBAction)importAccountSettings:(id)sender {
-    NSWindow* window = [[NSApp delegate] appWindow];
+    NSWindow* window = [(MailBoxesAppDelegate*)([NSApp delegate]) appWindow];
     
     // Create and configure the panel.
     NSOpenPanel* panel = [NSOpenPanel openPanel];
