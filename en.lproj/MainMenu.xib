@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -25,15 +25,16 @@
                 <subviews>
                     <box autoresizesSubviews="NO" title="ControlsBox" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1505">
                         <rect key="frame" x="0.0" y="663" width="1024" height="24"/>
-                        <view key="contentView">
+                        <view key="contentView" id="Fd0-f7-zAi">
                             <rect key="frame" x="0.0" y="0.0" width="1024" height="24"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Minimize the Accounts listing" translatesAutoresizingMaskIntoConstraints="NO" id="852" userLabel="Collapse Square Button">
+                                <button toolTip="Minimize the Accounts listing" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="852" userLabel="Collapse Square Button">
                                     <rect key="frame" x="20" y="2" width="48" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="WNR-eR-b6y"/>
                                     </constraints>
+                                    <animations/>
                                     <buttonCell key="cell" type="square" title="Hide" alternateTitle="Show" bezelStyle="shadowlessSquare" image="NSGoLeftTemplate" imagePosition="left" alignment="right" alternateImage="NSGoRightTemplate" imageScaling="proportionallyDown" inset="2" id="853">
                                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -43,16 +44,18 @@
                                         <action selector="toggleAccountView:" target="854" id="861"/>
                                     </connections>
                                 </button>
-                                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="1212">
+                                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="1212">
                                     <rect key="frame" x="137" y="4" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="czh-ef-ghK"/>
                                         <constraint firstAttribute="width" constant="16" id="uhi-X2-i4i"/>
                                     </constraints>
+                                    <animations/>
                                     <accessibility help="Syncing email"/>
                                 </progressIndicator>
                                 <button toolTip="Synchronize accounts" translatesAutoresizingMaskIntoConstraints="NO" id="1077" userLabel="Load Accounts Button">
                                     <rect key="frame" x="108" y="5" width="20" height="15"/>
+                                    <animations/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1078">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -68,6 +71,7 @@
                                         <constraint firstAttribute="width" constant="20" id="STg-s0-riz"/>
                                         <constraint firstAttribute="height" constant="20" id="plv-dh-Yzd"/>
                                     </constraints>
+                                    <animations/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStopProgressTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1274">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -77,12 +81,13 @@
                                         <action selector="cancelLoadAllAccountFolders:" target="494" id="1280"/>
                                     </connections>
                                 </button>
-                                <popUpButton toolTip="Pop up a menu to add an account or folder" translatesAutoresizingMaskIntoConstraints="NO" id="1569" userLabel="Sidebar Add Menu">
+                                <popUpButton toolTip="Pop up a menu to add an account or folder" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1569" userLabel="Sidebar Add Menu">
                                     <rect key="frame" x="211" y="2" width="61" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="61" id="Hdv-6h-vPC"/>
                                         <constraint firstAttribute="height" constant="20" id="YNg-xf-bvO"/>
                                     </constraints>
+                                    <animations/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" id="1570">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
@@ -118,8 +123,9 @@
                                     </popUpButtonCell>
                                     <accessibility description="Popup a menu to add an account or folder" help="Add a new folder or account"/>
                                 </popUpButton>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fmV-YW-9ax">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fmV-YW-9ax">
                                     <rect key="frame" x="280" y="1" width="112" height="22"/>
+                                    <animations/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Status indicator" usesSingleLineMode="YES" bezelStyle="round" id="Tgg-dF-9Tt">
                                         <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -132,6 +138,7 @@
                                         <constraint firstAttribute="height" constant="20" id="d4l-lu-edg"/>
                                         <constraint firstAttribute="width" constant="20" id="rW2-Ih-OQz"/>
                                     </constraints>
+                                    <animations/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="1104">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -142,26 +149,28 @@
                                     </connections>
                                 </button>
                             </subviews>
+                            <animations/>
                         </view>
                         <constraints>
-                            <constraint firstItem="1569" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1212" secondAttribute="trailing" constant="8" symbolic="YES" id="3uj-kb-PtQ"/>
-                            <constraint firstItem="1273" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="108" id="6dy-wg-ow2"/>
-                            <constraint firstItem="1273" firstAttribute="centerY" secondItem="1077" secondAttribute="centerY" id="7dj-pb-VlU"/>
-                            <constraint firstItem="1212" firstAttribute="leading" secondItem="1077" secondAttribute="trailing" constant="9" id="9t2-hG-lpi"/>
-                            <constraint firstAttribute="centerY" secondItem="1273" secondAttribute="centerY" id="Df4-TN-PKm"/>
-                            <constraint firstAttribute="centerY" secondItem="1212" secondAttribute="centerY" id="LHg-Ww-NE0"/>
-                            <constraint firstAttribute="centerY" secondItem="fmV-YW-9ax" secondAttribute="centerY" id="MPv-l9-4Yn"/>
+                            <constraint firstItem="1273" firstAttribute="centerX" secondItem="1077" secondAttribute="centerX" id="3eq-Fg-jqp"/>
+                            <constraint firstItem="852" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="20" id="4j9-bC-ECQ"/>
+                            <constraint firstItem="1077" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="108" id="5vN-G7-5P7"/>
+                            <constraint firstAttribute="centerY" secondItem="852" secondAttribute="centerY" id="6uQ-es-7z6"/>
+                            <constraint firstItem="fmV-YW-9ax" firstAttribute="leading" secondItem="1569" secondAttribute="trailing" constant="8" symbolic="YES" id="7Yy-vQ-ZEi"/>
+                            <constraint firstAttribute="centerY" secondItem="1212" secondAttribute="centerY" id="Axq-XZ-gFw"/>
+                            <constraint firstAttribute="centerY" secondItem="1103" secondAttribute="centerY" id="TE1-a0-Ybe"/>
                             <constraint firstAttribute="height" constant="24" id="TUD-Qg-tlS"/>
-                            <constraint firstAttribute="centerY" secondItem="1103" secondAttribute="centerY" id="U6k-aL-QFA"/>
-                            <constraint firstItem="fmV-YW-9ax" firstAttribute="leading" secondItem="1569" secondAttribute="trailing" constant="8" symbolic="YES" id="bag-9Z-5Ka"/>
-                            <constraint firstItem="852" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="20" id="byI-gw-I0D"/>
-                            <constraint firstAttribute="trailing" secondItem="1103" secondAttribute="trailing" constant="40" id="etp-em-KId"/>
-                            <constraint firstAttribute="centerY" secondItem="852" secondAttribute="centerY" id="knw-MO-eWz"/>
-                            <constraint firstAttribute="centerY" secondItem="1569" secondAttribute="centerY" id="mQJ-hP-bBw"/>
-                            <constraint firstItem="1103" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fmV-YW-9ax" secondAttribute="trailing" constant="8" symbolic="YES" id="rCI-jg-tys"/>
-                            <constraint firstItem="1077" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="108" id="vMZ-sp-s7j"/>
-                            <constraint firstItem="1273" firstAttribute="centerX" secondItem="1077" secondAttribute="centerX" id="zxx-jc-rwq"/>
+                            <constraint firstAttribute="centerY" secondItem="1569" secondAttribute="centerY" id="WXk-5b-0ml"/>
+                            <constraint firstItem="1273" firstAttribute="centerY" secondItem="1077" secondAttribute="centerY" id="Y1q-yJ-SlT"/>
+                            <constraint firstAttribute="trailing" secondItem="1103" secondAttribute="trailing" constant="40" id="cRO-iO-lUi"/>
+                            <constraint firstItem="1212" firstAttribute="leading" secondItem="1077" secondAttribute="trailing" constant="9" id="euu-gH-HTU"/>
+                            <constraint firstAttribute="centerY" secondItem="1273" secondAttribute="centerY" id="fbb-cv-OXC"/>
+                            <constraint firstItem="1569" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1212" secondAttribute="trailing" constant="8" symbolic="YES" id="r50-4M-Dir"/>
+                            <constraint firstItem="1103" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fmV-YW-9ax" secondAttribute="trailing" constant="8" symbolic="YES" id="u3v-Rc-j26"/>
+                            <constraint firstAttribute="centerY" secondItem="fmV-YW-9ax" secondAttribute="centerY" id="uIm-i6-QIQ"/>
+                            <constraint firstItem="1273" firstAttribute="leading" secondItem="1505" secondAttribute="leading" constant="108" id="zJf-I0-QwP"/>
                         </constraints>
+                        <animations/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" name="windowFrameColor" catalog="System" colorSpace="catalog"/>
                         <accessibility help="Message toolbar"/>
@@ -182,6 +191,7 @@
                                                 <outlineView focusRingType="none" appearanceType="vibrantLight" verticalHuggingPriority="750" horizontalCompressionResistancePriority="948" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" typeSelect="NO" autosaveName="AccountSidebarView" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" floatsGroupRows="NO" indentationPerLevel="14" autosaveExpandedItems="YES" outlineTableColumn="1062" id="1061" customClass="MBSidebarView">
                                                     <rect key="frame" x="0.0" y="0.0" width="271" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <animations/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -203,8 +213,9 @@
                                                                     <rect key="frame" x="1" y="0.0" width="268" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1414">
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1414">
                                                                             <rect key="frame" x="0.0" y="0.0" width="82" height="17"/>
+                                                                            <animations/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" continuous="YES" sendsActionOnEndEditing="YES" title="Header View" id="1415">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -218,6 +229,7 @@
                                                                         <constraint firstItem="1414" firstAttribute="top" secondItem="1413" secondAttribute="top" id="dJf-ma-Uel"/>
                                                                         <constraint firstItem="1414" firstAttribute="leading" secondItem="1413" secondAttribute="leading" constant="2" id="hTP-ug-NV6"/>
                                                                     </constraints>
+                                                                    <animations/>
                                                                     <accessibility help="Heading"/>
                                                                     <connections>
                                                                         <outlet property="textField" destination="1414" id="1416"/>
@@ -233,6 +245,7 @@
                                                                                 <constraint firstAttribute="height" priority="490" constant="17" id="Xtu-T7-20F"/>
                                                                                 <constraint firstAttribute="width" priority="490" constant="17" id="e0Z-vR-If0"/>
                                                                             </constraints>
+                                                                            <animations/>
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="1467"/>
                                                                             <accessibility help="Folder image"/>
                                                                         </imageView>
@@ -241,6 +254,7 @@
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="Ndw-3b-Zew"/>
                                                                             </constraints>
+                                                                            <animations/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="node view" id="1466">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -250,6 +264,7 @@
                                                                         </textField>
                                                                         <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1470">
                                                                             <rect key="frame" x="204" y="0.0" width="56" height="19"/>
+                                                                            <animations/>
                                                                             <buttonCell key="cell" type="roundRect" title="Unread" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1471">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="cellTitle"/>
@@ -267,6 +282,7 @@
                                                                         <constraint firstItem="1464" firstAttribute="top" secondItem="1463" secondAttribute="top" id="t7L-z8-6L6"/>
                                                                         <constraint firstItem="1470" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1465" secondAttribute="trailing" constant="8" symbolic="YES" id="ulj-HT-64n"/>
                                                                     </constraints>
+                                                                    <animations/>
                                                                     <accessibility description="An Account or folder" help="An Account or folder"/>
                                                                     <connections>
                                                                         <outlet property="button" destination="1470" id="1472"/>
@@ -284,14 +300,18 @@
                                                     </connections>
                                                 </outlineView>
                                             </subviews>
+                                            <animations/>
                                             <nil key="backgroundColor"/>
                                         </clipView>
+                                        <animations/>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="1060">
                                             <rect key="frame" x="0.0" y="647" width="271" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="1058">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
                                         </scroller>
                                         <accessibility description="Acount and folder lists" help="Acount and folder lists"/>
                                     </scrollView>
@@ -303,6 +323,7 @@
                                     <constraint firstItem="1057" firstAttribute="top" secondItem="839" secondAttribute="top" id="aEg-yl-qdF"/>
                                     <constraint firstAttribute="trailing" secondItem="1057" secondAttribute="trailing" constant="1" id="yXO-KP-Jp2"/>
                                 </constraints>
+                                <animations/>
                             </customView>
                             <customView wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="249" id="840" userLabel="Messages View">
                                 <rect key="frame" x="273" y="0.0" width="751" height="663"/>
@@ -324,6 +345,7 @@
                                                                 <collectionView toolTip="Drag a folder here to create a new portal." focusRingType="exterior" selectable="YES" id="1128" userLabel="Portals Collection View" customClass="MBPortalsCollectionView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="751" height="318"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <animations/>
                                                                     <color key="primaryBackgroundColor" red="0.90196084976196289" green="0.91764712333679199" blue="0.93725496530532837" alpha="1" colorSpace="deviceRGB"/>
                                                                     <accessibility description="Drag a folder here to create a new portal." help="Portals"/>
                                                                     <connections>
@@ -335,6 +357,7 @@
                                                                     </connections>
                                                                 </collectionView>
                                                             </subviews>
+                                                            <animations/>
                                                             <color key="backgroundColor" red="0.90196084976196289" green="0.91764712333679199" blue="0.93725496530532837" alpha="1" colorSpace="deviceRGB"/>
                                                             <accessibility help="Portals"/>
                                                         </clipView>
@@ -342,13 +365,16 @@
                                                             <constraint firstAttribute="width" constant="751" placeholder="YES" id="EqC-l7-fEU"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="266" id="xcI-5l-2pG"/>
                                                         </constraints>
+                                                        <animations/>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="1127">
                                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <animations/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="1126">
                                                             <rect key="frame" x="234" y="1" width="15" height="143"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <animations/>
                                                         </scroller>
                                                         <accessibility description="A place to drag and drop folders to create new portals." help="Portal Collections"/>
                                                     </scrollView>
@@ -361,6 +387,7 @@
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="dhx-tN-Qxk"/>
                                                     <constraint firstAttribute="trailing" secondItem="1125" secondAttribute="trailing" id="wZL-g3-3rX"/>
                                                 </constraints>
+                                                <animations/>
                                                 <accessibility help="Portals"/>
                                             </customView>
                                             <customView wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="248" verticalHuggingPriority="248" id="1082" userLabel="Message View">
@@ -375,6 +402,7 @@
                                                             <subviews>
                                                                 <view wantsLayer="YES" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-zj-tQH" customClass="MBMessagesDesktopView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="751" height="344"/>
+                                                                    <animations/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="contentBindingKeyPath" value="arrangedObjects"/>
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="selectionIndexesBindingKeyPath" value="selectionIndexes"/>
@@ -391,19 +419,23 @@
                                                                 <constraint firstAttribute="trailing" secondItem="Ovp-zj-tQH" secondAttribute="trailing" priority="200" id="mfS-Fo-ANX"/>
                                                                 <constraint firstItem="Ovp-zj-tQH" firstAttribute="leading" secondItem="5k9-DR-QWV" secondAttribute="leading" id="z5Q-Zl-mll"/>
                                                             </constraints>
-                                                            <color key="backgroundColor" patternImage="A6C4CEF8-9F68-4BCC-BC42-375F32D7601D" colorSpace="pattern"/>
+                                                            <animations/>
+                                                            <color key="backgroundColor" patternImage="118D4410-1C9A-429F-B047-741CCE19D756" colorSpace="pattern"/>
                                                         </clipView>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="344" placeholder="YES" id="8F0-D9-Vpu"/>
                                                             <constraint firstAttribute="width" constant="751" placeholder="YES" id="X3e-yR-pLS"/>
                                                         </constraints>
+                                                        <animations/>
                                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="fzv-cM-tBI">
                                                             <rect key="frame" x="0.0" y="328" width="751" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <animations/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="IbM-9h-U1Q">
-                                                            <rect key="frame" x="736" y="0.0" width="15" height="344"/>
+                                                            <rect key="frame" x="735" y="0.0" width="16" height="344"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <animations/>
                                                         </scroller>
                                                     </scrollView>
                                                 </subviews>
@@ -420,6 +452,7 @@
                                                 <accessibility description="Selected messages" help="Selected messages"/>
                                             </customView>
                                         </subviews>
+                                        <animations/>
                                         <holdingPriorities>
                                             <real value="253"/>
                                             <real value="252"/>
@@ -437,9 +470,11 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="vTj-Y5-zL2"/>
                                     <constraint firstItem="1080" firstAttribute="top" secondItem="840" secondAttribute="top" id="zj7-hi-i06"/>
                                 </constraints>
+                                <animations/>
                                 <accessibility help="Portals and Messages"/>
                             </customView>
                         </subviews>
+                        <animations/>
                         <holdingPriorities>
                             <real value="322"/>
                             <real value="255"/>
@@ -453,12 +488,12 @@
                     <constraint firstItem="838" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="2kE-88-sg1"/>
                     <constraint firstItem="838" firstAttribute="top" secondItem="1505" secondAttribute="bottom" id="Hxz-9N-jPC"/>
                     <constraint firstAttribute="trailing" secondItem="1505" secondAttribute="trailing" id="LDd-iF-kBM"/>
-                    <constraint firstItem="839" firstAttribute="trailing" secondItem="1569" secondAttribute="trailing" priority="459" id="cl9-K5-Pdd"/>
                     <constraint firstItem="1505" firstAttribute="top" secondItem="372" secondAttribute="top" id="pio-KA-AkH"/>
                     <constraint firstAttribute="bottom" secondItem="838" secondAttribute="bottom" id="qT9-kg-qdV"/>
                     <constraint firstAttribute="trailing" secondItem="838" secondAttribute="trailing" id="tzK-Ao-Aq4"/>
                     <constraint firstItem="1505" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="yWf-aZ-OsN"/>
                 </constraints>
+                <animations/>
                 <accessibility description="View of accounts, subject lines and selected message." help="View of accounts, subject lines and selected message."/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="E356A4FE-476A-4FD5-A341-8A52EF556796" displayMode="iconAndLabel" sizeMode="regular" id="841">
@@ -493,6 +528,7 @@
                 <subviews>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="825">
                         <rect key="frame" x="141" y="236" width="112" height="17"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Message Quanta:" id="826">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -501,6 +537,7 @@
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="827">
                         <rect key="frame" x="258" y="233" width="202" height="22"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="828">
                             <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#0.###" negativeFormat="#0.###" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="829">
                                 <real key="minimum" value="20"/>
@@ -521,6 +558,7 @@
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="869">
                         <rect key="frame" x="153" y="211" width="100" height="17"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Acounts Width:" id="870">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -529,6 +567,7 @@
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="871">
                         <rect key="frame" x="258" y="206" width="202" height="22"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="872">
                             <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#0.###" negativeFormat="#0.###" numberStyle="decimal" usesGroupingSeparator="NO" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="873">
                                 <real key="minimum" value="0.0"/>
@@ -548,6 +587,7 @@
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="879">
                         <rect key="frame" x="256" y="170" width="90" height="18"/>
+                        <animations/>
                         <buttonCell key="cell" type="check" title="Collapsed?" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="880">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -557,6 +597,7 @@
                         </connections>
                     </button>
                 </subviews>
+                <animations/>
             </view>
             <connections>
                 <outlet property="delegate" destination="494" id="868"/>
@@ -1489,10 +1530,10 @@
         </menu>
     </objects>
     <resources>
-        <image name="A6C4CEF8-9F68-4BCC-BC42-375F32D7601D" width="450" height="420">
+        <image name="118D4410-1C9A-429F-B047-741CCE19D756" width="450" height="420">
             <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
-GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
+YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
+GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
 DBIEwAAAgAKACtISCRMVWk5TLm9iamVjdHOhFIADgAnSEgkXGqIYGYAEgAWACBAA0h0JHh9fEBROU1RJ
 RkZSZXByZXNlbnRhdGlvboAGgAdPEgALll5NTQAqAAuJKPLy8v/y8vL/7e3t/+3t7f/y8vL/8vLy//Ly
 8v/y8vL/8vLy/+3t7f/y8vL/7e3t//Ly8v/y8vL/8vLy//Ly8v/t7e3/8vLy/+3t7f/y8vL/8vLy//Ly
@@ -14099,7 +14140,7 @@ AQIAAwAAAAQAC4nWAQMAAwAAAAEAAQAAAQYAAwAAAAEAAgAAAREABAAAAAYAC4n2ARIAAwAAAAEAAQAA
 ARUAAwAAAAEABAAAARYAAwAAAAEASAAAARcABAAAAAYAC4neARwAAwAAAAEAAQAAAVIAAwAAAAEAAgAA
 AVMAAwAAAAQAC4oOh3MABwAADEgAC4oWAAAAAAAIAAgACAAIAAH6QAAB+kAAAfpAAAH6QAAB+kAAAaXg
 AAAACAAB+kgAA/SIAAXuyAAH6QgACeNIAAEAAQABAAEAAAxITGlubwIQAABtbnRyUkdCIFhZWiAHzgAC
-AAkABgAxAABhY3NwTVNGVAAAAABJRUMgc1JHQgAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLUhQICAAAAAA
+AAkABgAxAABhY3NwTVNGVAAAAABJRUMgc1JHQgAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLUhQICAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABFjcHJ0AAABUAAAADNkZXNj
 AAABhAAAAGx3dHB0AAAB8AAAABRia3B0AAACBAAAABRyWFlaAAACGAAAABRnWFlaAAACLAAAABRiWFla
 AAACQAAAABRkbW5kAAACVAAAAHBkbWRkAAACxAAAAIh2dWVkAAADTAAAAIZ2aWV3AAAD1AAAACRsdW1p
@@ -14151,15 +14192,15 @@ wl/C28NYw9TEUcTOxUvFyMZGxsPHQce/yD3IvMk6ybnKOMq3yzbLtsw1zLXNNc21zjbOts83z7jQOdC6
 0TzRvtI/0sHTRNPG1EnUy9VO1dHWVdbY11zX4Nhk2OjZbNnx2nba+9uA3AXcit0Q3ZbeHN6i3ynfr+A2
 4L3hROHM4lPi2+Nj4+vkc+T85YTmDeaW5x/nqegy6LzpRunQ6lvq5etw6/vshu0R7ZzuKO6070DvzPBY
 8OXxcvH/8ozzGfOn9DT0wvVQ9d72bfb794r4Gfio+Tj5x/pX+uf7d/wH/Jj9Kf26/kv+3P9t///SIiMk
-JVokY2xhc3NuYW1lWCRjbGFzc2VzXxAQTlNCaXRtYXBJbWFnZVJlcKMmJyhfEBBOU0JpdG1hcEltYWdl
-UmVwWk5TSW1hZ2VSZXBYTlNPYmplY3TSIiMqK1dOU0FycmF5oioo0iIjLS5eTlNNdXRhYmxlQXJyYXmj
-LSoo0zAxCTIzNFdOU1doaXRlXE5TQ29sb3JTcGFjZUQwIDAAEAOAC9IiIzY3V05TQ29sb3KiNijSIiM5
-OldOU0ltYWdlojkoXxAPTlNLZXllZEFyY2hpdmVy0T0+VHJvb3SAAQAAAAgAAAARAAAAGgAAACMAAAAt
-AAAAMgAAADcAAABFAAAASwAAAFQAAABbAAAAaAAAAG8AAAB3AAAAeQAAAH4AAACAAAAAggAAAIcAAACS
-AAAAlAAAAJYAAACYAAAAnQAAAKAAAACiAAAApAAAAKYAAACoAAAArQAAAMQAAADGAAAAyAALlywAC5cx
-AAuXPAALl0UAC5dYAAuXXAALl28AC5d6AAuXgwALl4gAC5eQAAuXkwALl5gAC5enAAuXqwALl7IAC5e6
-AAuXxwALl8wAC5fOAAuX0AALl9UAC5fdAAuX4AALl+UAC5ftAAuX8AALmAIAC5gFAAuYCgAAAAAAAAQB
-AAAAAAAAAD8AAAAAAAAAAAAAAAAAC5gMA
+JVokY2xhc3NuYW1lWCRjbGFzc2VzXxAQTlNCaXRtYXBJbWFnZVJlcKMkJidaTlNJbWFnZVJlcFhOU09i
+amVjdNIiIykqV05TQXJyYXmiKSfSIiMsLV5OU011dGFibGVBcnJheaMsKSfTLzAJMTIzV05TV2hpdGVc
+TlNDb2xvclNwYWNlRDAgMAAQA4AL0iIjNTZXTlNDb2xvcqI1J9IiIzg5V05TSW1hZ2WiOCdfEA9OU0tl
+eWVkQXJjaGl2ZXLRPD1Ucm9vdIABAAAACAAAABEAAAAaAAAAIwAAAC0AAAAyAAAANwAAAEUAAABLAAAA
+VAAAAFsAAABoAAAAbwAAAHcAAAB5AAAAfgAAAIAAAACCAAAAhwAAAJIAAACUAAAAlgAAAJgAAACdAAAA
+oAAAAKIAAACkAAAApgAAAKgAAACtAAAAxAAAAMYAAADIAAuXLAALlzEAC5c8AAuXRQALl1gAC5dcAAuX
+ZwALl3AAC5d1AAuXfQALl4AAC5eFAAuXlAALl5gAC5efAAuXpwALl7QAC5e5AAuXuwALl70AC5fCAAuX
+ygALl80AC5fSAAuX2gALl90AC5fvAAuX8gALl/cAAAAAAAAEAQAAAAAAAAA+AAAAAAAAAAAAAAAAAAuX
++Q
 </mutableData>
         </image>
         <image name="NSActionTemplate" width="14" height="14"/>

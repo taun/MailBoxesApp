@@ -196,7 +196,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         NSColor* brightColor = [NSColor colorWithDeviceHue: hue saturation: saturation brightness: brightness alpha: alpha];
         NSColor* lowColor = [NSColor colorWithDeviceHue: hue saturation: 0.1 brightness: brightness alpha: alpha];
         [pview setBorderColor: brightColor];
-        [pview setFillColor: lowColor];
+//        [pview setFillColor: lowColor];
 //        [self.labelUnderline setBorderColor: alphaColor];
 //        [self.labelUnderline setFillColor: alphaColor];
     }

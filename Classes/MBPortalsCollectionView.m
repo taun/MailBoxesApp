@@ -60,6 +60,7 @@ NSString * const MBPasteboardTypeViewPortal = @"com.moedae.mailboxes.viewportal"
                                     @"MBAddressList",
                                     MBPasteboardTypeViewPortal, NSStringPboardType]];
     _draggingInView = NO;
+    self.backgroundColors = @[[NSColor colorWithDeviceRed: 0.9 green: 0.9 blue: 0.9 alpha: 0.9]];
 }
 
 
