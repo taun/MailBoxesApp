@@ -173,8 +173,8 @@ const NSString* PortalEditingEndedKey = @"PortalEditingEnded";
     //Taun move to object?
 	if(self)
 	{
-        FScriptMenuItem *fsm = [[FScriptMenuItem alloc] init];
-        [[NSApp mainMenu] addItem: fsm];
+//        FScriptMenuItem *fsm = [[FScriptMenuItem alloc] init];
+//        [[NSApp mainMenu] addItem: fsm];
         
 //        [DDLog addLogger:[DDASLLogger sharedInstance]];
         [DDLog addLogger:[DDTTYLogger sharedInstance]];

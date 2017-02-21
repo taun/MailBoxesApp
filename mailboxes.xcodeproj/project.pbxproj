@@ -64,7 +64,6 @@
 		C520B9A31912B43400627A01 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74705168FD3A30055FE5E /* DDASLLogger.m */; };
 		C520B9A41912B43400627A01 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E74707168FD3A30055FE5E /* DDFileLogger.m */; };
 		C520B9A51912B43400627A01 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E7470B168FD3A30055FE5E /* DDTTYLogger.m */; };
-		C5227C5D1B702C0B00DBE052 /* FScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5227C5C1B702C0B00DBE052 /* FScript.framework */; };
 		C5279167188DC66500298D01 /* NSManagedObject+Shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = C5279166188DC66500298D01 /* NSManagedObject+Shortcuts.m */; };
 		C527DBEC18BBF586003A5C6D /* MBViewPortal+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C527DBEB18BBF586003A5C6D /* MBViewPortal+Extra.m */; };
 		C527DBEF18BBF902003A5C6D /* MBViewPortalMBox+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C527DBEE18BBF902003A5C6D /* MBViewPortalMBox+Extra.m */; };
@@ -315,8 +314,8 @@
 		C50DD800137463E3002A6CD6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstPath = PlugIns;
+			dstSubfolderSpec = 7;
 			files = (
 				C50062BD18AE739F00371E5D /* MoedaeMailMimeImageViewer.mmmimeviewerplugin in CopyFiles */,
 				C583066518A6B58D006C279D /* MoedaeMailMimeTextPlainViewer.mmmimeviewerplugin in CopyFiles */,
@@ -701,7 +700,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5227C5D1B702C0B00DBE052 /* FScript.framework in Frameworks */,
 				C5888C2018ABDE4400EB9F00 /* CoreData.framework in Frameworks */,
 				C583066318A6B201006C279D /* MoedaeMailPlugins.framework in Frameworks */,
 				C50386BD146381C200BF6EB3 /* Quartz.framework in Frameworks */,
