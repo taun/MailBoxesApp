@@ -54,7 +54,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSTextFieldCell* summaryCell = self.messageSummaryField.cell;
 
     if (summaryCell) {
-        CGFloat totalHeight = self.tableCellView.bounds.size.height;
+        CGFloat totalHeight = self.tableView.rowHeight;
         CGFloat summaryHeight = self.messageSummaryField.bounds.size.height;
         
         _cellBaseHeight = totalHeight - summaryHeight;
@@ -308,6 +308,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 #pragma mark - TableViewDelegate
+
+- (void)tableView:(NSTableView *)tableView didAddRowView:(NSTableRowView *)rowView forRow:(NSInteger)row {
+    DDLogVerbose(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), rowView);
+}
 
 /*
  Could change this from watching the table selection to

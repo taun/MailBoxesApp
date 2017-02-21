@@ -69,7 +69,7 @@
     [self.mimeView setWantsLayer: YES];
     rawLayer = self.mimeView.layer;
     rawLayer.borderColor = [[NSColor grayColor] CGColor];
-    rawLayer.BorderWidth = borderWidth;
+    rawLayer.borderWidth = borderWidth;
     rawLayer.cornerRadius = borderRadius;
 
 //    if (self.options.showViewOutlines) {
