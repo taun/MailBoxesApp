@@ -9,7 +9,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Ping.h"
 
 @class MBAccount;
 
@@ -21,7 +20,7 @@
  The NSManagedObjectID is used so the Sheet can use a child NSManagedObjectContext for making changes prior to saving up the context chain.
  
  */
-@interface MBAccountWindowController : NSWindowController <PingDelegate> {
+@interface MBAccountWindowController : NSWindowController  {
     NSResponder* _savedFirstResponder;
 }
 
@@ -31,7 +30,7 @@
 @property(weak)            IBOutlet          NSObjectController       *theNewAccountObjectController;
 @property(weak)             IBOutlet           NSTextField              *statusField;
 @property(weak)             IBOutlet           NSProgressIndicator      *statusLight;
-@property(strong)                              Ping                     *pinger;
+//@property(strong)                              Ping                     *pinger;
 @property(strong, readonly)                    NSManagedObjectContext   *localManagedContext;
 @property(unsafe_unretained,readonly)          NSManagedObjectContext   *appManagedContext;
 

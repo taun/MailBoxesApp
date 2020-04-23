@@ -123,7 +123,6 @@
 		C5738622191AAD4000E4F887 /* MBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5738621191AAD4000E4F887 /* MBMessage.m */; };
 		C5738623191AAE5000E4F887 /* MBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5738621191AAD4000E4F887 /* MBMessage.m */; };
 		C5738625191ADE6200E4F887 /* MBIMAPCoreDataStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5738624191ADE6200E4F887 /* MBIMAPCoreDataStoreTests.m */; };
-		C573D8EB12D7739900244575 /* Ping.m in Sources */ = {isa = PBXBuildFile; fileRef = C573D8EA12D7739900244575 /* Ping.m */; };
 		C577634C14895B1300C60438 /* MBMultiRelated.m in Sources */ = {isa = PBXBuildFile; fileRef = C577634B14895B1300C60438 /* MBMultiRelated.m */; };
 		C577635B14895B1600C60438 /* MBMultiAlternative.m in Sources */ = {isa = PBXBuildFile; fileRef = C577635A14895B1600C60438 /* MBMultiAlternative.m */; };
 		C577636414895B1800C60438 /* MBMultiSigned.m in Sources */ = {isa = PBXBuildFile; fileRef = C577636314895B1700C60438 /* MBMultiSigned.m */; };
@@ -440,8 +439,6 @@
 		C5738620191AAD4000E4F887 /* MBMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBMessage.h; path = Classes/MBMessage.h; sourceTree = "<group>"; };
 		C5738621191AAD4000E4F887 /* MBMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBMessage.m; path = Classes/MBMessage.m; sourceTree = "<group>"; };
 		C5738624191ADE6200E4F887 /* MBIMAPCoreDataStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MBIMAPCoreDataStoreTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C573D8E912D7739900244575 /* Ping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ping.h; sourceTree = "<group>"; };
-		C573D8EA12D7739900244575 /* Ping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ping.m; sourceTree = "<group>"; };
 		C577634A14895B1200C60438 /* MBMultiRelated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBMultiRelated.h; path = Classes/MBMultiRelated.h; sourceTree = "<group>"; };
 		C577634B14895B1300C60438 /* MBMultiRelated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBMultiRelated.m; path = Classes/MBMultiRelated.m; sourceTree = "<group>"; };
 		C577635914895B1600C60438 /* MBMultiAlternative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBMultiAlternative.h; path = Classes/MBMultiAlternative.h; sourceTree = "<group>"; };
@@ -1344,8 +1341,6 @@
 		C5E886EC137ACA7100ABD01D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				C573D8E912D7739900244575 /* Ping.h */,
-				C573D8EA12D7739900244575 /* Ping.m */,
 				C57F924A13ECE68A00C5136D /* QRunLoopOperation.h */,
 				C57F924B13ECE68A00C5136D /* QRunLoopOperation.m */,
 				C5326E56197867E700B1D792 /* MBUserStatusLogger.h */,
@@ -1430,6 +1425,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = C5C7A55A128B93EC006B1E86;
@@ -1646,7 +1642,6 @@
 				C5B82E5D131FFC0E002AE3DF /* MBPPEWindowController.m in Sources */,
 				C584824318B70E27003DBC35 /* MBPortalView.m in Sources */,
 				C5A7B3E7181ED06C00DE00AE /* MBMessageView.m in Sources */,
-				C573D8EB12D7739900244575 /* Ping.m in Sources */,
 				C530EECE134FA62D004CBB20 /* MBUser+Shorthand.m in Sources */,
 				C566983218C54D7900F05440 /* MBEncodedStringHexOctetTransformer.m in Sources */,
 				C5F2EB9E13183AA9005A95D7 /* MBMessage+IMAP.m in Sources */,
@@ -2116,6 +2111,7 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -2149,6 +2145,7 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MailBoxesWS-flefgebzxrtslzetgxarmnthbbgu/Build/Products/Debug",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moedae.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

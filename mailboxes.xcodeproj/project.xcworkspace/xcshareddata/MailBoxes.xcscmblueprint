@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0F9CAE862402EF058C4A54F61139AE90C926677C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1C75F1C5CFCB95B3702F6F632FA05ED5244B519E" : 0,
+    "35B5C9A93714EC9BEB56BAE809C5551E5C66E52D" : 0,
+    "0F9CAE862402EF058C4A54F61139AE90C926677C" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "ECBAF089-810B-40C9-817C-549DA499ABF7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1C75F1C5CFCB95B3702F6F632FA05ED5244B519E" : "..\/..\/CocoaAsyncSocket",
+    "35B5C9A93714EC9BEB56BAE809C5551E5C66E52D" : "..\/..\/cocoalumberjack",
+    "0F9CAE862402EF058C4A54F61139AE90C926677C" : "MailBoxes\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MailBoxes",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MailBoxes.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/srv.moedae.net:2609\/srv\/gitroot\/moedae\/apple\/mailboxes.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0F9CAE862402EF058C4A54F61139AE90C926677C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/srv.moedae.net:2609\/srv\/gitroot\/opensource\/apple\/CocoaAsyncSocket.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1C75F1C5CFCB95B3702F6F632FA05ED5244B519E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/code.google.com\/p\/cocoalumberjack\/",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "35B5C9A93714EC9BEB56BAE809C5551E5C66E52D"
+    }
+  ]
+}

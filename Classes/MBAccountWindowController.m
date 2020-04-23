@@ -31,7 +31,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @synthesize statusField;
 @synthesize statusLight;
-@synthesize pinger;
+//@synthesize pinger;
 
 #pragma mark - 
 #pragma mark Setup
@@ -232,9 +232,9 @@ Need to go through a callback dance.
     if( [self.theNewAccountObjectController commitEditing] == YES) {
         NSManagedObject *accountSettings = [self currentAccount];
         
-        self.pinger = [Ping pingWithHostName:[accountSettings valueForKey:@"server"] ];
-        self.pinger.delegate = self;
-        [self.pinger start];
+//        self.pinger = [Ping pingWithHostName:[accountSettings valueForKey:@"server"] ];
+//        self.pinger.delegate = self;
+//        [self.pinger start];
         NSString *status = [NSString localizedStringWithFormat:@"Testing connection to server %@", [accountSettings valueForKey:@"server"]];
         [self updateStatus:status level: 0];
     }
@@ -277,64 +277,64 @@ Need to go through a callback dance.
     [self.statusLight stopAnimation: self];
 }
 
-- (void)Ping:(Ping *)aPinger didStartWithAddress:(NSData *)address {
-    // Called after the Ping has successfully started up.  After this callback, you 
-    // can start sending pings via -sendPingWithData:
-    [aPinger sendPingWithData: nil];    
-}
+//- (void)Ping:(Ping *)aPinger didStartWithAddress:(NSData *)address {
+//    // Called after the Ping has successfully started up.  After this callback, you
+//    // can start sending pings via -sendPingWithData:
+//    [aPinger sendPingWithData: nil];
+//}
 
-- (void)Ping:(Ping *)apinger didFailWithError:(NSError *) error {
-    // If this is called, the Ping object has failed.  By the time this callback is 
-    // called, the object has stopped (that is, you don't need to call -stop yourself).
-
-    NSManagedObject *accountSettings = [self currentAccount];
-    NSString *status = [NSString localizedStringWithFormat:@"Failed ping to server %@. Error %@", [accountSettings valueForKey:@"server"], error];
-    [self updateStatus:status level: 1];
-}
+//- (void)Ping:(Ping *)apinger didFailWithError:(NSError *) error {
+//    // If this is called, the Ping object has failed.  By the time this callback is
+//    // called, the object has stopped (that is, you don't need to call -stop yourself).
+//
+//    NSManagedObject *accountSettings = [self currentAccount];
+//    NSString *status = [NSString localizedStringWithFormat:@"Failed ping to server %@. Error %@", [accountSettings valueForKey:@"server"], error];
+//    [self updateStatus:status level: 1];
+//}
 
 // IMPORTANT: On the send side the packet does not include an IP header. 
 // On the receive side, it does.  In that case, use +[Ping icmpInPacket:] 
 // to find the ICMP header within the packet.
 
-- (void)Ping:(Ping *)aPinger didSendPacket:(NSData *)packet {
-    // Called whenever the Ping object has successfully sent a ping packet. 
-}
+//- (void)Ping:(Ping *)aPinger didSendPacket:(NSData *)packet {
+//    // Called whenever the Ping object has successfully sent a ping packet.
+//}
 
-- (void)Ping:(Ping *)aPinger didFailToSendPacket:(NSData *)packet error:(NSError *)error {
-    // Called whenever the Ping object tries and fails to send a ping packet.
-    [aPinger stop];
-    
-    NSManagedObject *accountSettings = [self currentAccount] ;
-    NSString *status = [NSString localizedStringWithFormat:@"Failed ping to server %@. Error %@", [accountSettings valueForKey:@"server"], error];
-    [self updateStatus:status level: 1];
-}
-    
-- (void)Ping:(Ping *)aPinger didReceivePingResponsePacket:(NSData *)packet{
-    // Called whenever the Ping object receives an ICMP packet that looks like 
-    // a response to one of our pings (that is, has a valid ICMP checksum, has 
-    // an identifier that matches our identifier, and has a sequence number in 
-    // the range of sequence numbers that we've sent out).
+//- (void)Ping:(Ping *)aPinger didFailToSendPacket:(NSData *)packet error:(NSError *)error {
+//    // Called whenever the Ping object tries and fails to send a ping packet.
+//    [aPinger stop];
+//
+//    NSManagedObject *accountSettings = [self currentAccount] ;
+//    NSString *status = [NSString localizedStringWithFormat:@"Failed ping to server %@. Error %@", [accountSettings valueForKey:@"server"], error];
+//    [self updateStatus:status level: 1];
+//}
 
-    [aPinger stop];
-    
-    NSManagedObject *accountSettings = [self currentAccount] ;
-    NSString *status = [NSString localizedStringWithFormat:@"Successful ping to server %@", [accountSettings valueForKey:@"server"]];
-    [self updateStatus:status level: 0];
-    [self checkForAccount];
-}
+//- (void)Ping:(Ping *)aPinger didReceivePingResponsePacket:(NSData *)packet{
+//    // Called whenever the Ping object receives an ICMP packet that looks like
+//    // a response to one of our pings (that is, has a valid ICMP checksum, has
+//    // an identifier that matches our identifier, and has a sequence number in
+//    // the range of sequence numbers that we've sent out).
+//
+//    [aPinger stop];
+//
+//    NSManagedObject *accountSettings = [self currentAccount] ;
+//    NSString *status = [NSString localizedStringWithFormat:@"Successful ping to server %@", [accountSettings valueForKey:@"server"]];
+//    [self updateStatus:status level: 0];
+//    [self checkForAccount];
+//}
 
-- (void)Ping:(Ping *)aPinger didReceiveUnexpectedPacket:(NSData *)packet {
-    // Called whenever the Ping object receives an ICMP packet that does not 
-    // look like a response to one of our pings.
-    [pinger stop];
-    
-    NSManagedObject *accountSettings = [self currentAccount] ;
-    NSString *status = [NSString localizedStringWithFormat:@"Failed ping to server %@", [accountSettings valueForKey:@"server"]];
-    [self updateStatus:status level: 0];
-}
+//- (void)Ping:(Ping *)aPinger didReceiveUnexpectedPacket:(NSData *)packet {
+//    // Called whenever the Ping object receives an ICMP packet that does not
+//    // look like a response to one of our pings.
+//    [pinger stop];
+//
+//    NSManagedObject *accountSettings = [self currentAccount] ;
+//    NSString *status = [NSString localizedStringWithFormat:@"Failed ping to server %@", [accountSettings valueForKey:@"server"]];
+//    [self updateStatus:status level: 0];
+//}
 
 - (void)dealloc {
-    [pinger setDelegate: nil];
+//    [pinger setDelegate: nil];
 }
 
 @end

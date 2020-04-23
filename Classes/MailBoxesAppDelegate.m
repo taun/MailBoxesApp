@@ -48,7 +48,7 @@
 
 #import "NSManagedObject+Shortcuts.h"
 
-#import <FScript/FScript.h>
+//#import <FScript/FScript.h>
 #import <QuartzCore/QuartzCore.h>
 
 #import <MoedaeMailPlugins/MoedaeMailPlugins.h>
