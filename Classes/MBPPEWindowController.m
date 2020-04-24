@@ -115,11 +115,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 #pragma mark Clean up and terminate window
 
 - (IBAction)complete:sender {
-    [NSApp endSheet: self.window returnCode:NSOKButton];
+    [NSApp endSheet: self.window returnCode:NSModalResponseOK];
 }
 
 - (IBAction)cancelOperation:sender {
-    [NSApp endSheet: self.window returnCode:NSCancelButton];
+    [NSApp endSheet: self.window returnCode:NSModalResponseCancel];
 }
 
 #pragma message "ToDo: change from portal predicate editor to MBSmartFolder predicate editor. MBPortal is unused."

@@ -81,7 +81,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [self.labelUnderline setFillColor: defaultColor];
         
         NSRect boxFrame = self.labelUnderline.frame;
-        CGFloat newHeight = 2.0;
+        CGFloat newHeight = 0.0;
         CGFloat newOriginY = boxFrame.origin.y + boxFrame.size.height/2 - newHeight/2.0;
         [self.labelUnderline setFrame: NSMakeRect(boxFrame.origin.x, newOriginY, boxFrame.size.width, newHeight)];
     }
@@ -359,7 +359,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
     DDLogVerbose(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), row);
-    return nil;
+    return @"";
 }
 
 

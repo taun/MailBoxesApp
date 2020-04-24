@@ -87,13 +87,14 @@ NSString* attachmentIconName = @"attach_48.png";
 -(NSAttributedString*) unknownAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSAttributedString* returnString;
     NSData* nsData = [self getDecodedData];
+    NSError* error;
     
     if ([self.isInline boolValue] == NO) {
         // as attachment
         returnString = [self createAttachmentWithData: nsData imageName: attachmentIconName name: self.name attributes: attributes];
     } else {
         // inline
-        returnString = [[NSAttributedString alloc] initWithData: nsData options: nil documentAttributes: &attributes error: nil];
+        returnString = [[NSAttributedString alloc] initWithData: nsData options: @{} documentAttributes: &attributes error: &error];
     }
     
     return returnString;

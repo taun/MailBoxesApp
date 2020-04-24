@@ -261,7 +261,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSOpenPanel* panel = [NSOpenPanel openPanel];
     [panel setCanChooseDirectories:NO];
     [panel setAllowsMultipleSelection:YES];
-    [panel setMessage:@"Import one or more accounts."];
+    [panel setMessage: NSLocalizedString(@"Import one or more accounts.", @"Import one or more accounts.")];
     
     // Display the panel attached to the document's window.
     [panel beginSheetModalForWindow: window completionHandler:^(NSInteger result){
@@ -284,7 +284,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSString* fileName = [NSString stringWithFormat: @"%@.plist", account.name];
     
     NSString *plistPath = [rootPath stringByAppendingPathComponent: fileName];
-    
+    DDLogVerbose(@"%@", plistPath);
 //    NSDictionary *plistDict = [NSDictionary dictionaryWithObjects:
 //                               [NSArray arrayWithObjects: personName, phoneNumbers, nil]
 //                                                          forKeys:[NSArray arrayWithObjects: @"Name", @"Phones", nil]];

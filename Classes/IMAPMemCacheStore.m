@@ -250,6 +250,48 @@ Example
     return YES;
 }
 
+- (NSSet *)allCachedUIDsForSelectedMailBox {
+    // TODO: implement
+    return [NSSet new];
+}
+
+
+- (NSSet *)allCachedUIDsNotFullyCachedForSelectedMailBox {
+    // TODO: implement
+    return [NSSet new];
+}
+
+
+- (NSNumber *)lowestUID {
+    // TODO: implement
+    return @0;
+}
+
+
+- (BOOL)newMessage:(NSNumber *)uid propertiesFromDictionary:(NSDictionary *)aDictionary {
+    // TODO: implement
+    return NO;
+}
+
+
+- (BOOL)setMailBox:(NSString *)fullPath serverHighestmodseq:(NSNumber *)theCount {
+    // TODO: implement
+    return NO;
+}
+
+
+- (BOOL)setMailBoxReadOnly:(NSString *)fullPath {
+    // TODO: implement
+    return NO;
+}
+
+
+- (BOOL)setMailBoxReadWrite:(NSString *)fullPath {
+    // TODO: implement
+    return NO;
+}
+
+
 
 #pragma mark - utilities
 

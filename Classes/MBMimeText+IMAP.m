@@ -113,8 +113,9 @@
 
 -(NSAttributedString*) plainAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSData* nsData = [self getDecodedData];
-    
-    NSAttributedString* returnString = [[NSAttributedString alloc] initWithData: nsData options: nil documentAttributes: &attributes error: nil];
+    NSError* error;
+
+    NSAttributedString* returnString = [[NSAttributedString alloc] initWithData: nsData options: @{} documentAttributes: &attributes error: &error];
     
     return returnString;
 }
@@ -127,8 +128,9 @@
 }
 -(NSAttributedString*) enrichedAsAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSData* nsData = [self getDecodedData];
-    
-    NSAttributedString* returnString = [[NSAttributedString alloc] initWithData: nsData options: nil documentAttributes: &attributes error: nil];
+    NSError* error;
+
+    NSAttributedString* returnString = [[NSAttributedString alloc] initWithData: nsData options:  @{} documentAttributes: &attributes error: &error];
     
     return returnString;
 }

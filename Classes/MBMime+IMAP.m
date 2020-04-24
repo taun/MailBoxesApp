@@ -158,8 +158,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 -(NSAttributedString*) asAttributedStringWithOptions:(NSDictionary *)options attributes: (NSDictionary*) attributes {
     NSData* nsData = [self.data.encoded dataUsingEncoding: NSASCIIStringEncoding];
-
-    NSAttributedString* returnString = [[NSAttributedString alloc] initWithData: nsData options: nil documentAttributes: &attributes error: nil];
+    NSError* error;
+    
+    NSAttributedString* returnString = [[NSAttributedString alloc] initWithData: nsData options: @{} documentAttributes: &attributes error: &error];
     
     return returnString;
 }

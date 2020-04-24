@@ -160,7 +160,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 -(void) displayNode: (MBMime*) node {
     NSData* messageData = [node getDecodedData];
-    
+    NSError* error;
+
     id dataView;
     dataView = [NSTextView new];
     //NSLayoutManager* layoutManager = [dataView layoutManager];
@@ -179,7 +180,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithHTML: messageData documentAttributes: nil]];
             });
         } else if ([node.subtype isEqualToString: @"ENRICHED"]) {
-            [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithData: messageData options: nil documentAttributes: nil error: nil]];
+            [[dataView textStorage] setAttributedString: [[NSAttributedString alloc] initWithData: messageData options: @{} documentAttributes: nil error: &error]];
         } else if ([node.type isEqualToString: @"APPLICATION"]) {
             if ([node.subtype isEqualToString: @"PDF"]) {
                 // Use PDF Kit

@@ -156,13 +156,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if (!result) {
         [[NSApplication sharedApplication] presentError:error];
     } else {
-        [NSApp endSheet: self.window returnCode:NSOKButton];
+        [NSApp endSheet: self.window returnCode:NSModalResponseOK];
         
     } 
 }
 
 - (IBAction)cancelOperation:sender {
-    [NSApp endSheet: self.window returnCode:NSCancelButton];
+    [NSApp endSheet: self.window returnCode:NSModalResponseCancel];
 }
 
 - (void)newPortalObjectSheetDidEnd:(NSWindow *)sheet

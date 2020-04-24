@@ -14,7 +14,7 @@
 - (NSDate *)dateWithZeroTime
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit;
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday;
     NSDateComponents *comps = [calendar components:unitFlags fromDate:self];
     [comps setHour:0];
     [comps setMinute:0];

@@ -217,7 +217,7 @@
     
     if ([[sender draggingPasteboard] canReadItemWithDataConformingToTypes: @[MBPasteboardTypeMbox]]) {
         //
-        [sender enumerateDraggingItemsWithOptions:NSDraggingItemEnumerationClearNonenumeratedImages forView:self.view classes:[NSArray arrayWithObject:[MBoxProxy class]] searchOptions: nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger idx, BOOL *stop) {
+        [sender enumerateDraggingItemsWithOptions:NSDraggingItemEnumerationClearNonenumeratedImages forView:self.view classes:[NSArray arrayWithObject:[MBoxProxy class]] searchOptions: @{} usingBlock:^(NSDraggingItem *draggingItem, NSInteger idx, BOOL *stop) {
 //            draggingItem.draggingFrame = pcvController.view.frame;
             draggingItem.imageComponentsProvider = ^ {
                 /* Loading the image file and rendering it to create the drag image components can be slow, particularly for files on a newtork volumne, or large images or for a large number of files in the drop. One technique for dealing with this is to start caching the images in a background thread during -draggingEntered: for use here. If your background thread does not complete before this method is called, you can flag that you need to updat the images and update them during -draggingUpdate: if that flag is set.
@@ -270,6 +270,18 @@
     [sender setAnimatesToDestination: YES];
     return YES;
 }
+
+- (void)concludeDragOperation:(id<NSDraggingInfo>)sender { 
+    // TODO: implement
+}
+
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender { 
+    // TODO: implement
+
+    return NO;
+}
+
 
 /*
  For this method to be invoked, the previous prepareForDragOperation: message must have returned YES.

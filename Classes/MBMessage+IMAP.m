@@ -524,6 +524,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     addressTokens = [tokenScanner scanSubTree];
     // throw away for now
     
+    DDLogVerbose(@"Address Tokens: %@", addressTokens);
+    
     //env-message-id string
     NSString* messageIDToken = [tokenScanner scanString];
     if ([messageIDToken isNonNilString]) {

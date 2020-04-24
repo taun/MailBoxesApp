@@ -461,6 +461,20 @@ Example
     return success;
 }
 
+- (NSSet *)allUIDsForSelectedMailBox { 
+    // TODO: implement
+    
+    return [NSSet new];
+}
+
+
+- (BOOL)setMailBox:(NSString *)fullPath serverHighestmodseq:(NSNumber *)theCount { 
+    // TODO: implement
+
+    return NO;
+}
+
+
 
 #pragma mark - utilities
 
