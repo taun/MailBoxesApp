@@ -16,8 +16,6 @@ Using the same concept on a mobile device, the iPhone view could be side to side
 
 The repo contains a proof of concept with a working IMAP parser.
 
-Standard iPhone Mail Layout at the time:
+[Standard iPhone Mail Layout at the time:](https://user-images.githubusercontent.com/6173080/144727464-ad0b34f6-12c1-4709-b8d0-ba51b8c903b8.png)
 
-
-
-<iframe src="https://player.vimeo.com/video/129689919" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+[Demo video](https://player.vimeo.com/video/129689919)
